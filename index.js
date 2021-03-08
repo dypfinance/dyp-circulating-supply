@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+const cors = require('cors')
 const express = require('express')
 const BigNumber = require('bignumber.js')
 const Web3 = require('web3')
@@ -463,7 +463,12 @@ const LP_ID_LIST = Object.keys(LP_IDs).map(key => LP_IDs[key]).flat()
 const HOLDERS_LIST = LP_ID_LIST.map(a => a.split('-')[1]).concat([
     "0x7742565647682abE90A7f7497e05c4403CB50265",
     "0x417538F319AfDDD351f33222592B60f985475A21",
-    "0xCfAD7aeb67FC5c19a581496689881AE063541149"
+    "0xCfAD7aeb67FC5c19a581496689881AE063541149",
+    "0x7Fc2174670d672AD7f666aF0704C2D961EF32c73",
+    "0x036e336eA3ac2E255124CF775C4FDab94b2C42e4",
+    "0x0A32749D95217b7Ee50127E24711c97849b70C6a",
+    "0x82df1450eFD6b504EE069F5e4548F2D5Cb229880",
+    "0x000000000000000000000000000000000000dead"
 ])
 
 async function get_token_balances({
@@ -486,11 +491,12 @@ let circulating_supply = 0;
 async function update_token_balance_sum() {
     last_update_time = Date.now()
     token_balance_sum = get_token_balances_sum( await get_token_balances({TOKEN_ADDRESS, HOLDERS_LIST}) ).div(1e18).toString(10)
-    circulating_supply = new BigNumber(25651531).minus(token_balance_sum)
+    circulating_supply = new BigNumber(25651531).minus(token_balance_sum).plus(4348469);
     return token_balance_sum
 }
 
 const app = express()
+app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
     if (Date.now() - last_update_time > 60e3) {
         await update_token_balance_sum()
@@ -500,3 +506,4 @@ app.get('/api/circulating-supply', async (req, res) => {
 })
 
 app.listen(80, () => console.log("Running on :80"))
+
