@@ -4,9 +4,11 @@ const express = require('express')
 const BigNumber = require('bignumber.js')
 const Web3 = require('web3')
 
-const { JSDOM } = require( "jsdom" );
-const { window } = new JSDOM( "" );
-const $ = require( "jquery" )( window );
+const { JSDOM } = require( "jsdom" )
+const { window } = new JSDOM( "" )
+const $ = require( "jquery" )( window )
+
+const fetch = require("node-fetch")
 
 const infuraWeb3 = new Web3('https://mainnet.infura.io/v3/94608dc6ddba490697ec4f9b723b586e')
 
@@ -1606,34 +1608,34 @@ async function refresh_the_graph_result_BSC() {
 let highApy_BSC = 0
 let COMBINED_TVL_BSC = 0
 let CALLED_ONCE_BSC = false
-let CALLED_ONCE_2_BSC = false
+//let CALLED_ONCE_2_BSC = false
 
-const GetHighAPY_BSC = async () => {
-	let highApyArray = []
-	if (CALLED_ONCE_2_BSC) {
-		return highApy_BSC
-	}
-	CALLED_ONCE_2_BSC = true
-	let the_graph_result_BSC = await refresh_the_graph_result_BSC()
-	let highApy = 0
-	if (!the_graph_result_BSC.lp_data) return 0
-
-	let lp_ids = Object.keys(the_graph_result_BSC.lp_data)
-	for (let id of lp_ids) {
-		highApy = the_graph_result_BSC.lp_data[id].apy
-		highApyArray.push(highApy)
-		//console.log('highhh', highApy)
-	}
-	highApyArray.sort(function(a, b) {
-		return a - b
-	})
-	//console.log('bbbbb', highApyArray)
-
-	highApy = highApyArray[highApyArray.length - 1]
-
-	highApy_BSC = highApy
-	return highApy
-}
+// const GetHighAPY_BSC = async () => {
+// 	let highApyArray = []
+// 	if (CALLED_ONCE_2_BSC) {
+// 		return highApy_BSC
+// 	}
+// 	CALLED_ONCE_2_BSC = true
+// 	let the_graph_result_BSC = await refresh_the_graph_result_BSC()
+// 	let highApy = 0
+// 	if (!the_graph_result_BSC.lp_data) return 0
+//
+// 	let lp_ids = Object.keys(the_graph_result_BSC.lp_data)
+// 	for (let id of lp_ids) {
+// 		highApy = the_graph_result_BSC.lp_data[id].apy
+// 		highApyArray.push(highApy)
+// 		//console.log('highhh', highApy)
+// 	}
+// 	highApyArray.sort(function(a, b) {
+// 		return a - b
+// 	})
+// 	//console.log('bbbbb', highApyArray)
+//
+// 	highApy = highApyArray[highApyArray.length - 1]
+//
+// 	highApy_BSC = highApy
+// 	return highApy
+// }
 
 let last_update_time2 = 0
 
@@ -1659,25 +1661,236 @@ const getCombinedTvlUsd_BSC = async () => {
 	return tvl
 }
 
+//ETH the_graph
+let the_graph_result ={}
+
+const TOKENS_DISBURSED_PER_YEAR = [
+	360_000,
+	540_000,
+	900_000,
+	1_200_000,
+
+	360_000,
+	540_000,
+	900_000,
+	1_200_000,
+
+	360_000,
+	540_000,
+	900_000,
+	1_200_000,
+
+	360_000,
+	540_000,
+	900_000,
+	1_200_000,
+]
+
+const TOKENS_DISBURSED_PER_YEAR_BY_LP_ID = {}
+LP_ID_LIST.forEach((lp_id, i) => TOKENS_DISBURSED_PER_YEAR_BY_LP_ID[lp_id] = TOKENS_DISBURSED_PER_YEAR[i])
+
+/**
+ * Returns the ETH USD Price, Token USD Prices, LP USD Prices, and amount of LP Staked, usd value of LP staked
+ *
+ * lp_id example: `"pair_address-pool_contract_address"`
+ *
+ * @param {{token_contract_addresses: object[], lp_ids: object[], tokens_disbursed_per_year: object}} props - MAKE SURE ALL ADDRESSES ARE LOWERCASE!
+ */
+async function get_usd_values({
+							token_contract_addresses,
+							lp_ids,
+						}) {
+	return new Promise((resolve, reject) => {
+		fetch('https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2', {
+			method: 'POST',
+			mode: 'cors',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({query:`{
+  
+	tokens(where:{
+  id_in: ${JSON.stringify(token_contract_addresses.map(a => a.toLowerCase()))}}) {
+	  id
+	  symbol
+	  name
+	  decimals
+	  untrackedVolumeUSD
+		derivedETH
+	}
+	
+	bundle(id: 1) {
+	  id
+	  ethPrice
+	}
+	
+	liquidityPositions(where: 
+	  {id_in: 
+		  ${JSON.stringify(lp_ids.map(id => id.toLowerCase()))},
+	  }) {
+	  id
+	  pair {
+		reserveUSD
+		totalSupply
+	  }
+	  liquidityTokenBalance
+	}
+  }
+  `, variables: null}),
+		})
+			.then(res => res.json())
+			.then(res => handleTheGraphData(res))
+			.catch(reject)
+
+
+		function handleTheGraphData(response) {
+			try {
+				let data = response.data
+				if (!data) return reject(response);
+
+				//console.log(data)
+
+				let usd_per_eth = new BigNumber(data.bundle.ethPrice).toFixed(2)*1
+
+				let token_data = {}, lp_data = {}
+
+				data.tokens.forEach(t => {
+					token_data[t.id] = {
+						token_volume_usd_all_time: new BigNumber(t.untrackedVolumeUSD).toFixed(2)*1,
+						token_price_usd: new BigNumber(t.derivedETH).times(usd_per_eth).toFixed(2)*1
+					}
+				})
+
+				data.liquidityPositions.forEach(lp => {
+					let usd_per_lp = new BigNumber(lp.pair.reserveUSD).div(lp.pair.totalSupply).toFixed(2)*1
+					let lp_staked = lp.liquidityTokenBalance
+					let usd_value_of_lp_staked = new BigNumber(lp_staked).times(usd_per_lp).toFixed(2)*1
+					lp_data[lp.id] = {
+						lp_staked,
+						usd_per_lp,
+						usd_value_of_lp_staked,
+					}
+				})
+				resolve({token_data, lp_data, usd_per_eth})
+			} catch (e) {
+				console.error(e)
+				reject(e)
+			}
+		}
+	})
+}
+
+/**
+ *
+ * @param {string[]} staking_pools_list - List of Contract Addresses for Staking Pools
+ * @returns {number[]} List of number of stakers for each pool
+ */
+async function get_number_of_stakers(staking_pools_list) {
+	return (await Promise.all(staking_pools_list.map(contract_address => {
+		let contract = new infuraWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		return contract.methods.getNumberOfHolders().call()
+	}))).map(h => Number(h))
+}
+
+async function get_token_balances({
+									  TOKEN_ADDRESS,
+									  HOLDERS_LIST
+								  }) {
+	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+
+	return (await Promise.all(HOLDERS_LIST.map(h => {
+		return token_contract.methods.balanceOf(h).call()
+	})))
+}
+
+async function wait(ms) {
+	console.log("Waiting " + ms + 'ms')
+	return new Promise(r => setTimeout(() => {
+		r(true)
+		console.log("Wait over!")
+	}, ms))
+}
+
+/**
+ *
+ * @param {{token_data, lp_data}} usd_values - assuming only one token is there in token_list
+ */
+async function get_apy_and_tvl(usd_values) {
+	let {token_data, lp_data, usd_per_eth} = usd_values
+
+	let token_price_usd = token_data[TOKEN_ADDRESS].token_price_usd*1
+	let balances_by_address = {}, number_of_holders_by_address = {}
+	let lp_ids = Object.keys(lp_data)
+	let addrs = lp_ids.map(a => a.split('-')[1])
+	let token_balances = await get_token_balances({TOKEN_ADDRESS, HOLDERS_LIST: addrs})
+	addrs.forEach((addr, i) => balances_by_address[addr] = token_balances[i])
+
+	await wait(2000)
+
+	let number_of_holders = await get_number_of_stakers(addrs)
+	addrs.forEach((addr, i) => number_of_holders_by_address[addr] = number_of_holders[i])
+
+	lp_ids.forEach(lp_id => {
+		let apy = 0, tvl_usd = 0
+
+		let pool_address = lp_id.split('-')[1]
+		let token_balance = new BigNumber(balances_by_address[pool_address] || 0)
+		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2)*1
+
+		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked*1
+
+		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+
+		lp_data[lp_id].apy = apy
+		lp_data[lp_id].tvl_usd = tvl_usd
+		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
+	})
+
+	return {token_data, lp_data, usd_per_eth, token_price_usd}
+}
+
+async function get_usd_values_with_apy_and_tvl(...arguments) {
+	return (await get_apy_and_tvl(await get_usd_values(...arguments)))
+}
+
+let last_update_time3 = 0
+
+async function refresh_the_graph_result() {
+	last_update_time3 = Date.now()
+	let result = await get_usd_values_with_apy_and_tvl({token_contract_addresses: [TOKEN_ADDRESS], lp_ids: LP_ID_LIST})
+	the_graph_result = result
+	//await refresh_the_graph_result_BSC()
+	return result
+}
+
 const app = express()
 app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
-    if (Date.now() - last_update_time > 60e3) {
+    if (Date.now() - last_update_time > 300e3) {
         await update_token_balance_sum()
     }
     res.type('text/plain')
     res.send(String(circulating_supply))
 })
 
-app.get('/tvl-bsc', async (req, res) => {
-	if (Date.now() - last_update_time2 > 300e3) {
+app.get('/api/the_graph_bsc', async (req, res) => {
+	if (Date.now() - last_update_time2 > 600e3) {
 		await getCombinedTvlUsd_BSC()
 	}
-	// res.type('application/json')
-	// res.json({ TVL_BSC_TOTAL: COMBINED_TVL_BSC, TVL_1: circulating_supply })
+	res.type('application/json')
+	res.json({ the_graph_bsc: the_graph_result_BSC })
+})
+
+app.get('/api/the_graph_eth', async (req, res) => {
+	if (Date.now() - last_update_time3 > 560e3) {
+		await refresh_the_graph_result()
+	}
+	res.type('application/json')
+	res.json({ the_graph_eth: the_graph_result })
+})
+
+app.get('/tvl-bsc', async (req, res) => {
 	res.type('text/plain')
 	res.send(String(COMBINED_TVL_BSC))
 })
 
-app.listen(8080, () => console.log("Running on :8080"))
+app.listen(80, () => console.log("Running on :80"))
 
