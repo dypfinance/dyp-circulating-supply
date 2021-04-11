@@ -1436,6 +1436,18 @@ function getPrice_BSC(coingecko_id = 'ethereum', vs_currency = 'usd') {
 	})
 }
 
+function getPrice(coingecko_id = 'ethereum', vs_currency = 'usd') {
+	return new Promise((resolve, reject) => {
+		$.get(`https://api.coingecko.com/api/v3/simple/price?ids=${coingecko_id}&vs_currencies=${vs_currency}`)
+			.then((result) => {
+				resolve(result[coingecko_id][vs_currency])
+			})
+			.catch((error) => {
+				reject(error)
+			})
+	})
+}
+
 async function fetchAsync (url) {
 	let response = await fetch(url);
 	let data = await response.json();
@@ -1605,49 +1617,12 @@ async function refresh_the_graph_result_BSC() {
 }
 
 /* this is for BSC only */
-let highApy_BSC = 0
 let COMBINED_TVL_BSC = 0
-let CALLED_ONCE_BSC = false
-//let CALLED_ONCE_2_BSC = false
-
-// const GetHighAPY_BSC = async () => {
-// 	let highApyArray = []
-// 	if (CALLED_ONCE_2_BSC) {
-// 		return highApy_BSC
-// 	}
-// 	CALLED_ONCE_2_BSC = true
-// 	let the_graph_result_BSC = await refresh_the_graph_result_BSC()
-// 	let highApy = 0
-// 	if (!the_graph_result_BSC.lp_data) return 0
-//
-// 	let lp_ids = Object.keys(the_graph_result_BSC.lp_data)
-// 	for (let id of lp_ids) {
-// 		highApy = the_graph_result_BSC.lp_data[id].apy
-// 		highApyArray.push(highApy)
-// 		//console.log('highhh', highApy)
-// 	}
-// 	highApyArray.sort(function(a, b) {
-// 		return a - b
-// 	})
-// 	//console.log('bbbbb', highApyArray)
-//
-// 	highApy = highApyArray[highApyArray.length - 1]
-//
-// 	highApy_BSC = highApy
-// 	return highApy
-// }
-
 let last_update_time2 = 0
 
 const getCombinedTvlUsd_BSC = async () => {
 	last_update_time2 = Date.now()
-	//test();
-	//let hello = await refreshBalance()
-	//window.tvl_farming = hello
-	if (CALLED_ONCE_BSC) {
-		return COMBINED_TVL
-	}
-	CALLED_ONCE = true
+
 	let the_graph_result_bsc = await refresh_the_graph_result_BSC()
 	let tvl = 0
 	if (!the_graph_result_bsc.lp_data) return 0
@@ -1861,9 +1836,128 @@ async function refresh_the_graph_result() {
 	return result
 }
 
+let highestAPY = 0
+let last_update_time4 = 0
+
+const GetHighestAPY = async () => {
+	last_update_time4 = Date.now()
+	let highApyArray = []
+	let highApyArrayEth = []
+	let highApyEth = 0
+	let highApy = 0
+
+	if (highestAPY == 0){
+		let the_graph_result_BSC = await refresh_the_graph_result_BSC()
+		if (!the_graph_result_BSC.lp_data) return 0
+
+		let the_graph_result = await refresh_the_graph_result()
+		if (!the_graph_result.lp_data) return 0
+	}
+
+	let lp_ids = Object.keys(the_graph_result_BSC.lp_data)
+	for (let id of lp_ids) {
+		highApy = the_graph_result_BSC.lp_data[id].apy
+		highApyArray.push(highApy)
+		//console.log('highhh', highApy)
+	}
+
+	let lp_ids_eth = Object.keys(the_graph_result.lp_data)
+	for (let id of lp_ids_eth) {
+		highApyEth = the_graph_result.lp_data[id].apy
+		highApyArrayEth.push(highApyEth)
+		//console.log('highhh', highApy)
+	}
+
+	highApyArrayEth.sort(function(a, b) {
+		return a - b
+	})
+
+	highApyArray.sort(function(a, b) {
+		return a - b
+	})
+	//console.log('bbbbb', highApyArray)
+	highApyEth = highApyArrayEth[highApyArrayEth.length - 1]
+	highApy = highApyArray[highApyArray.length - 1]
+
+	highestAPY = highApy > highApyEth ? highApy : highApyEth
+	return highApy
+}
+
+let last_update_time5 = 0
+let tvltotal = 0
+
+async function refreshBalanceFarming() {
+
+	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	//console.log('coinbase' + token_contract)
+
+	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
+
+	let _tvl30 = await token_contract.methods.balanceOf('0x7fc2174670d672ad7f666af0704c2d961ef32c73').call()
+	_tvl30 = _tvl30 / 1e18 * usdPerToken
+
+	let _tvl60 = await token_contract.methods.balanceOf('0x036e336ea3ac2e255124cf775c4fdab94b2c42e4').call()
+	_tvl60 = _tvl60 / 1e18 * usdPerToken
+
+	let _tvl90 = await token_contract.methods.balanceOf('0x0a32749d95217b7ee50127e24711c97849b70c6a').call()
+	_tvl90 = _tvl90 / 1e18 * usdPerToken
+
+	let _tvl120 = await token_contract.methods.balanceOf('0x82df1450efd6b504ee069f5e4548f2d5cb229880').call()
+	_tvl120 = (_tvl120 / 1e18 + 0.1) * usdPerToken
+
+	let valueee = (_tvl30 + _tvl60 + _tvl90 + _tvl120)
+	return valueee
+
+}
+
+const getTotalTvl = async () => {
+	last_update_time5 = Date.now()
+	let tvl = 0
+	let farmingTvl = await refreshBalanceFarming()
+
+	let lp_ids = Object.keys(the_graph_result.lp_data)
+	for (let id of lp_ids) {
+		tvl += the_graph_result.lp_data[id].tvl_usd*1 || 0
+	}
+
+	tvltotal = COMBINED_TVL_BSC + tvl + farmingTvl
+	return tvltotal
+}
+
+// Calculate WETH + USD Paid
+const getWethBalance = async (contractAddress) => {
+	let contract = new infuraWeb3.eth.Contract(TOKEN_ABI, WETH_ADDRESS, {from: undefined})
+	return (await contract.methods.balanceOf(contractAddress).call())
+}
+
+const getWethPaidOut = async (contractAddress) => {
+	let contract = new infuraWeb3.eth.Contract(STAKING_ABI, contractAddress, {from: undefined})
+	let wethPaidOut = await contract.methods.totalClaimedRewardsEth().call()
+	let wethBalance = await getWethBalance(contractAddress)
+	return new window.BigNumber(wethBalance).plus(wethPaidOut).toString(10)
+}
+
+const PaidOutETH = async () => {
+	let wethPaiOutTotal = 0
+	let lp_ids = LP_ID_LIST
+	for (let id of lp_ids) {
+		let contractAddress = id.split('-')[1]
+		let wethPaidOut = await Promise.all([getWethPaidOut(contractAddress)])
+		wethPaiOutTotal += parseInt(wethPaidOut, 10)
+	}
+	return wethPaiOutTotal / 1e18
+}
+
+const PaidEthInUsd = async () => {
+	let [usdPerToken] = await Promise.all([getPrice('ethereum')])
+	let wethPaidOutTotal = await PaidOutETH()
+	return wethPaidOutTotal * usdPerToken
+}
+
 const app = express()
 app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
+	//5 minutes
     if (Date.now() - last_update_time > 300e3) {
         await update_token_balance_sum()
     }
@@ -1871,15 +1965,8 @@ app.get('/api/circulating-supply', async (req, res) => {
     res.send(String(circulating_supply))
 })
 
-app.get('/api/the_graph_bsc', async (req, res) => {
-	if (Date.now() - last_update_time2 > 600e3) {
-		await getCombinedTvlUsd_BSC()
-	}
-	res.type('application/json')
-	res.json({ the_graph_bsc: the_graph_result_BSC })
-})
-
 app.get('/api/the_graph_eth', async (req, res) => {
+	//9 minutes
 	if (Date.now() - last_update_time3 > 560e3) {
 		await refresh_the_graph_result()
 	}
@@ -1887,10 +1974,37 @@ app.get('/api/the_graph_eth', async (req, res) => {
 	res.json({ the_graph_eth: the_graph_result })
 })
 
+app.get('/api/the_graph_bsc', async (req, res) => {
+	//10 minutes
+	if (Date.now() - last_update_time2 > 600e3) {
+		await getCombinedTvlUsd_BSC()
+	}
+	res.type('application/json')
+	res.json({ the_graph_bsc: the_graph_result_BSC })
+})
+
 app.get('/tvl-bsc', async (req, res) => {
 	res.type('text/plain')
 	res.send(String(COMBINED_TVL_BSC))
 })
 
-app.listen(80, () => console.log("Running on :80"))
+app.get('/api/highest-apy', async (req, res) => {
+	//11 minutes
+	if (Date.now() - last_update_time4 > 660e3) {
+		await GetHighestAPY()
+	}
+	res.type('text/plain')
+	res.send(String(highestAPY))
+})
+
+app.get('/api/totaltvl', async (req, res) => {
+	//12 minutes
+	if (Date.now() - last_update_time5 > 720e3) {
+		await getTotalTvl()
+	}
+	res.type('text/plain')
+	res.send(String(tvltotal))
+})
+
+app.listen(8080, () => console.log("Running on :80"))
 
