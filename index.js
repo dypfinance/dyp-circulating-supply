@@ -2006,5 +2006,5 @@ app.get('/api/totaltvl', async (req, res) => {
 	res.send(String(tvltotal))
 })
 
-app.listen(8080, () => console.log("Running on :80"))
+app.listen(80, () => console.log("Running on :80"))
 
