@@ -1925,6 +1925,16 @@ const getTotalTvl = async () => {
 }
 
 // Calculate WETH + USD Paid
+
+let wethPaiOutTotals = 0
+let wbnbPaidOutTotals = 0
+let paidInUsd = 0
+let paidBnbInUsd = 0
+let paidAllInUsd = 0
+let last_update_time6 = 0
+
+const WETH_ADDRESS = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+
 const getWethBalance = async (contractAddress) => {
 	let contract = new infuraWeb3.eth.Contract(TOKEN_ABI, WETH_ADDRESS, {from: undefined})
 	return (await contract.methods.balanceOf(contractAddress).call())
@@ -1934,10 +1944,11 @@ const getWethPaidOut = async (contractAddress) => {
 	let contract = new infuraWeb3.eth.Contract(STAKING_ABI, contractAddress, {from: undefined})
 	let wethPaidOut = await contract.methods.totalClaimedRewardsEth().call()
 	let wethBalance = await getWethBalance(contractAddress)
-	return new window.BigNumber(wethBalance).plus(wethPaidOut).toString(10)
+	return new BigNumber(wethBalance).plus(wethPaidOut).toString(10)
 }
 
 const PaidOutETH = async () => {
+	last_update_time6 = Date.now()
 	let wethPaiOutTotal = 0
 	let lp_ids = LP_ID_LIST
 	for (let id of lp_ids) {
@@ -1945,12 +1956,48 @@ const PaidOutETH = async () => {
 		let wethPaidOut = await Promise.all([getWethPaidOut(contractAddress)])
 		wethPaiOutTotal += parseInt(wethPaidOut, 10)
 	}
+	wethPaiOutTotals = wethPaiOutTotal / 1e18
 	return wethPaiOutTotal / 1e18
 }
 
-const PaidEthInUsd = async () => {
+	/* BSC Paid */
+
+const WBNB_ADDRESS = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c'
+
+const getWbnbBalance = async (contractAddress) => {
+	let contract = new bscWeb3.eth.Contract(TOKEN_ABI, WBNB_ADDRESS, {from: undefined})
+	return (await contract.methods.balanceOf(contractAddress).call())
+}
+
+const getWbnbPaidOut = async (contractAddress) => {
+	let contract = new bscWeb3.eth.Contract(STAKING_ABI, contractAddress, {from: undefined})
+	let wbnbPaidOut = await contract.methods.totalClaimedRewardsEth().call()
+	let wbnbBalance = await getWbnbBalance(contractAddress)
+	return new BigNumber(wbnbBalance).plus(wbnbPaidOut).toString(10)
+}
+
+const PaidOutBNB = async () => {
+	last_update_time6 = Date.now()
+	let wbnbPaiOutTotal = 0
+	let lp_ids = LP_ID_LIST_BSC
+	for (let id of lp_ids) {
+		let contractAddress = id.split('-')[1]
+		let wbnbPaidOut = await Promise.all([getWbnbPaidOut(contractAddress)])
+		wbnbPaiOutTotal += parseInt(wbnbPaidOut, 10)
+	}
+	wbnbPaidOutTotals = wbnbPaiOutTotal / 1e18
+	return wbnbPaiOutTotal / 1e18
+}
+
+const PaidAllInUsd = async () => {
+	last_update_time6 = Date.now()
 	let [usdPerToken] = await Promise.all([getPrice('ethereum')])
+	let [usdPerTokenBnb] = await Promise.all([getPrice('binancecoin')])
 	let wethPaidOutTotal = await PaidOutETH()
+	let wbnbPaidOutTotal = await PaidOutBNB()
+	paidInUsd = wethPaidOutTotal * usdPerToken
+	paidBnbInUsd = wbnbPaidOutTotal * usdPerTokenBnb
+	paidAllInUsd = paidInUsd + paidBnbInUsd
 	return wethPaidOutTotal * usdPerToken
 }
 
@@ -2004,6 +2051,26 @@ app.get('/api/totaltvl', async (req, res) => {
 	}
 	res.type('text/plain')
 	res.send(String(tvltotal))
+})
+
+app.get('/api/totalpaid', async (req, res) => {
+	//60 minutes
+	if (Date.now() - last_update_time6 > 3600e3) {
+		await PaidOutETH()
+		await PaidAllInUsd()
+	}
+	res.type('application/json')
+	res.json({
+		ethTotal: {
+			wethPaiOutTotals: wethPaiOutTotals,
+			paidInUsd: paidInUsd
+		},
+		bnbTotal: {
+			wbnbPaidOutTotals: wbnbPaidOutTotals,
+			paidBnbInUsd: paidBnbInUsd
+		},
+		totalPaidInUsd: paidAllInUsd
+	})
 })
 
 app.listen(80, () => console.log("Running on :80"))
