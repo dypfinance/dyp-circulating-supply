@@ -2012,7 +2012,9 @@ const CheckEthStaking = async (addressToCheck) => {
 		let pool_address = lp_id.split('-')[1]
 		let contract = new infuraWeb3.eth.Contract(STAKING_ABI, pool_address, {from: undefined})
 		amountStaked = await contract.methods.depositedTokens(addressToCheck).call()
-		result = amountStaked > 0 ? true : false
+		result = parseInt(amountStaked) > 0 ? true : false
+
+		if (parseInt(amountStaked)>0) break
 	}
 
 	return result
@@ -2027,7 +2029,9 @@ const CheckBscStaking = async (addressToCheck) => {
 		let pool_address = lp_id.split('-')[1]
 		let contract = new bscWeb3.eth.Contract(STAKING_ABI, pool_address, {from: undefined})
 		amountStaked = await contract.methods.depositedTokens(addressToCheck).call()
-		result = amountStaked > 0 ? true : false
+		result = parseInt(amountStaked) > 0 ? true : false
+
+		if (parseInt(amountStaked)>0) break
 	}
 
 	return result
