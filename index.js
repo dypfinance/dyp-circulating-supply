@@ -2001,6 +2001,38 @@ const PaidAllInUsd = async () => {
 	return wethPaidOutTotal * usdPerToken
 }
 
+	/* Return if an address is in staking */
+
+const CheckEthStaking = async (addressToCheck) => {
+	let amountStaked = 0
+	let result = 0
+	let lp_ids = LP_ID_LIST
+
+	for (let lp_id of lp_ids) {
+		let pool_address = lp_id.split('-')[1]
+		let contract = new infuraWeb3.eth.Contract(STAKING_ABI, pool_address, {from: undefined})
+		amountStaked = await contract.methods.depositedTokens(addressToCheck).call()
+		result = amountStaked > 0 ? true : false
+	}
+
+	return result
+}
+
+const CheckBscStaking = async (addressToCheck) => {
+	let amountStaked = 0
+	let result = 0
+	let lp_ids = LP_ID_LIST_BSC
+
+	for (let lp_id of lp_ids) {
+		let pool_address = lp_id.split('-')[1]
+		let contract = new bscWeb3.eth.Contract(STAKING_ABI, pool_address, {from: undefined})
+		amountStaked = await contract.methods.depositedTokens(addressToCheck).call()
+		result = amountStaked > 0 ? true : false
+	}
+
+	return result
+}
+
 const app = express()
 app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
@@ -2073,5 +2105,27 @@ app.get('/api/totalpaid', async (req, res) => {
 	})
 })
 
-app.listen(80, () => console.log("Running on :80"))
+app.get('/api/check-eth', async (req, res) => {
+	let results = 0
+
+	results = await CheckEthStaking(req.query.address)
+
+	res.type('application/json')
+	res.json({
+		result: results
+	})
+})
+
+app.get('/api/check-bsc', async (req, res) => {
+	let results = 0
+
+	results = await CheckBscStaking(req.query.address)
+
+	res.type('application/json')
+	res.json({
+		result: results
+	})
+})
+
+app.listen(8080, () => console.log("Running on :80"))
 
