@@ -1886,6 +1886,8 @@ const GetHighestAPY = async () => {
 let last_update_time5 = 0
 let tvltotal = 0
 
+let [farmingTvl30, farmingTvl60, farmingTvl90, farmingTvl120] = [0, 0, 0, 0]
+
 async function refreshBalanceFarming() {
 
 	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
@@ -1895,15 +1897,19 @@ async function refreshBalanceFarming() {
 
 	let _tvl30 = await token_contract.methods.balanceOf('0x7fc2174670d672ad7f666af0704c2d961ef32c73').call()
 	_tvl30 = _tvl30 / 1e18 * usdPerToken
+	farmingTvl30 = _tvl30
 
 	let _tvl60 = await token_contract.methods.balanceOf('0x036e336ea3ac2e255124cf775c4fdab94b2c42e4').call()
 	_tvl60 = _tvl60 / 1e18 * usdPerToken
+	farmingTvl60 = _tvl60
 
 	let _tvl90 = await token_contract.methods.balanceOf('0x0a32749d95217b7ee50127e24711c97849b70c6a').call()
 	_tvl90 = _tvl90 / 1e18 * usdPerToken
+	farmingTvl90 = _tvl90
 
 	let _tvl120 = await token_contract.methods.balanceOf('0x82df1450efd6b504ee069f5e4548f2d5cb229880').call()
 	_tvl120 = (_tvl120 / 1e18 + 0.1) * usdPerToken
+	farmingTvl120 = _tvl120
 
 	let valueee = (_tvl30 + _tvl60 + _tvl90 + _tvl120)
 	return valueee
@@ -2037,6 +2043,361 @@ const CheckBscStaking = async (addressToCheck) => {
 	return result
 }
 
+let farmInfo = {}
+
+const IDs_eth = {
+	"0xa7d6f5fa9b0be0e98b3b40e6ac884e53f2f9460e":
+		{
+			pool_name: "DYP/ETH LP Pool Ethereum",
+			pair_name: "DYP-ETH",
+			link_pair: "https://app.dyp.finance/staking-eth-3",
+			return_types: "WETH"
+		},
+	"0x0b0a544ae6131801522e3ac1fbac6d311094c94c":
+		{
+			pool_name: "DYP/ETH LP Pool Ethereum",
+			pair_name: "DYP-ETH",
+			link_pair: "https://app.dyp.finance/staking-eth-30",
+			return_types: "WETH"
+		},
+	"0x16caad63bdfc3ec4a2850336b28efe17e802b896":
+		{
+			pool_name: "DYP/ETH LP Pool Ethereum",
+			pair_name: "DYP-ETH",
+			link_pair: "https://app.dyp.finance/staking-eth-60",
+			return_types: "WETH"
+		},
+	"0x512ff8739d39e55d75d80046921e7de20c3e9bff":
+		{
+			pool_name: "DYP/ETH LP Pool Ethereum",
+			pair_name: "DYP-ETH",
+			link_pair: "https://app.dyp.finance/staking-eth-90",
+			return_types: "WETH"
+		},
+	"0xef71de5cb40f7985feb92aa49d8e3e84063af3bb":
+		{
+			pool_name: "DYP/WBTC LP Pool Ethereum",
+			pair_name: "DYP-WBTC",
+			link_pair: "https://app.dyp.finance/staking-wbtc-3",
+			return_types: "WETH"
+		},
+	"0x8b0e324eede360cab670a6ad12940736d74f701e":
+		{
+			pool_name: "DYP/WBTC LP Pool Ethereum",
+			pair_name: "DYP-WBTC",
+			link_pair: "https://app.dyp.finance/staking-wbtc-30",
+			return_types: "WETH"
+		},
+	"0x78e2da2eda6df49bae46e3b51528baf5c106e654":
+		{
+			pool_name: "DYP/WBTC LP Pool Ethereum",
+			pair_name: "DYP-WBTC",
+			link_pair: "https://app.dyp.finance/staking-wbtc-60",
+			return_types: "WETH"
+		},
+	"0x350f3fe979bfad4766298713c83b387c2d2d7a7a":
+		{
+			pool_name: "DYP/WBTC LP Pool Ethereum",
+			pair_name: "DYP-WBTC",
+			link_pair: "https://app.dyp.finance/staking-wbtc-90",
+			return_types: "WETH"
+		},
+	"0x4a76fc15d3fbf3855127ec5da8aaf02de7ca06b3":
+		{
+			pool_name: "DYP/USDT LP Pool Ethereum",
+			pair_name: "DYP-USDT",
+			link_pair: "https://app.dyp.finance/staking-usdt-3",
+			return_types: "WETH"
+		},
+	"0xf4abc60a08b546fa879508f4261eb4400b55099d":
+		{
+			pool_name: "DYP/USDT LP Pool Ethereum",
+			pair_name: "DYP-USDT",
+			link_pair: "https://app.dyp.finance/staking-usdt-30",
+			return_types: "WETH"
+		},
+	"0x13f421aa823f7d90730812a33f8cac8656e47dfa":
+		{
+			pool_name: "DYP/USDT LP Pool Ethereum",
+			pair_name: "DYP-USDT",
+			link_pair: "https://app.dyp.finance/staking-usdt-60",
+			return_types: "WETH"
+		},
+	"0x86690bbe7a9683a8bad4812c2e816fd17bc9715c":
+		{
+			pool_name: "DYP/USDT LP Pool Ethereum",
+			pair_name: "DYP-USDT",
+			link_pair: "https://app.dyp.finance/staking-usdt-90",
+			return_types: "WETH"
+		},
+	"0x2b5d7a865a3888836d15d69dccbad682663dcdbb":
+		{
+			pool_name: "DYP/USDC LP Pool Ethereum",
+			pair_name: "DYP-USDC",
+			link_pair: "https://app.dyp.finance/staking-usdc-3",
+			return_types: "WETH"
+		},
+	"0xa52250f98293c17c894d58cf4f78c925dc8955d0":
+		{
+			pool_name: "DYP/USDC LP Pool Ethereum",
+			pair_name: "DYP-USDC",
+			link_pair: "https://app.dyp.finance/staking-usdc-30",
+			return_types: "WETH"
+		},
+	"0x924becc8f4059987e4bc4b741b7c354ff52c25e4":
+		{
+			pool_name: "DYP/USDC LP Pool Ethereum",
+			pair_name: "DYP-USDC",
+			link_pair: "https://app.dyp.finance/staking-usdc-60",
+			return_types: "WETH"
+		},
+	"0xbe528593781988974d83c2655cba4c45fc75c033":
+		{
+			pool_name: "DYP/USDC LP Pool Ethereum",
+			pair_name: "DYP-USDC",
+			link_pair: "https://app.dyp.finance/staking-usdc-90",
+			return_types: "WETH"
+		}
+}
+
+const IDs_bsc = {
+	"0xb4338fc62b1de93f63bfedb9fd9bac455d50a424":
+		{
+			pool_name: "DYP/ETH LP Pool BSC",
+			pair_name: "DYP-ETH",
+			link_pair: "https://app-bsc.dyp.finance/staking-eth-3",
+			return_types: "WBNB WETH DYP"
+		},
+	"0x2c1411d4f1647b88a7b46c838a3760f925bac83b":
+		{
+			pool_name: "DYP/ETH LP Pool BSC",
+			pair_name: "DYP-ETH",
+			link_pair: "https://app-bsc.dyp.finance/staking-eth-30",
+			return_types: "WBNB WETH DYP"
+		},
+	"0x2c51df297a2aa972a45ed52110afd24591c6f302":
+		{
+			pool_name: "DYP/ETH LP Pool BSC",
+			pair_name: "DYP-ETH",
+			link_pair: "https://app-bsc.dyp.finance/staking-eth-60",
+			return_types: "WBNB WETH DYP"
+		},
+	"0xd7180d6fea393158d42d0d0cd66ab93048f581e3":
+		{
+			pool_name: "DYP/ETH LP Pool BSC",
+			pair_name: "DYP-ETH",
+			link_pair: "https://app-bsc.dyp.finance/staking-eth-90",
+			return_types: "WBNB WETH DYP"
+		},
+	"0x8a607e099e835bdbc4a606acb600ef475414f450":
+		{
+			pool_name: "DYP/WBNB LP Pool BSC",
+			pair_name: "DYP-WBNB",
+			link_pair: "https://app-bsc.dyp.finance/staking-bnb-3",
+			return_types: "WBNB WETH DYP"
+		},
+	"0x34dd0d25fa2e3b220d1eb67460c45e586c61c2bb":
+		{
+			pool_name: "DYP/WBNB LP Pool BSC",
+			pair_name: "DYP-WBNB",
+			link_pair: "https://app-bsc.dyp.finance/staking-bnb-30",
+			return_types: "WBNB WETH DYP"
+		},
+	"0xb07c67b65e6916ba87b6e3fa245aa18f77b4413e":
+		{
+			pool_name: "DYP/WBNB LP Pool BSC",
+			pair_name: "DYP-WBNB",
+			link_pair: "https://app-bsc.dyp.finance/staking-bnb-60",
+			return_types: "WBNB WETH DYP"
+		},
+	"0x52adfbb5bc9f9fee825bd56feb11f1fc90e0b47e":
+		{
+			pool_name: "DYP/WBNB LP Pool BSC",
+			pair_name: "DYP-WBNB",
+			link_pair: "https://app-bsc.dyp.finance/staking-bnb-90",
+			return_types: "WBNB WETH DYP"
+		},
+	"0x111ae4ca424036d09b4e0fc9f1de5e6dc90d586b":
+		{
+			pool_name: "DYP/BUSD LP Pool BSC",
+			pair_name: "DYP-BUSD",
+			link_pair: "https://app-bsc.dyp.finance/staking-busd-3",
+			return_types: "WBNB WETH DYP"
+		},
+	"0x7637fa253180556ba486d2fa5d2bb328eb0aa7ca":
+		{
+			pool_name: "DYP/BUSD LP Pool BSC",
+			pair_name: "DYP-BUSD",
+			link_pair: "https://app-bsc.dyp.finance/staking-busd-30",
+			return_types: "WBNB WETH DYP"
+		},
+	"0x2f3c4a08dad0f8a56ede3961ab654020534b8a8c":
+		{
+			pool_name: "DYP/BUSD LP Pool BSC",
+			pair_name: "DYP-BUSD",
+			link_pair: "https://app-bsc.dyp.finance/staking-busd-60",
+			return_types: "WBNB WETH DYP"
+		},
+	"0x417538f319afddd351f33222592b60f985475a21":
+		{
+			pool_name: "DYP/BUSD LP Pool BSC",
+			pair_name: "DYP-BUSD",
+			link_pair: "https://app-bsc.dyp.finance/staking-busd-90",
+			return_types: "WBNB WETH DYP"
+		}
+}
+
+const IDs_constant = {
+	"0x7fc2174670d672ad7f666af0704c2d961ef32c73":
+		{
+			pool_name: "DYP Constant Staking",
+			pair_name: "DYP",
+			link_pair: "https://app.dyp.finance/constant-staking-30",
+			return_types: "DYP",
+			apy: 20
+		},
+	"0x036e336ea3ac2e255124cf775c4fdab94b2c42e4":
+		{
+			pool_name: "DYP Constant Staking",
+			pair_name: "DYP",
+			link_pair: "https://app.dyp.finance/constant-staking-60",
+			return_types: "DYP",
+			apy: 25
+		},
+	"0x0a32749d95217b7ee50127e24711c97849b70c6a":
+		{
+			pool_name: "DYP Constant Staking",
+			pair_name: "DYP",
+			link_pair: "https://app.dyp.finance/constant-staking-90",
+			return_types: "DYP",
+			apy: 30
+		},
+	"0x82df1450efd6b504ee069f5e4548f2d5cb229880":
+		{
+			pool_name: "DYP Constant Staking",
+			pair_name: "DYP",
+			link_pair: "https://app.dyp.finance/constant-staking-120",
+			return_types: "DYP",
+			apy: 35
+		}
+}
+
+const getFarmInfo = () => {
+
+	farmInfo = {}
+	let count = 0
+	let apy_percent = 0,
+		tvl_usd = 0,
+		apy_percent_url = "",
+		tvl_usd_url = "",
+		_id = "6099a8c6efc4dfef87fd2ce0",
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		return_types = "",
+		__v = 0
+
+	//ETH
+	let lp_ids = Object.keys(the_graph_result.lp_data)
+	for (let id of lp_ids) {
+
+		apy_percent = the_graph_result.lp_data[id].apy
+		tvl_usd = the_graph_result.lp_data[id].tvl_usd
+
+		let pool_address = id.split('-')[1]
+
+		pool_name = IDs_eth[pool_address].pool_name
+		pair_name = IDs_eth[pool_address].pair_name
+		link_pair = IDs_eth[pool_address].link_pair
+		return_types = IDs_eth[pool_address].return_types
+
+		farmInfo[count] = {
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			apy_percent_url: apy_percent_url,
+			tvl_usd_url: tvl_usd_url,
+			_id: _id,
+			link_logo: link_logo,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			link_pair: link_pair,
+			return_types: return_types,
+			__v: __v
+		}
+
+		count++
+	}
+
+	//BSC
+	let lp_ids_bsc = Object.keys(the_graph_result_BSC.lp_data)
+	for (let id of lp_ids_bsc) {
+
+		apy_percent = the_graph_result_BSC.lp_data[id].apy
+		tvl_usd = the_graph_result_BSC.lp_data[id].tvl_usd
+
+		let pool_address = id.split('-')[1]
+
+		pool_name = IDs_bsc[pool_address].pool_name
+		pair_name = IDs_bsc[pool_address].pair_name
+		link_pair = IDs_bsc[pool_address].link_pair
+		return_types = IDs_bsc[pool_address].return_types
+
+		farmInfo[count] = {
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			apy_percent_url: apy_percent_url,
+			tvl_usd_url: tvl_usd_url,
+			_id: _id,
+			link_logo: link_logo,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			link_pair: link_pair,
+			return_types: return_types,
+			__v: __v
+		}
+
+		count++
+	}
+
+	//Constant-staking
+	let ids_constant = Object.keys(IDs_constant)
+	for (let id of ids_constant) {
+
+		apy_percent = IDs_constant[id].apy
+
+		if ( id == "0x7fc2174670d672ad7f666af0704c2d961ef32c73" )
+			tvl_usd = farmingTvl30
+		if ( id == "0x036e336ea3ac2e255124cf775c4fdab94b2c42e4" )
+			tvl_usd = farmingTvl60
+		if ( id == "0x0a32749d95217b7ee50127e24711c97849b70c6a" )
+			tvl_usd = farmingTvl90
+		if ( id == "0x82df1450efd6b504ee069f5e4548f2d5cb229880" )
+			tvl_usd = farmingTvl120
+
+		pool_name = IDs_constant[id].pool_name
+		pair_name = IDs_constant[id].pair_name
+		link_pair = IDs_constant[id].link_pair
+		return_types = IDs_constant[id].return_types
+
+		farmInfo[count] = {
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			apy_percent_url: apy_percent_url,
+			tvl_usd_url: tvl_usd_url,
+			_id: _id,
+			link_logo: link_logo,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			link_pair: link_pair,
+			return_types: return_types,
+			__v: __v
+		}
+
+		count++
+	}
+}
+
 const app = express()
 app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
@@ -2131,5 +2492,12 @@ app.get('/api/check-bsc', async (req, res) => {
 	})
 })
 
-app.listen(8080, () => console.log("Running on :80"))
+app.get('/api/get_farm_info', async (req, res) => {
+	getFarmInfo()
+
+	res.type('application/json')
+	res.json({ farmInfo: farmInfo })
+})
+
+app.listen(80, () => console.log("Running on :80"))
 
