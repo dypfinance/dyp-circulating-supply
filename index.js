@@ -1320,13 +1320,13 @@ const LP_IDs = {
 		"0xba7872534a6c9097d805d8bee97e030f4e372e54-0x0b0a544ae6131801522e3ac1fbac6d311094c94c",
 		"0xba7872534a6c9097d805d8bee97e030f4e372e54-0x16caad63bdfc3ec4a2850336b28efe17e802b896",
 		"0xba7872534a6c9097d805d8bee97e030f4e372e54-0x512ff8739d39e55d75d80046921e7de20c3e9bff",
-		],
+	],
 	"wbtc": [
 		"0x44b77e9ce8a20160290fcbaa44196744f354c1b7-0xef71de5cb40f7985feb92aa49d8e3e84063af3bb",
 		"0x44b77e9ce8a20160290fcbaa44196744f354c1b7-0x8b0e324eede360cab670a6ad12940736d74f701e",
 		"0x44b77e9ce8a20160290fcbaa44196744f354c1b7-0x78e2da2eda6df49bae46e3b51528baf5c106e654",
 		"0x44b77e9ce8a20160290fcbaa44196744f354c1b7-0x350f3fe979bfad4766298713c83b387c2d2d7a7a",
-		],
+	],
 	"usdt": [
 		"0x76911e11fddb742d75b83c9e1f611f48f19234e4-0x4a76fc15d3fbf3855127ec5da8aaf02de7ca06b3",
 		"0x76911e11fddb742d75b83c9e1f611f48f19234e4-0xf4abc60a08b546fa879508f4261eb4400b55099d",
@@ -1344,20 +1344,20 @@ const LP_IDs = {
 const LP_ID_LIST = Object.keys(LP_IDs).map(key => LP_IDs[key]).flat()
 
 const HOLDERS_LIST = LP_ID_LIST.map(a => a.split('-')[1]).concat([
-    "0x7742565647682abE90A7f7497e05c4403CB50265",
-    "0x417538F319AfDDD351f33222592B60f985475A21",
-    "0xCfAD7aeb67FC5c19a581496689881AE063541149",
-    "0x7Fc2174670d672AD7f666aF0704C2D961EF32c73",
-    "0x036e336eA3ac2E255124CF775C4FDab94b2C42e4",
-    "0x0A32749D95217b7Ee50127E24711c97849b70C6a",
-    "0x82df1450eFD6b504EE069F5e4548F2D5Cb229880",
-    "0x000000000000000000000000000000000000dead"
+	"0x7742565647682abE90A7f7497e05c4403CB50265",
+	"0x417538F319AfDDD351f33222592B60f985475A21",
+	"0xCfAD7aeb67FC5c19a581496689881AE063541149",
+	"0x7Fc2174670d672AD7f666aF0704C2D961EF32c73",
+	"0x036e336eA3ac2E255124CF775C4FDab94b2C42e4",
+	"0x0A32749D95217b7Ee50127E24711c97849b70C6a",
+	"0x82df1450eFD6b504EE069F5e4548F2D5Cb229880",
+	"0x000000000000000000000000000000000000dead"
 ])
 
 async function get_token_balances({
-	TOKEN_ADDRESS,
-	HOLDERS_LIST
-}) {
+									  TOKEN_ADDRESS,
+									  HOLDERS_LIST
+								  }) {
 	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
 
 	return (await Promise.all(HOLDERS_LIST.map(h => {
@@ -1366,16 +1366,16 @@ async function get_token_balances({
 }
 
 function get_token_balances_sum(token_balances) {
-    return token_balances.reduce((a, b) => new BigNumber(a).plus(b), 0)
+	return token_balances.reduce((a, b) => new BigNumber(a).plus(b), 0)
 }
 let token_balance_sum = 0;
 let last_update_time = 0;
 let circulating_supply = 0;
 async function update_token_balance_sum() {
-    last_update_time = Date.now()
-    token_balance_sum = get_token_balances_sum( await get_token_balances({TOKEN_ADDRESS, HOLDERS_LIST}) ).div(1e18).toString(10)
-    circulating_supply = new BigNumber(25651531).minus(token_balance_sum).plus(4348469);
-    return token_balance_sum
+	last_update_time = Date.now()
+	token_balance_sum = get_token_balances_sum( await get_token_balances({TOKEN_ADDRESS, HOLDERS_LIST}) ).div(1e18).toString(10)
+	circulating_supply = new BigNumber(25651531).minus(token_balance_sum).plus(4348469);
+	return token_balance_sum
 }
 
 let the_graph_result_BSC = {}
@@ -1462,9 +1462,9 @@ async function fetchAsync (url) {
  * @param {{token_contract_addresses: object[], lp_ids: object[], tokens_disbursed_per_year: object}} props - MAKE SURE ALL ADDRESSES ARE LOWERCASE!
  */
 async function get_usd_values_BSC({
-								token_contract_addresses,
-								lp_ids,
-							}) {
+									  token_contract_addresses,
+									  lp_ids,
+								  }) {
 	return new Promise(async (resolve, reject) => {
 
 		let usd_per_eth = await getPrice_BSC(config.cg_ids['main'])
@@ -1672,9 +1672,9 @@ LP_ID_LIST.forEach((lp_id, i) => TOKENS_DISBURSED_PER_YEAR_BY_LP_ID[lp_id] = TOK
  * @param {{token_contract_addresses: object[], lp_ids: object[], tokens_disbursed_per_year: object}} props - MAKE SURE ALL ADDRESSES ARE LOWERCASE!
  */
 async function get_usd_values({
-							token_contract_addresses,
-							lp_ids,
-						}) {
+								  token_contract_addresses,
+								  lp_ids,
+							  }) {
 	return new Promise((resolve, reject) => {
 		fetch('https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2', {
 			method: 'POST',
@@ -1966,7 +1966,7 @@ const PaidOutETH = async () => {
 	return wethPaiOutTotal / 1e18
 }
 
-	/* BSC Paid */
+/* BSC Paid */
 
 const WBNB_ADDRESS = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c'
 
@@ -2007,7 +2007,7 @@ const PaidAllInUsd = async () => {
 	return wethPaidOutTotal * usdPerToken
 }
 
-	/* Return if an address is in staking */
+/* Return if an address is in staking */
 
 const CheckEthStaking = async (addressToCheck) => {
 	let amountStaked = 0
@@ -2043,7 +2043,7 @@ const CheckBscStaking = async (addressToCheck) => {
 	return result
 }
 
-let farmInfo = {}
+let farmInfo = []
 
 const IDs_eth = {
 	"0xa7d6f5fa9b0be0e98b3b40e6ac884e53f2f9460e":
@@ -2284,7 +2284,7 @@ const IDs_constant = {
 
 const getFarmInfo = () => {
 
-	farmInfo = {}
+	farmInfo = []
 	let count = 0
 	let apy_percent = 0,
 		tvl_usd = 0,
@@ -2402,11 +2402,11 @@ const app = express()
 app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
 	//5 minutes
-    if (Date.now() - last_update_time > 300e3) {
-        await update_token_balance_sum()
-    }
-    res.type('text/plain')
-    res.send(String(circulating_supply))
+	if (Date.now() - last_update_time > 300e3) {
+		await update_token_balance_sum()
+	}
+	res.type('text/plain')
+	res.send(String(circulating_supply))
 })
 
 app.get('/api/the_graph_eth', async (req, res) => {
@@ -2499,5 +2499,5 @@ app.get('/api/get_farm_info', async (req, res) => {
 	res.json({ farmInfo: farmInfo })
 })
 
-app.listen(80, () => console.log("Running on :80"))
+app.listen(8080, () => console.log("Running on :80"))
 
