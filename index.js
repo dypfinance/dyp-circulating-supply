@@ -14,6 +14,7 @@ const infuraWeb3 = new Web3('https://mainnet.infura.io/v3/94608dc6ddba490697ec4f
 
 // MAKE SURE THIS ADDRESS IS LOWERCASE
 const TOKEN_ADDRESS = "0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17"
+const PRICE_ADDRESS = "0x4185e6f61549133c34ffaf88c92a943fcde51619"
 
 const config = {
 	bsc_endpoint: 'https://bsc-dataseed.binance.org/',
@@ -1314,6 +1315,40 @@ const STAKING_ABI = [
 	}
 ]
 
+const PRICE_ABI = [
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "getThePriceBnb",
+		"outputs": [
+			{
+				"internalType": "int256",
+				"name": "",
+				"type": "int256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getThePriceEth",
+		"outputs": [
+			{
+				"internalType": "int256",
+				"name": "",
+				"type": "int256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+
 const LP_IDs = {
 	"eth": [
 		"0xba7872534a6c9097d805d8bee97e030f4e372e54-0xa7d6f5fa9b0be0e98b3b40e6ac884e53f2f9460e",
@@ -1467,7 +1502,14 @@ async function get_usd_values_BSC({
 								  }) {
 	return new Promise(async (resolve, reject) => {
 
-		let usd_per_eth = await getPrice_BSC(config.cg_ids['main'])
+		let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, {from: undefined})
+		let usd_per_eth = await token_contract.methods.getThePriceBnb().call()
+		usd_per_eth = (usd_per_eth / 1e8).toFixed(2)
+
+		//console.log('chainlink', usd_per_eth)
+		//let usd_per_eth2 = await getPrice_BSC(config.cg_ids['main'])
+		//console.log('coingecko', usd_per_eth)
+
 		let usdPerPlatformToken = await getPrice_BSC(config.cg_ids['platform-token'])
 
 
@@ -1789,7 +1831,11 @@ async function wait(ms) {
  * @param {{token_data, lp_data}} usd_values - assuming only one token is there in token_list
  */
 async function get_apy_and_tvl(usd_values) {
-	let {token_data, lp_data, usd_per_eth} = usd_values
+	let {token_data, lp_data, usd_per_eth_uniswap} = usd_values
+
+	let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, {from: undefined})
+	let usd_per_eth = await token_contract.methods.getThePriceEth().call()
+	usd_per_eth = (usd_per_eth / 1e8).toFixed(2)
 
 	let token_price_usd = token_data[TOKEN_ADDRESS].token_price_usd*1
 	let balances_by_address = {}, number_of_holders_by_address = {}
@@ -1845,6 +1891,9 @@ const GetHighestAPY = async () => {
 	let highApyArrayEth = []
 	let highApyEth = 0
 	let highApy = 0
+	// Get the Link of the highest APY
+	let highApyContractBSC = []
+	let highApyContractEth = []
 
 	if (highestAPY == 0){
 		let the_graph_result_BSC = await refresh_the_graph_result_BSC()
@@ -1859,6 +1908,8 @@ const GetHighestAPY = async () => {
 		highApy = the_graph_result_BSC.lp_data[id].apy
 		highApyArray.push(highApy)
 		//console.log('highhh', highApy)
+		let contractAddress = id.split('-')[1]
+		highApyContractBSC[highApy] = contractAddress
 	}
 
 	let lp_ids_eth = Object.keys(the_graph_result.lp_data)
@@ -1866,7 +1917,15 @@ const GetHighestAPY = async () => {
 		highApyEth = the_graph_result.lp_data[id].apy
 		highApyArrayEth.push(highApyEth)
 		//console.log('highhh', highApy)
+		let contractAddress2 = id.split('-')[1]
+		highApyContractEth[highApyEth] = contractAddress2
+		//console.log(IDs_eth[contractAddress2].link_pair)
 	}
+
+	// let id_highApyEth = Object.keys(highApyContractEth)
+	// for (let id of id_highApyEth) {
+	// 	console.log(id)
+	// }
 
 	highApyArrayEth.sort(function(a, b) {
 		return a - b
@@ -1997,8 +2056,16 @@ const PaidOutBNB = async () => {
 
 const PaidAllInUsd = async () => {
 	last_update_time6 = Date.now()
-	let [usdPerToken] = await Promise.all([getPrice('ethereum')])
-	let [usdPerTokenBnb] = await Promise.all([getPrice('binancecoin')])
+	//let [usdPerToken] = await Promise.all([getPrice('ethereum')])
+	//let [usdPerTokenBnb] = await Promise.all([getPrice('binancecoin')])
+	let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, {from: undefined})
+
+	let usdPerToken = await token_contract.methods.getThePriceEth().call()
+	usdPerToken = (usdPerToken / 1e8).toFixed(2)
+
+	let usdPerTokenBnb = await token_contract.methods.getThePriceBnb().call()
+	usdPerTokenBnb = (usdPerTokenBnb / 1e8).toFixed(2)
+
 	let wethPaidOutTotal = await PaidOutETH()
 	let wbnbPaidOutTotal = await PaidOutBNB()
 	paidInUsd = wethPaidOutTotal * usdPerToken
