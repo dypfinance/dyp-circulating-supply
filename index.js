@@ -2115,11 +2115,15 @@ const GetHighestAPY = async () => {
 	last_update_time4 = Date.now()
 	let highApyArray = []
 	let highApyArrayEth = []
+	let highApyArrayAvax = []
+
 	let highApyEth = 0
+	let highApyAvax = 0
 	let highApy = 0
 	// Get the Link of the highest APY
 	let highApyContractBSC = []
 	let highApyContractEth = []
+	let highApyContractAVAX = []
 
 	if (highestAPY == 0){
 		let the_graph_result_BSC = await refresh_the_graph_result_BSC()
@@ -2127,6 +2131,9 @@ const GetHighestAPY = async () => {
 
 		let the_graph_result = await refresh_the_graph_result()
 		if (!the_graph_result.lp_data) return 0
+
+		let the_graph_result_AVAX = await refresh_the_graph_result_AVAX()
+		if (!the_graph_result_AVAX.lp_data) return 0
 	}
 
 	let lp_ids = Object.keys(the_graph_result_BSC.lp_data)
@@ -2148,6 +2155,15 @@ const GetHighestAPY = async () => {
 		//console.log(IDs_eth[contractAddress2].link_pair)
 	}
 
+	let lp_ids_avax = Object.keys(the_graph_result_AVAX.lp_data)
+	for (let id of lp_ids_avax) {
+		highApyAvax = the_graph_result_AVAX.lp_data[id].apy
+		highApyArrayAvax.push(highApyAvax)
+		//console.log('highhh', highApy)
+		let contractAddress3 = id.split('-')[1]
+		highApyContractAVAX[highApyAvax] = contractAddress3
+	}
+
 	// let id_highApyEth = Object.keys(highApyContractEth)
 	// for (let id of id_highApyEth) {
 	// 	console.log(id)
@@ -2160,11 +2176,17 @@ const GetHighestAPY = async () => {
 	highApyArray.sort(function(a, b) {
 		return a - b
 	})
+
+	highApyArrayAvax.sort(function(a, b) {
+		return a - b
+	})
 	//console.log('bbbbb', highApyArray)
 	highApyEth = highApyArrayEth[highApyArrayEth.length - 1]
 	highApy = highApyArray[highApyArray.length - 1]
+	highApyAvax = highApyArrayAvax[highApyArrayAvax.length - 1]
 
 	highestAPY = highApy > highApyEth ? highApy : highApyEth
+	highestAPY = highestAPY > highApyAvax ? highestAPY : highApyAvax
 	return highApy
 }
 
@@ -2219,8 +2241,10 @@ const getTotalTvl = async () => {
 
 let wethPaiOutTotals = 0
 let wbnbPaidOutTotals = 0
+let avaxPaidOutTotals = 0
 let paidInUsd = 0
 let paidBnbInUsd = 0
+let paidAvaxInUsd = 0
 let paidAllInUsd = 0
 let last_update_time6 = 0
 
@@ -2280,10 +2304,44 @@ const PaidOutBNB = async () => {
 	return wbnbPaiOutTotal / 1e18
 }
 
+/* AVAX Paid */
+
+const AVAX_ADDRESS = '0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7'
+
+const getAvaxBalance = async (contractAddress) => {
+	let contract = new avaxWeb3.eth.Contract(TOKEN_ABI, AVAX_ADDRESS, {from: undefined})
+	return (await contract.methods.balanceOf(contractAddress).call())
+}
+
+const getAvaxPaidOut = async (contractAddress) => {
+	let contract = new avaxWeb3.eth.Contract(STAKING_ABI, contractAddress, {from: undefined})
+	let avaxPaidOut = await contract.methods.totalClaimedRewardsEth().call()
+	let avaxBalance = await getAvaxBalance(contractAddress)
+	return new BigNumber(avaxBalance).plus(avaxPaidOut).toString(10)
+}
+
+const PaidOutAVAX = async () => {
+	last_update_time6 = Date.now()
+	let avaxPaiOutTotal = 0
+	let lp_ids = LP_ID_LIST_AVAX
+	for (let id of lp_ids) {
+		let contractAddress = id.split('-')[1]
+		let avaxPaidOut = await Promise.all([getAvaxPaidOut(contractAddress)])
+		avaxPaiOutTotal += parseInt(avaxPaidOut, 10)
+	}
+	avaxPaidOutTotals = avaxPaiOutTotal / 1e18
+	return avaxPaiOutTotal / 1e18
+}
+
 const PaidAllInUsd = async () => {
 	last_update_time6 = Date.now()
 	//let [usdPerToken] = await Promise.all([getPrice('ethereum')])
 	//let [usdPerTokenBnb] = await Promise.all([getPrice('binancecoin')])
+
+	// Get Price Feed from Coingecko AVAX
+	let [usdPerTokenAvax] = await Promise.all([getPrice('avalanche-2')])
+
+	// Get Price feed from Chainlink for ETH and BNB
 	let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, {from: undefined})
 
 	let usdPerToken = await token_contract.methods.getThePriceEth().call()
@@ -2294,9 +2352,12 @@ const PaidAllInUsd = async () => {
 
 	let wethPaidOutTotal = await PaidOutETH()
 	let wbnbPaidOutTotal = await PaidOutBNB()
+	let avaxPaidOutTotal = await PaidOutAVAX()
+
 	paidInUsd = wethPaidOutTotal * usdPerToken
 	paidBnbInUsd = wbnbPaidOutTotal * usdPerTokenBnb
-	paidAllInUsd = paidInUsd + paidBnbInUsd
+	paidAvaxInUsd = avaxPaidOutTotal * usdPerTokenAvax
+	paidAllInUsd = paidInUsd + paidBnbInUsd + paidAvaxInUsd
 	return wethPaidOutTotal * usdPerToken
 }
 
@@ -2829,6 +2890,10 @@ app.get('/api/totalpaid', async (req, res) => {
 		bnbTotal: {
 			wbnbPaidOutTotals: wbnbPaidOutTotals,
 			paidBnbInUsd: paidBnbInUsd
+		},
+		avaxTotal: {
+			avaxPaidOutTotals: avaxPaidOutTotals,
+			paidAvaxInUsd: paidAvaxInUsd
 		},
 		totalPaidInUsd: paidAllInUsd
 	})
