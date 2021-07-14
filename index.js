@@ -17,6 +17,7 @@ const TOKEN_ADDRESS = "0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17"
 const PRICE_ADDRESS = "0x4185e6f61549133c34ffaf88c92a943fcde51619"
 
 const config = {
+	avax_endpoint: 'https://api.avax.network/ext/bc/C/rpc',
 	bsc_endpoint: 'https://bsc-dataseed.binance.org/',
 	// address of eth token on bsc!
 	claim_as_eth_address: '0x2170ed0880ac9a755fd29b2688956bd959f933f8',
@@ -28,10 +29,19 @@ const config = {
 
 		// lowercase token address => coingecko id
 		'0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17': 'defi-yield-protocol',
+	},
+
+	cg_ids_avax: {
+		'main': 'avalanche-2',
+		'platform-token': 'defi-yield-protocol',
+
+		// lowercase token address => coingecko id
+		'0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17': 'defi-yield-protocol',
 	}
 }
 
 const bscWeb3 = new Web3(config.bsc_endpoint)
+const avaxWeb3 = new Web3(config.avax_endpoint)
 
 const TOKEN_ABI = [
 	{
@@ -1460,6 +1470,32 @@ const LP_ID_LIST_BSC = Object.keys(LP_IDs_BSC).map(key => LP_IDs_BSC[key]).flat(
 const TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC = {}
 LP_ID_LIST_BSC.forEach((lp_id, i) => TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC[lp_id] = TOKENS_DISBURSED_PER_YEAR_BSC[i])
 
+
+//AVAX config
+let the_graph_result_AVAX = {}
+
+// MAKE SURE ALL THESE ADDRESSES ARE LOWERCASE
+const TOKENS_DISBURSED_PER_YEAR_AVAX = [
+	180_000,
+	270_000,
+	450_000,
+	600_000,
+]
+
+const LP_IDs_AVAX =
+	{
+		"eth": [
+			"0x497070e8b6c55fd283d8b259a6971261e2021c01-0x499c588146443235357e9c630a66d6fe0250caa1",
+			"0x497070e8b6c55fd283d8b259a6971261e2021c01-0xd8af0591be4fba56e3634c992b7fe4ff0a90b584",
+			"0x497070e8b6c55fd283d8b259a6971261e2021c01-0xbebe1fe1444a50ac6ee95ea25ba80adf5ac7322c",
+			"0x497070e8b6c55fd283d8b259a6971261e2021c01-0x79be220ab2dfcc2f140b59a97bfe6751ed1579b0",
+		]
+	}
+
+const LP_ID_LIST_AVAX = Object.keys(LP_IDs_AVAX).map(key => LP_IDs_AVAX[key]).flat()
+const TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX = {}
+LP_ID_LIST_AVAX.forEach((lp_id, i) => TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX[lp_id] = TOKENS_DISBURSED_PER_YEAR_AVAX[i])
+
 function getPrice_BSC(coingecko_id = 'ethereum', vs_currency = 'usd') {
 	return new Promise((resolve, reject) => {
 		$.get(`https://api.coingecko.com/api/v3/simple/price?ids=${coingecko_id}&vs_currencies=${vs_currency}`)
@@ -1657,6 +1693,195 @@ async function refresh_the_graph_result_BSC() {
 	the_graph_result_BSC = result
 	//window.TVL_FARMING_POOLS = await refreshBalance()
 	return result
+}
+
+/* AVAX graph */
+/**
+ * Returns the ETH USD Price, Token USD Prices, LP USD Prices, and amount of LP Staked, usd value of LP staked
+ *
+ * lp_id example: `"pair_address-pool_contract_address"`
+ *
+ * @param {{token_contract_addresses: object[], lp_ids: object[], tokens_disbursed_per_year: object}} props - MAKE SURE ALL ADDRESSES ARE LOWERCASE!
+ */
+async function get_usd_values_AVAX({
+									  token_contract_addresses,
+									  lp_ids,
+								  }) {
+	return new Promise(async (resolve, reject) => {
+
+		let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, {from: undefined})
+		let usd_per_eth = await token_contract.methods.getThePriceBnb().call()
+		usd_per_eth = (usd_per_eth / 1e8).toFixed(2)
+
+		//console.log('chainlink', usd_per_eth)
+		//let usd_per_eth2 = await getPrice_BSC(config.cg_ids['main'])
+		//console.log('coingecko', usd_per_eth)
+
+		let usdPerPlatformToken = await getPrice_BSC(config.cg_ids_avax['platform-token'])
+
+
+		async function getData(token_contract_addresses, lp_ids) {
+			let tokens = []
+			let liquidityPositions = []
+			for (let id of token_contract_addresses) {
+				let token_price_usd = await getPrice_BSC(config.cg_ids_avax[id])
+				tokens.push({id, token_price_usd})
+			}
+			for (let lp_id of lp_ids) {
+				let pairAddress = lp_id.split('-')[0]
+				let stakingContractAddress = lp_id.split('-')[1]
+
+				let platformTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
+				let pairTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, pairAddress, {from: undefined})
+
+				let [lpTotalSupply, stakingLpBalance, platformTokenInLp] = await Promise.all([pairTokenContract.methods.totalSupply().call(), pairTokenContract.methods.balanceOf(stakingContractAddress).call(), platformTokenContract.methods.balanceOf(pairAddress).call()])
+
+				let usd_per_lp = platformTokenInLp / 1e18 * usdPerPlatformToken * 2  / (lpTotalSupply/1e18)
+				let usd_value_of_lp_staked = stakingLpBalance/1e18*usd_per_lp
+				let lp_staked = stakingLpBalance/1e18
+				let id = lp_id
+				liquidityPositions.push({
+					id,
+					usd_per_lp,
+					usd_value_of_lp_staked,
+					lp_staked
+				})
+			}
+			return {data: {
+					tokens, liquidityPositions
+				}}
+		}
+
+		getData(token_contract_addresses.map(a => a.toLowerCase()), lp_ids.map(a => a.toLowerCase()))
+			.then(res => handleTheGraphData(res))
+			.catch(reject)
+
+
+		function handleTheGraphData(response) {
+			try {
+				let data = response.data
+				if (!data) return reject(response);
+
+				//console.log({data})
+
+				let token_data = {}, lp_data = {}
+
+				data.tokens.forEach(t => {
+					token_data[t.id] = t
+				})
+
+				data.liquidityPositions.forEach(lp => {
+					lp_data[lp.id] = lp
+				})
+				resolve({token_data, lp_data, usd_per_eth})
+			} catch (e) {
+				console.error(e)
+				reject(e)
+			}
+		}
+	})
+}
+
+/**
+ *
+ * @param {string[]} staking_pools_list - List of Contract Addresses for Staking Pools
+ * @returns {number[]} List of number of stakers for each pool
+ */
+async function get_number_of_stakers_AVAX(staking_pools_list) {
+
+	return (await Promise.all(staking_pools_list.map(contract_address => {
+		let contract = new avaxWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		return contract.methods.getNumberOfHolders().call()
+	}))).map(h => Number(h))
+}
+
+async function get_token_balances_AVAX({
+										  TOKEN_ADDRESS,
+										  HOLDERS_LIST
+									  }) {
+
+	let token_contract = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+
+	return (await Promise.all(HOLDERS_LIST.map(h => {
+		return token_contract.methods.balanceOf(h).call()
+	})))
+}
+
+function wait_AVAX(ms) {
+	console.log("Waiting _AVAX " + ms + 'ms')
+	return new Promise(r => setTimeout(() => {
+		r(true)
+		console.log("Wait over _AVAX!")
+	}, ms))
+}
+
+/**
+ *
+ * @param {{token_data, lp_data}} usd_values - assuming only one token is there in token_list
+ */
+async function get_apy_and_tvl_AVAX(usd_values) {
+	let {token_data, lp_data, usd_per_eth} = usd_values
+
+	let token_price_usd = token_data[TOKEN_ADDRESS].token_price_usd*1
+	let balances_by_address = {}, number_of_holders_by_address = {}
+	let lp_ids = Object.keys(lp_data)
+	let addrs = lp_ids.map(a => a.split('-')[1])
+	let token_balances = await get_token_balances_AVAX({TOKEN_ADDRESS, HOLDERS_LIST: addrs})
+	addrs.forEach((addr, i) => balances_by_address[addr] = token_balances[i])
+
+	await wait_AVAX(3500)
+
+	let number_of_holders = await get_number_of_stakers_AVAX(addrs)
+	addrs.forEach((addr, i) => number_of_holders_by_address[addr] = number_of_holders[i])
+
+	lp_ids.forEach(lp_id => {
+		let apy = 0, tvl_usd = 0
+
+		let pool_address = lp_id.split('-')[1]
+		let token_balance = new BigNumber(balances_by_address[pool_address] || 0)
+		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2)*1
+
+		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked*1
+
+		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+
+		lp_data[lp_id].apy = apy
+		lp_data[lp_id].tvl_usd = tvl_usd
+		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
+	})
+
+	return {token_data, lp_data, usd_per_eth, token_price_usd}
+}
+
+async function get_usd_values_with_apy_and_tvl_AVAX(...arguments) {
+	return (await get_apy_and_tvl_AVAX(await get_usd_values_AVAX(...arguments)))
+}
+
+
+async function refresh_the_graph_result_AVAX() {
+	let result = await get_usd_values_with_apy_and_tvl_AVAX({token_contract_addresses: [TOKEN_ADDRESS], lp_ids: LP_ID_LIST_AVAX})
+	the_graph_result_AVAX = result
+	//window.TVL_FARMING_POOLS = await refreshBalance()
+	return result
+}
+
+let COMBINED_TVL_AVAX = 0
+let last_update_time2_avax = 0
+
+const getCombinedTvlUsd_AVAX = async () => {
+	last_update_time2_avax = Date.now()
+
+	let the_graph_result_avax = await refresh_the_graph_result_AVAX()
+	let tvl = 0
+	if (!the_graph_result_avax.lp_data) return 0
+
+	let lp_ids = Object.keys(the_graph_result_avax.lp_data)
+	for (let id of lp_ids) {
+		tvl += the_graph_result_avax.lp_data[id].tvl_usd*1 || 0
+	}
+
+	COMBINED_TVL_AVAX = tvl
+	return tvl
 }
 
 /* this is for BSC only */
@@ -2493,6 +2718,15 @@ app.get('/api/the_graph_bsc', async (req, res) => {
 	}
 	res.type('application/json')
 	res.json({ the_graph_bsc: the_graph_result_BSC })
+})
+
+app.get('/api/the_graph_avax', async (req, res) => {
+	//11 minutes
+	if (Date.now() - last_update_time2_avax > 660e3) {
+		await getCombinedTvlUsd_AVAX()
+	}
+	res.type('application/json')
+	res.json({ the_graph_avax: the_graph_result_AVAX })
 })
 
 app.get('/tvl-bsc', async (req, res) => {
