@@ -2540,6 +2540,37 @@ const IDs_bsc = {
 		}
 }
 
+const IDs_avax = {
+	"0x499c588146443235357e9c630a66d6fe0250caa1":
+		{
+			pool_name: "DYP/AVAX LP Pool AVAX",
+			pair_name: "DYP-AVAX",
+			link_pair: "https://app-avax.dyp.finance/staking-avax-3",
+			return_types: "WAVAX WETH DYP"
+		},
+	"0xd8af0591be4fba56e3634c992b7fe4ff0a90b584":
+		{
+			pool_name: "DYP/AVAX LP Pool AVAX",
+			pair_name: "DYP-AVAX",
+			link_pair: "https://app-avax.dyp.finance/staking-avax-30",
+			return_types: "WAVAX WETH DYP"
+		},
+	"0xbebe1fe1444a50ac6ee95ea25ba80adf5ac7322c":
+		{
+			pool_name: "DYP/AVAX LP Pool AVAX",
+			pair_name: "DYP-AVAX",
+			link_pair: "https://app-avax.dyp.finance/staking-avax-60",
+			return_types: "WAVAX WETH DYP"
+		},
+	"0x79be220ab2dfcc2f140b59a97bfe6751ed1579b0":
+		{
+			pool_name: "DYP/AVAX LP Pool AVAX",
+			pair_name: "DYP-AVAX",
+			link_pair: "https://app-avax.dyp.finance/staking-avax-90",
+			return_types: "WAVAX WETH DYP"
+		}
+}
+
 const IDs_constant = {
 	"0x7fc2174670d672ad7f666af0704c2d961ef32c73":
 		{
@@ -2635,6 +2666,37 @@ const getFarmInfo = () => {
 		pair_name = IDs_bsc[pool_address].pair_name
 		link_pair = IDs_bsc[pool_address].link_pair
 		return_types = IDs_bsc[pool_address].return_types
+
+		farmInfo[count] = {
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			apy_percent_url: apy_percent_url,
+			tvl_usd_url: tvl_usd_url,
+			_id: _id,
+			link_logo: link_logo,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			link_pair: link_pair,
+			return_types: return_types,
+			__v: __v
+		}
+
+		count++
+	}
+
+	//AVAX
+	let lp_ids_avax = Object.keys(the_graph_result_AVAX.lp_data)
+	for (let id of lp_ids_avax) {
+
+		apy_percent = the_graph_result_AVAX.lp_data[id].apy
+		tvl_usd = the_graph_result_AVAX.lp_data[id].tvl_usd
+
+		let pool_address = id.split('-')[1]
+
+		pool_name = IDs_avax[pool_address].pool_name
+		pair_name = IDs_avax[pool_address].pair_name
+		link_pair = IDs_avax[pool_address].link_pair
+		return_types = IDs_avax[pool_address].return_types
 
 		farmInfo[count] = {
 			apy_percent: apy_percent,
