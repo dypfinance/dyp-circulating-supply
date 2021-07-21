@@ -1428,20 +1428,20 @@ let the_graph_result_BSC = {}
 
 // MAKE SURE ALL THESE ADDRESSES ARE LOWERCASE
 const TOKENS_DISBURSED_PER_YEAR_BSC = [
-	180_000,
-	270_000,
-	450_000,
-	600_000,
+	360_000,
+	540_000,
+	900_000,
+	1_200_000,
 
-	180_000,
-	270_000,
-	450_000,
-	600_000,
+	360_000,
+	540_000,
+	900_000,
+	1_200_000,
 
-	180_000,
-	270_000,
-	450_000,
-	600_000,
+	360_000,
+	540_000,
+	900_000,
+	1_200_000,
 ]
 
 const LP_IDs_BSC =
@@ -1476,10 +1476,10 @@ let the_graph_result_AVAX = {}
 
 // MAKE SURE ALL THESE ADDRESSES ARE LOWERCASE
 const TOKENS_DISBURSED_PER_YEAR_AVAX = [
-	180_000,
-	270_000,
-	450_000,
-	600_000,
+	360_000,
+	540_000,
+	900_000,
+	1_200_000,
 ]
 
 const LP_IDs_AVAX =
@@ -2109,6 +2109,9 @@ async function refresh_the_graph_result() {
 }
 
 let highestAPY = 0
+let highestAPY_ETH = 0
+let highestAPY_BSC = 0
+let highestAPY_AVAX = 0
 let last_update_time4 = 0
 
 const GetHighestAPY = async () => {
@@ -2180,6 +2183,11 @@ const GetHighestAPY = async () => {
 	highApyArrayAvax.sort(function(a, b) {
 		return a - b
 	})
+
+	highestAPY_ETH = highApyArrayEth[highApyArrayEth.length - 1]
+	highestAPY_BSC = highApyArray[highApyArray.length - 1]
+	highestAPY_AVAX = highApyArrayAvax[highApyArrayAvax.length - 1]
+
 	//console.log('bbbbb', highApyArray)
 	highApyEth = highApyArrayEth[highApyArrayEth.length - 1]
 	highApy = highApyArray[highApyArray.length - 1]
@@ -2862,8 +2870,18 @@ app.get('/api/highest-apy', async (req, res) => {
 	if (Date.now() - last_update_time4 > 660e3) {
 		await GetHighestAPY()
 	}
-	res.type('text/plain')
-	res.send(String(highestAPY))
+	// res.type('text/plain')
+	// res.send(String(highestAPY))
+
+	res.type('application/json')
+	res.json({
+		highestAPY: {
+			highestAPY_TOTAL: highestAPY,
+			highestAPY_ETH: highestAPY_ETH,
+			highestAPY_BSC: highestAPY_BSC,
+			highestAPY_AVAX: highestAPY_AVAX
+		}
+	})
 })
 
 app.get('/api/totaltvl', async (req, res) => {
