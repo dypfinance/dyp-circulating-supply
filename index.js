@@ -2675,6 +2675,10 @@ const IDs_constant = {
 		}
 }
 
+let apyInfoEth = new Map()
+let apyInfoBsc = new Map()
+let apyInfoAvax = new Map()
+
 const getFarmInfo = () => {
 
 	farmInfo = []
@@ -2820,6 +2824,75 @@ const getFarmInfo = () => {
 
 		count++
 	}
+
+	//clearing the HashMap before adding new values
+	apyInfoEth.clear()
+	apyInfoBsc.clear()
+	apyInfoAvax.clear()
+
+	//HashMaps containing all APY's for all the contracts
+	for (let pools of farmInfo) {
+
+		//HashMap for ETH network
+		if( (pools.pool_name).search('Ethereum') > 0 ) {
+
+			let lock_pair = pools.link_pair.split('/')[3].split('-')[1]
+			let staking_pair = pools.link_pair.split('/')[3].split('-')[2]
+			staking_pair = lock_pair + '_' + staking_pair
+
+			if( (pools.pair_name).search('ETH') > 0 ){
+				apyInfoEth.set(staking_pair, pools.apy_percent)
+			}
+
+			if( (pools.pair_name).search('BTC') > 0 ) {
+				apyInfoEth.set(staking_pair, pools.apy_percent)
+			}
+
+			if( (pools.pair_name).search('USDC') > 0 ){
+				apyInfoEth.set(staking_pair, pools.apy_percent)
+			}
+
+			if( (pools.pair_name).search('USDT') > 0 ){
+				apyInfoEth.set(staking_pair, pools.apy_percent)
+			}
+		}
+
+		//HashMap for BSC network
+		if( (pools.pool_name).search('BSC') > 0 ) {
+
+			let lock_pair = pools.link_pair.split('/')[3].split('-')[1]
+			let staking_pair = pools.link_pair.split('/')[3].split('-')[2]
+			staking_pair = lock_pair + '_' + staking_pair
+
+			if( (pools.pair_name).search('WBNB') > 0 ){
+				apyInfoBsc.set(staking_pair, pools.apy_percent)
+			}
+
+			if( (pools.pair_name).search('ETH') > 0 ) {
+				apyInfoBsc.set(staking_pair, pools.apy_percent)
+			}
+
+			if( (pools.pair_name).search('BUSD') > 0 ){
+				apyInfoBsc.set(staking_pair, pools.apy_percent)
+			}
+		}
+
+		//HashMap for AVAX network
+		if( (pools.pool_name).search('AVAX') > 0 ) {
+
+			let lock_pair = pools.link_pair.split('/')[3].split('-')[1]
+			let staking_pair = pools.link_pair.split('/')[3].split('-')[2]
+			staking_pair = lock_pair + '_' + staking_pair
+
+			if( (pools.pair_name).search('AVAX') > 0 ){
+				apyInfoAvax.set(staking_pair, pools.apy_percent)
+			}
+		}
+	}
+
+	console.log(apyInfoEth)
+	console.log(apyInfoBsc)
+	console.log(apyInfoAvax)
 }
 
 const app = express()
