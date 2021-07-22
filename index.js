@@ -2675,10 +2675,7 @@ const IDs_constant = {
 		}
 }
 
-let apyInfoEth = new Map()
-let apyInfoBsc = new Map()
-let apyInfoAvax = new Map()
-
+//Generate FarmInfo for Tools
 const getFarmInfo = () => {
 
 	farmInfo = []
@@ -2824,6 +2821,17 @@ const getFarmInfo = () => {
 
 		count++
 	}
+}
+
+let apyInfoEth = new Map()
+let apyInfoBsc = new Map()
+let apyInfoAvax = new Map()
+
+let strMapEth = {}
+let strMapBsc = {}
+let strMapAvax = {}
+
+const getHashMaps = () => {
 
 	//clearing the HashMap before adding new values
 	apyInfoEth.clear()
@@ -2889,6 +2897,10 @@ const getFarmInfo = () => {
 			}
 		}
 	}
+
+	strMapEth = JSON.stringify(Array.from(apyInfoEth.entries()));
+	strMapBsc = JSON.stringify(Array.from(apyInfoBsc.entries()));
+	strMapAvax = JSON.stringify(Array.from(apyInfoAvax.entries()));
 
 	// console.log(apyInfoEth)
 	// console.log(apyInfoBsc)
@@ -3013,10 +3025,24 @@ app.get('/api/check-bsc', async (req, res) => {
 })
 
 app.get('/api/get_farm_info', async (req, res) => {
+
 	getFarmInfo()
 
 	res.type('application/json')
 	res.json({ farmInfo: farmInfo })
+})
+
+app.get('/api/getHashMapApy', async (req, res) => {
+
+	getFarmInfo()
+	getHashMaps()
+
+	res.type('application/json')
+	res.json({
+		Ethereum: strMapEth,
+		Bsc: strMapBsc,
+		AVAX: strMapAvax
+	})
 })
 
 app.listen(8080, () => console.log("Running on :80"))
