@@ -2890,9 +2890,9 @@ const getFarmInfo = () => {
 		}
 	}
 
-	console.log(apyInfoEth)
-	console.log(apyInfoBsc)
-	console.log(apyInfoAvax)
+	// console.log(apyInfoEth)
+	// console.log(apyInfoBsc)
+	// console.log(apyInfoAvax)
 }
 
 const app = express()
