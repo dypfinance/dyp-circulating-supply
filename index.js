@@ -1359,6 +1359,8 @@ const PRICE_ABI = [
 	}
 ]
 
+const TOKEN_ABI_AVAX = [{"type":"constructor","stateMutability":"nonpayable","inputs":[]},{"type":"event","name":"AddSupportedChainId","inputs":[{"type":"uint256","name":"chainId","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"event","name":"AddSwapToken","inputs":[{"type":"address","name":"contractAddress","internalType":"address","indexed":false},{"type":"uint256","name":"supplyIncrement","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"event","name":"Approval","inputs":[{"type":"address","name":"owner","internalType":"address","indexed":true},{"type":"address","name":"spender","internalType":"address","indexed":true},{"type":"uint256","name":"value","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"event","name":"MigrateBridgeRole","inputs":[{"type":"address","name":"newBridgeRoleAddress","internalType":"address","indexed":false}],"anonymous":false},{"type":"event","name":"Mint","inputs":[{"type":"address","name":"to","internalType":"address","indexed":false},{"type":"uint256","name":"amount","internalType":"uint256","indexed":false},{"type":"address","name":"feeAddress","internalType":"address","indexed":false},{"type":"uint256","name":"feeAmount","internalType":"uint256","indexed":false},{"type":"bytes32","name":"originTxId","internalType":"bytes32","indexed":false}],"anonymous":false},{"type":"event","name":"RemoveSwapToken","inputs":[{"type":"address","name":"contractAddress","internalType":"address","indexed":false},{"type":"uint256","name":"supplyDecrement","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"event","name":"Swap","inputs":[{"type":"address","name":"token","internalType":"address","indexed":false},{"type":"uint256","name":"amount","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"event","name":"Transfer","inputs":[{"type":"address","name":"from","internalType":"address","indexed":true},{"type":"address","name":"to","internalType":"address","indexed":true},{"type":"uint256","name":"value","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"event","name":"Unwrap","inputs":[{"type":"uint256","name":"amount","internalType":"uint256","indexed":false},{"type":"uint256","name":"chainId","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"addSupportedChainId","inputs":[{"type":"uint256","name":"chainId","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"addSwapToken","inputs":[{"type":"address","name":"contractAddress","internalType":"address"},{"type":"uint256","name":"supplyIncrement","internalType":"uint256"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"uint256","name":"","internalType":"uint256"}],"name":"allowance","inputs":[{"type":"address","name":"owner","internalType":"address"},{"type":"address","name":"spender","internalType":"address"}]},{"type":"function","stateMutability":"nonpayable","outputs":[{"type":"bool","name":"","internalType":"bool"}],"name":"approve","inputs":[{"type":"address","name":"spender","internalType":"address"},{"type":"uint256","name":"amount","internalType":"uint256"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"uint256","name":"","internalType":"uint256"}],"name":"balanceOf","inputs":[{"type":"address","name":"account","internalType":"address"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"burn","inputs":[{"type":"uint256","name":"amount","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"burnFrom","inputs":[{"type":"address","name":"account","internalType":"address"},{"type":"uint256","name":"amount","internalType":"uint256"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"bool","name":"","internalType":"bool"}],"name":"chainIds","inputs":[{"type":"uint256","name":"","internalType":"uint256"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"uint8","name":"","internalType":"uint8"}],"name":"decimals","inputs":[]},{"type":"function","stateMutability":"nonpayable","outputs":[{"type":"bool","name":"","internalType":"bool"}],"name":"decreaseAllowance","inputs":[{"type":"address","name":"spender","internalType":"address"},{"type":"uint256","name":"subtractedValue","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[{"type":"bool","name":"","internalType":"bool"}],"name":"increaseAllowance","inputs":[{"type":"address","name":"spender","internalType":"address"},{"type":"uint256","name":"addedValue","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"migrateBridgeRole","inputs":[{"type":"address","name":"newBridgeRoleAddress","internalType":"address"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"mint","inputs":[{"type":"address","name":"to","internalType":"address"},{"type":"uint256","name":"amount","internalType":"uint256"},{"type":"address","name":"feeAddress","internalType":"address"},{"type":"uint256","name":"feeAmount","internalType":"uint256"},{"type":"bytes32","name":"originTxId","internalType":"bytes32"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"string","name":"","internalType":"string"}],"name":"name","inputs":[]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"removeSwapToken","inputs":[{"type":"address","name":"contractAddress","internalType":"address"},{"type":"uint256","name":"supplyDecrement","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"swap","inputs":[{"type":"address","name":"token","internalType":"address"},{"type":"uint256","name":"amount","internalType":"uint256"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"uint256","name":"","internalType":"uint256"}],"name":"swapSupply","inputs":[{"type":"address","name":"token","internalType":"address"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"string","name":"","internalType":"string"}],"name":"symbol","inputs":[]},{"type":"function","stateMutability":"view","outputs":[{"type":"uint256","name":"","internalType":"uint256"}],"name":"totalSupply","inputs":[]},{"type":"function","stateMutability":"nonpayable","outputs":[{"type":"bool","name":"","internalType":"bool"}],"name":"transfer","inputs":[{"type":"address","name":"recipient","internalType":"address"},{"type":"uint256","name":"amount","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[{"type":"bool","name":"","internalType":"bool"}],"name":"transferFrom","inputs":[{"type":"address","name":"sender","internalType":"address"},{"type":"address","name":"recipient","internalType":"address"},{"type":"uint256","name":"amount","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"unwrap","inputs":[{"type":"uint256","name":"amount","internalType":"uint256"},{"type":"uint256","name":"chainId","internalType":"uint256"}]}]
+
 const LP_IDs = {
 	"eth": [
 		"0xba7872534a6c9097d805d8bee97e030f4e372e54-0xa7d6f5fa9b0be0e98b3b40e6ac884e53f2f9460e",
@@ -2907,6 +2909,55 @@ const getHashMaps = () => {
 	// console.log(apyInfoAvax)
 }
 
+/* Avalanche Bridged USD */
+
+const contractList = {
+	"avalanche": [
+		"0x49d5c2bdffac6ce2bfdb6640f4f80f226bc10bab_ethereum",
+		"0x50b7545627a5162f82a992c33b87adc75187b218_bitcoin",
+		"0xd586e7f844cea2f87f50152665bcbc2c279d8d70_dai",
+		"0xc7198437980c041c805a1edcba50c1ce5db95118_tether",
+		"0x5947bb275c521040051d82396192181b413227a3_chainlink",
+		"0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664_usd-coin",
+		"0x37b608519f91f70f2eeb0e5ed9af4061722e4f76_sushi",
+		"0x63a72806098bd3d9520cc43356dd78afe5d386d9_aave",
+		"0x8ebaf22b6f053dffeaf46f4dd9efa95d89ba8580_uniswap",
+		"0x19860ccb0a68fd4213ab9d8266f7bbf05a8dde98_binance-usd",
+		"0x9eaac1b23d935365bd7b542fe22ceee2922f52dc_yearn-finance",
+		"0xc7b5d72c836e718cda8888eaf03707faef675079_trustswap",
+		"0xd501281565bf7789224523144fe5d98e8b28f267_1inch",
+		"0x8a0cac13c7da965a312f08ea4229c37869e85cb9_the-graph",
+		"0xc3048e19e76cb9a3aa9d77d8c03c29fc906e2437_compound-governance-token",
+		"0x88128fd4b259552a9a1d457f435a6527aab72d42_maker",
+		"0x98443b96ea4b0858fdf3219cd13e98c7a4690588_basic-attention-token",
+		"0xbec243c995409e6520d7c41e404da5deba4b209b_havven",
+		"0x596fa47043f99a4e0f122243b841e55375cde0d2_0x",
+		"0x3bd2b1c7ed8d396dbb98ded3aebb41350a5b2339_uma"
+	]
+}
+
+const contractListId = Object.keys(contractList).map(key => contractList[key]).flat()
+
+let totalBridgedOnAvalanche = 0
+let last_update_time_avalanche = 0
+
+const bridgedOnAvalanche = async () => {
+	last_update_time_avalanche = Date.now()
+	let contractListIds = contractListId
+	for (let id of contractListIds) {
+		let contractAddress = id.split('_')[0]
+		let contractBridge = new avaxWeb3.eth.Contract(TOKEN_ABI_AVAX, contractAddress, {from: undefined})
+		let totalSupply = await Promise.all([contractBridge.methods.totalSupply().call()])
+		let decimals = await Promise.all([contractBridge.methods.decimals().call()])
+		let tokens = totalSupply/eval('1e'+decimals)
+
+		let pricePerToken = await getPrice(id.split('_')[1])
+
+		totalBridgedOnAvalanche = totalBridgedOnAvalanche + tokens * pricePerToken
+	}
+	return totalBridgedOnAvalanche
+}
+
 const app = express()
 app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
@@ -3043,6 +3094,16 @@ app.get('/api/getHashMapApy', async (req, res) => {
 		Bsc: strMapBsc,
 		AVAX: strMapAvax
 	})
+})
+
+app.get('/api/bridged_on_avalanche', async (req, res) => {
+
+	if (Date.now() - last_update_time_avalanche > 900e3) {
+		await bridgedOnAvalanche()
+	}
+
+	res.type('text/plain')
+	res.send(String(totalBridgedOnAvalanche))
 })
 
 app.listen(8080, () => console.log("Running on :80"))
