@@ -2943,6 +2943,7 @@ let last_update_time_avalanche = 0
 
 const bridgedOnAvalanche = async () => {
 	last_update_time_avalanche = Date.now()
+	totalBridgedOnAvalanche = 0
 	let contractListIds = contractListId
 	for (let id of contractListIds) {
 		let contractAddress = id.split('_')[0]
