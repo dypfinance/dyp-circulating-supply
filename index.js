@@ -2959,6 +2959,110 @@ const bridgedOnAvalanche = async () => {
 	return totalBridgedOnAvalanche
 }
 
+/* Generate Farms Avalanche */
+
+const IDs_constant_avalanche = {
+	"0x4c7e0cbb0276a5e963266e6b9f34db73a1cb73f3":
+		{
+			pool_name: "DYP Buyback",
+			pair_name: "DYP",
+			link_pair: "https://app-avax.dyp.finance/staking-buyback",
+			return_types: "DYP",
+			apy: 100
+		}
+}
+
+let buybackTvl = 0
+let farmInfoAvalanche = []
+
+const getFarmInfoAvalanche = async () => {
+
+	farmInfoAvalanche = []
+	let count = 0
+	let apy_percent = 0,
+		tvl_usd = 0,
+		apy_percent_url = "",
+		tvl_usd_url = "",
+		_id = "6099a8c6efc4dfef87fd2ce0",
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		return_types = "",
+		__v = 0
+
+	//AVAX
+	let lp_ids_avax = Object.keys(the_graph_result_AVAX.lp_data)
+	for (let id of lp_ids_avax) {
+
+		apy_percent = the_graph_result_AVAX.lp_data[id].apy
+		tvl_usd = the_graph_result_AVAX.lp_data[id].tvl_usd
+
+		let pool_address = id.split('-')[1]
+
+		pool_name = IDs_avax[pool_address].pool_name
+		pair_name = IDs_avax[pool_address].pair_name
+		link_pair = IDs_avax[pool_address].link_pair
+		return_types = IDs_avax[pool_address].return_types
+
+		farmInfoAvalanche[count] = {
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			apy_percent_url: apy_percent_url,
+			tvl_usd_url: tvl_usd_url,
+			_id: _id,
+			link_logo: link_logo,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			link_pair: link_pair,
+			return_types: return_types,
+			__v: __v
+		}
+
+		count++
+	}
+
+	//Staking-buyback
+	let ids_constant = Object.keys(IDs_constant_avalanche)
+	let address_constant = ids_constant[0]
+
+	//Calculate TVL Buyback
+	let token_contract = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
+	let _tvlBuyback = await token_contract.methods.balanceOf(address_constant).call()
+	_tvlBuyback = _tvlBuyback / 1e18 * usdPerToken
+	buybackTvl = _tvlBuyback
+
+	for (let id of ids_constant) {
+
+		apy_percent = IDs_constant_avalanche[id].apy
+
+		if ( id == "0x4c7e0cbb0276a5e963266e6b9f34db73a1cb73f3" )
+			tvl_usd = buybackTvl
+
+		pool_name = IDs_constant_avalanche[id].pool_name
+		pair_name = IDs_constant_avalanche[id].pair_name
+		link_pair = IDs_constant_avalanche[id].link_pair
+		return_types = IDs_constant_avalanche[id].return_types
+
+		farmInfoAvalanche[count] = {
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			apy_percent_url: apy_percent_url,
+			tvl_usd_url: tvl_usd_url,
+			_id: _id,
+			link_logo: link_logo,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			link_pair: link_pair,
+			return_types: return_types,
+			__v: __v
+		}
+
+		count++
+	}
+}
+
 const app = express()
 app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
@@ -3082,6 +3186,14 @@ app.get('/api/get_farm_info', async (req, res) => {
 
 	res.type('application/json')
 	res.json({ farmInfo: farmInfo })
+})
+
+app.get('/api/get_farm_info_avalanche', async (req, res) => {
+
+	await getFarmInfoAvalanche()
+
+	res.type('application/json')
+	res.json({ farmInfoAvalanche: farmInfoAvalanche })
 })
 
 app.get('/api/getHashMapApy', async (req, res) => {
