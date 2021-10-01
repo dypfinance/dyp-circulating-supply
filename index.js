@@ -3063,6 +3063,251 @@ const getFarmInfoAvalanche = async () => {
 	}
 }
 
+/* Generate Farms Binance */
+
+const IDs_constant_binance = {
+	"0x350f3fe979bfad4766298713c83b387c2d2d7a7a":
+		{
+			pool_name: "DYP Buyback",
+			pair_name: "DYP",
+			link_pair: "https://app-bsc.dyp.finance/staking-buyback",
+			return_types: "DYP",
+			apy: 100
+		}
+}
+
+let buybackTvlBinance = 0
+let farmInfoBinance = []
+
+const getFarmInfoBinance = async () => {
+
+	farmInfoBinance = []
+	let count = 0
+	let apy_percent = 0,
+		tvl_usd = 0,
+		apy_percent_url = "",
+		tvl_usd_url = "",
+		_id = "6099a8c6efc4dfef87fd2ce0",
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		return_types = "",
+		__v = 0
+
+	//BSC
+	let lp_ids_bsc = Object.keys(the_graph_result_BSC.lp_data)
+	for (let id of lp_ids_bsc) {
+
+		apy_percent = the_graph_result_BSC.lp_data[id].apy
+		tvl_usd = the_graph_result_BSC.lp_data[id].tvl_usd
+
+		let pool_address = id.split('-')[1]
+
+		pool_name = IDs_bsc[pool_address].pool_name
+		pair_name = IDs_bsc[pool_address].pair_name
+		link_pair = IDs_bsc[pool_address].link_pair
+		return_types = IDs_bsc[pool_address].return_types
+
+		farmInfoBinance[count] = {
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			apy_percent_url: apy_percent_url,
+			tvl_usd_url: tvl_usd_url,
+			_id: _id,
+			link_logo: link_logo,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			link_pair: link_pair,
+			return_types: return_types,
+			__v: __v
+		}
+
+		count++
+	}
+
+	//Staking-buyback Binance
+	let ids_constant = Object.keys(IDs_constant_binance)
+	let address_constant = ids_constant[0]
+
+	//Calculate TVL Buyback Binance
+	let token_contract = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
+	let _tvlBuyback = await token_contract.methods.balanceOf(address_constant).call()
+	_tvlBuyback = _tvlBuyback / 1e18 * usdPerToken
+	buybackTvlBinance = _tvlBuyback
+
+	for (let id of ids_constant) {
+
+		apy_percent = IDs_constant_binance[id].apy
+
+		if ( id == "0x350f3fe979bfad4766298713c83b387c2d2d7a7a" )
+			tvl_usd = buybackTvlBinance
+
+		pool_name = IDs_constant_binance[id].pool_name
+		pair_name = IDs_constant_binance[id].pair_name
+		link_pair = IDs_constant_binance[id].link_pair
+		return_types = IDs_constant_binance[id].return_types
+
+		farmInfoBinance[count] = {
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			apy_percent_url: apy_percent_url,
+			tvl_usd_url: tvl_usd_url,
+			_id: _id,
+			link_logo: link_logo,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			link_pair: link_pair,
+			return_types: return_types,
+			__v: __v
+		}
+
+		count++
+	}
+}
+
+/* Generate Farms Ethereum */
+
+const IDs_constant_ethereum = {
+	"0xe5262f38bf13410a79149cb40429f8dc5e830542":
+		{
+			pool_name: "DYP Buyback",
+			pair_name: "DYP",
+			link_pair: "https://app.dyp.finance/staking-buyback",
+			return_types: "DYP",
+			apy: 100
+		}
+}
+
+let buybackTvlEthereum = 0
+let farmInfoEthereum = []
+
+const getFarmInfoEthereum = async () => {
+
+	farmInfoEthereum = []
+	let count = 0
+	let apy_percent = 0,
+		tvl_usd = 0,
+		apy_percent_url = "",
+		tvl_usd_url = "",
+		_id = "6099a8c6efc4dfef87fd2ce0",
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		return_types = "",
+		__v = 0
+
+	//ETH
+	let lp_ids = Object.keys(the_graph_result.lp_data)
+	for (let id of lp_ids) {
+
+		apy_percent = the_graph_result.lp_data[id].apy
+		tvl_usd = the_graph_result.lp_data[id].tvl_usd
+
+		let pool_address = id.split('-')[1]
+
+		pool_name = IDs_eth[pool_address].pool_name
+		pair_name = IDs_eth[pool_address].pair_name
+		link_pair = IDs_eth[pool_address].link_pair
+		return_types = IDs_eth[pool_address].return_types
+
+		farmInfoEthereum[count] = {
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			apy_percent_url: apy_percent_url,
+			tvl_usd_url: tvl_usd_url,
+			_id: _id,
+			link_logo: link_logo,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			link_pair: link_pair,
+			return_types: return_types,
+			__v: __v
+		}
+
+		count++
+	}
+
+	//Constant-staking
+	let ids_constant_staking = Object.keys(IDs_constant)
+	for (let id of ids_constant_staking) {
+
+		apy_percent = IDs_constant[id].apy
+
+		if ( id == "0x7fc2174670d672ad7f666af0704c2d961ef32c73" )
+			tvl_usd = farmingTvl30
+		if ( id == "0x036e336ea3ac2e255124cf775c4fdab94b2c42e4" )
+			tvl_usd = farmingTvl60
+		if ( id == "0x0a32749d95217b7ee50127e24711c97849b70c6a" )
+			tvl_usd = farmingTvl90
+		if ( id == "0x82df1450efd6b504ee069f5e4548f2d5cb229880" )
+			tvl_usd = farmingTvl120
+
+		pool_name = IDs_constant[id].pool_name
+		pair_name = IDs_constant[id].pair_name
+		link_pair = IDs_constant[id].link_pair
+		return_types = IDs_constant[id].return_types
+
+		farmInfoEthereum[count] = {
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			apy_percent_url: apy_percent_url,
+			tvl_usd_url: tvl_usd_url,
+			_id: _id,
+			link_logo: link_logo,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			link_pair: link_pair,
+			return_types: return_types,
+			__v: __v
+		}
+
+		count++
+	}
+
+	//Staking-buyback Ethereum
+	let ids_constant = Object.keys(IDs_constant_ethereum)
+	let address_constant = ids_constant[0]
+
+	//Calculate TVL Buyback Binance
+	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
+	let _tvlBuyback = await token_contract.methods.balanceOf(address_constant).call()
+	_tvlBuyback = _tvlBuyback / 1e18 * usdPerToken
+	buybackTvlEthereum = _tvlBuyback
+
+	for (let id of ids_constant) {
+
+		apy_percent = IDs_constant_ethereum[id].apy
+
+		if ( id == "0xe5262f38bf13410a79149cb40429f8dc5e830542" )
+			tvl_usd = buybackTvlEthereum
+
+		pool_name = IDs_constant_ethereum[id].pool_name
+		pair_name = IDs_constant_ethereum[id].pair_name
+		link_pair = IDs_constant_ethereum[id].link_pair
+		return_types = IDs_constant_ethereum[id].return_types
+
+		farmInfoEthereum[count] = {
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			apy_percent_url: apy_percent_url,
+			tvl_usd_url: tvl_usd_url,
+			_id: _id,
+			link_logo: link_logo,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			link_pair: link_pair,
+			return_types: return_types,
+			__v: __v
+		}
+
+		count++
+	}
+}
+
 const app = express()
 app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
@@ -3194,6 +3439,22 @@ app.get('/api/get_farm_info_avalanche', async (req, res) => {
 
 	res.type('application/json')
 	res.json({ farmInfoAvalanche: farmInfoAvalanche })
+})
+
+app.get('/api/get_farm_info_ethereum', async (req, res) => {
+
+	await getFarmInfoEthereum()
+
+	res.type('application/json')
+	res.json({ farmInfoEthereum: farmInfoEthereum })
+})
+
+app.get('/api/get_farm_info_binance', async (req, res) => {
+
+	await getFarmInfoBinance()
+
+	res.type('application/json')
+	res.json({ farmInfoBinance: farmInfoBinance })
 })
 
 app.get('/api/getHashMapApy', async (req, res) => {
