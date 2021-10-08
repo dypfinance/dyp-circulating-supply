@@ -3338,6 +3338,40 @@ const getFarmInfoEthereum = async () => {
 	}
 }
 
+/* Get Holders from all chains */
+
+const urlMetadata = require('url-metadata')
+
+let totalHolders = 0
+let last_update_time_holders = 0
+
+const getHolders = async () => {
+	last_update_time_holders = Date.now()
+
+	let holdersAvax = await fetchAsync('https://cchain.explorer.avax.network/token-counters?id=0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17')
+	let holdersEth = await fetchAsync('https://api.ethplorer.io/getTokenInfo/0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17?apiKey=freekey')
+
+	totalHolders = holdersAvax.token_holder_count + holdersEth.holdersCount
+
+	let meta = {}
+	let holdersBsc = 0
+
+	await urlMetadata('https://bscscan.com/token/0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17').then(
+		function (metadata) { // success handler
+			meta = metadata
+			let stringx = JSON.stringify(meta.description)
+			let stringBetweenCharacters = stringx.match(/holders (.*?) and/i)[1].replace(',', '')
+			holdersBsc = parseInt(stringBetweenCharacters)
+			return holdersBsc
+		},
+		function (error) { // failure handler
+			console.log(error)
+		})
+	totalHolders = totalHolders + holdersBsc
+
+	return holdersAvax
+}
+
 const app = express()
 app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
@@ -3508,6 +3542,16 @@ app.get('/api/bridged_on_avalanche', async (req, res) => {
 
 	res.type('text/plain')
 	res.send(String(totalBridgedOnAvalanche))
+})
+
+app.get('/api/getHolders', async (req, res) => {
+
+	if (Date.now() - last_update_time_holders > 3600e3) {
+		await getHolders()
+	}
+
+	res.type('text/plain')
+	res.send(String(totalHolders))
 })
 
 app.listen(8080, () => console.log("Running on :80"))
