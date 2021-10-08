@@ -2233,17 +2233,47 @@ async function refreshBalanceFarming() {
 
 }
 
+/* Get buyback DYP balance from all chains */
+
+async function getTokenHolderBalance(holder, network) {
+	if (network == 1) {
+		let tokenContract = new infuraWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
+		return await tokenContract.methods.balanceOf(holder).call()
+	}
+	if (network == 2){
+		let tokenContract = new bscWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
+		return await tokenContract.methods.balanceOf(holder).call()
+	}
+	if(network == 3){
+		let tokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
+		return await tokenContract.methods.balanceOf(holder).call()
+	}
+	return 0
+}
+
 const getTotalTvl = async () => {
 	last_update_time5 = Date.now()
 	let tvl = 0
 	let farmingTvl = await refreshBalanceFarming()
+	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
+
+	let ethBuybackTvl = await getTokenHolderBalance('0xe5262f38bf13410a79149cb40429f8dc5e830542', 1)
+	let bscBuybackTvl = await getTokenHolderBalance('0x350f3fe979bfad4766298713c83b387c2d2d7a7a', 2)
+	let avaxBuybackTvl = await getTokenHolderBalance('0x4c7e0cbb0276a5e963266e6b9f34db73a1cb73f3', 3)
+
+	ethBuybackTvl = (ethBuybackTvl/1e18) * usdPerToken
+	bscBuybackTvl = (bscBuybackTvl/1e18) * usdPerToken
+	avaxBuybackTvl = (avaxBuybackTvl/1e18) * usdPerToken
 
 	let lp_ids = Object.keys(the_graph_result.lp_data)
 	for (let id of lp_ids) {
-		tvl += the_graph_result.lp_data[id].tvl_usd*1 || 0
+		tvl += the_graph_result.lp_data[id].tvl_usd * 1 || 0
 	}
 
-	tvltotal = COMBINED_TVL_BSC + tvl + farmingTvl
+	//Get Total value locked of Vaults on Ethereum from DeFiLLama
+	let tvlVaults = await fetchAsync('https://api.llama.fi/tvl/defi-yield-protocol')
+
+	tvltotal = tvl + farmingTvl + COMBINED_TVL_BSC + COMBINED_TVL_AVAX + ethBuybackTvl + bscBuybackTvl + avaxBuybackTvl + tvlVaults
 	return tvltotal
 }
 
