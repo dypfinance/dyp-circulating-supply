@@ -3369,7 +3369,8 @@ const getHolders = async () => {
 		function (error) { // failure handler
 			console.log(error)
 		})
-	totalHolders = totalHolders + holdersBsc
+	// totalHolders = totalHolders + holdersBsc
+	totalHolders = totalHolders + 9108
 
 	return holdersAvax
 }
