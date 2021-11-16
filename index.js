@@ -3350,10 +3350,11 @@ let last_update_time_holders = 0
 const getHolders = async () => {
 	last_update_time_holders = Date.now()
 
-	let holdersAvax = await fetchAsync('https://cchain.explorer.avax.network/token-counters?id=0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17')
+	//let holdersAvax = await fetchAsync('https://cchain.explorer.avax.network/token-counters?id=0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17')
 	let holdersEth = await fetchAsync('https://api.ethplorer.io/getTokenInfo/0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17?apiKey=freekey')
 
-	totalHolders = holdersAvax.token_holder_count + holdersEth.holdersCount
+	//totalHolders = holdersAvax.token_holder_count + holdersEth.holdersCount
+	totalHolders = 10513 + holdersEth.holdersCount
 
 	let meta = {}
 	let holdersBsc = 0
@@ -3370,9 +3371,9 @@ const getHolders = async () => {
 			console.log(error)
 		})
 	// totalHolders = totalHolders + holdersBsc
-	totalHolders = totalHolders + 9108
+	totalHolders = totalHolders + 9118
 
-	return holdersAvax
+	return totalHolders
 }
 
 const app = express()
