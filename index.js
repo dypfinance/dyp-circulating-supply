@@ -2364,6 +2364,7 @@ const getWbnbPaidOut = async (contractAddress) => {
 const PaidOutBNB = async () => {
 	last_update_time6 = Date.now()
 	let wbnbPaiOutTotal = 0
+	let wbnbPaiOutTotal_v2 = 0
 	let lp_ids = LP_ID_LIST_BSC
 	for (let id of lp_ids) {
 		let contractAddress = id.split('-')[1]
@@ -2371,7 +2372,18 @@ const PaidOutBNB = async () => {
 		wbnbPaiOutTotal += parseInt(wbnbPaidOut, 10)
 	}
 	wbnbPaidOutTotals = wbnbPaiOutTotal / 1e18
-	return wbnbPaiOutTotal / 1e18
+
+	/* Calculate Paid in BNB for Farming BSC V2 iDYP */
+	let lp_ids_v2 = LP_ID_LIST_BSC_V2
+	for (let id of lp_ids_v2) {
+		let contractAddress = id.split('-')[1]
+		let wbnbPaidOut = await Promise.all([getWbnbPaidOut(contractAddress)])
+		wbnbPaiOutTotal_v2 += parseInt(wbnbPaidOut, 10)
+	}
+	//wbnbPaidOutTotals = wbnbPaiOutTotal / 1e18
+	wbnbPaidOutTotals = wbnbPaiOutTotal / 1e18 + wbnbPaiOutTotal_v2 / 1e18
+
+	return wbnbPaiOutTotal / 1e18 + wbnbPaiOutTotal_v2 / 1e18
 }
 
 /* AVAX Paid */
