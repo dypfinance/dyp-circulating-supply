@@ -2259,6 +2259,10 @@ async function getTokenHolderBalance(holder, network) {
 
 const getTotalTvl = async () => {
 	last_update_time5 = Date.now()
+	let tvliDYP = await totalTvliDYP()
+	tvliDYP = parseInt(tvliDYP)
+	let tvlFarmDyp = await totalTvlFarmingStakingV2()
+	tvlFarmDyp = parseInt(tvlFarmDyp)
 	let tvl = 0
 	let farmingTvl = await refreshBalanceFarming()
 	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
@@ -2279,7 +2283,7 @@ const getTotalTvl = async () => {
 	//Get Total value locked of Vaults on Ethereum from DeFiLLama
 	let tvlVaults = await fetchAsync('https://api.llama.fi/tvl/defi-yield-protocol')
 
-	tvltotal = tvl + farmingTvl + COMBINED_TVL_BSC + COMBINED_TVL_AVAX + ethBuybackTvl + bscBuybackTvl + avaxBuybackTvl + tvlVaults
+	tvltotal = tvl + farmingTvl + COMBINED_TVL_BSC + COMBINED_TVL_AVAX + ethBuybackTvl + bscBuybackTvl + avaxBuybackTvl + tvlVaults + tvliDYP + tvlFarmDyp
 	return tvltotal
 }
 
@@ -3385,6 +3389,8 @@ const getHolders = async () => {
 
 let the_graph_result_BSC_V2 = {}
 
+let price_iDYP = 0
+
 // MAKE SURE ALL THESE ADDRESSES ARE LOWERCASE
 const TOKENS_DISBURSED_PER_YEAR_BSC_V2 = [
 	660_000,
@@ -3435,7 +3441,7 @@ function get_usd_values_BSC_V2({
 		let _amountOutMin = await router.methods.getAmountsOut(amount, path).call()
 		_amountOutMin = _amountOutMin[_amountOutMin.length - 1]
 		_amountOutMin = new BigNumber(_amountOutMin).div(1e18).toFixed(18)
-		//console.log({_amountOutMin})
+		price_iDYP = _amountOutMin
 
 		async function getData(token_contract_addresses, lp_ids) {
 			let tokens = []
@@ -3588,6 +3594,84 @@ async function refresh_the_graph_result_BSC_V2() {
 	//window.TVL_FARMING_POOLS = await refreshBalance()
 	return result
 }
+
+/**
+ *
+ * TODO TVL Staking
+ * DYP - iDYP
+ * TODO TVL Farming
+ * LP - iDYP
+ * TODO TVL Buyback
+ * iDYP
+ * */
+
+/* TVL Buyback & Farming & Staking -> iDYP */
+
+const newContracts = [
+	"0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90",
+	"0xaF411BF994dA1435A3150B874395B86376C5f2d5",
+	"0x94B1A7B57C441890b7a0f64291B39ad6f7E14804",
+	"0x9af074cE714FE1Eb32448052a38D274E93C5dc28",
+	"0x4eF782E66244A0CF002016AA1Db3019448c670aE",
+	"0xDBfb96e2899d52B469C1a1C35eD71fBBa228d2cC",
+	"0x537DC4fee298Ea79A7F65676735415f1E2882F92",
+	"0xc794cDb8D6aC5eB42d5ABa9c1E641ae17c239c8c",
+	"0x219717BF0bC33b2764A6c1A772F75305458BDA3d",
+	"0x23609B1f5274160564e4afC5eB9329A8Bf81c744",
+	"0xD1151a2434931f34bcFA6c27639b67C1A23D93Af",
+	"0x264922696b9972687522b6e98Bf78A0430E2163C",
+	"0xed869Ba773c3F1A1adCC87930Ca36eE2dC73435d",
+	"0x9DF0A645BeB6F7aDFaDC56f3689E79405337EFE2",
+	"0x415B1624710296717FA96cAD84F53454E8F02D18",
+	"0xbd574278fEbad04b7A0694C37DeF4f2ecFa9354A"
+]
+
+async function totalTvliDYP () {
+	let tvliDYP = 0
+
+	let token_balances = await get_token_balances_BSC({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: newContracts})
+
+	await wait(2000)
+
+	for (let id of token_balances){
+		tvliDYP = new BigNumber(tvliDYP).plus(id)
+	}
+
+	tvliDYP = new BigNumber(tvliDYP).div(1e18).times(price_iDYP).toFixed(0)
+
+
+	return tvliDYP
+}
+
+/* TVL Staking + Farming -> DYP + LP */
+
+async function totalTvlFarmingStakingV2 () {
+	let tvlTotal = 0
+	let tvlStaking = 0
+
+	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
+
+	let token_balances = await get_token_balances_BSC({TOKEN_ADDRESS: TOKEN_ADDRESS, HOLDERS_LIST: newContracts})
+
+	tvlTotal = tvlTotal + the_graph_result_BSC_V2.lp_data[LP_IDs_BSC_V2.wbnb[0]].tvl_usd +
+		the_graph_result_BSC_V2.lp_data[LP_IDs_BSC_V2.wbnb[1]].tvl_usd +
+		the_graph_result_BSC_V2.lp_data[LP_IDs_BSC_V2.wbnb[2]].tvl_usd +
+		the_graph_result_BSC_V2.lp_data[LP_IDs_BSC_V2.wbnb[3]].tvl_usd +
+		the_graph_result_BSC_V2.lp_data[LP_IDs_BSC_V2.wbnb[4]].tvl_usd
+
+	for (let id of token_balances){
+		tvlStaking = new BigNumber(tvlStaking).plus(id)
+	}
+
+	tvlStaking = new BigNumber(tvlStaking).div(1e18).times(usdPerToken).toFixed(0)
+
+	tvlTotal = new BigNumber(tvlTotal).plus(tvlStaking).toFixed(0)
+
+	//console.log({tvlTotal})
+
+	return tvlTotal
+}
+
 
 const app = express()
 app.use(cors())
