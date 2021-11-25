@@ -3582,7 +3582,7 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 
 	//console.log({usd_values})
 
-	let token_price_usd = token_data[TOKEN_ADDRESS].token_price_usd*1
+	let token_price_usd = token_data[TOKEN_ADDRESS_IDYP].token_price_usd*1
 	let balances_by_address = {}, number_of_holders_by_address = {}
 	let lp_ids = Object.keys(lp_data)
 	let addrs = lp_ids.map(a => a.split('-')[1])
