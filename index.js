@@ -3705,6 +3705,51 @@ async function totalTvlFarmingStakingV2 () {
 }
 
 
+/* Calculate Circulating Supply iDYP */
+const HOLDERS_LIST_IDYP = LP_ID_LIST_BSC_V2.map(a => a.split('-')[1]).concat([
+	"0xd54cd2d573dffbc768ab871c0eed458b05a9b89b", /* Token Lock */
+	"0x71438f8609e85dedb49d3536aaded136a76eac93", /* Vesting 10 years */
+	"0x06e69d8147bc9236E76b456Df990236c6F79Affd",
+	"0x9fF543C60d963b3b0e1456de53AE854Aa732633A",
+	"0x055cd97920d9380facdc833991cc93b3be177974",
+	"0xf01B48F894cf68E9D238138D6E281eFA8ea511A2",
+	"0xfa5f5EB2398A41DC63c0Eb671993497ff843E7f7",
+	"0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90",
+	"0xaF411BF994dA1435A3150B874395B86376C5f2d5",
+	"0x94B1A7B57C441890b7a0f64291B39ad6f7E14804",
+	"0x9af074cE714FE1Eb32448052a38D274E93C5dc28",
+	"0x4eF782E66244A0CF002016AA1Db3019448c670aE",
+	"0xDBfb96e2899d52B469C1a1C35eD71fBBa228d2cC",
+	"0xc794cDb8D6aC5eB42d5ABa9c1E641ae17c239c8c",
+	"0x23609B1f5274160564e4afC5eB9329A8Bf81c744",
+	"0x264922696b9972687522b6e98Bf78A0430E2163C",
+	"0x9DF0A645BeB6F7aDFaDC56f3689E79405337EFE2",
+	"0xbd574278fEbad04b7A0694C37DeF4f2ecFa9354A",
+	"0x000000000000000000000000000000000000dead"
+])
+
+async function get_token_balances_bsc({
+										  TOKEN_ADDRESS,
+										  HOLDERS_LIST
+									  }) {
+	let token_contract = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+
+	return (await Promise.all(HOLDERS_LIST.map(h => {
+		return token_contract.methods.balanceOf(h).call()
+	})))
+}
+
+let token_balance_sum_idyp = 0;
+let last_update_time_idyp = 0;
+let circulating_supply_idyp = 0;
+async function update_token_balance_sum_bsc() {
+	last_update_time_idyp = Date.now()
+	token_balance_sum_idyp = get_token_balances_sum( await get_token_balances_bsc({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: HOLDERS_LIST_IDYP}) ).div(1e18).toString(10)
+	circulating_supply_idyp = new BigNumber(300000000).minus(token_balance_sum_idyp);
+	return token_balance_sum_idyp
+}
+
+
 const app = express()
 app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
@@ -3714,6 +3759,15 @@ app.get('/api/circulating-supply', async (req, res) => {
 	}
 	res.type('text/plain')
 	res.send(String(circulating_supply))
+})
+
+app.get('/api/circulating-supply-idyp', async (req, res) => {
+	//5 minutes
+	if (Date.now() - last_update_time_idyp > 300e3) {
+		await update_token_balance_sum_bsc()
+	}
+	res.type('text/plain')
+	res.send(String(circulating_supply_idyp))
 })
 
 app.get('/api/the_graph_bsc_v2', async (req, res) => {
