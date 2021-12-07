@@ -25,7 +25,9 @@ const config = {
 	reward_token_address: '0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17',
 	reward_token_address2: '0xbd100d061e120b2c67a24453cf6368e63f1be056',
 	pancakeswap_router_address: '0x10ed43c718714eb63d5aa57b78b54704e256024e',
+	pangolin_router_address: '0xE54Ca86531e17Ef3616d22Ca28b0D458b6C89106',
 	BUSD_address: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+	USDCe_address: '0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664',
 
 	cg_ids: {
 		'main': 'binancecoin',
@@ -1715,12 +1717,12 @@ async function get_usd_values_AVAX({
 								  }) {
 	return new Promise(async (resolve, reject) => {
 
-		let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, {from: undefined})
-		let usd_per_eth = await token_contract.methods.getThePriceBnb().call()
-		usd_per_eth = (usd_per_eth / 1e8).toFixed(2)
+		// let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, {from: undefined})
+		// let usd_per_eth = await token_contract.methods.getThePriceBnb().call()
+		// usd_per_eth = (usd_per_eth / 1e8).toFixed(2)
 
 		//console.log('chainlink', usd_per_eth)
-		//let usd_per_eth2 = await getPrice_BSC(config.cg_ids['main'])
+		let usd_per_eth = await getPrice_BSC(config.cg_ids_avax['main'])
 		//console.log('coingecko', usd_per_eth)
 
 		let usdPerPlatformToken = await getPrice_BSC(config.cg_ids_avax['platform-token'])
@@ -3750,6 +3752,216 @@ async function update_token_balance_sum_bsc() {
 }
 
 
+/* The Graph AVAX New Smart Contracts */
+
+let the_graph_result_AVAX_V2 = {}
+
+let price_iDYP_avax = 0
+
+// MAKE SURE ALL THESE ADDRESSES ARE LOWERCASE
+const TOKENS_DISBURSED_PER_YEAR_AVAX_V2 = [
+	660_000,
+	996_000,
+	1_680_000,
+	2_220_000,
+	2_760_000,
+]
+
+const LP_IDs_AVAX_V2 =
+	{
+		"wavax": [
+			"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x035d65babf595758d7a439d5870badc44218d028",
+			"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x6c325dfea0d18387d423c869e328ef005cba024f",
+			"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x85c4f0cea0994de365dc47ba22dd0fd9899f93ab",
+			"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x6f5dc6777b2b4667bf183d093111867239518af5",
+			"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x10e105676cac55b74cb6500a8fb5d2f84804393d",
+		]
+	}
+
+const LP_ID_LIST_AVAX_V2 = Object.keys(LP_IDs_AVAX_V2).map(key => LP_IDs_AVAX_V2[key]).flat()
+const TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX_V2 = {}
+LP_ID_LIST_AVAX_V2.forEach((lp_id, i) => TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX_V2[lp_id] = TOKENS_DISBURSED_PER_YEAR_AVAX_V2[i])
+
+PANGOLIN_ROUTER_ABI = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WAVAX","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WAVAX","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"amountADesired","type":"uint256"},{"internalType":"uint256","name":"amountBDesired","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountTokenDesired","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountAVAXMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidityAVAX","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountAVAX","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountIn","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountOut","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"reserveA","type":"uint256"},{"internalType":"uint256","name":"reserveB","type":"uint256"}],"name":"quote","outputs":[{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountAVAXMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityAVAX","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountAVAX","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountAVAXMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityAVAXSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountAVAX","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountAVAXMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityAVAXWithPermit","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountAVAX","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountAVAXMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityAVAXWithPermitSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountAVAX","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityWithPermit","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapAVAXForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactAVAXForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactAVAXForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForAVAX","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForAVAXSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactAVAX","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
+async function getPangolinRouterContract(address=config.pangolin_router_address) {
+	return (new avaxWeb3.eth.Contract(PANGOLIN_ROUTER_ABI, address, {from: undefined}))
+}
+
+function get_usd_values_AVAX_V2({
+								   token_contract_addresses,
+								   lp_ids,
+							   }) {
+	return new Promise(async (resolve, reject) => {
+
+		let usd_per_eth = await getPrice(config.cg_ids_avax['main'])
+		let usdPerPlatformToken = await getPrice(config.cg_ids_avax['platform-token'])
+
+		let aux_Price = usdPerPlatformToken
+
+		let amount = new BigNumber(1000000000000000000).toFixed(0)
+		let router = await getPangolinRouterContract()
+		let WETH = await router.methods.WAVAX().call()
+		let platformTokenAddress = config.USDCe_address
+		let rewardTokenAddress = config.reward_token_address2
+		let path = [...new Set([rewardTokenAddress, WETH, platformTokenAddress].map(a => a.toLowerCase()))]
+		let _amountOutMin = await router.methods.getAmountsOut(amount, path).call()
+		_amountOutMin = _amountOutMin[_amountOutMin.length - 1]
+		_amountOutMin = new BigNumber(_amountOutMin).div(1e6).toFixed(18)
+		price_iDYP_avax = _amountOutMin
+		//console.log({price_iDYP_avax})
+
+		async function getData(token_contract_addresses, lp_ids) {
+			let tokens = []
+			let liquidityPositions = []
+			let token_price_usd = 0
+			for (let id of token_contract_addresses) {
+				//Add the price from iDYP
+				if(id==TOKEN_ADDRESS)
+					token_price_usd = await getPrice(config.cg_ids_avax[id])
+				else
+					token_price_usd = parseFloat(_amountOutMin)
+				tokens.push({id, token_price_usd})
+			}
+
+			let platformTokenContract = {}
+			for (let lp_id of lp_ids) {
+				let pairAddress = lp_id.split('-')[0]
+				let stakingContractAddress = lp_id.split('-')[1]
+
+				if (pairAddress == '0x66eecc97203704d9e2db4a431cb0e9ce92539d5a'){
+					platformTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address2, {from: undefined})
+					usdPerPlatformToken = _amountOutMin
+				}
+				else {
+					platformTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
+					usdPerPlatformToken = aux_Price
+				}
+
+				let pairTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, pairAddress, {from: undefined})
+
+				let [lpTotalSupply, stakingLpBalance, platformTokenInLp] = await Promise.all([pairTokenContract.methods.totalSupply().call(), pairTokenContract.methods.balanceOf(stakingContractAddress).call(), platformTokenContract.methods.balanceOf(pairAddress).call()])
+
+				let usd_per_lp = platformTokenInLp / 1e18 * usdPerPlatformToken * 2  / (lpTotalSupply/1e18)
+				let usd_value_of_lp_staked = stakingLpBalance/1e18*usd_per_lp
+				let lp_staked = stakingLpBalance/1e18
+				let id = lp_id
+				liquidityPositions.push({
+					id,
+					usd_per_lp,
+					usd_value_of_lp_staked,
+					lp_staked
+				})
+			}
+			return {data: {
+					tokens, liquidityPositions
+				}}
+		}
+
+		getData(token_contract_addresses.map(a => a.toLowerCase()), lp_ids.map(a => a.toLowerCase()))
+			.then(res => handleTheGraphData(res))
+			.catch(reject)
+
+
+		function handleTheGraphData(response) {
+			try {
+				let data = response.data
+				if (!data) return reject(response);
+
+				//console.log({data})
+
+				let token_data = {}, lp_data = {}
+
+				data.tokens.forEach(t => {
+					token_data[t.id] = t
+				})
+
+				data.liquidityPositions.forEach(lp => {
+					lp_data[lp.id] = lp
+				})
+				resolve({token_data, lp_data, usd_per_eth})
+			} catch (e) {
+				console.error(e)
+				reject(e)
+			}
+		}
+	})
+}
+
+/**
+ *
+ * @param {string[]} staking_pools_list - List of Contract Addresses for Staking Pools
+ * @returns {number[]} List of number of stakers for each pool
+ */
+async function get_number_of_stakers_AVAX_V2(staking_pools_list) {
+
+	return (await Promise.all(staking_pools_list.map(contract_address => {
+		let contract = new avaxWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		return contract.methods.getNumberOfHolders().call()
+	}))).map(h => Number(h))
+}
+
+async function get_token_balances_AVAX_V2({
+											 TOKEN_ADDRESS,
+											 HOLDERS_LIST
+										 }) {
+
+	let token_contract = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+
+	return (await Promise.all(HOLDERS_LIST.map(h => {
+		return token_contract.methods.balanceOf(h).call()
+	})))
+}
+
+async function get_apy_and_tvl_AVAX_V2(usd_values) {
+	let {token_data, lp_data, usd_per_eth} = usd_values
+
+	//console.log({usd_values})
+
+	let token_price_usd = token_data[TOKEN_ADDRESS_IDYP].token_price_usd*1
+	let balances_by_address = {}, number_of_holders_by_address = {}
+	let lp_ids = Object.keys(lp_data)
+	let addrs = lp_ids.map(a => a.split('-')[1])
+	let token_balances = await get_token_balances_AVAX_V2({TOKEN_ADDRESS, HOLDERS_LIST: addrs})
+	addrs.forEach((addr, i) => balances_by_address[addr] = token_balances[i])
+
+	await wait(2000)
+
+	let number_of_holders = await get_number_of_stakers_AVAX_V2(addrs)
+	addrs.forEach((addr, i) => number_of_holders_by_address[addr] = number_of_holders[i])
+
+	lp_ids.forEach(lp_id => {
+		let apy = 0, tvl_usd = 0
+
+		let pool_address = lp_id.split('-')[1]
+		let token_balance = new BigNumber(balances_by_address[pool_address] || 0)
+		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2)*1
+
+		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked*1
+
+		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX_V2[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+
+		lp_data[lp_id].apy = apy
+		lp_data[lp_id].tvl_usd = tvl_usd
+		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
+	})
+
+	return {token_data, lp_data, usd_per_eth, token_price_usd}
+}
+
+async function get_usd_values_with_apy_and_tvl_AVAX_V2(...arguments) {
+	return (await get_apy_and_tvl_AVAX_V2(await get_usd_values_AVAX_V2(...arguments)))
+}
+
+let last_update_time_avax_v2 = 0
+
+async function refresh_the_graph_result_AVAX_V2() {
+	last_update_time_avax_v2 = Date.now()
+	let result = await get_usd_values_with_apy_and_tvl_AVAX_V2({token_contract_addresses: [TOKEN_ADDRESS, TOKEN_ADDRESS_IDYP], lp_ids: LP_ID_LIST_AVAX_V2})
+	the_graph_result_AVAX_V2 = result
+	//window.TVL_FARMING_POOLS = await refreshBalance()
+	return result
+}
+
 const app = express()
 app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
@@ -3777,6 +3989,15 @@ app.get('/api/the_graph_bsc_v2', async (req, res) => {
 	}
 	res.type('application/json')
 	res.json({ the_graph_bsc_v2: the_graph_result_BSC_V2 })
+})
+
+app.get('/api/the_graph_avax_v2', async (req, res) => {
+	//9 minutes
+	if (Date.now() - last_update_time_avax_v2 > 1000e3) {
+		await refresh_the_graph_result_AVAX_V2()
+	}
+	res.type('application/json')
+	res.json({ the_graph_avax_v2: the_graph_result_AVAX_V2 })
 })
 
 app.get('/api/the_graph_eth', async (req, res) => {
