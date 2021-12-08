@@ -4061,6 +4061,19 @@ app.get('/api/totaltvl', async (req, res) => {
 	res.send(String(tvltotal))
 })
 
+app.get('/api/tvlStakingEth', async (req, res) => {
+
+	res.type('application/json')
+	res.json({
+		ethTotalStaking: {
+			tvl30: farmingTvl30,
+			tvl60: farmingTvl60,
+			tvl90: farmingTvl90,
+			tvl120: farmingTvl120
+		}
+	})
+})
+
 app.get('/api/totalpaid', async (req, res) => {
 	//60 minutes
 	if (Date.now() - last_update_time6 > 3600e3) {

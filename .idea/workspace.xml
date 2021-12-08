@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79497d21-4f6e-4a59-a557-a9254f5c84f9" name="Default Changelist" comment="Add circulating supply">
+    <list default="true" id="79497d21-4f6e-4a59-a557-a9254f5c84f9" name="Default Changelist" comment="Add AVAX V2 the graph">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
@@ -113,7 +113,10 @@
       <workItem from="1637957554231" duration="19000" />
       <workItem from="1638020333147" duration="4860000" />
       <workItem from="1638092072063" duration="48000" />
-      <workItem from="1638891047742" duration="3372000" />
+      <workItem from="1638891047742" duration="4524000" />
+      <workItem from="1638903049252" duration="609000" />
+      <workItem from="1638957687105" duration="1264000" />
+      <workItem from="1638976220769" duration="674000" />
     </task>
     <task id="LOCAL-00001" summary="Add Total TVL + Calculate Highest APY">
       <created>1618182327554</created>
@@ -332,7 +335,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638026022501</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Add AVAX V2 the graph">
+      <created>1638898079223</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1638898079223</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,7 +361,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Get ETH and BNB price from contract" />
     <MESSAGE value="Update circulating-supply" />
     <MESSAGE value="Add TVL AVAX" />
     <MESSAGE value="Add AVAX Farms" />
@@ -376,7 +385,8 @@
     <MESSAGE value="Add BNB Paid out to Total Paid Including BSC V2 iDYP" />
     <MESSAGE value="Update the_graph_bsc_v2 change the price of DYP with iDYP" />
     <MESSAGE value="Add circulating supply" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add circulating supply" />
+    <MESSAGE value="Add AVAX V2 the graph" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add AVAX V2 the graph" />
   </component>
   <component name="WindowStateProjectService">
     <state x="782" y="372" width="424" height="496" key="FileChooserDialogImpl" timestamp="1633414654690">
@@ -399,9 +409,9 @@
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
     <state width="1825" height="315" key="GridCell.Tab.0.right/72.27.1848.1173@72.27.1848.1173" timestamp="1633420226168" />
-    <state x="594" y="190" width="800" height="540" key="Vcs.Push.Dialog.v2" timestamp="1638026025521">
+    <state x="594" y="180" width="800" height="540" key="Vcs.Push.Dialog.v2" timestamp="1638898252228">
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
-    <state x="594" y="190" width="800" height="540" key="Vcs.Push.Dialog.v2/72.27.1848.1173@72.27.1848.1173" timestamp="1638026025521" />
+    <state x="594" y="180" width="800" height="540" key="Vcs.Push.Dialog.v2/72.27.1848.1173@72.27.1848.1173" timestamp="1638898252228" />
   </component>
 </project>
