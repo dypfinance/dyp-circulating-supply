@@ -2121,6 +2121,7 @@ let highestAPY_ETH = 0
 let highestAPY_BSC = 0
 let highestAPY_AVAX = 0
 let highestAPY_BSC_V2 = 0
+let highestAPY_AVAX_V2 = 0
 let last_update_time4 = 0
 
 const GetHighestAPY = async () => {
@@ -2129,16 +2130,19 @@ const GetHighestAPY = async () => {
 	let highApyArrayEth = []
 	let highApyArrayAvax = []
 	let highApyArrayBscV2 = []
+	let highApyArrayAvaxV2 = []
 
 	let highApyEth = 0
 	let highApyAvax = 0
 	let highApy = 0
 	let highApyBscV2 = 0
+	let highApyAvaxV2 = 0
 	// Get the Link of the highest APY
 	let highApyContractBSC = []
 	let highApyContractEth = []
 	let highApyContractAVAX = []
 	let highApyContractBSCV2 = []
+	let highApyContractAVAXV2 = []
 
 	if (highestAPY == 0){
 		let the_graph_result_BSC = await refresh_the_graph_result_BSC()
@@ -2188,6 +2192,15 @@ const GetHighestAPY = async () => {
 		highApyContractBSCV2[highApyBscV2] = contractAddress4
 	}
 
+	let lp_ids_avax_v2 = Object.keys(the_graph_result_AVAX_V2.lp_data)
+	for (let id of lp_ids_avax_v2) {
+		highApyAvaxV2 = the_graph_result_AVAX_V2.lp_data[id].apy
+		highApyArrayAvaxV2.push(highApyAvaxV2)
+		//console.log('highhh', highApy)
+		let contractAddress5 = id.split('-')[1]
+		highApyContractAVAXV2[highApyAvaxV2] = contractAddress5
+	}
+
 	// let id_highApyEth = Object.keys(highApyContractEth)
 	// for (let id of id_highApyEth) {
 	// 	console.log(id)
@@ -2209,16 +2222,22 @@ const GetHighestAPY = async () => {
 		return a - b
 	})
 
+	highApyArrayAvaxV2.sort(function(a, b) {
+		return a - b
+	})
+
 	highestAPY_ETH = highApyArrayEth[highApyArrayEth.length - 1]
 	highestAPY_BSC = highApyArray[highApyArray.length - 1]
 	highestAPY_AVAX = highApyArrayAvax[highApyArrayAvax.length - 1]
 	highestAPY_BSC_V2 = highApyArrayBscV2[highApyArrayBscV2.length - 1]
+	highestAPY_AVAX_V2 = highApyArrayAvaxV2[highApyArrayAvaxV2.length - 1]
 
 	//console.log('bbbbb', highApyArray)
 	highApyEth = highApyArrayEth[highApyArrayEth.length - 1]
 	highApy = highApyArray[highApyArray.length - 1]
 	highApyAvax = highApyArrayAvax[highApyArrayAvax.length - 1]
 	highApyBscV2 = highApyArrayBscV2[highApyArrayBscV2.length - 1]
+	highApyAvaxV2 = highApyArrayAvaxV2[highApyArrayAvaxV2.length - 1]
 
 	//Excluding the BSC APY because pool's has expired
 	// highestAPY = highApy > highApyEth ? highApy : highApyEth
@@ -4047,7 +4066,8 @@ app.get('/api/highest-apy', async (req, res) => {
 			highestAPY_ETH: highestAPY_ETH,
 			highestAPY_BSC: highestAPY_BSC,
 			highestAPY_AVAX: highestAPY_AVAX,
-			highestAPY_BSC_V2: highestAPY_BSC_V2
+			highestAPY_BSC_V2: highestAPY_BSC_V2,
+			highestAPY_AVAX_V2: highestAPY_AVAX_V2
 		}
 	})
 })
