@@ -2438,6 +2438,12 @@ const PaidOutAVAX = async () => {
 		let avaxPaidOut = await Promise.all([getAvaxPaidOut(contractAddress)])
 		avaxPaiOutTotal += parseInt(avaxPaidOut, 10)
 	}
+	lp_ids = LP_ID_LIST_AVAX_V2
+	for (let id of lp_ids) {
+		let contractAddress = id.split('-')[1]
+		let avaxPaidOut = await Promise.all([getAvaxPaidOut(contractAddress)])
+		avaxPaiOutTotal += parseInt(avaxPaidOut, 10)
+	}
 	avaxPaidOutTotals = avaxPaiOutTotal / 1e18
 	return avaxPaiOutTotal / 1e18
 }
