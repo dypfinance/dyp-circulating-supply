@@ -26,8 +26,10 @@ const config = {
 	reward_token_address2: '0xbd100d061e120b2c67a24453cf6368e63f1be056',
 	pancakeswap_router_address: '0x10ed43c718714eb63d5aa57b78b54704e256024e',
 	pangolin_router_address: '0xE54Ca86531e17Ef3616d22Ca28b0D458b6C89106',
+	uniswap_router_address: '0x7a250d5630b4cf539739df2c5dacb4c659f2488d',
 	BUSD_address: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
 	USDCe_address: '0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664',
+	USDC_address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
 
 	cg_ids: {
 		'main': 'binancecoin',
@@ -39,6 +41,14 @@ const config = {
 
 	cg_ids_avax: {
 		'main': 'avalanche-2',
+		'platform-token': 'defi-yield-protocol',
+
+		// lowercase token address => coingecko id
+		'0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17': 'defi-yield-protocol',
+	},
+
+	cg_ids_eth: {
+		'main': 'ethereum',
 		'platform-token': 'defi-yield-protocol',
 
 		// lowercase token address => coingecko id
@@ -4059,6 +4069,216 @@ async function refresh_the_graph_result_AVAX_V2() {
 	return result
 }
 
+
+/* The Graph ETH New Smart Contracts */
+
+let the_graph_result_ETH_V2 = {}
+
+let price_iDYP_eth = 0
+
+// MAKE SURE ALL THESE ADDRESSES ARE LOWERCASE
+const TOKENS_DISBURSED_PER_YEAR_ETH_V2 = [
+	660_000,
+	996_000,
+	1_680_000,
+	2_220_000,
+	2_760_000,
+]
+
+const LP_IDs_ETH_V2 =
+	{
+		"weth": [
+			"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0xa68bbe793ad52d0e62bbf34a67f02235ba69e737",
+			"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0xcfd970494a0b3c52a81dce1ecbff2245e6b0b0e7",
+			"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0x49d02cf81cc352517350f25e200365360426af94",
+			"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0xf51965c570419f2576ec9aead6a3c5f674424a99",
+			"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0x997a7254e5567d0a70329defcc1e4d29d71ba224",
+		]
+	}
+
+const LP_ID_LIST_ETH_V2 = Object.keys(LP_IDs_ETH_V2).map(key => LP_IDs_ETH_V2[key]).flat()
+const TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_ETH_V2 = {}
+LP_ID_LIST_ETH_V2.forEach((lp_id, i) => TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_ETH_V2[lp_id] = TOKENS_DISBURSED_PER_YEAR_ETH_V2[i])
+
+UNISWAP_ROUTER_ABI = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"amountADesired","type":"uint256"},{"internalType":"uint256","name":"amountBDesired","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountTokenDesired","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountIn","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountOut","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"reserveA","type":"uint256"},{"internalType":"uint256","name":"reserveB","type":"uint256"}],"name":"quote","outputs":[{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETHSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermit","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermitSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityWithPermit","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapETHForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETHSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
+async function getUniswapRouterContract(address=config.uniswap_router_address) {
+	return (new infuraWeb3.eth.Contract(UNISWAP_ROUTER_ABI, address, {from: undefined}))
+}
+
+function get_usd_values_ETH_V2({
+									token_contract_addresses,
+									lp_ids,
+								}) {
+	return new Promise(async (resolve, reject) => {
+
+		let usd_per_eth = await getPrice(config.cg_ids_eth['main'])
+		let usdPerPlatformToken = await getPrice(config.cg_ids_eth['platform-token'])
+
+		let aux_Price = usdPerPlatformToken
+
+		let amount = new BigNumber(1000000000000000000).toFixed(0)
+		let router = await getUniswapRouterContract()
+		let WETH = await router.methods.WETH().call()
+		let platformTokenAddress = config.USDC_address
+		let rewardTokenAddress = config.reward_token_address2
+		let path = [...new Set([rewardTokenAddress, WETH, platformTokenAddress].map(a => a.toLowerCase()))]
+		let _amountOutMin = await router.methods.getAmountsOut(amount, path).call()
+		_amountOutMin = _amountOutMin[_amountOutMin.length - 1]
+		_amountOutMin = new BigNumber(_amountOutMin).div(1e6).toFixed(18)
+		price_iDYP_eth = _amountOutMin
+		//console.log({price_iDYP_eth})
+
+		async function getData(token_contract_addresses, lp_ids) {
+			let tokens = []
+			let liquidityPositions = []
+			let token_price_usd = 0
+			for (let id of token_contract_addresses) {
+				//Add the price from iDYP
+				if(id==TOKEN_ADDRESS)
+					token_price_usd = await getPrice(config.cg_ids_eth[id])
+				else
+					token_price_usd = parseFloat(_amountOutMin)
+				tokens.push({id, token_price_usd})
+			}
+
+			let platformTokenContract = {}
+			for (let lp_id of lp_ids) {
+				let pairAddress = lp_id.split('-')[0]
+				let stakingContractAddress = lp_id.split('-')[1]
+
+				if (pairAddress == '0x7463286a379f6f128058bb92b355e3d6e8bdb219'){
+					platformTokenContract = new infuraWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address2, {from: undefined})
+					usdPerPlatformToken = _amountOutMin
+				}
+				else {
+					platformTokenContract = new infuraWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
+					usdPerPlatformToken = aux_Price
+				}
+
+				let pairTokenContract = new infuraWeb3.eth.Contract(TOKEN_ABI, pairAddress, {from: undefined})
+
+				let [lpTotalSupply, stakingLpBalance, platformTokenInLp] = await Promise.all([pairTokenContract.methods.totalSupply().call(), pairTokenContract.methods.balanceOf(stakingContractAddress).call(), platformTokenContract.methods.balanceOf(pairAddress).call()])
+
+				let usd_per_lp = platformTokenInLp / 1e18 * usdPerPlatformToken * 2  / (lpTotalSupply/1e18)
+				let usd_value_of_lp_staked = stakingLpBalance/1e18*usd_per_lp
+				let lp_staked = stakingLpBalance/1e18
+				let id = lp_id
+				liquidityPositions.push({
+					id,
+					usd_per_lp,
+					usd_value_of_lp_staked,
+					lp_staked
+				})
+			}
+			return {data: {
+					tokens, liquidityPositions
+				}}
+		}
+
+		getData(token_contract_addresses.map(a => a.toLowerCase()), lp_ids.map(a => a.toLowerCase()))
+			.then(res => handleTheGraphData(res))
+			.catch(reject)
+
+
+		function handleTheGraphData(response) {
+			try {
+				let data = response.data
+				if (!data) return reject(response);
+
+				//console.log({data})
+
+				let token_data = {}, lp_data = {}
+
+				data.tokens.forEach(t => {
+					token_data[t.id] = t
+				})
+
+				data.liquidityPositions.forEach(lp => {
+					lp_data[lp.id] = lp
+				})
+				resolve({token_data, lp_data, usd_per_eth})
+			} catch (e) {
+				console.error(e)
+				reject(e)
+			}
+		}
+	})
+}
+
+/**
+ *
+ * @param {string[]} staking_pools_list - List of Contract Addresses for Staking Pools
+ * @returns {number[]} List of number of stakers for each pool
+ */
+async function get_number_of_stakers_ETH_V2(staking_pools_list) {
+
+	return (await Promise.all(staking_pools_list.map(contract_address => {
+		let contract = new infuraWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		return contract.methods.getNumberOfHolders().call()
+	}))).map(h => Number(h))
+}
+
+async function get_token_balances_ETH_V2({
+											  TOKEN_ADDRESS,
+											  HOLDERS_LIST
+										  }) {
+
+	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+
+	return (await Promise.all(HOLDERS_LIST.map(h => {
+		return token_contract.methods.balanceOf(h).call()
+	})))
+}
+
+async function get_apy_and_tvl_ETH_V2(usd_values) {
+	let {token_data, lp_data, usd_per_eth} = usd_values
+
+	//console.log({usd_values})
+
+	let token_price_usd = token_data[TOKEN_ADDRESS_IDYP].token_price_usd*1
+	let balances_by_address = {}, number_of_holders_by_address = {}
+	let lp_ids = Object.keys(lp_data)
+	let addrs = lp_ids.map(a => a.split('-')[1])
+	let token_balances = await get_token_balances_ETH_V2({TOKEN_ADDRESS, HOLDERS_LIST: addrs})
+	addrs.forEach((addr, i) => balances_by_address[addr] = token_balances[i])
+
+	await wait(2000)
+
+	let number_of_holders = await get_number_of_stakers_ETH_V2(addrs)
+	addrs.forEach((addr, i) => number_of_holders_by_address[addr] = number_of_holders[i])
+
+	lp_ids.forEach(lp_id => {
+		let apy = 0, tvl_usd = 0
+
+		let pool_address = lp_id.split('-')[1]
+		let token_balance = new BigNumber(balances_by_address[pool_address] || 0)
+		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2)*1
+
+		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked*1
+
+		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_ETH_V2[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+
+		lp_data[lp_id].apy = apy
+		lp_data[lp_id].tvl_usd = tvl_usd
+		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
+	})
+
+	return {token_data, lp_data, usd_per_eth, token_price_usd}
+}
+
+async function get_usd_values_with_apy_and_tvl_ETH_V2(...arguments) {
+	return (await get_apy_and_tvl_ETH_V2(await get_usd_values_ETH_V2(...arguments)))
+}
+
+let last_update_time_eth_v2 = 0
+
+async function refresh_the_graph_result_ETH_V2() {
+	last_update_time_eth_v2 = Date.now()
+	let result = await get_usd_values_with_apy_and_tvl_ETH_V2({token_contract_addresses: [TOKEN_ADDRESS, TOKEN_ADDRESS_IDYP], lp_ids: LP_ID_LIST_ETH_V2})
+	the_graph_result_ETH_V2 = result
+	return result
+}
+
 const app = express()
 app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
@@ -4095,6 +4315,15 @@ app.get('/api/the_graph_avax_v2', async (req, res) => {
 	}
 	res.type('application/json')
 	res.json({ the_graph_avax_v2: the_graph_result_AVAX_V2 })
+})
+
+app.get('/api/the_graph_eth_v2', async (req, res) => {
+	//9 minutes
+	if (Date.now() - last_update_time_eth_v2 > 1000e3) {
+		await refresh_the_graph_result_ETH_V2()
+	}
+	res.type('application/json')
+	res.json({ the_graph_eth_v2: the_graph_result_ETH_V2 })
 })
 
 app.get('/api/the_graph_eth', async (req, res) => {
