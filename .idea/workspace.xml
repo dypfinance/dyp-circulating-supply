@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79497d21-4f6e-4a59-a557-a9254f5c84f9" name="Default Changelist" comment="Update TVL add AVAX V2">
+    <list default="true" id="79497d21-4f6e-4a59-a557-a9254f5c84f9" name="Default Changelist" comment="Add The Graph ETH V2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
@@ -120,7 +120,8 @@
       <workItem from="1638993263858" duration="326000" />
       <workItem from="1639149281847" duration="706000" />
       <workItem from="1639400924527" duration="11000" />
-      <workItem from="1639495207151" duration="2207000" />
+      <workItem from="1639495207151" duration="2419000" />
+      <workItem from="1639571234939" duration="908000" />
     </task>
     <task id="LOCAL-00001" summary="Add Total TVL + Calculate Highest APY">
       <created>1618182327554</created>
@@ -374,7 +375,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639149832950</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Add The Graph ETH V2">
+      <created>1639498615624</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1639498615624</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -393,7 +401,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add highest APY for all chains" />
     <MESSAGE value="Add HashMaps with APY's for every network" />
     <MESSAGE value="Remove Logs" />
     <MESSAGE value="Update HasMap for APY's" />
@@ -418,7 +425,8 @@
     <MESSAGE value="Calculate APY Avax V2" />
     <MESSAGE value="Update TVL add AVAX V2" />
     <MESSAGE value="Update total AVAX Paid from V2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update total AVAX Paid from V2" />
+    <MESSAGE value="Add The Graph ETH V2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add The Graph ETH V2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="782" y="372" width="424" height="496" key="FileChooserDialogImpl" timestamp="1633414654690">
@@ -441,10 +449,10 @@
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
     <state width="1825" height="315" key="GridCell.Tab.0.right/72.27.1848.1173@72.27.1848.1173" timestamp="1633420226168" />
-    <state x="594" y="160" width="800" height="540" key="Vcs.Push.Dialog.v2" timestamp="1639149836609">
+    <state x="594" y="155" width="800" height="540" key="Vcs.Push.Dialog.v2" timestamp="1639498618476">
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
-    <state x="594" y="160" width="800" height="540" key="Vcs.Push.Dialog.v2/72.27.1848.1173@72.27.1848.1173" timestamp="1639149836609" />
+    <state x="594" y="155" width="800" height="540" key="Vcs.Push.Dialog.v2/72.27.1848.1173@72.27.1848.1173" timestamp="1639498618476" />
     <state x="659" y="285" width="672" height="678" key="search.everywhere.popup" timestamp="1639495294828">
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
