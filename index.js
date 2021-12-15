@@ -2339,6 +2339,11 @@ const getTotalTvl = async () => {
 	let tvlFarmDypAvax = await totalTvlFarmingStakingAvaxV2()
 	tvlFarmDypAvax = parseInt(tvlFarmDypAvax)
 
+	let tvliDYPEth = await totalTvliDYPEth()
+	tvliDYPEth = parseInt(tvliDYPEth)
+	let tvlFarmDypEth = await totalTvlFarmingStakingEthV2()
+	tvlFarmDypEth = parseInt(tvlFarmDypEth)
+
 	let tvl = 0
 	let farmingTvl = await refreshBalanceFarming()
 	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
@@ -2359,7 +2364,7 @@ const getTotalTvl = async () => {
 	//Get Total value locked of Vaults on Ethereum from DeFiLLama
 	let tvlVaults = await fetchAsync('https://api.llama.fi/tvl/defi-yield-protocol')
 
-	tvltotal = tvl + farmingTvl + COMBINED_TVL_BSC + COMBINED_TVL_AVAX + ethBuybackTvl + bscBuybackTvl + avaxBuybackTvl + tvlVaults + tvliDYP + tvlFarmDyp + tvliDYPAvax + tvlFarmDypAvax
+	tvltotal = tvl + farmingTvl + COMBINED_TVL_BSC + COMBINED_TVL_AVAX + ethBuybackTvl + bscBuybackTvl + avaxBuybackTvl + tvlVaults + tvliDYP + tvlFarmDyp + tvliDYPAvax + tvlFarmDypAvax + tvliDYPEth + tvlFarmDypEth
 	return tvltotal
 }
 
@@ -3819,6 +3824,74 @@ async function totalTvlFarmingStakingAvaxV2 () {
 		the_graph_result_AVAX_V2.lp_data[LP_IDs_AVAX_V2.wavax[2]].tvl_usd +
 		the_graph_result_AVAX_V2.lp_data[LP_IDs_AVAX_V2.wavax[3]].tvl_usd +
 		the_graph_result_AVAX_V2.lp_data[LP_IDs_AVAX_V2.wavax[4]].tvl_usd
+
+	for (let id of token_balances){
+		tvlStaking = new BigNumber(tvlStaking).plus(id)
+	}
+
+	tvlStaking = new BigNumber(tvlStaking).div(1e18).times(usdPerToken).toFixed(0)
+
+	tvlTotal = new BigNumber(tvlTotal).plus(tvlStaking).toFixed(0)
+
+	//console.log({tvlTotal})
+
+	return tvlTotal
+}
+
+
+/* TVL Buyback & Farming & Staking -> iDYP ETH V2 */
+
+const newContractsEth = [
+	"0xa4da28B8e42680916b557459D338aF6e2D8d458f",
+	"0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d",
+	"0xdCBB5B2148f0cf1Abd7757Ba04A5821fEaD80587",
+	"0x471beCc72AD487249efE521bf9b6744b882830DF",
+	"0xDC65C4277d626d6A29C9Dc42Eb396d354fa5E85b",
+	"0x7b7132E7BF4e754855191a978F3979e1E3c8617b",
+	"0xa68BBe793ad52d0E62bBf34A67F02235bA69E737",
+	"0x0b92E7f074e7Ade0181A29647ea8474522e6A7C2",
+	"0xCFd970494a0b3C52a81dcE1EcBFF2245e6b0B0E7",
+	"0xff32a38016422F51e8C0aF5D333472392822FeEf",
+	"0x49D02CF81Cc352517350F25E200365360426aF94",
+	"0x62AAE8C0c50038236d075AC595Ae0BE4F201bBdd",
+	"0xf51965c570419F2576ec9AeAD6A3C5F674424A99",
+	"0xb67F464b558e3055C2B6F017546Ed53b2e6333d7",
+	"0x997A7254E5567d0A70329DEFCc1E4d29d71Ba224",
+	"0x1aB008CbfC99d0CA7e3FD8987ce1ebf832506F53"
+]
+
+async function totalTvliDYPEth () {
+	let tvliDYP = 0
+
+	let token_balances = await get_token_balances_ETH_V2({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: newContractsEth})
+
+	await wait(2000)
+
+	for (let id of token_balances){
+		tvliDYP = new BigNumber(tvliDYP).plus(id)
+	}
+
+	tvliDYP = new BigNumber(tvliDYP).div(1e18).times(price_iDYP_eth).toFixed(0)
+
+
+	return tvliDYP
+}
+
+/* TVL Staking + Farming -> DYP + LP ETH V2 */
+
+async function totalTvlFarmingStakingEthV2 () {
+	let tvlTotal = 0
+	let tvlStaking = 0
+
+	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
+
+	let token_balances = await get_token_balances_AVAX_V2({TOKEN_ADDRESS: TOKEN_ADDRESS, HOLDERS_LIST: newContractsEth})
+
+	tvlTotal = tvlTotal + the_graph_result_ETH_V2.lp_data[LP_IDs_ETH_V2.weth[0]].tvl_usd +
+		the_graph_result_ETH_V2.lp_data[LP_IDs_ETH_V2.weth[1]].tvl_usd +
+		the_graph_result_ETH_V2.lp_data[LP_IDs_ETH_V2.weth[2]].tvl_usd +
+		the_graph_result_ETH_V2.lp_data[LP_IDs_ETH_V2.weth[3]].tvl_usd +
+		the_graph_result_ETH_V2.lp_data[LP_IDs_ETH_V2.weth[4]].tvl_usd
 
 	for (let id of token_balances){
 		tvlStaking = new BigNumber(tvlStaking).plus(id)
