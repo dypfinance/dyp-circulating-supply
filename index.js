@@ -2396,13 +2396,23 @@ const getWethPaidOut = async (contractAddress) => {
 const PaidOutETH = async () => {
 	last_update_time6 = Date.now()
 	let wethPaiOutTotal = 0
+	let wethPaiOutTotal_v2 = 0
 	let lp_ids = LP_ID_LIST
 	for (let id of lp_ids) {
 		let contractAddress = id.split('-')[1]
 		let wethPaidOut = await Promise.all([getWethPaidOut(contractAddress)])
 		wethPaiOutTotal += parseInt(wethPaidOut, 10)
 	}
-	wethPaiOutTotals = wethPaiOutTotal / 1e18
+
+	/* Calculate Paid in BNB for Farming BSC V2 iDYP */
+	let lp_ids_v2 = LP_ID_LIST_ETH_V2
+	for (let id of lp_ids_v2) {
+		let contractAddress = id.split('-')[1]
+		let wethPaidOut = await Promise.all([getWethPaidOut(contractAddress)])
+		wethPaiOutTotal_v2 += parseInt(wethPaidOut, 10)
+	}
+
+	wethPaiOutTotals = wethPaiOutTotal / 1e18 + wethPaiOutTotal_v2 / 1e18
 	return wethPaiOutTotal / 1e18
 }
 

@@ -19,7 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79497d21-4f6e-4a59-a557-a9254f5c84f9" name="Default Changelist" comment="Calculate Highest APY Eth V2">
+    <list default="true" id="79497d21-4f6e-4a59-a557-a9254f5c84f9" name="Default Changelist" comment="Update TVL ETH V2">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,7 +121,8 @@
       <workItem from="1639149281847" duration="706000" />
       <workItem from="1639400924527" duration="11000" />
       <workItem from="1639495207151" duration="2419000" />
-      <workItem from="1639571234939" duration="2796000" />
+      <workItem from="1639571234939" duration="3475000" />
+      <workItem from="1639591848028" duration="373000" />
     </task>
     <task id="LOCAL-00001" summary="Add Total TVL + Calculate Highest APY">
       <created>1618182327554</created>
@@ -388,7 +390,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639572439335</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Update TVL ETH V2">
+      <created>1639582215382</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1639582215382</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -407,7 +416,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Remove Logs" />
     <MESSAGE value="Update HasMap for APY's" />
     <MESSAGE value="Add Total Volume bridged on Avalanche" />
     <MESSAGE value="Update Volume Avalanche" />
@@ -432,7 +440,8 @@
     <MESSAGE value="Update total AVAX Paid from V2" />
     <MESSAGE value="Add The Graph ETH V2" />
     <MESSAGE value="Calculate Highest APY Eth V2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Calculate Highest APY Eth V2" />
+    <MESSAGE value="Update TVL ETH V2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update TVL ETH V2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="782" y="372" width="424" height="496" key="FileChooserDialogImpl" timestamp="1633414654690">
@@ -455,10 +464,10 @@
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
     <state width="1825" height="315" key="GridCell.Tab.0.right/72.27.1848.1173@72.27.1848.1173" timestamp="1633420226168" />
-    <state x="594" y="150" width="800" height="540" key="Vcs.Push.Dialog.v2" timestamp="1639572444199">
+    <state x="594" y="145" width="800" height="540" key="Vcs.Push.Dialog.v2" timestamp="1639582218991">
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
-    <state x="594" y="150" width="800" height="540" key="Vcs.Push.Dialog.v2/72.27.1848.1173@72.27.1848.1173" timestamp="1639572444199" />
+    <state x="594" y="145" width="800" height="540" key="Vcs.Push.Dialog.v2/72.27.1848.1173@72.27.1848.1173" timestamp="1639582218991" />
     <state x="659" y="285" width="672" height="678" key="search.everywhere.popup" timestamp="1639495294828">
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
