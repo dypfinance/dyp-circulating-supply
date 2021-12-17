@@ -3654,25 +3654,74 @@ async function get_token_balances_BSC_V2({
 	})))
 }
 
+
+async function get_token_balances_idyp_BSC_V2({TOKEN_ADDRESS, HOLDERS_LIST}) {
+
+	let token_contract = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	return token_contract.methods.balanceOf(HOLDERS_LIST).call()
+}
+
+async function get_to_be_burnt_bsc(staking_pools_list) {
+
+	return (await Promise.all(staking_pools_list.map(contract_address => {
+		let contract = new bscWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		return contract.methods.tokensToBeDisbursedOrBurnt().call()
+	}))).map(h => Number(h))
+}
+
 async function get_apy_and_tvl_BSC_V2(usd_values) {
 	let {token_data, lp_data, usd_per_eth} = usd_values
 
-	//console.log({usd_values})
+	let magic_number = [
+		"2004008016031955", // 0.2%
+		"3009027081243731", // 0.3%
+		"5025125628140614", // 0.5%
+		"6745192791704380", // 0.67%
+		"8369466572552220", // 0.83%
+	]
+
+	let apr_staking = [
+		"20",
+		"25",
+		"35",
+		"40",
+		"50"
+	]
 
 	let token_price_usd = token_data[TOKEN_ADDRESS_IDYP].token_price_usd*1
-	let balances_by_address = {}, number_of_holders_by_address = {}
+	let dyp_price = token_data[TOKEN_ADDRESS].token_price_usd*1
+	let balances_by_address = {},
+		number_of_holders_by_address = {},
+		magic_number_of_pools = {},
+		tokens_to_be_burnt_by_pool = {},
+		apr_for_each_pool = {}
+
 	let lp_ids = Object.keys(lp_data)
+	let pair_addrs = lp_ids.map(a => a.split('-')[0])
 	let addrs = lp_ids.map(a => a.split('-')[1])
 	let token_balances = await get_token_balances_BSC_V2({TOKEN_ADDRESS, HOLDERS_LIST: addrs})
 	addrs.forEach((addr, i) => balances_by_address[addr] = token_balances[i])
+	addrs.forEach((addr, i) => apr_for_each_pool[addr] = apr_staking[i])
+
+	//Get the magic_number of each pool
+	addrs.forEach((addr, i) => magic_number_of_pools[addr] = magic_number[i])
+	// console.log(magic_number_of_pools)
 
 	await wait(2000)
 
 	let number_of_holders = await get_number_of_stakers_BSC_V2(addrs)
 	addrs.forEach((addr, i) => number_of_holders_by_address[addr] = number_of_holders[i])
 
+
+	let to_be_burnt = await get_to_be_burnt_bsc(addrs)
+	addrs.forEach((addr, i) => tokens_to_be_burnt_by_pool[addr] = to_be_burnt[i])
+	//console.log(tokens_to_be_burnt_by_pool)
+
+	//Get Balance of IDYP for each Pool in order to calculate the maxSwappableAmount.
+	let number_of_idyp_on_pair = await get_token_balances_idyp_BSC_V2({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: pair_addrs[0]})
+
 	lp_ids.forEach(lp_id => {
-		let apy = 0, tvl_usd = 0
+		let apy = 0, tvl_usd = 0, apyFarming = 0, TOKENS_DISBURSED = 0, apyStaking = 0
 
 		let pool_address = lp_id.split('-')[1]
 		let token_balance = new BigNumber(balances_by_address[pool_address] || 0)
@@ -3680,9 +3729,29 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 
 		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked*1
 
-		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC_V2[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+		//apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC_V2[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+
+		let maxSwappableAmount = new BigNumber(number_of_idyp_on_pair).div(1e18).multipliedBy(magic_number_of_pools[pool_address]).div(1e18).toFixed(0)
+
+		let to_be_distributed = TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC_V2[lp_id] / 365
+		let sum = new BigNumber(tokens_to_be_burnt_by_pool[pool_address]).div(1e18).plus(to_be_distributed).toFixed(0)
+
+		if(parseInt(sum) >= parseInt(maxSwappableAmount)){
+			TOKENS_DISBURSED = new BigNumber(maxSwappableAmount).multipliedBy(365).toFixed(0)
+		} else if(parseInt(sum) < parseInt(maxSwappableAmount)) {
+			TOKENS_DISBURSED = new BigNumber(sum).multipliedBy(365).toFixed(0)
+		}
+
+		apyFarming = (TOKENS_DISBURSED * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+		//console.log({sum, maxSwappableAmount, TOKENS_DISBURSED, apyFarming})
+
+		apyStaking = new BigNumber(0.25).div(dyp_price).times(apr_for_each_pool[pool_address]).div(1e2).times(token_price_usd).times(1e2).toFixed(2)*1
+
+		apy = new BigNumber(apyFarming).multipliedBy(0.75).plus(apyStaking*0.25).toFixed(2)*1
 
 		lp_data[lp_id].apy = apy
+		lp_data[lp_id].apyFarming = apyFarming
+		lp_data[lp_id].apyStaking = apyStaking
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 	})
@@ -4121,25 +4190,72 @@ async function get_token_balances_AVAX_V2({
 	})))
 }
 
+async function get_token_balances_idyp_AVAX_V2({TOKEN_ADDRESS, HOLDERS_LIST}) {
+
+	let token_contract = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	return token_contract.methods.balanceOf(HOLDERS_LIST).call()
+}
+
+async function get_to_be_burnt_avax(staking_pools_list) {
+
+	return (await Promise.all(staking_pools_list.map(contract_address => {
+		let contract = new avaxWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		return contract.methods.tokensToBeDisbursedOrBurnt().call()
+	}))).map(h => Number(h))
+}
+
 async function get_apy_and_tvl_AVAX_V2(usd_values) {
 	let {token_data, lp_data, usd_per_eth} = usd_values
 
-	//console.log({usd_values})
+	let magic_number = [
+		"2004008016031955", // 0.2%
+		"3009027081243731", // 0.3%
+		"5025125628140614", // 0.5%
+		"6745192791704380", // 0.67%
+		"8369466572552220", // 0.83%
+	]
+
+	let apr_staking = [
+		"20",
+		"25",
+		"35",
+		"40",
+		"50"
+	]
 
 	let token_price_usd = token_data[TOKEN_ADDRESS_IDYP].token_price_usd*1
-	let balances_by_address = {}, number_of_holders_by_address = {}
+	let dyp_price = token_data[TOKEN_ADDRESS].token_price_usd*1
+	let balances_by_address = {},
+		number_of_holders_by_address = {},
+		magic_number_of_pools = {},
+		tokens_to_be_burnt_by_pool = {},
+		apr_for_each_pool = {}
+
 	let lp_ids = Object.keys(lp_data)
+	let pair_addrs = lp_ids.map(a => a.split('-')[0])
 	let addrs = lp_ids.map(a => a.split('-')[1])
 	let token_balances = await get_token_balances_AVAX_V2({TOKEN_ADDRESS, HOLDERS_LIST: addrs})
 	addrs.forEach((addr, i) => balances_by_address[addr] = token_balances[i])
+	addrs.forEach((addr, i) => apr_for_each_pool[addr] = apr_staking[i])
+
+	//Get the magic_number of each pool
+	addrs.forEach((addr, i) => magic_number_of_pools[addr] = magic_number[i])
+	// console.log(magic_number_of_pools)
 
 	await wait(2000)
 
 	let number_of_holders = await get_number_of_stakers_AVAX_V2(addrs)
 	addrs.forEach((addr, i) => number_of_holders_by_address[addr] = number_of_holders[i])
 
+	let to_be_burnt = await get_to_be_burnt_avax(addrs)
+	addrs.forEach((addr, i) => tokens_to_be_burnt_by_pool[addr] = to_be_burnt[i])
+	//console.log(tokens_to_be_burnt_by_pool)
+
+	//Get Balance of IDYP for each Pool in order to calculate the maxSwappableAmount.
+	let number_of_idyp_on_pair = await get_token_balances_idyp_AVAX_V2({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: pair_addrs[0]})
+
 	lp_ids.forEach(lp_id => {
-		let apy = 0, tvl_usd = 0
+		let apy = 0, tvl_usd = 0, apyFarming = 0, apyStaking = 0, TOKENS_DISBURSED = 0
 
 		let pool_address = lp_id.split('-')[1]
 		let token_balance = new BigNumber(balances_by_address[pool_address] || 0)
@@ -4147,9 +4263,30 @@ async function get_apy_and_tvl_AVAX_V2(usd_values) {
 
 		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked*1
 
-		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX_V2[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+		//apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX_V2[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+
+		let maxSwappableAmount = new BigNumber(number_of_idyp_on_pair).div(1e18).multipliedBy(magic_number_of_pools[pool_address]).div(1e18).toFixed(0)
+
+		let to_be_distributed = TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX_V2[lp_id] / 365
+		let sum = new BigNumber(tokens_to_be_burnt_by_pool[pool_address]).div(1e18).plus(to_be_distributed).toFixed(0)
+
+		if(parseInt(sum) >= parseInt(maxSwappableAmount)){
+			TOKENS_DISBURSED = new BigNumber(maxSwappableAmount).multipliedBy(365).toFixed(0)
+		} else if(parseInt(sum) < parseInt(maxSwappableAmount)) {
+			TOKENS_DISBURSED = new BigNumber(sum).multipliedBy(365).toFixed(0)
+		}
+
+		apyFarming = (TOKENS_DISBURSED * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+
+		apyStaking = new BigNumber(0.25).div(dyp_price).times(apr_for_each_pool[pool_address]).div(1e2).times(token_price_usd).times(1e2).toFixed(2)*1
+
+		apy = new BigNumber(apyFarming).multipliedBy(0.75).plus(apyStaking*0.25).toFixed(2)*1
+
+		//console.log({sum, maxSwappableAmount, TOKENS_DISBURSED, apyFarming})
 
 		lp_data[lp_id].apy = apy
+		lp_data[lp_id].apyFarming = apyFarming
+		lp_data[lp_id].apyStaking = apyStaking
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 	})
@@ -4332,25 +4469,72 @@ async function get_token_balances_ETH_V2({
 	})))
 }
 
+async function get_token_balances_idyp_ETH_V2({TOKEN_ADDRESS, HOLDERS_LIST}) {
+
+	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	return token_contract.methods.balanceOf(HOLDERS_LIST).call()
+}
+
+async function get_to_be_burnt(staking_pools_list) {
+
+	return (await Promise.all(staking_pools_list.map(contract_address => {
+		let contract = new infuraWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		return contract.methods.tokensToBeDisbursedOrBurnt().call()
+	}))).map(h => Number(h))
+}
+
 async function get_apy_and_tvl_ETH_V2(usd_values) {
 	let {token_data, lp_data, usd_per_eth} = usd_values
 
-	//console.log({usd_values})
+	let magic_number = [
+		"2004008016031955", // 0.2%
+		"3009027081243731", // 0.3%
+		"5025125628140614", // 0.5%
+		"6745192791704380", // 0.67%
+		"8369466572552220", // 0.83%
+	]
+
+	let apr_staking = [
+		"20",
+		"25",
+		"35",
+		"40",
+		"50"
+	]
 
 	let token_price_usd = token_data[TOKEN_ADDRESS_IDYP].token_price_usd*1
-	let balances_by_address = {}, number_of_holders_by_address = {}
+	let dyp_price = token_data[TOKEN_ADDRESS].token_price_usd*1
+	let balances_by_address = {},
+		number_of_holders_by_address = {},
+		magic_number_of_pools = {},
+		tokens_to_be_burnt_by_pool = {},
+		apr_for_each_pool = {}
+
 	let lp_ids = Object.keys(lp_data)
+	let pair_addrs = lp_ids.map(a => a.split('-')[0])
 	let addrs = lp_ids.map(a => a.split('-')[1])
 	let token_balances = await get_token_balances_ETH_V2({TOKEN_ADDRESS, HOLDERS_LIST: addrs})
 	addrs.forEach((addr, i) => balances_by_address[addr] = token_balances[i])
+	addrs.forEach((addr, i) => apr_for_each_pool[addr] = apr_staking[i])
+
+	//Get the magic_number of each pool
+	addrs.forEach((addr, i) => magic_number_of_pools[addr] = magic_number[i])
+	// console.log(magic_number_of_pools)
 
 	await wait(2000)
 
 	let number_of_holders = await get_number_of_stakers_ETH_V2(addrs)
 	addrs.forEach((addr, i) => number_of_holders_by_address[addr] = number_of_holders[i])
 
+	let to_be_burnt = await get_to_be_burnt(addrs)
+	addrs.forEach((addr, i) => tokens_to_be_burnt_by_pool[addr] = to_be_burnt[i])
+	//console.log(tokens_to_be_burnt_by_pool)
+
+	//Get Balance of IDYP for each Pool in order to calculate the maxSwappableAmount.
+	let number_of_idyp_on_pair = await get_token_balances_idyp_ETH_V2({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: pair_addrs[0]})
+
 	lp_ids.forEach(lp_id => {
-		let apy = 0, tvl_usd = 0
+		let apy = 0, apyFarming = 0, tvl_usd = 0, TOKENS_DISBURSED = 0, apyStaking = 0
 
 		let pool_address = lp_id.split('-')[1]
 		let token_balance = new BigNumber(balances_by_address[pool_address] || 0)
@@ -4358,9 +4542,46 @@ async function get_apy_and_tvl_ETH_V2(usd_values) {
 
 		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked*1
 
-		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_ETH_V2[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+		/**
+		 * TODO
+		 * 1. Calculez maximul pe care contractul il poate schimba (Ex: Max 2.5%):
+		 * 		Verific maximul daca poate fi schimbat:
+		 * 			Caz I: are 2000/zi si poate schimba doar 1000 (se calculeaza x365 zile).
+		 * 			Caz II: are 2000/zi si poate schimba 4000 (verific daca are in To Be Burnt):
+		 * 				(2000 + to be burnt <= maxSwappable) => (2000 + TBB) x 365 se foloseste pentru APY
+		 * 2. Inmultesc rezultatul cu 365 zile si calculez APY
+		 *
+		 * 3. De calculat APY-ul pentru staking al fiecarui pool si adaugat in rezultatul final.
+		 *
+		 * 	75% din apyFarming
+		 * 	25% din apyStaking
+		 * 	apy = 75% + 25%
+		 */
+
+		// apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_ETH_V2[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+
+		let maxSwappableAmount = new BigNumber(number_of_idyp_on_pair).div(1e18).multipliedBy(magic_number_of_pools[pool_address]).div(1e18).toFixed(0)
+
+		let to_be_distributed = TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_ETH_V2[lp_id] / 365
+		let sum = new BigNumber(tokens_to_be_burnt_by_pool[pool_address]).div(1e18).plus(to_be_distributed).toFixed(0)
+
+		if(parseInt(sum) >= parseInt(maxSwappableAmount)){
+			TOKENS_DISBURSED = new BigNumber(maxSwappableAmount).multipliedBy(365).toFixed(0)
+		} else if(parseInt(sum) < parseInt(maxSwappableAmount)) {
+			TOKENS_DISBURSED = new BigNumber(sum).multipliedBy(365).toFixed(0)
+		}
+
+		apyFarming = (TOKENS_DISBURSED * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+
+		apyStaking = new BigNumber(0.25).div(dyp_price).times(apr_for_each_pool[pool_address]).div(1e2).times(token_price_usd).times(1e2).toFixed(2)*1
+
+		apy = new BigNumber(apyFarming).multipliedBy(0.75).plus(apyStaking*0.25).toFixed(2)*1
+
+		//console.log({sum, maxSwappableAmount, TOKENS_DISBURSED, apyFarming})
 
 		lp_data[lp_id].apy = apy
+		lp_data[lp_id].apyFarming = apyFarming
+		lp_data[lp_id].apyStaking = apyStaking
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 	})
