@@ -2137,6 +2137,7 @@ let last_update_time4 = 0
 
 const GetHighestAPY = async () => {
 	last_update_time4 = Date.now()
+	highestAPY = 0
 	let highApyArray = []
 	let highApyArrayEth = []
 	let highApyArrayAvax = []
@@ -2158,16 +2159,16 @@ const GetHighestAPY = async () => {
 	let highApyContractAVAXV2 = []
 	let highApyContractETHV2 = []
 
-	if (highestAPY == 0){
-		let the_graph_result_BSC = await refresh_the_graph_result_BSC()
-		if (!the_graph_result_BSC.lp_data) return 0
-
-		let the_graph_result = await refresh_the_graph_result()
-		if (!the_graph_result.lp_data) return 0
-
-		let the_graph_result_AVAX = await refresh_the_graph_result_AVAX()
-		if (!the_graph_result_AVAX.lp_data) return 0
-	}
+	// if (highestAPY == 0){
+	// 	let the_graph_result_BSC = await refresh_the_graph_result_BSC()
+	// 	if (!the_graph_result_BSC.lp_data) return 0
+	//
+	// 	let the_graph_result = await refresh_the_graph_result()
+	// 	if (!the_graph_result.lp_data) return 0
+	//
+	// 	let the_graph_result_AVAX = await refresh_the_graph_result_AVAX()
+	// 	if (!the_graph_result_AVAX.lp_data) return 0
+	// }
 
 	let lp_ids = Object.keys(the_graph_result_BSC.lp_data)
 	for (let id of lp_ids) {
