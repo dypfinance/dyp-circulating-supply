@@ -19,8 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79497d21-4f6e-4a59-a557-a9254f5c84f9" name="Default Changelist" comment="Update Highest APY">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="79497d21-4f6e-4a59-a557-a9254f5c84f9" name="Default Changelist" comment="Remove Avax V1 from highest APY">
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -133,6 +132,7 @@
       <workItem from="1640433860517" duration="626000" />
       <workItem from="1640594150748" duration="618000" />
       <workItem from="1640860309959" duration="608000" />
+      <workItem from="1641378676630" duration="998000" />
     </task>
     <task id="LOCAL-00001" summary="Add Total TVL + Calculate Highest APY">
       <created>1618182327554</created>
@@ -435,7 +435,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639819810155</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Remove Avax V1 from highest APY">
+      <created>1641378978646</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1641378978646</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -454,7 +461,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add Farm Info Avalanche" />
     <MESSAGE value="Split farm info for each network" />
     <MESSAGE value="Update TVL, add Vaults and buybacks" />
     <MESSAGE value="Add Holders List" />
@@ -479,7 +485,8 @@
     <MESSAGE value="Update total Paid" />
     <MESSAGE value="Update APY" />
     <MESSAGE value="Update Highest APY" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Highest APY" />
+    <MESSAGE value="Remove Avax V1 from highest APY" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove Avax V1 from highest APY" />
   </component>
   <component name="WindowStateProjectService">
     <state x="782" y="372" width="424" height="496" key="FileChooserDialogImpl" timestamp="1633414654690">
@@ -502,10 +509,14 @@
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
     <state width="1825" height="315" key="GridCell.Tab.0.right/72.27.1848.1173@72.27.1848.1173" timestamp="1633420226168" />
-    <state x="594" y="125" width="800" height="540" key="Vcs.Push.Dialog.v2" timestamp="1639819883651">
+    <state x="740" y="292" width="507" height="645" key="RollbackChangesDialog" timestamp="1641378778172">
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
-    <state x="594" y="125" width="800" height="540" key="Vcs.Push.Dialog.v2/72.27.1848.1173@72.27.1848.1173" timestamp="1639819883651" />
+    <state x="740" y="292" width="507" height="645" key="RollbackChangesDialog/72.27.1848.1173@72.27.1848.1173" timestamp="1641378778172" />
+    <state x="594" y="120" width="800" height="540" key="Vcs.Push.Dialog.v2" timestamp="1641378984812">
+      <screen x="72" y="27" width="1848" height="1173" />
+    </state>
+    <state x="594" y="120" width="800" height="540" key="Vcs.Push.Dialog.v2/72.27.1848.1173@72.27.1848.1173" timestamp="1641378984812" />
     <state x="780" y="529" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1640174845184">
       <screen x="72" y="27" width="1848" height="1173" />
     </state>

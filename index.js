@@ -4605,6 +4605,28 @@ async function refresh_the_graph_result_ETH_V2() {
 	return result
 }
 
+async function firstRun() {
+	/* Get the Graph V1 */
+	await refresh_the_graph_result()
+	await getCombinedTvlUsd_BSC()
+	await getCombinedTvlUsd_AVAX()
+
+	/* Get the Graph V2 */
+	await refresh_the_graph_result_BSC_V2()
+	await refresh_the_graph_result_AVAX_V2()
+	await refresh_the_graph_result_ETH_V2()
+
+	/* Get Highest Apy & Total Tvl */
+	await GetHighestAPY()
+	await getTotalTvl()
+
+	/* Get Total Paid */
+	await PaidOutETH()
+	await PaidAllInUsd()
+}
+
+firstRun()
+
 const app = express()
 app.use(cors())
 app.get('/api/circulating-supply', async (req, res) => {
