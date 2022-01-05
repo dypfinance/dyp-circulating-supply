@@ -2272,7 +2272,7 @@ const GetHighestAPY = async () => {
 	//Excluding the BSC APY because pool's has expired
 	// highestAPY = highApy > highApyEth ? highApy : highApyEth
 	// highestAPY = highApy > highApyEth ? highApyEth : highApyEth
-	highestAPY = highestAPY > highApyAvax ? highestAPY : highApyAvax
+	// highestAPY = highestAPY > highApyAvax ? highestAPY : highApyAvax
 	highestAPY = highestAPY > highApyBscV2 ? highestAPY : highApyBscV2
 	highestAPY = highestAPY > highApyAvaxV2 ? highestAPY : highApyAvaxV2
 	highestAPY = highestAPY > highApyEthV2 ? highestAPY : highApyEthV2
