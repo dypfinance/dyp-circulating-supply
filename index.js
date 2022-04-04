@@ -2330,6 +2330,100 @@ async function getTokenHolderBalance(holder, network) {
 	return 0
 }
 
+/* TVL DYPS ETH + BSC + AVAX */
+
+const allContracts = [
+	"0xdCBB5B2148f0cf1Abd7757Ba04A5821fEaD80587",
+	"0xDC65C4277d626d6A29C9Dc42Eb396d354fa5E85b",
+	"0x28eabA060E5EF0d41eeB20d41aafaE8f685739d9",
+	"0x2F2cff66fEB7320FC9Adf91b7B74bFb5a80C7C35",
+	"0xA987aEE0189Af45d5FA95a9FBBCB4374228f375E",
+	"0x251B9ee6cEd97565A821C5608014a107ddc9C98F",
+	"0x54F30bFfeb925F47225e148f0bAe17a452d6b8c0",
+	"0xa68BBe793ad52d0E62bBf34A67F02235bA69E737",
+	"0xCFd970494a0b3C52a81dcE1EcBFF2245e6b0B0E7",
+	"0x49D02CF81Cc352517350F25E200365360426aF94",
+	"0xf51965c570419F2576ec9AeAD6A3C5F674424A99",
+	"0x997A7254E5567d0A70329DEFCc1E4d29d71Ba224",
+	"0xa4da28B8e42680916b557459D338aF6e2D8d458f",
+	"0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d",
+	"0x9ea966b4023049bff858bb5e698ecff24ea54c4a",
+	"0x3fab09acaeddaf579d7a72c24ef3e9eb1d2975c4",
+	"0x94B1A7B57C441890b7a0f64291B39ad6f7E14804",
+	"0x4eF782E66244A0CF002016AA1Db3019448c670aE",
+	"0x537DC4fee298Ea79A7F65676735415f1E2882F92",
+	"0x219717BF0bC33b2764A6c1A772F75305458BDA3d",
+	"0xD1151a2434931f34bcFA6c27639b67C1A23D93Af",
+	"0xed869Ba773c3F1A1adCC87930Ca36eE2dC73435d",
+	"0x415B1624710296717FA96cAD84F53454E8F02D18",
+	"0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90",
+	"0xaF411BF994dA1435A3150B874395B86376C5f2d5",
+	"0x58366902082b90fca01be07d929478bd48acfb19",
+	"0x160ff3c4a6e9aa8e4271aa71226cc811bfef7ed9",
+	"0xC905D5DD9A4f26eD059F76929D11476B2844A7c3",
+	"0x267434f01ac323C6A5BCf41Fa111701eE0165a37",
+	"0x035d65babF595758D7A439D5870BAdc44218D028",
+	"0x6c325DfEA0d18387D423C869E328Ef005cBA024F",
+	"0x85C4f0CEA0994dE365dC47ba22dD0FD9899F93Ab",
+	"0x6f5dC6777b2B4667Bf183D093111867239518af5",
+	"0x10E105676CAC55b74cb6500a8Fb5d2f84804393D",
+	"0x1A4fd0E9046aeD92B6344F17B0a53969F4d5309B",
+	"0x5566B51a1B7D5E6CAC57a68182C63Cb615cAf3f9",
+	"0x8f28110325a727f70b64bffebf2b9dc94b932452",
+	"0x5536e02336771cfa0317d4b6a042f3c38749535e"
+]
+
+const TOKEN_ADDRESS_DYPS_ETH = '0xd4f11Bf85D751F426EF59b705E42b3da3357250f'
+const TOKEN_ADDRESS_DYPS_BSC = '0x4B2dfB131B0AE1D6d5D0c9a3a09c028a5cD10554'
+const TOKEN_ADDRESS_DYPS_AVAX = '0x4689545A1389E7778Fd4e66F854C91Bf8aBacBA9'
+
+async function totalTvlDYPS () {
+	let tvlDYPS = 0
+
+	let amount = new BigNumber(1000000000000000000).toFixed(0)
+	let router = await getPancakeswapRouterContract()
+	let WETH = await router.methods.WETH().call()
+	let platformTokenAddress = config.BUSD_address
+	let rewardTokenAddress = TOKEN_ADDRESS_DYPS_BSC
+	let path = [...new Set([rewardTokenAddress, WETH, platformTokenAddress].map(a => a.toLowerCase()))]
+	let _amountOutMin = await router.methods.getAmountsOut(amount, path).call()
+	_amountOutMin = _amountOutMin[_amountOutMin.length - 1]
+	_amountOutMin = new BigNumber(_amountOutMin).div(1e18).toFixed(18)
+	let price_DYPS = _amountOutMin
+
+	let token_balances_eth = await get_token_balances({TOKEN_ADDRESS: TOKEN_ADDRESS_DYPS_ETH, HOLDERS_LIST: allContracts})
+
+	// await wait(2000)
+
+	let token_balances_bsc = await get_token_balances_BSC({TOKEN_ADDRESS: TOKEN_ADDRESS_DYPS_BSC, HOLDERS_LIST: allContracts})
+
+	// await wait(2000)
+
+	let token_balances_avax = await get_token_balances_AVAX({TOKEN_ADDRESS: TOKEN_ADDRESS_DYPS_AVAX, HOLDERS_LIST: allContracts})
+
+	// await wait(2000)
+
+	for (let id of token_balances_eth){
+		tvlDYPS = new BigNumber(tvlDYPS).plus(id)
+	}
+
+	for (let id of token_balances_bsc){
+		tvlDYPS = new BigNumber(tvlDYPS).plus(id)
+	}
+
+	for (let id of token_balances_avax){
+		tvlDYPS = new BigNumber(tvlDYPS).plus(id)
+	}
+
+	tvlDYPS = new BigNumber(tvlDYPS).div(1e18).times(price_DYPS).toFixed(0)
+
+	tvlDYPS = parseInt(tvlDYPS)
+	// console.log(tvlDYPS)
+	// console.log(price_DYPS)
+
+	return tvlDYPS
+}
+
 //TVL Vaults
 
 const VAULT_ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"CompoundRewardClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"EtherRewardClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"EtherRewardDisbursed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"PlatformTokenAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"PlatformTokenRewardClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenRewardClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenRewardDisbursed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Withdraw","type":"event"},{"inputs":[],"name":"ADMIN_CAN_CLAIM_AFTER","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"BURN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"FEE_PERCENT_TO_BUYBACK_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"FEE_PERCENT_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LOCKUP_DURATION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MIN_ETH_FEE_IN_WEI","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"ONE_HUNDRED_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"POINT_MULTIPLIER","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_INTERVAL","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_RETURN_PERCENT_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_CTOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_DEPOSIT_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_PLATFORM_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"addPlatformTokenBalance","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"cTokenBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountOutMin_platformTokens","type":"uint256"}],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"claimAnyToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimCompoundDivs","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimEthDivs","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"claimExtraTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountOutMin_platformTokens","type":"uint256"}],"name":"claimPlatformTokenDivs","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimTokenDivs","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"contractStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_ethFeeBuyBack","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"deposit","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositTokenBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"emergencyWithdraw","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"ethDivsBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"ethDivsOwing","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_cTokenBalance","type":"uint256"}],"name":"getConvertedBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"startIndex","type":"uint256"},{"internalType":"uint256","name":"endIndex","type":"uint256"}],"name":"getDepositorsList","outputs":[{"internalType":"address[]","name":"stakers","type":"address[]"},{"internalType":"uint256[]","name":"stakingTimestamps","type":"uint256[]"},{"internalType":"uint256[]","name":"lastClaimedTimeStamps","type":"uint256[]"},{"internalType":"uint256[]","name":"stakedTokens","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"getEstimatedCompoundDivsOwing","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getExchangeRateCurrent","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getExchangeRateStored","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getNumberOfHolders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastClaimedTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastEthDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastTokenDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"platformTokenDivsBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"platformTokenDivsOwing","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenBalances","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenDivsBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"tokenDivsOwing","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalCTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalDepositedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedCompoundDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedEthDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedPlatformTokenDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedTokenDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalEthDisbursed","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalEthDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokenDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalTokensDepositedByUser","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokensDisbursed","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalTokensWithdrawnByUser","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"uniswapRouterV2","outputs":[{"internalType":"contract IUniswapV2Router","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_ethFeeBuyBack","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_tokenFeeBuyBack","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"withdraw","outputs":[],"stateMutability":"payable","type":"function"},{"stateMutability":"payable","type":"receive"}]
@@ -2417,7 +2511,10 @@ const getTotalTvl = async () => {
 	//Get Total Vaule Locked New Vaults
 	let tvlVaults2 = await getTotalTvlVaults()
 
-	tvltotal = tvl + farmingTvl + COMBINED_TVL_BSC + COMBINED_TVL_AVAX + ethBuybackTvl + bscBuybackTvl + avaxBuybackTvl + tvlVaults + tvliDYP + tvlFarmDyp + tvliDYPAvax + tvlFarmDypAvax + tvliDYPEth + tvlFarmDypEth + tvlVaults2
+	//Get TVL DYPS
+	let tvlDYPS = await totalTvlDYPS()
+
+	tvltotal = tvl + farmingTvl + COMBINED_TVL_BSC + COMBINED_TVL_AVAX + ethBuybackTvl + bscBuybackTvl + avaxBuybackTvl + tvlVaults + tvliDYP + tvlFarmDyp + tvliDYPAvax + tvlFarmDypAvax + tvliDYPEth + tvlFarmDypEth + tvlVaults2 + tvlDYPS
 	return tvltotal
 }
 
