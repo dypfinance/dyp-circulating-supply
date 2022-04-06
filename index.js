@@ -2376,9 +2376,9 @@ const allContracts = [
 const TOKEN_ADDRESS_DYPS_ETH = '0xd4f11Bf85D751F426EF59b705E42b3da3357250f'
 const TOKEN_ADDRESS_DYPS_BSC = '0x4B2dfB131B0AE1D6d5D0c9a3a09c028a5cD10554'
 const TOKEN_ADDRESS_DYPS_AVAX = '0x4689545A1389E7778Fd4e66F854C91Bf8aBacBA9'
+let price_DYPS = 0
 
-async function totalTvlDYPS () {
-	let tvlDYPS = 0
+async function getPriceDYPS () {
 
 	let amount = new BigNumber(1000000000000000000).toFixed(0)
 	let router = await getPancakeswapRouterContract()
@@ -2388,8 +2388,18 @@ async function totalTvlDYPS () {
 	let path = [...new Set([rewardTokenAddress, WETH, platformTokenAddress].map(a => a.toLowerCase()))]
 	let _amountOutMin = await router.methods.getAmountsOut(amount, path).call()
 	_amountOutMin = _amountOutMin[_amountOutMin.length - 1]
-	_amountOutMin = new BigNumber(_amountOutMin).div(1e18).toFixed(18)
-	let price_DYPS = _amountOutMin
+	_amountOutMin = new BigNumber(_amountOutMin).div(1e18).toFixed(2)
+
+	price_DYPS = parseFloat(_amountOutMin)
+
+	return price_DYPS
+}
+
+async function totalTvlDYPS () {
+	let tvlDYPS = 0
+
+	if (price_DYPS == 0)
+		await getPriceDYPS()
 
 	let token_balances_eth = await get_token_balances({TOKEN_ADDRESS: TOKEN_ADDRESS_DYPS_ETH, HOLDERS_LIST: allContracts})
 
@@ -3906,7 +3916,7 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 	})
 
-	return {token_data, lp_data, usd_per_eth, token_price_usd}
+	return {token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS}
 }
 
 async function get_usd_values_with_apy_and_tvl_BSC_V2(...arguments) {
@@ -4441,7 +4451,7 @@ async function get_apy_and_tvl_AVAX_V2(usd_values) {
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 	})
 
-	return {token_data, lp_data, usd_per_eth, token_price_usd}
+	return {token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS}
 }
 
 async function get_usd_values_with_apy_and_tvl_AVAX_V2(...arguments) {
@@ -4744,7 +4754,7 @@ async function get_apy_and_tvl_ETH_V2(usd_values) {
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 	})
 
-	return {token_data, lp_data, usd_per_eth, token_price_usd}
+	return {token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS}
 }
 
 async function get_usd_values_with_apy_and_tvl_ETH_V2(...arguments) {
@@ -4765,6 +4775,9 @@ async function firstRun() {
 	await refresh_the_graph_result()
 	await getCombinedTvlUsd_BSC()
 	await getCombinedTvlUsd_AVAX()
+
+	/* Get Price of DYPS */
+	await getPriceDYPS()
 
 	/* Get the Graph V2 */
 	await refresh_the_graph_result_BSC_V2()
