@@ -1407,16 +1407,98 @@ const LP_IDs = {
 const LP_ID_LIST = Object.keys(LP_IDs).map(key => LP_IDs[key]).flat()
 
 const HOLDERS_LIST = LP_ID_LIST.map(a => a.split('-')[1]).concat([
+	//Token Lock
 	"0x7742565647682abE90A7f7497e05c4403CB50265",
 	"0x417538F319AfDDD351f33222592B60f985475A21",
 	"0xCfAD7aeb67FC5c19a581496689881AE063541149",
+	"0x1d4ba66f9d876ad2e22e3c16361bcf8e34f4d0cc",
+	//ETH <-> BSC Bridge
+	"0x81A0d2f173590A23636DB6a475BC7E32aAae946C",
+	//ETH <-> AVAX Bridge
+	"0xd374c29d98e9a33fa4d08fca1d72d7319ea4bc58",
+	//Constant Staking V1
 	"0x7Fc2174670d672AD7f666aF0704C2D961EF32c73",
 	"0x036e336eA3ac2E255124CF775C4FDab94b2C42e4",
 	"0x0A32749D95217b7Ee50127E24711c97849b70C6a",
 	"0x82df1450eFD6b504EE069F5e4548F2D5Cb229880",
+	//Dead
 	"0x000000000000000000000000000000000000dead",
-	"0x1d4ba66f9d876ad2e22e3c16361bcf8e34f4d0cc"
+	//Buyback V1
+	"0xe5262f38bf13410a79149cb40429f8dc5e830542",
+	//Vaults V1
+	"0x01de5bCe5C5Ee4F92e8f4183f6F4E4f12f9a86cd",
+	"0x3e488684c40D63Ff2b9963DFBb805Bbb3Da9b1c6",
+	"0x480c83Be2694BFB91F40d951424330c9123b9066",
+	"0xdC68450BfE4E16d74B20c44DdA83662cF2F5F0c0",
+	"0xe5c5a452A0f7B2d5266010Bf167A7Ee2eDF54533",
+	"0x8Ae8eC53712017EeB3378Ee112082D57da98E792",
+	"0x2D4b96e3C6176E833c013088aEcC7640af977e20",
+	"0xb95Ec2cB2D61d12c86a05e0c995d007Aec8f2850",
+	"0x18d2a323675BbE1f9d03e273a186Aea8ADf7f5c5",
+	"0xfB55dcc985517d111C65004f0EAabC1f6CE23cF1",
+	"0x8CE610eC56cE3ad3678C426f0Dfc965568Db6DdC",
+	"0x7CCFF41652eD12278E02E18de06d40Aaf5F1769B",
+	"0x94226Ae99C786b2830d27aC6e8fCdb4b0c4cc73a",
+	"0xaaC6814a1aCFE8F7Ea1f718148daC614d5323c85",
+	"0xe19328D2A528B765E30f9BC47faBb81e0f510ea9",
+	"0xE728874B81Bd0b7a9c3505949935e67D0e7136aD",
+	"0x8c1d0FD28b5FEac7f5521d05D53d7E1560A7CBCC",
+	"0xF73baaC19eEEB7C4B7Cc211F3eDF88BB9F1d40f9",
+	"0x8Fb2c9F8c07FaCf0aF442a1900cD2Cfe1940971B",
+	"0x8ad8e5FA0f2781dA3327275049B5469275A1042E",
+	//Constant Staking + Buyback + Farm V2
+	"0xa4da28B8e42680916b557459D338aF6e2D8d458f",
+	"0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d",
+	"0x471beCc72AD487249efE521bf9b6744b882830DF",
+	"0x7b7132E7BF4e754855191a978F3979e1E3c8617b",
+	"0x0b92E7f074e7Ade0181A29647ea8474522e6A7C2",
+	"0xff32a38016422F51e8C0aF5D333472392822FeEf",
+	"0x62AAE8C0c50038236d075AC595Ae0BE4F201bBdd",
+	"0xb67F464b558e3055C2B6F017546Ed53b2e6333d7",
+	"0x1aB008CbfC99d0CA7e3FD8987ce1ebf832506F53"
 ])
+
+const HOLDERS_LIST_BSC = [
+	//Token Lock
+	"0xc44c1c7f68cdd84fc77cc9618f8f0b7e03345b20",
+	//Buyback V1
+	"0x350f3fe979bfad4766298713c83b387c2d2d7a7a",
+	//Dead
+	"0x000000000000000000000000000000000000dead",
+	//ETH <-> BSC Bridge
+	"0x229eD0B61bEA41710A79A3634E06B1A619a0EBCb",
+	//Constant Staking + Buyback + Farm V2
+	"0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90",
+	"0xaF411BF994dA1435A3150B874395B86376C5f2d5",
+	"0x9af074cE714FE1Eb32448052a38D274E93C5dc28",
+	"0xDBfb96e2899d52B469C1a1C35eD71fBBa228d2cC",
+	"0xc794cDb8D6aC5eB42d5ABa9c1E641ae17c239c8c",
+	"0x23609B1f5274160564e4afC5eB9329A8Bf81c744",
+	"0x264922696b9972687522b6e98Bf78A0430E2163C",
+	"0x9DF0A645BeB6F7aDFaDC56f3689E79405337EFE2",
+	"0xbd574278fEbad04b7A0694C37DeF4f2ecFa9354A"
+]
+
+const HOLDERS_LIST_AVAX = [
+	//Token Lock
+	"0x5200718cba9376afa068e1180eabb506e6d13802",
+	//Buyback V1
+	"0x4c7e0cbb0276a5e963266e6b9f34db73a1cb73f3",
+	//Dead
+	"0x000000000000000000000000000000000000dead",
+	//ETH <-> AVAX Bridge
+	"0x229eD0B61bEA41710A79A3634E06B1A619a0EBCb",
+	//Constant Staking + Buyback + Farm V2
+	"0x1A4fd0E9046aeD92B6344F17B0a53969F4d5309B",
+	"0x5566B51a1B7D5E6CAC57a68182C63Cb615cAf3f9",
+	"0xe6B307CD185f2A541a661eA312E3e7939Ea9d218",
+	"0x934819D227B7095595eC9cA6604eF2Dd0C3a9EA2",
+	"0x1cA9Fc98f3b997E08bC04691414e33B1835aa7e5",
+	"0x6a258Bd17456e057A7c6102177EC2f9d64D5F9e4",
+	"0xC2ba0abFc89A5A258e6440D82BB95A5e2B541581",
+	"0x4c16093Da4BA7a604A1Fe8CD5d387cC904B3D407",
+	"0x9FF3DC1f7042bAF46651029C7284Fc3B93e21a4D"
+]
 
 async function get_token_balances({
 									  TOKEN_ADDRESS,
@@ -1433,12 +1515,18 @@ function get_token_balances_sum(token_balances) {
 	return token_balances.reduce((a, b) => new BigNumber(a).plus(b), 0)
 }
 let token_balance_sum = 0;
+let token_balance_sum_bsc = 0;
+let token_balance_sum_avax = 0;
 let last_update_time = 0;
 let circulating_supply = 0;
 async function update_token_balance_sum() {
 	last_update_time = Date.now()
 	token_balance_sum = get_token_balances_sum( await get_token_balances({TOKEN_ADDRESS, HOLDERS_LIST}) ).div(1e18).toString(10)
-	circulating_supply = new BigNumber(25651531).minus(token_balance_sum).plus(4348469);
+	token_balance_sum_bsc = get_token_balances_sum( await get_token_balances_BSC({TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_LIST_BSC}) ).div(1e18).toString(10)
+	token_balance_sum_avax = get_token_balances_sum( await get_token_balances_AVAX({TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_LIST_AVAX}) ).div(1e18).toString(10)
+	let circulating_supply_bsc = new BigNumber(24963431).minus(token_balance_sum_bsc)
+	let circulating_supply_avax = new BigNumber(24963431).minus(token_balance_sum_avax)
+	circulating_supply = new BigNumber(30000000).minus(token_balance_sum).plus(circulating_supply_bsc).plus(circulating_supply_avax)
 	return token_balance_sum
 }
 
