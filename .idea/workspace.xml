@@ -19,7 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79497d21-4f6e-4a59-a557-a9254f5c84f9" name="Default Changelist" comment="Remove Avax V1 from highest APY">
+    <list default="true" id="79497d21-4f6e-4a59-a557-a9254f5c84f9" name="Default Changelist" comment="Add Constant Staking 3">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -132,21 +133,23 @@
       <workItem from="1640433860517" duration="626000" />
       <workItem from="1640594150748" duration="618000" />
       <workItem from="1640860309959" duration="608000" />
-      <workItem from="1641378676630" duration="998000" />
-    </task>
-    <task id="LOCAL-00001" summary="Add Total TVL + Calculate Highest APY">
-      <created>1618182327554</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1618182327554</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Change Port">
-      <created>1618182385621</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1618182385621</updated>
+      <workItem from="1641378676630" duration="1561000" />
+      <workItem from="1641556861687" duration="637000" />
+      <workItem from="1641821531088" duration="36000" />
+      <workItem from="1641828719011" duration="2063000" />
+      <workItem from="1643811961391" duration="16000" />
+      <workItem from="1643812740370" duration="1785000" />
+      <workItem from="1644002181919" duration="207000" />
+      <workItem from="1645096066411" duration="688000" />
+      <workItem from="1646647840307" duration="1063000" />
+      <workItem from="1649091573002" duration="1976000" />
+      <workItem from="1649244725361" duration="6161000" />
+      <workItem from="1651866896613" duration="2888000" />
+      <workItem from="1651869910400" duration="1775000" />
+      <workItem from="1651917782853" duration="872000" />
+      <workItem from="1652201393958" duration="78000" />
+      <workItem from="1652210985824" duration="83000" />
+      <workItem from="1655194238185" duration="1164000" />
     </task>
     <task id="LOCAL-00003" summary="Add Total Paid in WETH and WBNB">
       <created>1618230894484</created>
@@ -442,7 +445,56 @@
       <option name="project" value="LOCAL" />
       <updated>1641378978646</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Add Initial Setup Run">
+      <created>1641379720308</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1641379720308</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Update MN">
+      <created>1643814443597</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1643814443597</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Add TVL for new Vaults">
+      <created>1646648626565</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1646648626565</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Add TVL DYPS">
+      <created>1649093399992</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1649093399992</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Add Price DYPS">
+      <created>1649251508287</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1649251508287</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Add Old Contracts circulating supply">
+      <created>1651869773727</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1651869773728</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Add Constant Staking 3">
+      <created>1652201462903</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1652201462903</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -461,13 +513,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Split farm info for each network" />
-    <MESSAGE value="Update TVL, add Vaults and buybacks" />
-    <MESSAGE value="Add Holders List" />
-    <MESSAGE value="Remove BSC APY, contracts expired" />
-    <MESSAGE value="Update TotalHolders" />
-    <MESSAGE value="Update Holders" />
-    <MESSAGE value="Add the_graph_result for BSC V2 smart contracts" />
     <MESSAGE value="Update the_graph_v2_bsc" />
     <MESSAGE value="Update TVL BSC_V2" />
     <MESSAGE value="Update Highest APY including BSC V2" />
@@ -486,44 +531,19 @@
     <MESSAGE value="Update APY" />
     <MESSAGE value="Update Highest APY" />
     <MESSAGE value="Remove Avax V1 from highest APY" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove Avax V1 from highest APY" />
+    <MESSAGE value="Add Initial Setup Run" />
+    <MESSAGE value="Update MN" />
+    <MESSAGE value="Add TVL for new Vaults" />
+    <MESSAGE value="Add TVL DYPS" />
+    <MESSAGE value="Add Price DYPS" />
+    <MESSAGE value="Add Old Contracts circulating supply" />
+    <MESSAGE value="Add Constant Staking 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Constant Staking 3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="782" y="372" width="424" height="496" key="FileChooserDialogImpl" timestamp="1633414654690">
+    <state x="594" y="95" width="800" height="540" key="Vcs.Push.Dialog.v2" timestamp="1652201465468">
       <screen x="72" y="27" width="1848" height="1173" />
     </state>
-    <state x="782" y="372" width="424" height="496" key="FileChooserDialogImpl/72.27.1848.1173@72.27.1848.1173" timestamp="1633414654690" />
-    <state width="1825" height="315" key="GridCell.Tab.0.bottom" timestamp="1633420226168">
-      <screen x="72" y="27" width="1848" height="1173" />
-    </state>
-    <state width="1825" height="315" key="GridCell.Tab.0.bottom/72.27.1848.1173@72.27.1848.1173" timestamp="1633420226168" />
-    <state width="1825" height="315" key="GridCell.Tab.0.center" timestamp="1633420226167">
-      <screen x="72" y="27" width="1848" height="1173" />
-    </state>
-    <state width="1825" height="315" key="GridCell.Tab.0.center/72.27.1848.1173@72.27.1848.1173" timestamp="1633420226167" />
-    <state width="1825" height="315" key="GridCell.Tab.0.left" timestamp="1633420226167">
-      <screen x="72" y="27" width="1848" height="1173" />
-    </state>
-    <state width="1825" height="315" key="GridCell.Tab.0.left/72.27.1848.1173@72.27.1848.1173" timestamp="1633420226167" />
-    <state width="1825" height="315" key="GridCell.Tab.0.right" timestamp="1633420226168">
-      <screen x="72" y="27" width="1848" height="1173" />
-    </state>
-    <state width="1825" height="315" key="GridCell.Tab.0.right/72.27.1848.1173@72.27.1848.1173" timestamp="1633420226168" />
-    <state x="740" y="292" width="507" height="645" key="RollbackChangesDialog" timestamp="1641378778172">
-      <screen x="72" y="27" width="1848" height="1173" />
-    </state>
-    <state x="740" y="292" width="507" height="645" key="RollbackChangesDialog/72.27.1848.1173@72.27.1848.1173" timestamp="1641378778172" />
-    <state x="594" y="120" width="800" height="540" key="Vcs.Push.Dialog.v2" timestamp="1641378984812">
-      <screen x="72" y="27" width="1848" height="1173" />
-    </state>
-    <state x="594" y="120" width="800" height="540" key="Vcs.Push.Dialog.v2/72.27.1848.1173@72.27.1848.1173" timestamp="1641378984812" />
-    <state x="780" y="529" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1640174845184">
-      <screen x="72" y="27" width="1848" height="1173" />
-    </state>
-    <state x="780" y="529" width="432" height="182" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/72.27.1848.1173@72.27.1848.1173" timestamp="1640174845184" />
-    <state x="659" y="285" width="672" height="678" key="search.everywhere.popup" timestamp="1639738233150">
-      <screen x="72" y="27" width="1848" height="1173" />
-    </state>
-    <state x="659" y="285" width="672" height="678" key="search.everywhere.popup/72.27.1848.1173@72.27.1848.1173" timestamp="1639738233150" />
+    <state x="594" y="95" width="800" height="540" key="Vcs.Push.Dialog.v2/72.27.1848.1173@72.27.1848.1173" timestamp="1652201465468" />
   </component>
 </project>
