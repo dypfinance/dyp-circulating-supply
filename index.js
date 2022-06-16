@@ -4260,8 +4260,56 @@ const HOLDERS_LIST_IDYP = LP_ID_LIST_BSC_V2.map(a => a.split('-')[1]).concat([
 	"0x264922696b9972687522b6e98Bf78A0430E2163C",
 	"0x9DF0A645BeB6F7aDFaDC56f3689E79405337EFE2",
 	"0xbd574278fEbad04b7A0694C37DeF4f2ecFa9354A",
-	"0x000000000000000000000000000000000000dead"
+	"0x000000000000000000000000000000000000dead",
+	"0x58366902082b90fca01be07d929478bd48acfb19",
+	"0x160ff3c4a6e9aa8e4271aa71226cc811bfef7ed9"
 ])
+
+const HOLDERS_LIST_IDYP_AVAX = [
+	"0x20ea329ed901bdf48b9198591ccffb558a3b0323", //Token Lock
+	"0x6e08239150D8E76920Cf5ffaa2293e89bE345CA9", //Bridge
+	"0x1A4fd0E9046aeD92B6344F17B0a53969F4d5309B",
+	"0x5566B51a1B7D5E6CAC57a68182C63Cb615cAf3f9",
+	"0xC905D5DD9A4f26eD059F76929D11476B2844A7c3",
+	"0xe6B307CD185f2A541a661eA312E3e7939Ea9d218",
+	"0x267434f01ac323C6A5BCf41Fa111701eE0165a37",
+	"0x934819D227B7095595eC9cA6604eF2Dd0C3a9EA2",
+	"0x035d65babF595758D7A439D5870BAdc44218D028",
+	"0x1cA9Fc98f3b997E08bC04691414e33B1835aa7e5",
+	"0x6c325DfEA0d18387D423C869E328Ef005cBA024F",
+	"0x6a258Bd17456e057A7c6102177EC2f9d64D5F9e4",
+	"0x85C4f0CEA0994dE365dC47ba22dD0FD9899F93Ab",
+	"0xC2ba0abFc89A5A258e6440D82BB95A5e2B541581",
+	"0x6f5dC6777b2B4667Bf183D093111867239518af5",
+	"0x4c16093Da4BA7a604A1Fe8CD5d387cC904B3D407",
+	"0x10E105676CAC55b74cb6500a8Fb5d2f84804393D",
+	"0x9FF3DC1f7042bAF46651029C7284Fc3B93e21a4D",
+	"0x8f28110325a727f70b64bffebf2b9dc94b932452",
+	"0x5536e02336771cfa0317d4b6a042f3c38749535e"
+]
+
+const HOLDERS_LIST_IDYP_ETH = [
+	"0x217f2284388925ef825079a7d80fd2de72834aee", //Token Lock
+	"0x70c89bd30d8543a594f83c57ed92240a1b4925fe", //Bridge
+	"0xa4da28B8e42680916b557459D338aF6e2D8d458f",
+	"0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d",
+	"0xdCBB5B2148f0cf1Abd7757Ba04A5821fEaD80587",
+	"0x471beCc72AD487249efE521bf9b6744b882830DF",
+	"0xDC65C4277d626d6A29C9Dc42Eb396d354fa5E85b",
+	"0x7b7132E7BF4e754855191a978F3979e1E3c8617b",
+	"0xa68BBe793ad52d0E62bBf34A67F02235bA69E737",
+	"0x0b92E7f074e7Ade0181A29647ea8474522e6A7C2",
+	"0xCFd970494a0b3C52a81dcE1EcBFF2245e6b0B0E7",
+	"0xff32a38016422F51e8C0aF5D333472392822FeEf",
+	"0x49D02CF81Cc352517350F25E200365360426aF94",
+	"0x62AAE8C0c50038236d075AC595Ae0BE4F201bBdd",
+	"0xf51965c570419F2576ec9AeAD6A3C5F674424A99",
+	"0xb67F464b558e3055C2B6F017546Ed53b2e6333d7",
+	"0x997A7254E5567d0A70329DEFCc1E4d29d71Ba224",
+	"0x1aB008CbfC99d0CA7e3FD8987ce1ebf832506F53",
+	"0x9ea966b4023049bff858bb5e698ecff24ea54c4a",
+	"0x3fab09acaeddaf579d7a72c24ef3e9eb1d2975c4"
+]
 
 async function get_token_balances_bsc({
 										  TOKEN_ADDRESS,
@@ -4275,12 +4323,22 @@ async function get_token_balances_bsc({
 }
 
 let token_balance_sum_idyp = 0;
+let token_balance_sum_idyp_eth = 0;
+let token_balance_sum_idyp_avax = 0;
 let last_update_time_idyp = 0;
 let circulating_supply_idyp = 0;
 async function update_token_balance_sum_bsc() {
 	last_update_time_idyp = Date.now()
 	token_balance_sum_idyp = get_token_balances_sum( await get_token_balances_bsc({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: HOLDERS_LIST_IDYP}) ).div(1e18).toString(10)
-	circulating_supply_idyp = new BigNumber(300000000).minus(token_balance_sum_idyp);
+
+	token_balance_sum_idyp_eth = get_token_balances_sum( await get_token_balances({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: HOLDERS_LIST_IDYP_ETH}) ).div(1e18).toString(10)
+	token_balance_sum_idyp_avax = get_token_balances_sum( await get_token_balances_AVAX({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: HOLDERS_LIST_IDYP_AVAX}) ).div(1e18).toString(10)
+	let circulating_supply_eth = new BigNumber(300000000).minus(token_balance_sum_idyp_eth)
+	let circulating_supply_avax = new BigNumber(300000000).minus(token_balance_sum_idyp_avax)
+	// circulating_supply = new BigNumber(30000000).minus(token_balance_sum).plus(circulating_supply_bsc).plus(circulating_supply_avax)
+
+	console.log({token_balance_sum_idyp_eth, token_balance_sum_idyp, token_balance_sum_idyp_avax})
+	circulating_supply_idyp = new BigNumber(300000000).minus(token_balance_sum_idyp).plus(circulating_supply_eth).plus(circulating_supply_avax);
 	return token_balance_sum_idyp
 }
 
