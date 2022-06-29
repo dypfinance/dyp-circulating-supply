@@ -4284,6 +4284,11 @@ const HOLDERS_LIST_IDYP_AVAX = [
 	"0x4c16093Da4BA7a604A1Fe8CD5d387cC904B3D407",
 	"0x10E105676CAC55b74cb6500a8Fb5d2f84804393D",
 	"0x9FF3DC1f7042bAF46651029C7284Fc3B93e21a4D",
+	// "0x035d65babF595758D7A439D5870BAdc44218D028",
+	// "0x6c325DfEA0d18387D423C869E328Ef005cBA024F",
+	// "0x85C4f0CEA0994dE365dC47ba22dD0FD9899F93Ab",
+	// "0x6f5dC6777b2B4667Bf183D093111867239518af5",
+	// "0x10E105676CAC55b74cb6500a8Fb5d2f84804393D",
 	"0x8f28110325a727f70b64bffebf2b9dc94b932452",
 	"0x5536e02336771cfa0317d4b6a042f3c38749535e"
 ]
@@ -4307,6 +4312,11 @@ const HOLDERS_LIST_IDYP_ETH = [
 	"0xb67F464b558e3055C2B6F017546Ed53b2e6333d7",
 	"0x997A7254E5567d0A70329DEFCc1E4d29d71Ba224",
 	"0x1aB008CbfC99d0CA7e3FD8987ce1ebf832506F53",
+	// "0xa68BBe793ad52d0E62bBf34A67F02235bA69E737",
+	// "0xCFd970494a0b3C52a81dcE1EcBFF2245e6b0B0E7",
+	// "0x49D02CF81Cc352517350F25E200365360426aF94",
+	// "0xf51965c570419F2576ec9AeAD6A3C5F674424A99",
+	// "0x997A7254E5567d0A70329DEFCc1E4d29d71Ba224",
 	"0x9ea966b4023049bff858bb5e698ecff24ea54c4a",
 	"0x3fab09acaeddaf579d7a72c24ef3e9eb1d2975c4"
 ]
@@ -4337,8 +4347,9 @@ async function update_token_balance_sum_bsc() {
 	let circulating_supply_avax = new BigNumber(300000000).minus(token_balance_sum_idyp_avax)
 	// circulating_supply = new BigNumber(30000000).minus(token_balance_sum).plus(circulating_supply_bsc).plus(circulating_supply_avax)
 
+	console.log({token_balance_sum_idyp,token_balance_sum_idyp_eth, token_balance_sum_idyp_avax })
 	// console.log({token_balance_sum_idyp_eth, token_balance_sum_idyp, token_balance_sum_idyp_avax})
-	circulating_supply_idyp = new BigNumber(300000000).minus(token_balance_sum_idyp).plus(circulating_supply_eth).plus(circulating_supply_avax);
+	circulating_supply_idyp = new BigNumber(300000000).minus(26424547).minus(token_balance_sum_idyp).plus(circulating_supply_eth).plus(circulating_supply_avax);
 	return token_balance_sum_idyp
 }
 
@@ -4946,7 +4957,7 @@ async function firstRun() {
 	await PaidAllInUsd()
 }
 
-firstRun()
+// firstRun()
 
 const app = express()
 app.use(cors())
