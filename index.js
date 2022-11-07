@@ -4343,12 +4343,12 @@ async function update_token_balance_sum_bsc() {
 
 	token_balance_sum_idyp_eth = get_token_balances_sum( await get_token_balances({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: HOLDERS_LIST_IDYP_ETH}) ).div(1e18).toString(10)
 	token_balance_sum_idyp_avax = get_token_balances_sum( await get_token_balances_AVAX({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: HOLDERS_LIST_IDYP_AVAX}) ).div(1e18).toString(10)
-	let circulating_supply_eth = new BigNumber(283413839).minus(token_balance_sum_idyp_eth) //bridge
+	let circulating_supply_eth = new BigNumber(286413839).minus(token_balance_sum_idyp_eth) //bridge
 	let circulating_supply_avax = new BigNumber(296413839).minus(token_balance_sum_idyp_avax) //bridge
 	// circulating_supply = new BigNumber(30000000).minus(token_balance_sum).plus(circulating_supply_bsc).plus(circulating_supply_avax)
 
 	// console.log({token_balance_sum_idyp_eth, token_balance_sum_idyp, token_balance_sum_idyp_avax})
-	circulating_supply_idyp = new BigNumber(300000000).minus(39424547).minus(token_balance_sum_idyp).plus(circulating_supply_eth).plus(circulating_supply_avax);
+	circulating_supply_idyp = new BigNumber(300000000).minus(36424547).minus(token_balance_sum_idyp).plus(circulating_supply_eth).plus(circulating_supply_avax);
 	return token_balance_sum_idyp
 }
 
@@ -4956,7 +4956,7 @@ async function firstRun() {
 	await PaidAllInUsd()
 }
 
-firstRun()
+// firstRun()
 
 const app = express()
 app.use(cors())
