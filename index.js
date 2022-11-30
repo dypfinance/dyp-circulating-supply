@@ -7129,7 +7129,6 @@ async function firstRun() {
 	await PaidAllInUsd()
 }
 
-//Disable this if you test
 firstRun()
 
 const app = express()
