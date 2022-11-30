@@ -15,6 +15,9 @@ const infuraWeb3 = new Web3('https://mainnet.infura.io/v3/94608dc6ddba490697ec4f
 const GOV_ADDRESS_ETH = '0x1766d076ae227443b98aa836bd43895add6b0ab4'
 const GOV_ADDRESS_BSC = "0x2cf8b55a6a492c2f8e750ad1fa4e4a858044deea"
 const GOV_ADDRESS_AVAX = "0x4d3deb73df067d6466facad196b22411422909ab"
+const GOV_ADDRESS_BSC2 = "0x0b49488729bb20423c1eb6559bb0c4d7608152b4"
+const GOV_ADDRESS_AVAX2 = "0xc1cb471dbbe2fb3cab80143c00f00cadaf72338c"
+const GOV_ADDRESS_ETH2 = "0xdec13a1d8a1eccaa0e8264fb412bd2ec58f207c1"
 const TOKEN_ADDRESS = "0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17"
 const TOKEN_ADDRESS_IDYP = "0xbd100d061e120b2c67a24453cf6368e63f1be056"
 const PRICE_ADDRESS = "0x4185e6f61549133c34ffaf88c92a943fcde51619"
@@ -1208,6 +1211,490 @@ const GOV_ABI_BSC = [
 	  "name": "transferOwnership",
 	  "outputs": [],
 	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "votedForOption",
+	  "outputs": [
+		{
+		  "internalType": "enum Governance.Option",
+		  "name": "",
+		  "type": "uint8"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "votesForProposalByAddress",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "withdrawAllTokens",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	}
+  ]
+
+const GOV_ABI_ETH2 = [
+	{
+	  "inputs": [],
+	  "name": "MIN_BALANCE_TO_INIT_PROPOSAL",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "QUORUM",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "RESULT_EXECUTION_ALLOWANCE_PERIOD",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "TRUSTED_TOKEN_ADDRESS",
+	  "outputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "VOTE_DURATION",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "actions",
+	  "outputs": [
+		{
+		  "internalType": "enum Governance.Action",
+		  "name": "",
+		  "type": "uint8"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "enum Governance.Option",
+		  "name": "option",
+		  "type": "uint8"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "addVotes",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "executeProposal",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "getProposal",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "_proposalId",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "enum Governance.Action",
+		  "name": "_proposalAction",
+		  "type": "uint8"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "_optionOneVotes",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "_optionTwoVotes",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "contract StakingPool",
+		  "name": "_stakingPool",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "_newGovernance",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "_proposalStartTime",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "bool",
+		  "name": "_isProposalExecuted",
+		  "type": "bool"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "isProposalExecuted",
+	  "outputs": [
+		{
+		  "internalType": "bool",
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "isProposalExecutible",
+	  "outputs": [
+		{
+		  "internalType": "bool",
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "isProposalOpen",
+	  "outputs": [
+		{
+		  "internalType": "bool",
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "lastIndex",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "name": "lastVotedProposalStartTime",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "newGovernances",
+	  "outputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "optionOneVotes",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "optionTwoVotes",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "proposalStartTime",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "contract StakingPool",
+		  "name": "pool",
+		  "type": "address"
+		}
+	  ],
+	  "name": "proposeDisburseOrBurn",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "contract StakingPool",
+		  "name": "pool",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "newGovernance",
+		  "type": "address"
+		}
+	  ],
+	  "name": "proposeUpgradeGovernance",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "removeVotes",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "stakingPools",
+	  "outputs": [
+		{
+		  "internalType": "contract StakingPool",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "name": "totalDepositedTokens",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
 	  "type": "function"
 	},
 	{
@@ -3673,9 +4160,15 @@ async function update_token_balance_sum() {
 let bscProposals = 0;
 let ethProposals = 0;
 let avaxProposals = 0;
+let bscProposals2 = 0;
+let ethProposals2 = 0;
+let avaxProposals2 = 0;
 let bscVotes = 0;
 let ethVotes = 0;
 let avaxVotes = 0;
+let bscVotes2 = 0;
+let ethVotes2 = 0;
+let avaxVotes2 = 0;
 let totalVotes = 0;
 let last_update_time_gov = 0;
 
@@ -3684,29 +4177,58 @@ async function update_proposals() {
 	let gov_contract_bsc = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC, {from: undefined})
 	let gov_contract_eth = new infuraWeb3.eth.Contract(GOV_ABI_ETH, GOV_ADDRESS_ETH, {from: undefined})
 	let gov_contract_avax = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX, {from: undefined})
-	bscProposals = await gov_contract_bsc.methods.lastIndex().call()
+	let gov_contract_bsc2 = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC2, {from: undefined})
+	let gov_contract_eth2 = new infuraWeb3.eth.Contract(GOV_ABI_ETH2, GOV_ADDRESS_ETH2, {from: undefined})
+	let gov_contract_avax2 = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX2, {from: undefined})
+	bscProposals = await gov_contract_bsc.methods.lastIndex().call() 
 	ethProposals = await gov_contract_eth.methods.lastIndex().call()
 	avaxProposals = await gov_contract_avax.methods.lastIndex().call()
-	
+	bscProposals2 = await gov_contract_bsc2.methods.lastIndex().call()
+	ethProposals2 = await gov_contract_eth2.methods.lastIndex().call()
+	avaxProposals2 = await gov_contract_avax2.methods.lastIndex().call()
 
-	//make a for loop to get all votes from bsc proposals
+	bscProposals = parseInt(bscProposals) + parseInt(bscProposals2)
+	ethProposals = parseInt(ethProposals) + parseInt(ethProposals2)
+	avaxProposals = parseInt(avaxProposals) + parseInt(avaxProposals2)
+	
+	//make for loops to get all votes from bsc proposals (new contracts)
 	for (let i = 1; i <= bscProposals; i++) {
 		let vote = await gov_contract_eth.methods.getProposal(i).call()
 		bscVotes = bscVotes + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
 	}
+
 	for (let i = 1; i <= ethProposals; i++) {
 		let vote = await gov_contract_eth.methods.getProposal(i).call()
 		ethVotes = ethVotes + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
 	}
+
 	for (let i = 1; i <= avaxProposals; i++) {
 		let vote = await gov_contract_avax.methods.getProposal(i).call()
 		avaxVotes = avaxVotes + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
 	}
+	// make for loops to get all votes from bsc proposals (old contracts)
+	for (let i = 1; i <= bscProposals2; i++) {
+		let vote = await gov_contract_bsc2.methods.getProposal(i).call()
+		bscVotes2 = bscVotes2 + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
+	}
 
-	bscVotes = Math.trunc(bscVotes)
-	ethVotes = Math.trunc(ethVotes)
-	avaxVotes = Math.trunc(avaxVotes)
+	console.log(await gov_contract_eth2.methods.getProposal(1).call())
+	for (let i = 1; i <= ethProposals2; i++) {
+		let vote = await gov_contract_eth2.methods.getProposal(i).call()
+		ethVotes2 = ethVotes2 + parseInt(((vote._optionOneVotes)/1e18)) + parseInt(((vote._optionTwoVotes)/1e18))
+	}
+
+	for (let i = 1; i <= avaxProposals2; i++) {
+		let vote = await gov_contract_avax2.methods.getProposal(i).call()
+		avaxVotes2 = avaxVotes2 + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
+	}
+
+	bscVotes = Math.trunc(bscVotes) +  Math.trunc(bscVotes2)
+	ethVotes = Math.trunc(ethVotes) +  Math.trunc(ethVotes2)
+	avaxVotes = Math.trunc(avaxVotes) + Math.trunc(avaxVotes2)
+
 	totalVotes = bscVotes + ethVotes + avaxVotes;
+
 	return ethProposals, bscProposals, avaxProposals, bscVotes, ethVotes, avaxVotes, totalVotes
 }
 
@@ -7129,7 +7651,7 @@ async function firstRun() {
 	await PaidAllInUsd()
 }
 
-firstRun()
+// firstRun()
 
 const app = express()
 app.use(cors())
