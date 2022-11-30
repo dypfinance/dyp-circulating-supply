@@ -3669,6 +3669,7 @@ async function update_token_balance_sum() {
 	circulating_supply = new BigNumber(30000000).minus(token_balance_sum);
 	return token_balance_sum
 }
+
 let bscProposals = 0;
 let ethProposals = 0;
 let avaxProposals = 0;
@@ -3676,7 +3677,10 @@ let bscVotes = 0;
 let ethVotes = 0;
 let avaxVotes = 0;
 let totalVotes = 0;
+let last_update_time_gov = 0;
+
 async function update_proposals() {
+	last_update_time_gov = Date.now()
 	let gov_contract_bsc = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC, {from: undefined})
 	let gov_contract_eth = new infuraWeb3.eth.Contract(GOV_ABI_ETH, GOV_ADDRESS_ETH, {from: undefined})
 	let gov_contract_avax = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX, {from: undefined})
@@ -7125,7 +7129,7 @@ async function firstRun() {
 	await PaidAllInUsd()
 }
 
-firstRun()
+// firstRun()
 
 const app = express()
 app.use(cors())
@@ -7140,8 +7144,8 @@ app.get('/api/circulating-supply', async (req, res) => {
 })
 
 app.get('/api/gov-stats', async (req, res) => {
-	//1 hour
-	if (Date.now() - last_update_time > 1e1) {
+	//1 day
+	if (Date.now() - last_update_time_gov > 86400e3) {
 		await update_proposals()
 	}
 	res.type('application/json')
