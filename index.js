@@ -7129,7 +7129,7 @@ async function firstRun() {
 	await PaidAllInUsd()
 }
 
-// firstRun()
+firstRun()
 
 const app = express()
 app.use(cors())
