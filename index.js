@@ -9,10 +9,12 @@ const { window } = new JSDOM( "" )
 const $ = require( "jquery" )( window )
 
 const fetch = require("node-fetch")
-
 const infuraWeb3 = new Web3('https://mainnet.infura.io/v3/94608dc6ddba490697ec4f9b723b586e')
 
 // MAKE SURE THIS ADDRESS IS LOWERCASE
+const GOV_ADDRESS_ETH = '0x1766d076ae227443b98aa836bd43895add6b0ab4'
+const GOV_ADDRESS_BSC = "0x2cf8b55a6a492c2f8e750ad1fa4e4a858044deea"
+const GOV_ADDRESS_AVAX = "0x4d3deb73df067d6466facad196b22411422909ab"
 const TOKEN_ADDRESS = "0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17"
 const TOKEN_ADDRESS_IDYP = "0xbd100d061e120b2c67a24453cf6368e63f1be056"
 const PRICE_ADDRESS = "0x4185e6f61549133c34ffaf88c92a943fcde51619"
@@ -58,6 +60,2137 @@ const config = {
 
 const bscWeb3 = new Web3(config.bsc_endpoint)
 const avaxWeb3 = new Web3(config.avax_endpoint)
+
+const GOV_ABI_BSC = [
+	{
+	  "inputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "constructor"
+	},
+	{
+	  "anonymous": false,
+	  "inputs": [
+		{
+		  "indexed": false,
+		  "internalType": "address",
+		  "name": "admin",
+		  "type": "address"
+		}
+	  ],
+	  "name": "EmergencyDeclared",
+	  "type": "event"
+	},
+	{
+	  "anonymous": false,
+	  "inputs": [
+		{
+		  "indexed": true,
+		  "internalType": "address",
+		  "name": "previousOwner",
+		  "type": "address"
+		},
+		{
+		  "indexed": true,
+		  "internalType": "address",
+		  "name": "newOwner",
+		  "type": "address"
+		}
+	  ],
+	  "name": "OwnershipTransferred",
+	  "type": "event"
+	},
+	{
+	  "anonymous": false,
+	  "inputs": [
+		{
+		  "indexed": false,
+		  "internalType": "contract StakingPool",
+		  "name": "",
+		  "type": "address"
+		},
+		{
+		  "indexed": false,
+		  "internalType": "string",
+		  "name": "",
+		  "type": "string"
+		}
+	  ],
+	  "name": "PoolCallReverted",
+	  "type": "event"
+	},
+	{
+	  "anonymous": false,
+	  "inputs": [
+		{
+		  "indexed": false,
+		  "internalType": "contract StakingPool",
+		  "name": "",
+		  "type": "address"
+		},
+		{
+		  "indexed": false,
+		  "internalType": "bytes",
+		  "name": "",
+		  "type": "bytes"
+		}
+	  ],
+	  "name": "PoolCallReverted",
+	  "type": "event"
+	},
+	{
+	  "anonymous": false,
+	  "inputs": [
+		{
+		  "indexed": false,
+		  "internalType": "contract StakingPool",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "name": "PoolCallSucceeded",
+	  "type": "event"
+	},
+	{
+	  "inputs": [],
+	  "name": "ADMIN_CAN_CLAIM_AFTER",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "ADMIN_FEATURES_EXPIRE_AFTER",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "EMERGENCY_WAIT_TIME",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "MIN_BALANCE_TO_INIT_PROPOSAL",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "QUORUM",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "RESULT_EXECUTION_ALLOWANCE_PERIOD",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "TRUSTED_TOKEN_ADDRESS",
+	  "outputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "VOTE_DURATION",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "actions",
+	  "outputs": [
+		{
+		  "internalType": "enum Governance.Action",
+		  "name": "",
+		  "type": "uint8"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "enum Governance.Option",
+		  "name": "option",
+		  "type": "uint8"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "addVotes",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "newMinBalanceToInitProposal",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "changeMinBalanceToInitProposal",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "newQuorum",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "changeQuorum",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "trustedFarmContractAddress",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "token",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "recipient",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "claimAnyTokenFromContract",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "claimOwnership",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "contractStartTime",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "declareEmergency",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "trustedFarmContractAddress",
+		  "type": "address"
+		}
+	  ],
+	  "name": "declareEmergencyForContract",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "trustedFarmContractAddress",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "newOwner",
+		  "type": "address"
+		}
+	  ],
+	  "name": "emergencyTransferContractOwnership",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "executeProposal",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "getProposal",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "_proposalId",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "enum Governance.Action",
+		  "name": "_proposalAction",
+		  "type": "uint8"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "_optionOneVotes",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "_optionTwoVotes",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "contract StakingPool[]",
+		  "name": "_stakingPool",
+		  "type": "address[]"
+		},
+		{
+		  "internalType": "address",
+		  "name": "_newGovernance",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "_proposalStartTime",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "bool",
+		  "name": "_isProposalExecuted",
+		  "type": "bool"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "_newQuorum",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "string",
+		  "name": "_proposalText",
+		  "type": "string"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "_newMinBalance",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "enum Governance.PoolGroupName",
+		  "name": "",
+		  "type": "uint8"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "hardcodedStakingPools",
+	  "outputs": [
+		{
+		  "internalType": "contract StakingPool",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "isEmergency",
+	  "outputs": [
+		{
+		  "internalType": "bool",
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "isOwner",
+	  "outputs": [
+		{
+		  "internalType": "bool",
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "isProposalExecuted",
+	  "outputs": [
+		{
+		  "internalType": "bool",
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "isProposalExecutible",
+	  "outputs": [
+		{
+		  "internalType": "bool",
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "isProposalOpen",
+	  "outputs": [
+		{
+		  "internalType": "bool",
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "lastIndex",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "name": "lastVotedProposalStartTime",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "newGovernances",
+	  "outputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "newMinBalances",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "newQuorums",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "optionOneVotes",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "optionTwoVotes",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "owner",
+	  "outputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "pendingOwner",
+	  "outputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "proposalStartTime",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "proposalTexts",
+	  "outputs": [
+		{
+		  "internalType": "string",
+		  "name": "",
+		  "type": "string"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "enum Governance.PoolGroupName",
+		  "name": "poolGroupName",
+		  "type": "uint8"
+		}
+	  ],
+	  "name": "proposeDisburseOrBurn",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "newMinBalance",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "proposeNewMinBalanceToInitProposal",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "newQuorum",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "proposeNewQuorum",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "trustedFarmContractAddress",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "newMagicNumber",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "newLockupTime",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "newStakingFeeRateX100",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "newUnstakingFeeRateX100",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "address",
+		  "name": "newRouterAddress",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "newFeeRecipientAddress",
+		  "type": "address"
+		}
+	  ],
+	  "name": "proposeSetContractVariables",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "string",
+		  "name": "text",
+		  "type": "string"
+		}
+	  ],
+	  "name": "proposeText",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "enum Governance.PoolGroupName",
+		  "name": "poolGroupName",
+		  "type": "uint8"
+		},
+		{
+		  "internalType": "address",
+		  "name": "newGovernance",
+		  "type": "address"
+		}
+	  ],
+	  "name": "proposeUpgradeGovernance",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "removeVotes",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "setContractVariables_farmContractAddress",
+	  "outputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "setContractVariables_newFeeRecipientAddress",
+	  "outputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "setContractVariables_newLockupTime",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "setContractVariables_newMagicNumber",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "setContractVariables_newRouterAddress",
+	  "outputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "setContractVariables_newStakingFeeRateX100",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "setContractVariables_newUnstakingFeeRateX100",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "stakingPools",
+	  "outputs": [
+		{
+		  "internalType": "contract StakingPool",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "name": "totalDepositedTokens",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "tokenAddress",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "recipient",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "transferAnyERC20Token",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "pool",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "tokenAddress",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "recipient",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "transferAnyERC20TokenFromPool",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "tokenAddress",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "recipient",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "transferAnyLegacyERC20Token",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "pool",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "tokenAddress",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "recipient",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "transferAnyLegacyERC20TokenFromPool",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "_newOwner",
+		  "type": "address"
+		}
+	  ],
+	  "name": "transferOwnership",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "votedForOption",
+	  "outputs": [
+		{
+		  "internalType": "enum Governance.Option",
+		  "name": "",
+		  "type": "uint8"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "votesForProposalByAddress",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "withdrawAllTokens",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	}
+  ]
+
+const GOV_ABI_ETH = [
+	{
+	  "inputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "constructor"
+	},
+	{
+	  "anonymous": false,
+	  "inputs": [
+		{
+		  "indexed": true,
+		  "internalType": "address",
+		  "name": "previousOwner",
+		  "type": "address"
+		},
+		{
+		  "indexed": true,
+		  "internalType": "address",
+		  "name": "newOwner",
+		  "type": "address"
+		}
+	  ],
+	  "name": "OwnershipTransferred",
+	  "type": "event"
+	},
+	{
+	  "anonymous": false,
+	  "inputs": [
+		{
+		  "indexed": false,
+		  "internalType": "contract StakingPool",
+		  "name": "",
+		  "type": "address"
+		},
+		{
+		  "indexed": false,
+		  "internalType": "string",
+		  "name": "",
+		  "type": "string"
+		}
+	  ],
+	  "name": "PoolCallReverted",
+	  "type": "event"
+	},
+	{
+	  "anonymous": false,
+	  "inputs": [
+		{
+		  "indexed": false,
+		  "internalType": "contract StakingPool",
+		  "name": "",
+		  "type": "address"
+		},
+		{
+		  "indexed": false,
+		  "internalType": "bytes",
+		  "name": "",
+		  "type": "bytes"
+		}
+	  ],
+	  "name": "PoolCallReverted",
+	  "type": "event"
+	},
+	{
+	  "anonymous": false,
+	  "inputs": [
+		{
+		  "indexed": false,
+		  "internalType": "contract StakingPool",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "name": "PoolCallSucceeded",
+	  "type": "event"
+	},
+	{
+	  "inputs": [],
+	  "name": "ADMIN_CAN_CLAIM_AFTER",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "ADMIN_FEATURES_EXPIRE_AFTER",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "MIN_BALANCE_TO_INIT_PROPOSAL",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "QUORUM",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "RESULT_EXECUTION_ALLOWANCE_PERIOD",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "TRUSTED_TOKEN_ADDRESS",
+	  "outputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "VOTE_DURATION",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "actions",
+	  "outputs": [
+		{
+		  "internalType": "enum Governance.Action",
+		  "name": "",
+		  "type": "uint8"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "enum Governance.Option",
+		  "name": "option",
+		  "type": "uint8"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "addVotes",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "newMinBalanceToInitProposal",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "changeMinBalanceToInitProposal",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "newQuorum",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "changeQuorum",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "claimOwnership",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "contractStartTime",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "executeProposal",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "getProposal",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "_proposalId",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "enum Governance.Action",
+		  "name": "_proposalAction",
+		  "type": "uint8"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "_optionOneVotes",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "_optionTwoVotes",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "contract StakingPool[]",
+		  "name": "_stakingPool",
+		  "type": "address[]"
+		},
+		{
+		  "internalType": "address",
+		  "name": "_newGovernance",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "_proposalStartTime",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "bool",
+		  "name": "_isProposalExecuted",
+		  "type": "bool"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "_newQuorum",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "string",
+		  "name": "_proposalText",
+		  "type": "string"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "_newMinBalance",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "enum Governance.PoolGroupName",
+		  "name": "",
+		  "type": "uint8"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "hardcodedStakingPools",
+	  "outputs": [
+		{
+		  "internalType": "contract StakingPool",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "isOwner",
+	  "outputs": [
+		{
+		  "internalType": "bool",
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "isProposalExecuted",
+	  "outputs": [
+		{
+		  "internalType": "bool",
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "isProposalExecutible",
+	  "outputs": [
+		{
+		  "internalType": "bool",
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "isProposalOpen",
+	  "outputs": [
+		{
+		  "internalType": "bool",
+		  "name": "",
+		  "type": "bool"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "lastIndex",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "name": "lastVotedProposalStartTime",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "newGovernances",
+	  "outputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "newMinBalances",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "newQuorums",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "optionOneVotes",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "optionTwoVotes",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "owner",
+	  "outputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "pendingOwner",
+	  "outputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "proposalStartTime",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "proposalTexts",
+	  "outputs": [
+		{
+		  "internalType": "string",
+		  "name": "",
+		  "type": "string"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "enum Governance.PoolGroupName",
+		  "name": "poolGroupName",
+		  "type": "uint8"
+		}
+	  ],
+	  "name": "proposeDisburseOrBurn",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "newMinBalance",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "proposeNewMinBalanceToInitProposal",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "newQuorum",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "proposeNewQuorum",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "string",
+		  "name": "text",
+		  "type": "string"
+		}
+	  ],
+	  "name": "proposeText",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "enum Governance.PoolGroupName",
+		  "name": "poolGroupName",
+		  "type": "uint8"
+		},
+		{
+		  "internalType": "address",
+		  "name": "newGovernance",
+		  "type": "address"
+		}
+	  ],
+	  "name": "proposeUpgradeGovernance",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "proposalId",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "removeVotes",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "stakingPools",
+	  "outputs": [
+		{
+		  "internalType": "contract StakingPool",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		}
+	  ],
+	  "name": "totalDepositedTokens",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "tokenAddress",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "recipient",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "transferAnyERC20Token",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "pool",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "tokenAddress",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "recipient",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "transferAnyERC20TokenFromPool",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "tokenAddress",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "recipient",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "transferAnyLegacyERC20Token",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "pool",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "tokenAddress",
+		  "type": "address"
+		},
+		{
+		  "internalType": "address",
+		  "name": "recipient",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "amount",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "transferAnyLegacyERC20TokenFromPool",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "_newOwner",
+		  "type": "address"
+		}
+	  ],
+	  "name": "transferOwnership",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "votedForOption",
+	  "outputs": [
+		{
+		  "internalType": "enum Governance.Option",
+		  "name": "",
+		  "type": "uint8"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [
+		{
+		  "internalType": "address",
+		  "name": "",
+		  "type": "address"
+		},
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "name": "votesForProposalByAddress",
+	  "outputs": [
+		{
+		  "internalType": "uint256",
+		  "name": "",
+		  "type": "uint256"
+		}
+	  ],
+	  "stateMutability": "view",
+	  "type": "function"
+	},
+	{
+	  "inputs": [],
+	  "name": "withdrawAllTokens",
+	  "outputs": [],
+	  "stateMutability": "nonpayable",
+	  "type": "function"
+	}
+  ]
 
 const TOKEN_ABI = [
 	{
@@ -1535,6 +3668,42 @@ async function update_token_balance_sum() {
 	// circulating_supply = new BigNumber(30000000).minus(token_balance_sum).plus(circulating_supply_bsc).plus(circulating_supply_avax)
 	circulating_supply = new BigNumber(30000000).minus(token_balance_sum);
 	return token_balance_sum
+}
+let bscProposals = 0;
+let ethProposals = 0;
+let avaxProposals = 0;
+let bscVotes = 0;
+let ethVotes = 0;
+let avaxVotes = 0;
+let totalVotes = 0;
+async function update_proposals() {
+	let gov_contract_bsc = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC, {from: undefined})
+	let gov_contract_eth = new infuraWeb3.eth.Contract(GOV_ABI_ETH, GOV_ADDRESS_ETH, {from: undefined})
+	let gov_contract_avax = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX, {from: undefined})
+	bscProposals = await gov_contract_bsc.methods.lastIndex().call()
+	ethProposals = await gov_contract_eth.methods.lastIndex().call()
+	avaxProposals = await gov_contract_avax.methods.lastIndex().call()
+	
+
+	//make a for loop to get all votes from bsc proposals
+	for (let i = 1; i <= bscProposals; i++) {
+		let vote = await gov_contract_eth.methods.getProposal(i).call()
+		bscVotes = bscVotes + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
+	}
+	for (let i = 1; i <= ethProposals; i++) {
+		let vote = await gov_contract_eth.methods.getProposal(i).call()
+		ethVotes = ethVotes + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
+	}
+	for (let i = 1; i <= avaxProposals; i++) {
+		let vote = await gov_contract_avax.methods.getProposal(i).call()
+		avaxVotes = avaxVotes + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
+	}
+
+	bscVotes = Math.trunc(bscVotes)
+	ethVotes = Math.trunc(ethVotes)
+	avaxVotes = Math.trunc(avaxVotes)
+	totalVotes = bscVotes + ethVotes + avaxVotes;
+	return ethProposals, bscProposals, avaxProposals, bscVotes, ethVotes, avaxVotes, totalVotes
 }
 
 let the_graph_result_BSC = {}
@@ -4967,6 +7136,30 @@ app.get('/api/circulating-supply', async (req, res) => {
 	}
 	res.type('text/plain')
 	res.send(String(circulating_supply))
+
+})
+
+app.get('/api/gov-stats', async (req, res) => {
+	//1 hour
+	if (Date.now() - last_update_time > 1e1) {
+		await update_proposals()
+	}
+	res.type('application/json')
+	res.json({ proposals: {
+		bsc: bscProposals,
+		avax: avaxProposals,
+		eth: ethProposals,
+		
+	},
+		votes:{
+		bsc: bscVotes,
+		avax: avaxVotes,
+		eth: ethVotes,
+		},
+		totalVotes:totalVotes
+
+	} )
+	
 
 })
 
