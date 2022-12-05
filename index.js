@@ -4212,7 +4212,6 @@ async function update_proposals() {
 		bscVotes2 = bscVotes2 + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
 	}
 
-	console.log(await gov_contract_eth2.methods.getProposal(1).call())
 	for (let i = 1; i <= ethProposals2; i++) {
 		let vote = await gov_contract_eth2.methods.getProposal(i).call()
 		ethVotes2 = ethVotes2 + parseInt(((vote._optionOneVotes)/1e18)) + parseInt(((vote._optionTwoVotes)/1e18))
@@ -7651,7 +7650,7 @@ async function firstRun() {
 	await PaidAllInUsd()
 }
 
-// firstRun()
+firstRun()
 
 const app = express()
 app.use(cors())
