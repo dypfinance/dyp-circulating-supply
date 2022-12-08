@@ -1,12 +1,13 @@
 #!/usr/bin/env node
+
 const cors = require('cors')
 const express = require('express')
 const BigNumber = require('bignumber.js')
 const Web3 = require('web3')
 
-const { JSDOM } = require( "jsdom" )
-const { window } = new JSDOM( "" )
-const $ = require( "jquery" )( window )
+const { JSDOM } = require("jsdom")
+const { window } = new JSDOM("")
+const $ = require("jquery")(window)
 
 const fetch = require("node-fetch")
 const infuraWeb3 = new Web3('https://mainnet.infura.io/v3/94608dc6ddba490697ec4f9b723b586e')
@@ -21,6 +22,8 @@ const GOV_ADDRESS_ETH2 = "0xdec13a1d8a1eccaa0e8264fb412bd2ec58f207c1"
 const TOKEN_ADDRESS = "0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17"
 const TOKEN_ADDRESS_IDYP = "0xbd100d061e120b2c67a24453cf6368e63f1be056"
 const PRICE_ADDRESS = "0x4185e6f61549133c34ffaf88c92a943fcde51619"
+
+
 
 const config = {
 	avax_endpoint: 'https://api.avax.network/ext/bc/C/rpc',
@@ -66,2618 +69,3303 @@ const avaxWeb3 = new Web3(config.avax_endpoint)
 
 const GOV_ABI_BSC = [
 	{
-	  "inputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "constructor"
-	},
-	{
-	  "anonymous": false,
-	  "inputs": [
-		{
-		  "indexed": false,
-		  "internalType": "address",
-		  "name": "admin",
-		  "type": "address"
-		}
-	  ],
-	  "name": "EmergencyDeclared",
-	  "type": "event"
-	},
-	{
-	  "anonymous": false,
-	  "inputs": [
-		{
-		  "indexed": true,
-		  "internalType": "address",
-		  "name": "previousOwner",
-		  "type": "address"
-		},
-		{
-		  "indexed": true,
-		  "internalType": "address",
-		  "name": "newOwner",
-		  "type": "address"
-		}
-	  ],
-	  "name": "OwnershipTransferred",
-	  "type": "event"
-	},
-	{
-	  "anonymous": false,
-	  "inputs": [
-		{
-		  "indexed": false,
-		  "internalType": "contract StakingPool",
-		  "name": "",
-		  "type": "address"
-		},
-		{
-		  "indexed": false,
-		  "internalType": "string",
-		  "name": "",
-		  "type": "string"
-		}
-	  ],
-	  "name": "PoolCallReverted",
-	  "type": "event"
-	},
-	{
-	  "anonymous": false,
-	  "inputs": [
-		{
-		  "indexed": false,
-		  "internalType": "contract StakingPool",
-		  "name": "",
-		  "type": "address"
-		},
-		{
-		  "indexed": false,
-		  "internalType": "bytes",
-		  "name": "",
-		  "type": "bytes"
-		}
-	  ],
-	  "name": "PoolCallReverted",
-	  "type": "event"
-	},
-	{
-	  "anonymous": false,
-	  "inputs": [
-		{
-		  "indexed": false,
-		  "internalType": "contract StakingPool",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "name": "PoolCallSucceeded",
-	  "type": "event"
-	},
-	{
-	  "inputs": [],
-	  "name": "ADMIN_CAN_CLAIM_AFTER",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "ADMIN_FEATURES_EXPIRE_AFTER",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "EMERGENCY_WAIT_TIME",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "MIN_BALANCE_TO_INIT_PROPOSAL",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "QUORUM",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "RESULT_EXECUTION_ALLOWANCE_PERIOD",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "TRUSTED_TOKEN_ADDRESS",
-	  "outputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "VOTE_DURATION",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "actions",
-	  "outputs": [
-		{
-		  "internalType": "enum Governance.Action",
-		  "name": "",
-		  "type": "uint8"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "enum Governance.Option",
-		  "name": "option",
-		  "type": "uint8"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "addVotes",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "newMinBalanceToInitProposal",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "changeMinBalanceToInitProposal",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "newQuorum",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "changeQuorum",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "trustedFarmContractAddress",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "token",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "recipient",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "claimAnyTokenFromContract",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "claimOwnership",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "contractStartTime",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "declareEmergency",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "trustedFarmContractAddress",
-		  "type": "address"
-		}
-	  ],
-	  "name": "declareEmergencyForContract",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "trustedFarmContractAddress",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "newOwner",
-		  "type": "address"
-		}
-	  ],
-	  "name": "emergencyTransferContractOwnership",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "executeProposal",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "getProposal",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "_proposalId",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "enum Governance.Action",
-		  "name": "_proposalAction",
-		  "type": "uint8"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "_optionOneVotes",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "_optionTwoVotes",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "contract StakingPool[]",
-		  "name": "_stakingPool",
-		  "type": "address[]"
-		},
-		{
-		  "internalType": "address",
-		  "name": "_newGovernance",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "_proposalStartTime",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "bool",
-		  "name": "_isProposalExecuted",
-		  "type": "bool"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "_newQuorum",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "string",
-		  "name": "_proposalText",
-		  "type": "string"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "_newMinBalance",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "enum Governance.PoolGroupName",
-		  "name": "",
-		  "type": "uint8"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "hardcodedStakingPools",
-	  "outputs": [
-		{
-		  "internalType": "contract StakingPool",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "isEmergency",
-	  "outputs": [
-		{
-		  "internalType": "bool",
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "isOwner",
-	  "outputs": [
-		{
-		  "internalType": "bool",
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "isProposalExecuted",
-	  "outputs": [
-		{
-		  "internalType": "bool",
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "isProposalExecutible",
-	  "outputs": [
-		{
-		  "internalType": "bool",
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "isProposalOpen",
-	  "outputs": [
-		{
-		  "internalType": "bool",
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "lastIndex",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "name": "lastVotedProposalStartTime",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "newGovernances",
-	  "outputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "newMinBalances",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "newQuorums",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "optionOneVotes",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "optionTwoVotes",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "owner",
-	  "outputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "pendingOwner",
-	  "outputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "proposalStartTime",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "proposalTexts",
-	  "outputs": [
-		{
-		  "internalType": "string",
-		  "name": "",
-		  "type": "string"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "enum Governance.PoolGroupName",
-		  "name": "poolGroupName",
-		  "type": "uint8"
-		}
-	  ],
-	  "name": "proposeDisburseOrBurn",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "newMinBalance",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "proposeNewMinBalanceToInitProposal",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "newQuorum",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "proposeNewQuorum",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "trustedFarmContractAddress",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "newMagicNumber",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "newLockupTime",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "newStakingFeeRateX100",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "newUnstakingFeeRateX100",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "address",
-		  "name": "newRouterAddress",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "newFeeRecipientAddress",
-		  "type": "address"
-		}
-	  ],
-	  "name": "proposeSetContractVariables",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "string",
-		  "name": "text",
-		  "type": "string"
-		}
-	  ],
-	  "name": "proposeText",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "enum Governance.PoolGroupName",
-		  "name": "poolGroupName",
-		  "type": "uint8"
-		},
-		{
-		  "internalType": "address",
-		  "name": "newGovernance",
-		  "type": "address"
-		}
-	  ],
-	  "name": "proposeUpgradeGovernance",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "removeVotes",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "setContractVariables_farmContractAddress",
-	  "outputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "setContractVariables_newFeeRecipientAddress",
-	  "outputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "setContractVariables_newLockupTime",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "setContractVariables_newMagicNumber",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "setContractVariables_newRouterAddress",
-	  "outputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "setContractVariables_newStakingFeeRateX100",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "setContractVariables_newUnstakingFeeRateX100",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "stakingPools",
-	  "outputs": [
-		{
-		  "internalType": "contract StakingPool",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "name": "totalDepositedTokens",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "tokenAddress",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "recipient",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "transferAnyERC20Token",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "pool",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "tokenAddress",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "recipient",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "transferAnyERC20TokenFromPool",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "tokenAddress",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "recipient",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "transferAnyLegacyERC20Token",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "pool",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "tokenAddress",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "recipient",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "transferAnyLegacyERC20TokenFromPool",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "_newOwner",
-		  "type": "address"
-		}
-	  ],
-	  "name": "transferOwnership",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "votedForOption",
-	  "outputs": [
-		{
-		  "internalType": "enum Governance.Option",
-		  "name": "",
-		  "type": "uint8"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "votesForProposalByAddress",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
-	},
-	{
-	  "inputs": [],
-	  "name": "withdrawAllTokens",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "admin",
+				"type": "address"
+			}
+		],
+		"name": "EmergencyDeclared",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "contract StakingPool",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "PoolCallReverted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "contract StakingPool",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "bytes",
+				"name": "",
+				"type": "bytes"
+			}
+		],
+		"name": "PoolCallReverted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "contract StakingPool",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "PoolCallSucceeded",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "ADMIN_CAN_CLAIM_AFTER",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "ADMIN_FEATURES_EXPIRE_AFTER",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "EMERGENCY_WAIT_TIME",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "MIN_BALANCE_TO_INIT_PROPOSAL",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "QUORUM",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "RESULT_EXECUTION_ALLOWANCE_PERIOD",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "TRUSTED_TOKEN_ADDRESS",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "VOTE_DURATION",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "actions",
+		"outputs": [
+			{
+				"internalType": "enum Governance.Action",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum Governance.Option",
+				"name": "option",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "addVotes",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newMinBalanceToInitProposal",
+				"type": "uint256"
+			}
+		],
+		"name": "changeMinBalanceToInitProposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newQuorum",
+				"type": "uint256"
+			}
+		],
+		"name": "changeQuorum",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "trustedFarmContractAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "token",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "claimAnyTokenFromContract",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "claimOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "contractStartTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "declareEmergency",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "trustedFarmContractAddress",
+				"type": "address"
+			}
+		],
+		"name": "declareEmergencyForContract",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "trustedFarmContractAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "emergencyTransferContractOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "executeProposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "getProposal",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_proposalId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum Governance.Action",
+				"name": "_proposalAction",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_optionOneVotes",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_optionTwoVotes",
+				"type": "uint256"
+			},
+			{
+				"internalType": "contract StakingPool[]",
+				"name": "_stakingPool",
+				"type": "address[]"
+			},
+			{
+				"internalType": "address",
+				"name": "_newGovernance",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_proposalStartTime",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "_isProposalExecuted",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_newQuorum",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_proposalText",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_newMinBalance",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "enum Governance.PoolGroupName",
+				"name": "",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "hardcodedStakingPools",
+		"outputs": [
+			{
+				"internalType": "contract StakingPool",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "isEmergency",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "isOwner",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "isProposalExecuted",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "isProposalExecutible",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "isProposalOpen",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "lastIndex",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "lastVotedProposalStartTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "newGovernances",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "newMinBalances",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "newQuorums",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "optionOneVotes",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "optionTwoVotes",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "pendingOwner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "proposalStartTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "proposalTexts",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "enum Governance.PoolGroupName",
+				"name": "poolGroupName",
+				"type": "uint8"
+			}
+		],
+		"name": "proposeDisburseOrBurn",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newMinBalance",
+				"type": "uint256"
+			}
+		],
+		"name": "proposeNewMinBalanceToInitProposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newQuorum",
+				"type": "uint256"
+			}
+		],
+		"name": "proposeNewQuorum",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "trustedFarmContractAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "newMagicNumber",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "newLockupTime",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "newStakingFeeRateX100",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "newUnstakingFeeRateX100",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "newRouterAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "newFeeRecipientAddress",
+				"type": "address"
+			}
+		],
+		"name": "proposeSetContractVariables",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "text",
+				"type": "string"
+			}
+		],
+		"name": "proposeText",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "enum Governance.PoolGroupName",
+				"name": "poolGroupName",
+				"type": "uint8"
+			},
+			{
+				"internalType": "address",
+				"name": "newGovernance",
+				"type": "address"
+			}
+		],
+		"name": "proposeUpgradeGovernance",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "removeVotes",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "setContractVariables_farmContractAddress",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "setContractVariables_newFeeRecipientAddress",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "setContractVariables_newLockupTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "setContractVariables_newMagicNumber",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "setContractVariables_newRouterAddress",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "setContractVariables_newStakingFeeRateX100",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "setContractVariables_newUnstakingFeeRateX100",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "stakingPools",
+		"outputs": [
+			{
+				"internalType": "contract StakingPool",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "totalDepositedTokens",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "tokenAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transferAnyERC20Token",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "pool",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "tokenAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transferAnyERC20TokenFromPool",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "tokenAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transferAnyLegacyERC20Token",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "pool",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "tokenAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transferAnyLegacyERC20TokenFromPool",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "votedForOption",
+		"outputs": [
+			{
+				"internalType": "enum Governance.Option",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "votesForProposalByAddress",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "withdrawAllTokens",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	}
-  ]
+]
 
 const GOV_ABI_ETH2 = [
 	{
-	  "inputs": [],
-	  "name": "MIN_BALANCE_TO_INIT_PROPOSAL",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "MIN_BALANCE_TO_INIT_PROPOSAL",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "QUORUM",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "QUORUM",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "RESULT_EXECUTION_ALLOWANCE_PERIOD",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "RESULT_EXECUTION_ALLOWANCE_PERIOD",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "TRUSTED_TOKEN_ADDRESS",
-	  "outputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "TRUSTED_TOKEN_ADDRESS",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "VOTE_DURATION",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "VOTE_DURATION",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "actions",
-	  "outputs": [
-		{
-		  "internalType": "enum Governance.Action",
-		  "name": "",
-		  "type": "uint8"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "actions",
+		"outputs": [
+			{
+				"internalType": "enum Governance.Action",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "enum Governance.Option",
-		  "name": "option",
-		  "type": "uint8"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "addVotes",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum Governance.Option",
+				"name": "option",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "addVotes",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "executeProposal",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "executeProposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "getProposal",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "_proposalId",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "enum Governance.Action",
-		  "name": "_proposalAction",
-		  "type": "uint8"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "_optionOneVotes",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "_optionTwoVotes",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "contract StakingPool",
-		  "name": "_stakingPool",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "_newGovernance",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "_proposalStartTime",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "bool",
-		  "name": "_isProposalExecuted",
-		  "type": "bool"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "getProposal",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_proposalId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum Governance.Action",
+				"name": "_proposalAction",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_optionOneVotes",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_optionTwoVotes",
+				"type": "uint256"
+			},
+			{
+				"internalType": "contract StakingPool",
+				"name": "_stakingPool",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_newGovernance",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_proposalStartTime",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "_isProposalExecuted",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "isProposalExecuted",
-	  "outputs": [
-		{
-		  "internalType": "bool",
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "isProposalExecuted",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "isProposalExecutible",
-	  "outputs": [
-		{
-		  "internalType": "bool",
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "isProposalExecutible",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "isProposalOpen",
-	  "outputs": [
-		{
-		  "internalType": "bool",
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "isProposalOpen",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "lastIndex",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "lastIndex",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "name": "lastVotedProposalStartTime",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "lastVotedProposalStartTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "newGovernances",
-	  "outputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "newGovernances",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "optionOneVotes",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "optionOneVotes",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "optionTwoVotes",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "optionTwoVotes",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "proposalStartTime",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "proposalStartTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "contract StakingPool",
-		  "name": "pool",
-		  "type": "address"
-		}
-	  ],
-	  "name": "proposeDisburseOrBurn",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "contract StakingPool",
+				"name": "pool",
+				"type": "address"
+			}
+		],
+		"name": "proposeDisburseOrBurn",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "contract StakingPool",
-		  "name": "pool",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "newGovernance",
-		  "type": "address"
-		}
-	  ],
-	  "name": "proposeUpgradeGovernance",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "contract StakingPool",
+				"name": "pool",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "newGovernance",
+				"type": "address"
+			}
+		],
+		"name": "proposeUpgradeGovernance",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "removeVotes",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "removeVotes",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "stakingPools",
-	  "outputs": [
-		{
-		  "internalType": "contract StakingPool",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "stakingPools",
+		"outputs": [
+			{
+				"internalType": "contract StakingPool",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "name": "totalDepositedTokens",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "totalDepositedTokens",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "votedForOption",
-	  "outputs": [
-		{
-		  "internalType": "enum Governance.Option",
-		  "name": "",
-		  "type": "uint8"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "votedForOption",
+		"outputs": [
+			{
+				"internalType": "enum Governance.Option",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "votesForProposalByAddress",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "votesForProposalByAddress",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "withdrawAllTokens",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [],
+		"name": "withdrawAllTokens",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	}
-  ]
+]
 
 const GOV_ABI_ETH = [
 	{
-	  "inputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "constructor"
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	},
 	{
-	  "anonymous": false,
-	  "inputs": [
-		{
-		  "indexed": true,
-		  "internalType": "address",
-		  "name": "previousOwner",
-		  "type": "address"
-		},
-		{
-		  "indexed": true,
-		  "internalType": "address",
-		  "name": "newOwner",
-		  "type": "address"
-		}
-	  ],
-	  "name": "OwnershipTransferred",
-	  "type": "event"
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
 	},
 	{
-	  "anonymous": false,
-	  "inputs": [
-		{
-		  "indexed": false,
-		  "internalType": "contract StakingPool",
-		  "name": "",
-		  "type": "address"
-		},
-		{
-		  "indexed": false,
-		  "internalType": "string",
-		  "name": "",
-		  "type": "string"
-		}
-	  ],
-	  "name": "PoolCallReverted",
-	  "type": "event"
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "contract StakingPool",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "PoolCallReverted",
+		"type": "event"
 	},
 	{
-	  "anonymous": false,
-	  "inputs": [
-		{
-		  "indexed": false,
-		  "internalType": "contract StakingPool",
-		  "name": "",
-		  "type": "address"
-		},
-		{
-		  "indexed": false,
-		  "internalType": "bytes",
-		  "name": "",
-		  "type": "bytes"
-		}
-	  ],
-	  "name": "PoolCallReverted",
-	  "type": "event"
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "contract StakingPool",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "bytes",
+				"name": "",
+				"type": "bytes"
+			}
+		],
+		"name": "PoolCallReverted",
+		"type": "event"
 	},
 	{
-	  "anonymous": false,
-	  "inputs": [
-		{
-		  "indexed": false,
-		  "internalType": "contract StakingPool",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "name": "PoolCallSucceeded",
-	  "type": "event"
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "contract StakingPool",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "PoolCallSucceeded",
+		"type": "event"
 	},
 	{
-	  "inputs": [],
-	  "name": "ADMIN_CAN_CLAIM_AFTER",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "ADMIN_CAN_CLAIM_AFTER",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "ADMIN_FEATURES_EXPIRE_AFTER",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "ADMIN_FEATURES_EXPIRE_AFTER",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "MIN_BALANCE_TO_INIT_PROPOSAL",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "MIN_BALANCE_TO_INIT_PROPOSAL",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "QUORUM",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "QUORUM",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "RESULT_EXECUTION_ALLOWANCE_PERIOD",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "RESULT_EXECUTION_ALLOWANCE_PERIOD",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "TRUSTED_TOKEN_ADDRESS",
-	  "outputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "TRUSTED_TOKEN_ADDRESS",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "VOTE_DURATION",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "VOTE_DURATION",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "actions",
-	  "outputs": [
-		{
-		  "internalType": "enum Governance.Action",
-		  "name": "",
-		  "type": "uint8"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "actions",
+		"outputs": [
+			{
+				"internalType": "enum Governance.Action",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "enum Governance.Option",
-		  "name": "option",
-		  "type": "uint8"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "addVotes",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum Governance.Option",
+				"name": "option",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "addVotes",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "newMinBalanceToInitProposal",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "changeMinBalanceToInitProposal",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newMinBalanceToInitProposal",
+				"type": "uint256"
+			}
+		],
+		"name": "changeMinBalanceToInitProposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "newQuorum",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "changeQuorum",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newQuorum",
+				"type": "uint256"
+			}
+		],
+		"name": "changeQuorum",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "claimOwnership",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [],
+		"name": "claimOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "contractStartTime",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "contractStartTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "executeProposal",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "executeProposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "getProposal",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "_proposalId",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "enum Governance.Action",
-		  "name": "_proposalAction",
-		  "type": "uint8"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "_optionOneVotes",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "_optionTwoVotes",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "contract StakingPool[]",
-		  "name": "_stakingPool",
-		  "type": "address[]"
-		},
-		{
-		  "internalType": "address",
-		  "name": "_newGovernance",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "_proposalStartTime",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "bool",
-		  "name": "_isProposalExecuted",
-		  "type": "bool"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "_newQuorum",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "string",
-		  "name": "_proposalText",
-		  "type": "string"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "_newMinBalance",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "getProposal",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_proposalId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum Governance.Action",
+				"name": "_proposalAction",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_optionOneVotes",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_optionTwoVotes",
+				"type": "uint256"
+			},
+			{
+				"internalType": "contract StakingPool[]",
+				"name": "_stakingPool",
+				"type": "address[]"
+			},
+			{
+				"internalType": "address",
+				"name": "_newGovernance",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_proposalStartTime",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "_isProposalExecuted",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_newQuorum",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_proposalText",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_newMinBalance",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "enum Governance.PoolGroupName",
-		  "name": "",
-		  "type": "uint8"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "hardcodedStakingPools",
-	  "outputs": [
-		{
-		  "internalType": "contract StakingPool",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "enum Governance.PoolGroupName",
+				"name": "",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "hardcodedStakingPools",
+		"outputs": [
+			{
+				"internalType": "contract StakingPool",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "isOwner",
-	  "outputs": [
-		{
-		  "internalType": "bool",
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "isOwner",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "isProposalExecuted",
-	  "outputs": [
-		{
-		  "internalType": "bool",
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "isProposalExecuted",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "isProposalExecutible",
-	  "outputs": [
-		{
-		  "internalType": "bool",
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "isProposalExecutible",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "isProposalOpen",
-	  "outputs": [
-		{
-		  "internalType": "bool",
-		  "name": "",
-		  "type": "bool"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "isProposalOpen",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "lastIndex",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "lastIndex",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "name": "lastVotedProposalStartTime",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "lastVotedProposalStartTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "newGovernances",
-	  "outputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "newGovernances",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "newMinBalances",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "newMinBalances",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "newQuorums",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "newQuorums",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "optionOneVotes",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "optionOneVotes",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "optionTwoVotes",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "optionTwoVotes",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "owner",
-	  "outputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "pendingOwner",
-	  "outputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [],
+		"name": "pendingOwner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "proposalStartTime",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "proposalStartTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "proposalTexts",
-	  "outputs": [
-		{
-		  "internalType": "string",
-		  "name": "",
-		  "type": "string"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "proposalTexts",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "enum Governance.PoolGroupName",
-		  "name": "poolGroupName",
-		  "type": "uint8"
-		}
-	  ],
-	  "name": "proposeDisburseOrBurn",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "enum Governance.PoolGroupName",
+				"name": "poolGroupName",
+				"type": "uint8"
+			}
+		],
+		"name": "proposeDisburseOrBurn",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "newMinBalance",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "proposeNewMinBalanceToInitProposal",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newMinBalance",
+				"type": "uint256"
+			}
+		],
+		"name": "proposeNewMinBalanceToInitProposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "newQuorum",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "proposeNewQuorum",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newQuorum",
+				"type": "uint256"
+			}
+		],
+		"name": "proposeNewQuorum",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "string",
-		  "name": "text",
-		  "type": "string"
-		}
-	  ],
-	  "name": "proposeText",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "text",
+				"type": "string"
+			}
+		],
+		"name": "proposeText",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "enum Governance.PoolGroupName",
-		  "name": "poolGroupName",
-		  "type": "uint8"
-		},
-		{
-		  "internalType": "address",
-		  "name": "newGovernance",
-		  "type": "address"
-		}
-	  ],
-	  "name": "proposeUpgradeGovernance",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "enum Governance.PoolGroupName",
+				"name": "poolGroupName",
+				"type": "uint8"
+			},
+			{
+				"internalType": "address",
+				"name": "newGovernance",
+				"type": "address"
+			}
+		],
+		"name": "proposeUpgradeGovernance",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "proposalId",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "removeVotes",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposalId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "removeVotes",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "stakingPools",
-	  "outputs": [
-		{
-		  "internalType": "contract StakingPool",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "stakingPools",
+		"outputs": [
+			{
+				"internalType": "contract StakingPool",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		}
-	  ],
-	  "name": "totalDepositedTokens",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "totalDepositedTokens",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "tokenAddress",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "recipient",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "transferAnyERC20Token",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "tokenAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transferAnyERC20Token",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "pool",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "tokenAddress",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "recipient",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "transferAnyERC20TokenFromPool",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "pool",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "tokenAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transferAnyERC20TokenFromPool",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "tokenAddress",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "recipient",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "transferAnyLegacyERC20Token",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "tokenAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transferAnyLegacyERC20Token",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "pool",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "tokenAddress",
-		  "type": "address"
-		},
-		{
-		  "internalType": "address",
-		  "name": "recipient",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "amount",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "transferAnyLegacyERC20TokenFromPool",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "pool",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "tokenAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transferAnyLegacyERC20TokenFromPool",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "_newOwner",
-		  "type": "address"
-		}
-	  ],
-	  "name": "transferOwnership",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "votedForOption",
-	  "outputs": [
-		{
-		  "internalType": "enum Governance.Option",
-		  "name": "",
-		  "type": "uint8"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "votedForOption",
+		"outputs": [
+			{
+				"internalType": "enum Governance.Option",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [
-		{
-		  "internalType": "address",
-		  "name": "",
-		  "type": "address"
-		},
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "name": "votesForProposalByAddress",
-	  "outputs": [
-		{
-		  "internalType": "uint256",
-		  "name": "",
-		  "type": "uint256"
-		}
-	  ],
-	  "stateMutability": "view",
-	  "type": "function"
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "votesForProposalByAddress",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-	  "inputs": [],
-	  "name": "withdrawAllTokens",
-	  "outputs": [],
-	  "stateMutability": "nonpayable",
-	  "type": "function"
+		"inputs": [],
+		"name": "withdrawAllTokens",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	}
-  ]
+]
+
+const caws_nft_contract_abi = [
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "symbol",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "maxNftSupply",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "saleStart",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "approved",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "Approval",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "approved",
+				"type": "bool"
+			}
+		],
+		"name": "ApprovalForAll",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "CAWS_PROVENANCE",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "MAX_CAWS",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "REVEAL_TIMESTAMP",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "baseURI",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "cawsPrice",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "emergencySetStartingIndexBlock",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "flipSaleState",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "getApproved",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			}
+		],
+		"name": "isApprovedForAll",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "maxCawsPurchase",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "numberOfTokens",
+				"type": "uint256"
+			}
+		],
+		"name": "mintCaws",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "nextOwnerToExplicitlySet",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "ownerOf",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "reserveCaws",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "safeTransferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes",
+				"name": "_data",
+				"type": "bytes"
+			}
+		],
+		"name": "safeTransferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "saleIsActive",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"internalType": "bool",
+				"name": "approved",
+				"type": "bool"
+			}
+		],
+		"name": "setApprovalForAll",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tokenURI",
+				"type": "string"
+			}
+		],
+		"name": "setBaseURI",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "provenanceHash",
+				"type": "string"
+			}
+		],
+		"name": "setProvenanceHash",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "revealTimeStamp",
+				"type": "uint256"
+			}
+		],
+		"name": "setRevealTimestamp",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "setStartingIndex",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "startingIndex",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "startingIndexBlock",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes4",
+				"name": "interfaceId",
+				"type": "bytes4"
+			}
+		],
+		"name": "supportsInterface",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "symbol",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "tokenByIndex",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "tokenOfOwnerByIndex",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "tokenURI",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalSupply",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]
+
 
 const TOKEN_ABI = [
 	{
@@ -3995,7 +4683,7 @@ const PRICE_ABI = [
 	}
 ]
 
-const TOKEN_ABI_AVAX = [{"type":"constructor","stateMutability":"nonpayable","inputs":[]},{"type":"event","name":"AddSupportedChainId","inputs":[{"type":"uint256","name":"chainId","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"event","name":"AddSwapToken","inputs":[{"type":"address","name":"contractAddress","internalType":"address","indexed":false},{"type":"uint256","name":"supplyIncrement","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"event","name":"Approval","inputs":[{"type":"address","name":"owner","internalType":"address","indexed":true},{"type":"address","name":"spender","internalType":"address","indexed":true},{"type":"uint256","name":"value","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"event","name":"MigrateBridgeRole","inputs":[{"type":"address","name":"newBridgeRoleAddress","internalType":"address","indexed":false}],"anonymous":false},{"type":"event","name":"Mint","inputs":[{"type":"address","name":"to","internalType":"address","indexed":false},{"type":"uint256","name":"amount","internalType":"uint256","indexed":false},{"type":"address","name":"feeAddress","internalType":"address","indexed":false},{"type":"uint256","name":"feeAmount","internalType":"uint256","indexed":false},{"type":"bytes32","name":"originTxId","internalType":"bytes32","indexed":false}],"anonymous":false},{"type":"event","name":"RemoveSwapToken","inputs":[{"type":"address","name":"contractAddress","internalType":"address","indexed":false},{"type":"uint256","name":"supplyDecrement","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"event","name":"Swap","inputs":[{"type":"address","name":"token","internalType":"address","indexed":false},{"type":"uint256","name":"amount","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"event","name":"Transfer","inputs":[{"type":"address","name":"from","internalType":"address","indexed":true},{"type":"address","name":"to","internalType":"address","indexed":true},{"type":"uint256","name":"value","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"event","name":"Unwrap","inputs":[{"type":"uint256","name":"amount","internalType":"uint256","indexed":false},{"type":"uint256","name":"chainId","internalType":"uint256","indexed":false}],"anonymous":false},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"addSupportedChainId","inputs":[{"type":"uint256","name":"chainId","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"addSwapToken","inputs":[{"type":"address","name":"contractAddress","internalType":"address"},{"type":"uint256","name":"supplyIncrement","internalType":"uint256"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"uint256","name":"","internalType":"uint256"}],"name":"allowance","inputs":[{"type":"address","name":"owner","internalType":"address"},{"type":"address","name":"spender","internalType":"address"}]},{"type":"function","stateMutability":"nonpayable","outputs":[{"type":"bool","name":"","internalType":"bool"}],"name":"approve","inputs":[{"type":"address","name":"spender","internalType":"address"},{"type":"uint256","name":"amount","internalType":"uint256"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"uint256","name":"","internalType":"uint256"}],"name":"balanceOf","inputs":[{"type":"address","name":"account","internalType":"address"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"burn","inputs":[{"type":"uint256","name":"amount","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"burnFrom","inputs":[{"type":"address","name":"account","internalType":"address"},{"type":"uint256","name":"amount","internalType":"uint256"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"bool","name":"","internalType":"bool"}],"name":"chainIds","inputs":[{"type":"uint256","name":"","internalType":"uint256"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"uint8","name":"","internalType":"uint8"}],"name":"decimals","inputs":[]},{"type":"function","stateMutability":"nonpayable","outputs":[{"type":"bool","name":"","internalType":"bool"}],"name":"decreaseAllowance","inputs":[{"type":"address","name":"spender","internalType":"address"},{"type":"uint256","name":"subtractedValue","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[{"type":"bool","name":"","internalType":"bool"}],"name":"increaseAllowance","inputs":[{"type":"address","name":"spender","internalType":"address"},{"type":"uint256","name":"addedValue","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"migrateBridgeRole","inputs":[{"type":"address","name":"newBridgeRoleAddress","internalType":"address"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"mint","inputs":[{"type":"address","name":"to","internalType":"address"},{"type":"uint256","name":"amount","internalType":"uint256"},{"type":"address","name":"feeAddress","internalType":"address"},{"type":"uint256","name":"feeAmount","internalType":"uint256"},{"type":"bytes32","name":"originTxId","internalType":"bytes32"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"string","name":"","internalType":"string"}],"name":"name","inputs":[]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"removeSwapToken","inputs":[{"type":"address","name":"contractAddress","internalType":"address"},{"type":"uint256","name":"supplyDecrement","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"swap","inputs":[{"type":"address","name":"token","internalType":"address"},{"type":"uint256","name":"amount","internalType":"uint256"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"uint256","name":"","internalType":"uint256"}],"name":"swapSupply","inputs":[{"type":"address","name":"token","internalType":"address"}]},{"type":"function","stateMutability":"view","outputs":[{"type":"string","name":"","internalType":"string"}],"name":"symbol","inputs":[]},{"type":"function","stateMutability":"view","outputs":[{"type":"uint256","name":"","internalType":"uint256"}],"name":"totalSupply","inputs":[]},{"type":"function","stateMutability":"nonpayable","outputs":[{"type":"bool","name":"","internalType":"bool"}],"name":"transfer","inputs":[{"type":"address","name":"recipient","internalType":"address"},{"type":"uint256","name":"amount","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[{"type":"bool","name":"","internalType":"bool"}],"name":"transferFrom","inputs":[{"type":"address","name":"sender","internalType":"address"},{"type":"address","name":"recipient","internalType":"address"},{"type":"uint256","name":"amount","internalType":"uint256"}]},{"type":"function","stateMutability":"nonpayable","outputs":[],"name":"unwrap","inputs":[{"type":"uint256","name":"amount","internalType":"uint256"},{"type":"uint256","name":"chainId","internalType":"uint256"}]}]
+const TOKEN_ABI_AVAX = [{ "type": "constructor", "stateMutability": "nonpayable", "inputs": [] }, { "type": "event", "name": "AddSupportedChainId", "inputs": [{ "type": "uint256", "name": "chainId", "internalType": "uint256", "indexed": false }], "anonymous": false }, { "type": "event", "name": "AddSwapToken", "inputs": [{ "type": "address", "name": "contractAddress", "internalType": "address", "indexed": false }, { "type": "uint256", "name": "supplyIncrement", "internalType": "uint256", "indexed": false }], "anonymous": false }, { "type": "event", "name": "Approval", "inputs": [{ "type": "address", "name": "owner", "internalType": "address", "indexed": true }, { "type": "address", "name": "spender", "internalType": "address", "indexed": true }, { "type": "uint256", "name": "value", "internalType": "uint256", "indexed": false }], "anonymous": false }, { "type": "event", "name": "MigrateBridgeRole", "inputs": [{ "type": "address", "name": "newBridgeRoleAddress", "internalType": "address", "indexed": false }], "anonymous": false }, { "type": "event", "name": "Mint", "inputs": [{ "type": "address", "name": "to", "internalType": "address", "indexed": false }, { "type": "uint256", "name": "amount", "internalType": "uint256", "indexed": false }, { "type": "address", "name": "feeAddress", "internalType": "address", "indexed": false }, { "type": "uint256", "name": "feeAmount", "internalType": "uint256", "indexed": false }, { "type": "bytes32", "name": "originTxId", "internalType": "bytes32", "indexed": false }], "anonymous": false }, { "type": "event", "name": "RemoveSwapToken", "inputs": [{ "type": "address", "name": "contractAddress", "internalType": "address", "indexed": false }, { "type": "uint256", "name": "supplyDecrement", "internalType": "uint256", "indexed": false }], "anonymous": false }, { "type": "event", "name": "Swap", "inputs": [{ "type": "address", "name": "token", "internalType": "address", "indexed": false }, { "type": "uint256", "name": "amount", "internalType": "uint256", "indexed": false }], "anonymous": false }, { "type": "event", "name": "Transfer", "inputs": [{ "type": "address", "name": "from", "internalType": "address", "indexed": true }, { "type": "address", "name": "to", "internalType": "address", "indexed": true }, { "type": "uint256", "name": "value", "internalType": "uint256", "indexed": false }], "anonymous": false }, { "type": "event", "name": "Unwrap", "inputs": [{ "type": "uint256", "name": "amount", "internalType": "uint256", "indexed": false }, { "type": "uint256", "name": "chainId", "internalType": "uint256", "indexed": false }], "anonymous": false }, { "type": "function", "stateMutability": "nonpayable", "outputs": [], "name": "addSupportedChainId", "inputs": [{ "type": "uint256", "name": "chainId", "internalType": "uint256" }] }, { "type": "function", "stateMutability": "nonpayable", "outputs": [], "name": "addSwapToken", "inputs": [{ "type": "address", "name": "contractAddress", "internalType": "address" }, { "type": "uint256", "name": "supplyIncrement", "internalType": "uint256" }] }, { "type": "function", "stateMutability": "view", "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }], "name": "allowance", "inputs": [{ "type": "address", "name": "owner", "internalType": "address" }, { "type": "address", "name": "spender", "internalType": "address" }] }, { "type": "function", "stateMutability": "nonpayable", "outputs": [{ "type": "bool", "name": "", "internalType": "bool" }], "name": "approve", "inputs": [{ "type": "address", "name": "spender", "internalType": "address" }, { "type": "uint256", "name": "amount", "internalType": "uint256" }] }, { "type": "function", "stateMutability": "view", "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }], "name": "balanceOf", "inputs": [{ "type": "address", "name": "account", "internalType": "address" }] }, { "type": "function", "stateMutability": "nonpayable", "outputs": [], "name": "burn", "inputs": [{ "type": "uint256", "name": "amount", "internalType": "uint256" }] }, { "type": "function", "stateMutability": "nonpayable", "outputs": [], "name": "burnFrom", "inputs": [{ "type": "address", "name": "account", "internalType": "address" }, { "type": "uint256", "name": "amount", "internalType": "uint256" }] }, { "type": "function", "stateMutability": "view", "outputs": [{ "type": "bool", "name": "", "internalType": "bool" }], "name": "chainIds", "inputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }] }, { "type": "function", "stateMutability": "view", "outputs": [{ "type": "uint8", "name": "", "internalType": "uint8" }], "name": "decimals", "inputs": [] }, { "type": "function", "stateMutability": "nonpayable", "outputs": [{ "type": "bool", "name": "", "internalType": "bool" }], "name": "decreaseAllowance", "inputs": [{ "type": "address", "name": "spender", "internalType": "address" }, { "type": "uint256", "name": "subtractedValue", "internalType": "uint256" }] }, { "type": "function", "stateMutability": "nonpayable", "outputs": [{ "type": "bool", "name": "", "internalType": "bool" }], "name": "increaseAllowance", "inputs": [{ "type": "address", "name": "spender", "internalType": "address" }, { "type": "uint256", "name": "addedValue", "internalType": "uint256" }] }, { "type": "function", "stateMutability": "nonpayable", "outputs": [], "name": "migrateBridgeRole", "inputs": [{ "type": "address", "name": "newBridgeRoleAddress", "internalType": "address" }] }, { "type": "function", "stateMutability": "nonpayable", "outputs": [], "name": "mint", "inputs": [{ "type": "address", "name": "to", "internalType": "address" }, { "type": "uint256", "name": "amount", "internalType": "uint256" }, { "type": "address", "name": "feeAddress", "internalType": "address" }, { "type": "uint256", "name": "feeAmount", "internalType": "uint256" }, { "type": "bytes32", "name": "originTxId", "internalType": "bytes32" }] }, { "type": "function", "stateMutability": "view", "outputs": [{ "type": "string", "name": "", "internalType": "string" }], "name": "name", "inputs": [] }, { "type": "function", "stateMutability": "nonpayable", "outputs": [], "name": "removeSwapToken", "inputs": [{ "type": "address", "name": "contractAddress", "internalType": "address" }, { "type": "uint256", "name": "supplyDecrement", "internalType": "uint256" }] }, { "type": "function", "stateMutability": "nonpayable", "outputs": [], "name": "swap", "inputs": [{ "type": "address", "name": "token", "internalType": "address" }, { "type": "uint256", "name": "amount", "internalType": "uint256" }] }, { "type": "function", "stateMutability": "view", "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }], "name": "swapSupply", "inputs": [{ "type": "address", "name": "token", "internalType": "address" }] }, { "type": "function", "stateMutability": "view", "outputs": [{ "type": "string", "name": "", "internalType": "string" }], "name": "symbol", "inputs": [] }, { "type": "function", "stateMutability": "view", "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }], "name": "totalSupply", "inputs": [] }, { "type": "function", "stateMutability": "nonpayable", "outputs": [{ "type": "bool", "name": "", "internalType": "bool" }], "name": "transfer", "inputs": [{ "type": "address", "name": "recipient", "internalType": "address" }, { "type": "uint256", "name": "amount", "internalType": "uint256" }] }, { "type": "function", "stateMutability": "nonpayable", "outputs": [{ "type": "bool", "name": "", "internalType": "bool" }], "name": "transferFrom", "inputs": [{ "type": "address", "name": "sender", "internalType": "address" }, { "type": "address", "name": "recipient", "internalType": "address" }, { "type": "uint256", "name": "amount", "internalType": "uint256" }] }, { "type": "function", "stateMutability": "nonpayable", "outputs": [], "name": "unwrap", "inputs": [{ "type": "uint256", "name": "amount", "internalType": "uint256" }, { "type": "uint256", "name": "chainId", "internalType": "uint256" }] }]
 
 const LP_IDs = {
 	"eth": [
@@ -4127,10 +4815,10 @@ const HOLDERS_LIST_AVAX = [
 ]
 
 async function get_token_balances({
-									  TOKEN_ADDRESS,
-									  HOLDERS_LIST
-								  }) {
-	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	TOKEN_ADDRESS,
+	HOLDERS_LIST
+}) {
+	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 
 	return (await Promise.all(HOLDERS_LIST.map(h => {
 		return token_contract.methods.balanceOf(h).call()
@@ -4147,9 +4835,9 @@ let last_update_time = 0;
 let circulating_supply = 0;
 async function update_token_balance_sum() {
 	last_update_time = Date.now()
-	token_balance_sum = get_token_balances_sum( await get_token_balances({TOKEN_ADDRESS, HOLDERS_LIST}) ).div(1e18).toString(10)
-	token_balance_sum_bsc = get_token_balances_sum( await get_token_balances_BSC({TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_LIST_BSC}) ).div(1e18).toString(10)
-	token_balance_sum_avax = get_token_balances_sum( await get_token_balances_AVAX({TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_LIST_AVAX}) ).div(1e18).toString(10)
+	token_balance_sum = get_token_balances_sum(await get_token_balances({ TOKEN_ADDRESS, HOLDERS_LIST })).div(1e18).toString(10)
+	token_balance_sum_bsc = get_token_balances_sum(await get_token_balances_BSC({ TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_LIST_BSC })).div(1e18).toString(10)
+	token_balance_sum_avax = get_token_balances_sum(await get_token_balances_AVAX({ TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_LIST_AVAX })).div(1e18).toString(10)
 	// let circulating_supply_bsc = new BigNumber(24963431).minus(token_balance_sum_bsc)
 	// let circulating_supply_avax = new BigNumber(24963431).minus(token_balance_sum_avax)
 	// circulating_supply = new BigNumber(30000000).minus(token_balance_sum).plus(circulating_supply_bsc).plus(circulating_supply_avax)
@@ -4174,13 +4862,28 @@ let last_update_time_gov = 0;
 
 async function update_proposals() {
 	last_update_time_gov = Date.now()
-	let gov_contract_bsc = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC, {from: undefined})
-	let gov_contract_eth = new infuraWeb3.eth.Contract(GOV_ABI_ETH, GOV_ADDRESS_ETH, {from: undefined})
-	let gov_contract_avax = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX, {from: undefined})
-	let gov_contract_bsc2 = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC2, {from: undefined})
-	let gov_contract_eth2 = new infuraWeb3.eth.Contract(GOV_ABI_ETH2, GOV_ADDRESS_ETH2, {from: undefined})
-	let gov_contract_avax2 = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX2, {from: undefined})
-	bscProposals = await gov_contract_bsc.methods.lastIndex().call() 
+
+	bscProposals = 0;
+	ethProposals = 0;
+	avaxProposals = 0;
+	bscProposals2 = 0;
+	ethProposals2 = 0;
+	avaxProposals2 = 0;
+	bscVotes = 0;
+	ethVotes = 0;
+	avaxVotes = 0;
+	bscVotes2 = 0;
+	ethVotes2 = 0;
+	avaxVotes2 = 0;
+	totalVotes = 0;
+
+	let gov_contract_bsc = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC, { from: undefined })
+	let gov_contract_eth = new infuraWeb3.eth.Contract(GOV_ABI_ETH, GOV_ADDRESS_ETH, { from: undefined })
+	let gov_contract_avax = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX, { from: undefined })
+	let gov_contract_bsc2 = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC2, { from: undefined })
+	let gov_contract_eth2 = new infuraWeb3.eth.Contract(GOV_ABI_ETH2, GOV_ADDRESS_ETH2, { from: undefined })
+	let gov_contract_avax2 = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX2, { from: undefined })
+	bscProposals = await gov_contract_bsc.methods.lastIndex().call()
 	ethProposals = await gov_contract_eth.methods.lastIndex().call()
 	avaxProposals = await gov_contract_avax.methods.lastIndex().call()
 	bscProposals2 = await gov_contract_bsc2.methods.lastIndex().call()
@@ -4190,40 +4893,40 @@ async function update_proposals() {
 	bscProposals = parseInt(bscProposals) + parseInt(bscProposals2)
 	ethProposals = parseInt(ethProposals) + parseInt(ethProposals2)
 	avaxProposals = parseInt(avaxProposals) + parseInt(avaxProposals2)
-	
+
 	//make for loops to get all votes from bsc proposals (new contracts)
 	for (let i = 1; i <= bscProposals; i++) {
 		let vote = await gov_contract_eth.methods.getProposal(i).call()
-		bscVotes = bscVotes + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
+		bscVotes = bscVotes + ((vote._optionOneVotes) / 1e18) + ((vote._optionTwoVotes) / 1e18)
 	}
 
 	for (let i = 1; i <= ethProposals; i++) {
 		let vote = await gov_contract_eth.methods.getProposal(i).call()
-		ethVotes = ethVotes + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
+		ethVotes = ethVotes + ((vote._optionOneVotes) / 1e18) + ((vote._optionTwoVotes) / 1e18)
 	}
 
 	for (let i = 1; i <= avaxProposals; i++) {
 		let vote = await gov_contract_avax.methods.getProposal(i).call()
-		avaxVotes = avaxVotes + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
+		avaxVotes = avaxVotes + ((vote._optionOneVotes) / 1e18) + ((vote._optionTwoVotes) / 1e18)
 	}
 	// make for loops to get all votes from bsc proposals (old contracts)
 	for (let i = 1; i <= bscProposals2; i++) {
 		let vote = await gov_contract_bsc2.methods.getProposal(i).call()
-		bscVotes2 = bscVotes2 + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
+		bscVotes2 = bscVotes2 + ((vote._optionOneVotes) / 1e18) + ((vote._optionTwoVotes) / 1e18)
 	}
 
 	for (let i = 1; i <= ethProposals2; i++) {
 		let vote = await gov_contract_eth2.methods.getProposal(i).call()
-		ethVotes2 = ethVotes2 + parseInt(((vote._optionOneVotes)/1e18)) + parseInt(((vote._optionTwoVotes)/1e18))
+		ethVotes2 = ethVotes2 + parseInt(((vote._optionOneVotes) / 1e18)) + parseInt(((vote._optionTwoVotes) / 1e18))
 	}
 
 	for (let i = 1; i <= avaxProposals2; i++) {
 		let vote = await gov_contract_avax2.methods.getProposal(i).call()
-		avaxVotes2 = avaxVotes2 + ((vote._optionOneVotes)/1e18) + ((vote._optionTwoVotes)/1e18)
+		avaxVotes2 = avaxVotes2 + ((vote._optionOneVotes) / 1e18) + ((vote._optionTwoVotes) / 1e18)
 	}
 
-	bscVotes = Math.trunc(bscVotes) +  Math.trunc(bscVotes2)
-	ethVotes = Math.trunc(ethVotes) +  Math.trunc(ethVotes2)
+	bscVotes = Math.trunc(bscVotes) + Math.trunc(bscVotes2)
+	ethVotes = Math.trunc(ethVotes) + Math.trunc(ethVotes2)
 	avaxVotes = Math.trunc(avaxVotes) + Math.trunc(avaxVotes2)
 
 	totalVotes = bscVotes + ethVotes + avaxVotes;
@@ -4252,26 +4955,26 @@ const TOKENS_DISBURSED_PER_YEAR_BSC = [
 ]
 
 const LP_IDs_BSC =
-	{
-		"eth": [
-			"0x87c546525cf48f28d73ea218c625d6f748721717-0xb4338fc62b1de93f63bfedb9fd9bac455d50a424",
-			"0x87c546525cf48f28d73ea218c625d6f748721717-0x2c1411d4f1647b88a7b46c838a3760f925bac83b",
-			"0x87c546525cf48f28d73ea218c625d6f748721717-0x2c51df297a2aa972a45ed52110afd24591c6f302",
-			"0x87c546525cf48f28d73ea218c625d6f748721717-0xd7180d6fea393158d42d0d0cd66ab93048f581e3",
-		],
-		"wbtc": [
-			"0x2fcf1b0d83f83135b6e5e2e231e07ae89c235f68-0x8a607e099e835bdbc4a606acb600ef475414f450",
-			"0x2fcf1b0d83f83135b6e5e2e231e07ae89c235f68-0x34dd0d25fa2e3b220d1eb67460c45e586c61c2bb",
-			"0x2fcf1b0d83f83135b6e5e2e231e07ae89c235f68-0xb07c67b65e6916ba87b6e3fa245aa18f77b4413e",
-			"0x2fcf1b0d83f83135b6e5e2e231e07ae89c235f68-0x52adfbb5bc9f9fee825bd56feb11f1fc90e0b47e",
-		],
-		"usdc": [
-			"0xc7a4d04699a9539d33e86ce746e88553149c8528-0x111ae4ca424036d09b4e0fc9f1de5e6dc90d586b",
-			"0xc7a4d04699a9539d33e86ce746e88553149c8528-0x7637fa253180556ba486d2fa5d2bb328eb0aa7ca",
-			"0xc7a4d04699a9539d33e86ce746e88553149c8528-0x2f3c4a08dad0f8a56ede3961ab654020534b8a8c",
-			"0xc7a4d04699a9539d33e86ce746e88553149c8528-0x417538f319afddd351f33222592b60f985475a21",
-		]
-	}
+{
+	"eth": [
+		"0x87c546525cf48f28d73ea218c625d6f748721717-0xb4338fc62b1de93f63bfedb9fd9bac455d50a424",
+		"0x87c546525cf48f28d73ea218c625d6f748721717-0x2c1411d4f1647b88a7b46c838a3760f925bac83b",
+		"0x87c546525cf48f28d73ea218c625d6f748721717-0x2c51df297a2aa972a45ed52110afd24591c6f302",
+		"0x87c546525cf48f28d73ea218c625d6f748721717-0xd7180d6fea393158d42d0d0cd66ab93048f581e3",
+	],
+	"wbtc": [
+		"0x2fcf1b0d83f83135b6e5e2e231e07ae89c235f68-0x8a607e099e835bdbc4a606acb600ef475414f450",
+		"0x2fcf1b0d83f83135b6e5e2e231e07ae89c235f68-0x34dd0d25fa2e3b220d1eb67460c45e586c61c2bb",
+		"0x2fcf1b0d83f83135b6e5e2e231e07ae89c235f68-0xb07c67b65e6916ba87b6e3fa245aa18f77b4413e",
+		"0x2fcf1b0d83f83135b6e5e2e231e07ae89c235f68-0x52adfbb5bc9f9fee825bd56feb11f1fc90e0b47e",
+	],
+	"usdc": [
+		"0xc7a4d04699a9539d33e86ce746e88553149c8528-0x111ae4ca424036d09b4e0fc9f1de5e6dc90d586b",
+		"0xc7a4d04699a9539d33e86ce746e88553149c8528-0x7637fa253180556ba486d2fa5d2bb328eb0aa7ca",
+		"0xc7a4d04699a9539d33e86ce746e88553149c8528-0x2f3c4a08dad0f8a56ede3961ab654020534b8a8c",
+		"0xc7a4d04699a9539d33e86ce746e88553149c8528-0x417538f319afddd351f33222592b60f985475a21",
+	]
+}
 
 const LP_ID_LIST_BSC = Object.keys(LP_IDs_BSC).map(key => LP_IDs_BSC[key]).flat()
 const TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC = {}
@@ -4290,14 +4993,14 @@ const TOKENS_DISBURSED_PER_YEAR_AVAX = [
 ]
 
 const LP_IDs_AVAX =
-	{
-		"eth": [
-			"0x497070e8b6c55fd283d8b259a6971261e2021c01-0x499c588146443235357e9c630a66d6fe0250caa1",
-			"0x497070e8b6c55fd283d8b259a6971261e2021c01-0xd8af0591be4fba56e3634c992b7fe4ff0a90b584",
-			"0x497070e8b6c55fd283d8b259a6971261e2021c01-0xbebe1fe1444a50ac6ee95ea25ba80adf5ac7322c",
-			"0x497070e8b6c55fd283d8b259a6971261e2021c01-0x79be220ab2dfcc2f140b59a97bfe6751ed1579b0",
-		]
-	}
+{
+	"eth": [
+		"0x497070e8b6c55fd283d8b259a6971261e2021c01-0x499c588146443235357e9c630a66d6fe0250caa1",
+		"0x497070e8b6c55fd283d8b259a6971261e2021c01-0xd8af0591be4fba56e3634c992b7fe4ff0a90b584",
+		"0x497070e8b6c55fd283d8b259a6971261e2021c01-0xbebe1fe1444a50ac6ee95ea25ba80adf5ac7322c",
+		"0x497070e8b6c55fd283d8b259a6971261e2021c01-0x79be220ab2dfcc2f140b59a97bfe6751ed1579b0",
+	]
+}
 
 const LP_ID_LIST_AVAX = Object.keys(LP_IDs_AVAX).map(key => LP_IDs_AVAX[key]).flat()
 const TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX = {}
@@ -4327,7 +5030,7 @@ function getPrice(coingecko_id = 'ethereum', vs_currency = 'usd') {
 	})
 }
 
-async function fetchAsync (url) {
+async function fetchAsync(url) {
 	let response = await fetch(url);
 	let data = await response.json();
 	return data;
@@ -4341,12 +5044,12 @@ async function fetchAsync (url) {
  * @param {{token_contract_addresses: object[], lp_ids: object[], tokens_disbursed_per_year: object}} props - MAKE SURE ALL ADDRESSES ARE LOWERCASE!
  */
 async function get_usd_values_BSC({
-									  token_contract_addresses,
-									  lp_ids,
-								  }) {
+	token_contract_addresses,
+	lp_ids,
+}) {
 	return new Promise(async (resolve, reject) => {
 
-		let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, {from: undefined})
+		let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, { from: undefined })
 		let usd_per_eth = await token_contract.methods.getThePriceBnb().call()
 		usd_per_eth = (usd_per_eth / 1e8).toFixed(2)
 
@@ -4362,20 +5065,20 @@ async function get_usd_values_BSC({
 			let liquidityPositions = []
 			for (let id of token_contract_addresses) {
 				let token_price_usd = await getPrice_BSC(config.cg_ids[id])
-				tokens.push({id, token_price_usd})
+				tokens.push({ id, token_price_usd })
 			}
 			for (let lp_id of lp_ids) {
 				let pairAddress = lp_id.split('-')[0]
 				let stakingContractAddress = lp_id.split('-')[1]
 
-				let platformTokenContract = new bscWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
-				let pairTokenContract = new bscWeb3.eth.Contract(TOKEN_ABI, pairAddress, {from: undefined})
+				let platformTokenContract = new bscWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, { from: undefined })
+				let pairTokenContract = new bscWeb3.eth.Contract(TOKEN_ABI, pairAddress, { from: undefined })
 
 				let [lpTotalSupply, stakingLpBalance, platformTokenInLp] = await Promise.all([pairTokenContract.methods.totalSupply().call(), pairTokenContract.methods.balanceOf(stakingContractAddress).call(), platformTokenContract.methods.balanceOf(pairAddress).call()])
 
-				let usd_per_lp = platformTokenInLp / 1e18 * usdPerPlatformToken * 2  / (lpTotalSupply/1e18)
-				let usd_value_of_lp_staked = stakingLpBalance/1e18*usd_per_lp
-				let lp_staked = stakingLpBalance/1e18
+				let usd_per_lp = platformTokenInLp / 1e18 * usdPerPlatformToken * 2 / (lpTotalSupply / 1e18)
+				let usd_value_of_lp_staked = stakingLpBalance / 1e18 * usd_per_lp
+				let lp_staked = stakingLpBalance / 1e18
 				let id = lp_id
 				liquidityPositions.push({
 					id,
@@ -4384,9 +5087,11 @@ async function get_usd_values_BSC({
 					lp_staked
 				})
 			}
-			return {data: {
+			return {
+				data: {
 					tokens, liquidityPositions
-				}}
+				}
+			}
 		}
 
 		getData(token_contract_addresses.map(a => a.toLowerCase()), lp_ids.map(a => a.toLowerCase()))
@@ -4410,7 +5115,7 @@ async function get_usd_values_BSC({
 				data.liquidityPositions.forEach(lp => {
 					lp_data[lp.id] = lp
 				})
-				resolve({token_data, lp_data, usd_per_eth})
+				resolve({ token_data, lp_data, usd_per_eth })
 			} catch (e) {
 				console.error(e)
 				reject(e)
@@ -4427,17 +5132,17 @@ async function get_usd_values_BSC({
 async function get_number_of_stakers_BSC(staking_pools_list) {
 
 	return (await Promise.all(staking_pools_list.map(contract_address => {
-		let contract = new bscWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		let contract = new bscWeb3.eth.Contract(STAKING_ABI, contract_address, { from: undefined })
 		return contract.methods.getNumberOfHolders().call()
 	}))).map(h => Number(h))
 }
 
 async function get_token_balances_BSC({
-										  TOKEN_ADDRESS,
-										  HOLDERS_LIST
-									  }) {
+	TOKEN_ADDRESS,
+	HOLDERS_LIST
+}) {
 
-	let token_contract = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let token_contract = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 
 	return (await Promise.all(HOLDERS_LIST.map(h => {
 		return token_contract.methods.balanceOf(h).call()
@@ -4457,13 +5162,13 @@ function wait_BSC(ms) {
  * @param {{token_data, lp_data}} usd_values - assuming only one token is there in token_list
  */
 async function get_apy_and_tvl_BSC(usd_values) {
-	let {token_data, lp_data, usd_per_eth} = usd_values
+	let { token_data, lp_data, usd_per_eth } = usd_values
 
-	let token_price_usd = token_data[TOKEN_ADDRESS].token_price_usd*1
+	let token_price_usd = token_data[TOKEN_ADDRESS].token_price_usd * 1
 	let balances_by_address = {}, number_of_holders_by_address = {}
 	let lp_ids = Object.keys(lp_data)
 	let addrs = lp_ids.map(a => a.split('-')[1])
-	let token_balances = await get_token_balances_BSC({TOKEN_ADDRESS, HOLDERS_LIST: addrs})
+	let token_balances = await get_token_balances_BSC({ TOKEN_ADDRESS, HOLDERS_LIST: addrs })
 	addrs.forEach((addr, i) => balances_by_address[addr] = token_balances[i])
 
 	await wait_BSC(3000)
@@ -4476,18 +5181,18 @@ async function get_apy_and_tvl_BSC(usd_values) {
 
 		let pool_address = lp_id.split('-')[1]
 		let token_balance = new BigNumber(balances_by_address[pool_address] || 0)
-		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2)*1
+		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2) * 1
 
-		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked*1
+		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked * 1
 
-		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2) * 1
 
 		lp_data[lp_id].apy = apy
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 	})
 
-	return {token_data, lp_data, usd_per_eth, token_price_usd}
+	return { token_data, lp_data, usd_per_eth, token_price_usd }
 }
 
 async function get_usd_values_with_apy_and_tvl_BSC(...arguments) {
@@ -4496,7 +5201,7 @@ async function get_usd_values_with_apy_and_tvl_BSC(...arguments) {
 
 
 async function refresh_the_graph_result_BSC() {
-	let result = await get_usd_values_with_apy_and_tvl_BSC({token_contract_addresses: [TOKEN_ADDRESS], lp_ids: LP_ID_LIST_BSC})
+	let result = await get_usd_values_with_apy_and_tvl_BSC({ token_contract_addresses: [TOKEN_ADDRESS], lp_ids: LP_ID_LIST_BSC })
 	the_graph_result_BSC = result
 	//window.TVL_FARMING_POOLS = await refreshBalance()
 	return result
@@ -4511,9 +5216,9 @@ async function refresh_the_graph_result_BSC() {
  * @param {{token_contract_addresses: object[], lp_ids: object[], tokens_disbursed_per_year: object}} props - MAKE SURE ALL ADDRESSES ARE LOWERCASE!
  */
 async function get_usd_values_AVAX({
-									  token_contract_addresses,
-									  lp_ids,
-								  }) {
+	token_contract_addresses,
+	lp_ids,
+}) {
 	return new Promise(async (resolve, reject) => {
 
 		// let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, {from: undefined})
@@ -4532,20 +5237,20 @@ async function get_usd_values_AVAX({
 			let liquidityPositions = []
 			for (let id of token_contract_addresses) {
 				let token_price_usd = await getPrice_BSC(config.cg_ids_avax[id])
-				tokens.push({id, token_price_usd})
+				tokens.push({ id, token_price_usd })
 			}
 			for (let lp_id of lp_ids) {
 				let pairAddress = lp_id.split('-')[0]
 				let stakingContractAddress = lp_id.split('-')[1]
 
-				let platformTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
-				let pairTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, pairAddress, {from: undefined})
+				let platformTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, { from: undefined })
+				let pairTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, pairAddress, { from: undefined })
 
 				let [lpTotalSupply, stakingLpBalance, platformTokenInLp] = await Promise.all([pairTokenContract.methods.totalSupply().call(), pairTokenContract.methods.balanceOf(stakingContractAddress).call(), platformTokenContract.methods.balanceOf(pairAddress).call()])
 
-				let usd_per_lp = platformTokenInLp / 1e18 * usdPerPlatformToken * 2  / (lpTotalSupply/1e18)
-				let usd_value_of_lp_staked = stakingLpBalance/1e18*usd_per_lp
-				let lp_staked = stakingLpBalance/1e18
+				let usd_per_lp = platformTokenInLp / 1e18 * usdPerPlatformToken * 2 / (lpTotalSupply / 1e18)
+				let usd_value_of_lp_staked = stakingLpBalance / 1e18 * usd_per_lp
+				let lp_staked = stakingLpBalance / 1e18
 				let id = lp_id
 				liquidityPositions.push({
 					id,
@@ -4554,9 +5259,11 @@ async function get_usd_values_AVAX({
 					lp_staked
 				})
 			}
-			return {data: {
+			return {
+				data: {
 					tokens, liquidityPositions
-				}}
+				}
+			}
 		}
 
 		getData(token_contract_addresses.map(a => a.toLowerCase()), lp_ids.map(a => a.toLowerCase()))
@@ -4580,7 +5287,7 @@ async function get_usd_values_AVAX({
 				data.liquidityPositions.forEach(lp => {
 					lp_data[lp.id] = lp
 				})
-				resolve({token_data, lp_data, usd_per_eth})
+				resolve({ token_data, lp_data, usd_per_eth })
 			} catch (e) {
 				console.error(e)
 				reject(e)
@@ -4597,17 +5304,17 @@ async function get_usd_values_AVAX({
 async function get_number_of_stakers_AVAX(staking_pools_list) {
 
 	return (await Promise.all(staking_pools_list.map(contract_address => {
-		let contract = new avaxWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		let contract = new avaxWeb3.eth.Contract(STAKING_ABI, contract_address, { from: undefined })
 		return contract.methods.getNumberOfHolders().call()
 	}))).map(h => Number(h))
 }
 
 async function get_token_balances_AVAX({
-										  TOKEN_ADDRESS,
-										  HOLDERS_LIST
-									  }) {
+	TOKEN_ADDRESS,
+	HOLDERS_LIST
+}) {
 
-	let token_contract = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let token_contract = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 
 	return (await Promise.all(HOLDERS_LIST.map(h => {
 		return token_contract.methods.balanceOf(h).call()
@@ -4627,13 +5334,13 @@ function wait_AVAX(ms) {
  * @param {{token_data, lp_data}} usd_values - assuming only one token is there in token_list
  */
 async function get_apy_and_tvl_AVAX(usd_values) {
-	let {token_data, lp_data, usd_per_eth} = usd_values
+	let { token_data, lp_data, usd_per_eth } = usd_values
 
-	let token_price_usd = token_data[TOKEN_ADDRESS].token_price_usd*1
+	let token_price_usd = token_data[TOKEN_ADDRESS].token_price_usd * 1
 	let balances_by_address = {}, number_of_holders_by_address = {}
 	let lp_ids = Object.keys(lp_data)
 	let addrs = lp_ids.map(a => a.split('-')[1])
-	let token_balances = await get_token_balances_AVAX({TOKEN_ADDRESS, HOLDERS_LIST: addrs})
+	let token_balances = await get_token_balances_AVAX({ TOKEN_ADDRESS, HOLDERS_LIST: addrs })
 	addrs.forEach((addr, i) => balances_by_address[addr] = token_balances[i])
 
 	await wait_AVAX(3500)
@@ -4646,18 +5353,18 @@ async function get_apy_and_tvl_AVAX(usd_values) {
 
 		let pool_address = lp_id.split('-')[1]
 		let token_balance = new BigNumber(balances_by_address[pool_address] || 0)
-		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2)*1
+		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2) * 1
 
-		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked*1
+		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked * 1
 
-		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2) * 1
 
 		lp_data[lp_id].apy = apy
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 	})
 
-	return {token_data, lp_data, usd_per_eth, token_price_usd}
+	return { token_data, lp_data, usd_per_eth, token_price_usd }
 }
 
 async function get_usd_values_with_apy_and_tvl_AVAX(...arguments) {
@@ -4666,7 +5373,7 @@ async function get_usd_values_with_apy_and_tvl_AVAX(...arguments) {
 
 
 async function refresh_the_graph_result_AVAX() {
-	let result = await get_usd_values_with_apy_and_tvl_AVAX({token_contract_addresses: [TOKEN_ADDRESS], lp_ids: LP_ID_LIST_AVAX})
+	let result = await get_usd_values_with_apy_and_tvl_AVAX({ token_contract_addresses: [TOKEN_ADDRESS], lp_ids: LP_ID_LIST_AVAX })
 	the_graph_result_AVAX = result
 	//window.TVL_FARMING_POOLS = await refreshBalance()
 	return result
@@ -4684,7 +5391,7 @@ const getCombinedTvlUsd_AVAX = async () => {
 
 	let lp_ids = Object.keys(the_graph_result_avax.lp_data)
 	for (let id of lp_ids) {
-		tvl += the_graph_result_avax.lp_data[id].tvl_usd*1 || 0
+		tvl += the_graph_result_avax.lp_data[id].tvl_usd * 1 || 0
 	}
 
 	COMBINED_TVL_AVAX = tvl
@@ -4704,7 +5411,7 @@ const getCombinedTvlUsd_BSC = async () => {
 
 	let lp_ids = Object.keys(the_graph_result_bsc.lp_data)
 	for (let id of lp_ids) {
-		tvl += the_graph_result_bsc.lp_data[id].tvl_usd*1 || 0
+		tvl += the_graph_result_bsc.lp_data[id].tvl_usd * 1 || 0
 	}
 
 	COMBINED_TVL_BSC = tvl
@@ -4712,7 +5419,7 @@ const getCombinedTvlUsd_BSC = async () => {
 }
 
 //ETH the_graph
-let the_graph_result ={}
+let the_graph_result = {}
 
 const TOKENS_DISBURSED_PER_YEAR = [
 	360_000,
@@ -4747,15 +5454,16 @@ LP_ID_LIST.forEach((lp_id, i) => TOKENS_DISBURSED_PER_YEAR_BY_LP_ID[lp_id] = TOK
  * @param {{token_contract_addresses: object[], lp_ids: object[], tokens_disbursed_per_year: object}} props - MAKE SURE ALL ADDRESSES ARE LOWERCASE!
  */
 async function get_usd_values({
-								  token_contract_addresses,
-								  lp_ids,
-							  }) {
+	token_contract_addresses,
+	lp_ids,
+}) {
 	return new Promise((resolve, reject) => {
 		fetch('https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2', {
 			method: 'POST',
 			mode: 'cors',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({query:`{
+			body: JSON.stringify({
+				query: `{
   
 	tokens(where:{
   id_in: ${JSON.stringify(token_contract_addresses.map(a => a.toLowerCase()))}}) {
@@ -4784,7 +5492,8 @@ async function get_usd_values({
 	  liquidityTokenBalance
 	}
   }
-  `, variables: null}),
+  `, variables: null
+			}),
 		})
 			.then(res => res.json())
 			.then(res => handleTheGraphData(res))
@@ -4798,28 +5507,28 @@ async function get_usd_values({
 
 				//console.log(data)
 
-				let usd_per_eth = new BigNumber(data.bundle.ethPrice).toFixed(2)*1
+				let usd_per_eth = new BigNumber(data.bundle.ethPrice).toFixed(2) * 1
 
 				let token_data = {}, lp_data = {}
 
 				data.tokens.forEach(t => {
 					token_data[t.id] = {
-						token_volume_usd_all_time: new BigNumber(t.untrackedVolumeUSD).toFixed(2)*1,
-						token_price_usd: new BigNumber(t.derivedETH).times(usd_per_eth).toFixed(2)*1
+						token_volume_usd_all_time: new BigNumber(t.untrackedVolumeUSD).toFixed(2) * 1,
+						token_price_usd: new BigNumber(t.derivedETH).times(usd_per_eth).toFixed(2) * 1
 					}
 				})
 
 				data.liquidityPositions.forEach(lp => {
-					let usd_per_lp = new BigNumber(lp.pair.reserveUSD).div(lp.pair.totalSupply).toFixed(2)*1
+					let usd_per_lp = new BigNumber(lp.pair.reserveUSD).div(lp.pair.totalSupply).toFixed(2) * 1
 					let lp_staked = lp.liquidityTokenBalance
-					let usd_value_of_lp_staked = new BigNumber(lp_staked).times(usd_per_lp).toFixed(2)*1
+					let usd_value_of_lp_staked = new BigNumber(lp_staked).times(usd_per_lp).toFixed(2) * 1
 					lp_data[lp.id] = {
 						lp_staked,
 						usd_per_lp,
 						usd_value_of_lp_staked,
 					}
 				})
-				resolve({token_data, lp_data, usd_per_eth})
+				resolve({ token_data, lp_data, usd_per_eth })
 			} catch (e) {
 				console.error(e)
 				reject(e)
@@ -4835,16 +5544,16 @@ async function get_usd_values({
  */
 async function get_number_of_stakers(staking_pools_list) {
 	return (await Promise.all(staking_pools_list.map(contract_address => {
-		let contract = new infuraWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		let contract = new infuraWeb3.eth.Contract(STAKING_ABI, contract_address, { from: undefined })
 		return contract.methods.getNumberOfHolders().call()
 	}))).map(h => Number(h))
 }
 
 async function get_token_balances({
-									  TOKEN_ADDRESS,
-									  HOLDERS_LIST
-								  }) {
-	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	TOKEN_ADDRESS,
+	HOLDERS_LIST
+}) {
+	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 
 	return (await Promise.all(HOLDERS_LIST.map(h => {
 		return token_contract.methods.balanceOf(h).call()
@@ -4864,17 +5573,17 @@ async function wait(ms) {
  * @param {{token_data, lp_data}} usd_values - assuming only one token is there in token_list
  */
 async function get_apy_and_tvl(usd_values) {
-	let {token_data, lp_data, usd_per_eth_uniswap} = usd_values
+	let { token_data, lp_data, usd_per_eth_uniswap } = usd_values
 
-	let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, {from: undefined})
+	let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, { from: undefined })
 	let usd_per_eth = await token_contract.methods.getThePriceEth().call()
 	usd_per_eth = (usd_per_eth / 1e8).toFixed(2)
 
-	let token_price_usd = token_data[TOKEN_ADDRESS].token_price_usd*1
+	let token_price_usd = token_data[TOKEN_ADDRESS].token_price_usd * 1
 	let balances_by_address = {}, number_of_holders_by_address = {}
 	let lp_ids = Object.keys(lp_data)
 	let addrs = lp_ids.map(a => a.split('-')[1])
-	let token_balances = await get_token_balances({TOKEN_ADDRESS, HOLDERS_LIST: addrs})
+	let token_balances = await get_token_balances({ TOKEN_ADDRESS, HOLDERS_LIST: addrs })
 	addrs.forEach((addr, i) => balances_by_address[addr] = token_balances[i])
 
 	await wait(2000)
@@ -4887,18 +5596,18 @@ async function get_apy_and_tvl(usd_values) {
 
 		let pool_address = lp_id.split('-')[1]
 		let token_balance = new BigNumber(balances_by_address[pool_address] || 0)
-		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2)*1
+		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2) * 1
 
-		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked*1
+		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked * 1
 
-		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2) * 1
 
 		lp_data[lp_id].apy = apy
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 	})
 
-	return {token_data, lp_data, usd_per_eth, token_price_usd}
+	return { token_data, lp_data, usd_per_eth, token_price_usd }
 }
 
 async function get_usd_values_with_apy_and_tvl(...arguments) {
@@ -4909,7 +5618,7 @@ let last_update_time3 = 0
 
 async function refresh_the_graph_result() {
 	last_update_time3 = Date.now()
-	let result = await get_usd_values_with_apy_and_tvl({token_contract_addresses: [TOKEN_ADDRESS], lp_ids: LP_ID_LIST})
+	let result = await get_usd_values_with_apy_and_tvl({ token_contract_addresses: [TOKEN_ADDRESS], lp_ids: LP_ID_LIST })
 	the_graph_result = result
 	//await refresh_the_graph_result_BSC()
 	return result
@@ -5019,27 +5728,27 @@ const GetHighestAPY = async () => {
 	// 	console.log(id)
 	// }
 
-	highApyArrayEth.sort(function(a, b) {
+	highApyArrayEth.sort(function (a, b) {
 		return a - b
 	})
 
-	highApyArray.sort(function(a, b) {
+	highApyArray.sort(function (a, b) {
 		return a - b
 	})
 
-	highApyArrayAvax.sort(function(a, b) {
+	highApyArrayAvax.sort(function (a, b) {
 		return a - b
 	})
 
-	highApyArrayBscV2.sort(function(a, b) {
+	highApyArrayBscV2.sort(function (a, b) {
 		return a - b
 	})
 
-	highApyArrayAvaxV2.sort(function(a, b) {
+	highApyArrayAvaxV2.sort(function (a, b) {
 		return a - b
 	})
 
-	highApyArrayEthV2.sort(function(a, b) {
+	highApyArrayEthV2.sort(function (a, b) {
 		return a - b
 	})
 
@@ -5075,7 +5784,7 @@ let [farmingTvl30, farmingTvl60, farmingTvl90, farmingTvl120] = [0, 0, 0, 0]
 
 async function refreshBalanceFarming() {
 
-	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 	//console.log('coinbase' + token_contract)
 
 	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
@@ -5105,15 +5814,15 @@ async function refreshBalanceFarming() {
 
 async function getTokenHolderBalance(holder, network) {
 	if (network == 1) {
-		let tokenContract = new infuraWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
+		let tokenContract = new infuraWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, { from: undefined })
 		return await tokenContract.methods.balanceOf(holder).call()
 	}
-	if (network == 2){
-		let tokenContract = new bscWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
+	if (network == 2) {
+		let tokenContract = new bscWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, { from: undefined })
 		return await tokenContract.methods.balanceOf(holder).call()
 	}
-	if(network == 3){
-		let tokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
+	if (network == 3) {
+		let tokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, { from: undefined })
 		return await tokenContract.methods.balanceOf(holder).call()
 	}
 	return 0
@@ -5167,7 +5876,7 @@ const TOKEN_ADDRESS_DYPS_BSC = '0x4B2dfB131B0AE1D6d5D0c9a3a09c028a5cD10554'
 const TOKEN_ADDRESS_DYPS_AVAX = '0x4689545A1389E7778Fd4e66F854C91Bf8aBacBA9'
 let price_DYPS = 0
 
-async function getPriceDYPS () {
+async function getPriceDYPS() {
 
 	let amount = new BigNumber(1000000000000000000).toFixed(0)
 	let router = await getPancakeswapRouterContract()
@@ -5184,33 +5893,33 @@ async function getPriceDYPS () {
 	return price_DYPS
 }
 
-async function totalTvlDYPS () {
+async function totalTvlDYPS() {
 	let tvlDYPS = 0
 
 	if (price_DYPS == 0)
 		await getPriceDYPS()
 
-	let token_balances_eth = await get_token_balances({TOKEN_ADDRESS: TOKEN_ADDRESS_DYPS_ETH, HOLDERS_LIST: allContracts})
+	let token_balances_eth = await get_token_balances({ TOKEN_ADDRESS: TOKEN_ADDRESS_DYPS_ETH, HOLDERS_LIST: allContracts })
 
 	// await wait(2000)
 
-	let token_balances_bsc = await get_token_balances_BSC({TOKEN_ADDRESS: TOKEN_ADDRESS_DYPS_BSC, HOLDERS_LIST: allContracts})
+	let token_balances_bsc = await get_token_balances_BSC({ TOKEN_ADDRESS: TOKEN_ADDRESS_DYPS_BSC, HOLDERS_LIST: allContracts })
 
 	// await wait(2000)
 
-	let token_balances_avax = await get_token_balances_AVAX({TOKEN_ADDRESS: TOKEN_ADDRESS_DYPS_AVAX, HOLDERS_LIST: allContracts})
+	let token_balances_avax = await get_token_balances_AVAX({ TOKEN_ADDRESS: TOKEN_ADDRESS_DYPS_AVAX, HOLDERS_LIST: allContracts })
 
 	// await wait(2000)
 
-	for (let id of token_balances_eth){
+	for (let id of token_balances_eth) {
 		tvlDYPS = new BigNumber(tvlDYPS).plus(id)
 	}
 
-	for (let id of token_balances_bsc){
+	for (let id of token_balances_bsc) {
 		tvlDYPS = new BigNumber(tvlDYPS).plus(id)
 	}
 
-	for (let id of token_balances_avax){
+	for (let id of token_balances_avax) {
 		tvlDYPS = new BigNumber(tvlDYPS).plus(id)
 	}
 
@@ -5225,13 +5934,13 @@ async function totalTvlDYPS () {
 
 //TVL Vaults
 
-const VAULT_ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"CompoundRewardClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"EtherRewardClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"EtherRewardDisbursed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"PlatformTokenAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"PlatformTokenRewardClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenRewardClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenRewardDisbursed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Withdraw","type":"event"},{"inputs":[],"name":"ADMIN_CAN_CLAIM_AFTER","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"BURN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"FEE_PERCENT_TO_BUYBACK_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"FEE_PERCENT_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LOCKUP_DURATION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MIN_ETH_FEE_IN_WEI","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"ONE_HUNDRED_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"POINT_MULTIPLIER","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_INTERVAL","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_RETURN_PERCENT_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_CTOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_DEPOSIT_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_PLATFORM_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"addPlatformTokenBalance","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"cTokenBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountOutMin_platformTokens","type":"uint256"}],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"claimAnyToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimCompoundDivs","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimEthDivs","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"claimExtraTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountOutMin_platformTokens","type":"uint256"}],"name":"claimPlatformTokenDivs","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimTokenDivs","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"contractStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_ethFeeBuyBack","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"deposit","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositTokenBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"emergencyWithdraw","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"ethDivsBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"ethDivsOwing","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_cTokenBalance","type":"uint256"}],"name":"getConvertedBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"startIndex","type":"uint256"},{"internalType":"uint256","name":"endIndex","type":"uint256"}],"name":"getDepositorsList","outputs":[{"internalType":"address[]","name":"stakers","type":"address[]"},{"internalType":"uint256[]","name":"stakingTimestamps","type":"uint256[]"},{"internalType":"uint256[]","name":"lastClaimedTimeStamps","type":"uint256[]"},{"internalType":"uint256[]","name":"stakedTokens","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"getEstimatedCompoundDivsOwing","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getExchangeRateCurrent","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getExchangeRateStored","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getNumberOfHolders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastClaimedTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastEthDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastTokenDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"platformTokenDivsBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"platformTokenDivsOwing","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenBalances","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenDivsBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"tokenDivsOwing","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalCTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalDepositedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedCompoundDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedEthDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedPlatformTokenDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedTokenDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalEthDisbursed","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalEthDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokenDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalTokensDepositedByUser","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokensDisbursed","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalTokensWithdrawnByUser","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"uniswapRouterV2","outputs":[{"internalType":"contract IUniswapV2Router","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_ethFeeBuyBack","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_tokenFeeBuyBack","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"withdraw","outputs":[],"stateMutability":"payable","type":"function"},{"stateMutability":"payable","type":"receive"}]
+const VAULT_ABI = [{ "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "account", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "CompoundRewardClaimed", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "account", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Deposit", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "account", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "EtherRewardClaimed", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "EtherRewardDisbursed", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "PlatformTokenAdded", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "account", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "PlatformTokenRewardClaimed", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "account", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "TokenRewardClaimed", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "TokenRewardDisbursed", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "account", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Withdraw", "type": "event" }, { "inputs": [], "name": "ADMIN_CAN_CLAIM_AFTER", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "BURN_ADDRESS", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "FEE_PERCENT_TO_BUYBACK_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "FEE_PERCENT_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "LOCKUP_DURATION", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "MIN_ETH_FEE_IN_WEI", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "ONE_HUNDRED_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "POINT_MULTIPLIER", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REWARD_INTERVAL", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REWARD_RETURN_PERCENT_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "TRUSTED_CTOKEN_ADDRESS", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "TRUSTED_DEPOSIT_TOKEN_ADDRESS", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "TRUSTED_PLATFORM_TOKEN_ADDRESS", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "addPlatformTokenBalance", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "cTokenBalance", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_amountOutMin_platformTokens", "type": "uint256" }], "name": "claim", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "claimAnyToken", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "claimCompoundDivs", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "claimEthDivs", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }], "name": "claimExtraTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_amountOutMin_platformTokens", "type": "uint256" }], "name": "claimPlatformTokenDivs", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "claimTokenDivs", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "contractStartTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }, { "internalType": "uint256", "name": "_amountOutMin_ethFeeBuyBack", "type": "uint256" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "deposit", "outputs": [], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "depositTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "depositTokenBalance", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "emergencyWithdraw", "outputs": [], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "ethDivsBalance", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }], "name": "ethDivsOwing", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_cTokenBalance", "type": "uint256" }], "name": "getConvertedBalance", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "startIndex", "type": "uint256" }, { "internalType": "uint256", "name": "endIndex", "type": "uint256" }], "name": "getDepositorsList", "outputs": [{ "internalType": "address[]", "name": "stakers", "type": "address[]" }, { "internalType": "uint256[]", "name": "stakingTimestamps", "type": "uint256[]" }, { "internalType": "uint256[]", "name": "lastClaimedTimeStamps", "type": "uint256[]" }, { "internalType": "uint256[]", "name": "stakedTokens", "type": "uint256[]" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }], "name": "getEstimatedCompoundDivsOwing", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "getExchangeRateCurrent", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "getExchangeRateStored", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "getNumberOfHolders", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "lastClaimedTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "lastEthDivPoints", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "lastTokenDivPoints", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "platformTokenDivsBalance", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }], "name": "platformTokenDivsOwing", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "tokenBalances", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "tokenDivsBalance", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }], "name": "tokenDivsOwing", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalCTokens", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalDepositedTokens", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalEarnedCompoundDivs", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalEarnedEthDivs", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalEarnedPlatformTokenDivs", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalEarnedTokenDivs", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalEthDisbursed", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalEthDivPoints", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalTokenDivPoints", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalTokensDepositedByUser", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalTokensDisbursed", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalTokensWithdrawnByUser", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "uniswapRouterV2", "outputs": [{ "internalType": "contract IUniswapV2Router", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }, { "internalType": "uint256", "name": "_amountOutMin_ethFeeBuyBack", "type": "uint256" }, { "internalType": "uint256", "name": "_amountOutMin_tokenFeeBuyBack", "type": "uint256" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "withdraw", "outputs": [], "stateMutability": "payable", "type": "function" }, { "stateMutability": "payable", "type": "receive" }]
 
 const totalDepositedTokens = async (contractAddress) => {
-	let contract = new infuraWeb3.eth.Contract(VAULT_ABI, contractAddress, {from: undefined})
+	let contract = new infuraWeb3.eth.Contract(VAULT_ABI, contractAddress, { from: undefined })
 	let totalDepositedTokens = await contract.methods.totalDepositedTokens().call()
 
-	let contractiDYP = new infuraWeb3.eth.Contract(TOKEN_ABI, '0xBD100d061E120b2c67A24453CF6368E63f1Be056', {from: undefined})
+	let contractiDYP = new infuraWeb3.eth.Contract(TOKEN_ABI, '0xBD100d061E120b2c67A24453CF6368E63f1Be056', { from: undefined })
 	let balanceOfiDYP = await contractiDYP.methods.balanceOf(contractAddress).call()
 
 	totalDepositedTokens = new BigNumber(totalDepositedTokens)
@@ -5295,9 +6004,9 @@ const getTotalTvl = async () => {
 	let bscBuybackTvl = await getTokenHolderBalance('0x350f3fe979bfad4766298713c83b387c2d2d7a7a', 2)
 	let avaxBuybackTvl = await getTokenHolderBalance('0x4c7e0cbb0276a5e963266e6b9f34db73a1cb73f3', 3)
 
-	ethBuybackTvl = (ethBuybackTvl/1e18) * usdPerToken
-	bscBuybackTvl = (bscBuybackTvl/1e18) * usdPerToken
-	avaxBuybackTvl = (avaxBuybackTvl/1e18) * usdPerToken
+	ethBuybackTvl = (ethBuybackTvl / 1e18) * usdPerToken
+	bscBuybackTvl = (bscBuybackTvl / 1e18) * usdPerToken
+	avaxBuybackTvl = (avaxBuybackTvl / 1e18) * usdPerToken
 
 	let lp_ids = Object.keys(the_graph_result.lp_data)
 	for (let id of lp_ids) {
@@ -5331,12 +6040,12 @@ let last_update_time6 = 0
 const WETH_ADDRESS = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
 
 const getWethBalance = async (contractAddress) => {
-	let contract = new infuraWeb3.eth.Contract(TOKEN_ABI, WETH_ADDRESS, {from: undefined})
+	let contract = new infuraWeb3.eth.Contract(TOKEN_ABI, WETH_ADDRESS, { from: undefined })
 	return (await contract.methods.balanceOf(contractAddress).call())
 }
 
 const getWethPaidOut = async (contractAddress) => {
-	let contract = new infuraWeb3.eth.Contract(STAKING_ABI, contractAddress, {from: undefined})
+	let contract = new infuraWeb3.eth.Contract(STAKING_ABI, contractAddress, { from: undefined })
 	let wethPaidOut = await contract.methods.totalClaimedRewardsEth().call()
 	let wethBalance = await getWethBalance(contractAddress)
 	return new BigNumber(wethBalance).plus(wethPaidOut).toString(10)
@@ -5370,12 +6079,12 @@ const PaidOutETH = async () => {
 const WBNB_ADDRESS = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c'
 
 const getWbnbBalance = async (contractAddress) => {
-	let contract = new bscWeb3.eth.Contract(TOKEN_ABI, WBNB_ADDRESS, {from: undefined})
+	let contract = new bscWeb3.eth.Contract(TOKEN_ABI, WBNB_ADDRESS, { from: undefined })
 	return (await contract.methods.balanceOf(contractAddress).call())
 }
 
 const getWbnbPaidOut = async (contractAddress) => {
-	let contract = new bscWeb3.eth.Contract(STAKING_ABI, contractAddress, {from: undefined})
+	let contract = new bscWeb3.eth.Contract(STAKING_ABI, contractAddress, { from: undefined })
 	let wbnbPaidOut = await contract.methods.totalClaimedRewardsEth().call()
 	let wbnbBalance = await getWbnbBalance(contractAddress)
 	return new BigNumber(wbnbBalance).plus(wbnbPaidOut).toString(10)
@@ -5411,12 +6120,12 @@ const PaidOutBNB = async () => {
 const AVAX_ADDRESS = '0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7'
 
 const getAvaxBalance = async (contractAddress) => {
-	let contract = new avaxWeb3.eth.Contract(TOKEN_ABI, AVAX_ADDRESS, {from: undefined})
+	let contract = new avaxWeb3.eth.Contract(TOKEN_ABI, AVAX_ADDRESS, { from: undefined })
 	return (await contract.methods.balanceOf(contractAddress).call())
 }
 
 const getAvaxPaidOut = async (contractAddress) => {
-	let contract = new avaxWeb3.eth.Contract(STAKING_ABI, contractAddress, {from: undefined})
+	let contract = new avaxWeb3.eth.Contract(STAKING_ABI, contractAddress, { from: undefined })
 	let avaxPaidOut = await contract.methods.totalClaimedRewardsEth().call()
 	let avaxBalance = await getAvaxBalance(contractAddress)
 	return new BigNumber(avaxBalance).plus(avaxPaidOut).toString(10)
@@ -5450,7 +6159,7 @@ const PaidAllInUsd = async () => {
 	let [usdPerTokenAvax] = await Promise.all([getPrice('avalanche-2')])
 
 	// Get Price feed from Chainlink for ETH and BNB
-	let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, {from: undefined})
+	let token_contract = new infuraWeb3.eth.Contract(PRICE_ABI, PRICE_ADDRESS, { from: undefined })
 
 	let usdPerToken = await token_contract.methods.getThePriceEth().call()
 	usdPerToken = (usdPerToken / 1e8).toFixed(2)
@@ -5478,11 +6187,11 @@ const CheckEthStaking = async (addressToCheck) => {
 
 	for (let lp_id of lp_ids) {
 		let pool_address = lp_id.split('-')[1]
-		let contract = new infuraWeb3.eth.Contract(STAKING_ABI, pool_address, {from: undefined})
+		let contract = new infuraWeb3.eth.Contract(STAKING_ABI, pool_address, { from: undefined })
 		amountStaked = await contract.methods.depositedTokens(addressToCheck).call()
 		result = parseInt(amountStaked) > 0 ? true : false
 
-		if (parseInt(amountStaked)>0) break
+		if (parseInt(amountStaked) > 0) break
 	}
 
 	return result
@@ -5495,285 +6204,1766 @@ const CheckBscStaking = async (addressToCheck) => {
 
 	for (let lp_id of lp_ids) {
 		let pool_address = lp_id.split('-')[1]
-		let contract = new bscWeb3.eth.Contract(STAKING_ABI, pool_address, {from: undefined})
+		let contract = new bscWeb3.eth.Contract(STAKING_ABI, pool_address, { from: undefined })
 		amountStaked = await contract.methods.depositedTokens(addressToCheck).call()
 		result = parseInt(amountStaked) > 0 ? true : false
 
-		if (parseInt(amountStaked)>0) break
+		if (parseInt(amountStaked) > 0) break
 	}
 
 	return result
 }
+let floorprice = 0;
+let eth_price = 0;
+function fecthNftFloorPrice() {
+	fetch('https://api.opensea.io/api/v1/collection/catsandwatchessocietycaws/stats?format=json')
+		.then(response => {
+			if (!response.ok) {
+				throw Error('X');
+			}
+			return response.json();
+		})
+		.then(data => {
+			floorprice = data.stats.floor_price
+		});
+}
+function fecthETHPrice() {
+	fetch('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD')
+		.then(response => {
+			if (!response.ok) {
+				throw Error('X');
+			}
+			return response.json();
+		})
+		.then(data => {
+			eth_price = data.USD
+		});
+}
+
+
 
 let farmInfo = []
 
 const IDs_eth = {
 	"0xa7d6f5fa9b0be0e98b3b40e6ac884e53f2f9460e":
-		{
-			pool_name: "DYP/ETH LP Pool Ethereum",
-			pair_name: "DYP-ETH",
-			link_pair: "https://app.dyp.finance/staking-eth-3",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/ETH LP Pool Ethereum",
+		pair_name: "DYP-ETH",
+		link_pair: "https://app.dyp.finance/staking-eth-3",
+		return_types: "WETH"
+	},
 	"0x0b0a544ae6131801522e3ac1fbac6d311094c94c":
-		{
-			pool_name: "DYP/ETH LP Pool Ethereum",
-			pair_name: "DYP-ETH",
-			link_pair: "https://app.dyp.finance/staking-eth-30",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/ETH LP Pool Ethereum",
+		pair_name: "DYP-ETH",
+		link_pair: "https://app.dyp.finance/staking-eth-30",
+		return_types: "WETH"
+	},
 	"0x16caad63bdfc3ec4a2850336b28efe17e802b896":
-		{
-			pool_name: "DYP/ETH LP Pool Ethereum",
-			pair_name: "DYP-ETH",
-			link_pair: "https://app.dyp.finance/staking-eth-60",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/ETH LP Pool Ethereum",
+		pair_name: "DYP-ETH",
+		link_pair: "https://app.dyp.finance/staking-eth-60",
+		return_types: "WETH"
+	},
 	"0x512ff8739d39e55d75d80046921e7de20c3e9bff":
-		{
-			pool_name: "DYP/ETH LP Pool Ethereum",
-			pair_name: "DYP-ETH",
-			link_pair: "https://app.dyp.finance/staking-eth-90",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/ETH LP Pool Ethereum",
+		pair_name: "DYP-ETH",
+		link_pair: "https://app.dyp.finance/staking-eth-90",
+		return_types: "WETH"
+	},
 	"0xef71de5cb40f7985feb92aa49d8e3e84063af3bb":
-		{
-			pool_name: "DYP/WBTC LP Pool Ethereum",
-			pair_name: "DYP-WBTC",
-			link_pair: "https://app.dyp.finance/staking-wbtc-3",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/WBTC LP Pool Ethereum",
+		pair_name: "DYP-WBTC",
+		link_pair: "https://app.dyp.finance/staking-wbtc-3",
+		return_types: "WETH"
+	},
 	"0x8b0e324eede360cab670a6ad12940736d74f701e":
-		{
-			pool_name: "DYP/WBTC LP Pool Ethereum",
-			pair_name: "DYP-WBTC",
-			link_pair: "https://app.dyp.finance/staking-wbtc-30",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/WBTC LP Pool Ethereum",
+		pair_name: "DYP-WBTC",
+		link_pair: "https://app.dyp.finance/staking-wbtc-30",
+		return_types: "WETH"
+	},
 	"0x78e2da2eda6df49bae46e3b51528baf5c106e654":
-		{
-			pool_name: "DYP/WBTC LP Pool Ethereum",
-			pair_name: "DYP-WBTC",
-			link_pair: "https://app.dyp.finance/staking-wbtc-60",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/WBTC LP Pool Ethereum",
+		pair_name: "DYP-WBTC",
+		link_pair: "https://app.dyp.finance/staking-wbtc-60",
+		return_types: "WETH"
+	},
 	"0x350f3fe979bfad4766298713c83b387c2d2d7a7a":
-		{
-			pool_name: "DYP/WBTC LP Pool Ethereum",
-			pair_name: "DYP-WBTC",
-			link_pair: "https://app.dyp.finance/staking-wbtc-90",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/WBTC LP Pool Ethereum",
+		pair_name: "DYP-WBTC",
+		link_pair: "https://app.dyp.finance/staking-wbtc-90",
+		return_types: "WETH"
+	},
 	"0x4a76fc15d3fbf3855127ec5da8aaf02de7ca06b3":
-		{
-			pool_name: "DYP/USDT LP Pool Ethereum",
-			pair_name: "DYP-USDT",
-			link_pair: "https://app.dyp.finance/staking-usdt-3",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/USDT LP Pool Ethereum",
+		pair_name: "DYP-USDT",
+		link_pair: "https://app.dyp.finance/staking-usdt-3",
+		return_types: "WETH"
+	},
 	"0xf4abc60a08b546fa879508f4261eb4400b55099d":
-		{
-			pool_name: "DYP/USDT LP Pool Ethereum",
-			pair_name: "DYP-USDT",
-			link_pair: "https://app.dyp.finance/staking-usdt-30",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/USDT LP Pool Ethereum",
+		pair_name: "DYP-USDT",
+		link_pair: "https://app.dyp.finance/staking-usdt-30",
+		return_types: "WETH"
+	},
 	"0x13f421aa823f7d90730812a33f8cac8656e47dfa":
-		{
-			pool_name: "DYP/USDT LP Pool Ethereum",
-			pair_name: "DYP-USDT",
-			link_pair: "https://app.dyp.finance/staking-usdt-60",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/USDT LP Pool Ethereum",
+		pair_name: "DYP-USDT",
+		link_pair: "https://app.dyp.finance/staking-usdt-60",
+		return_types: "WETH"
+	},
 	"0x86690bbe7a9683a8bad4812c2e816fd17bc9715c":
-		{
-			pool_name: "DYP/USDT LP Pool Ethereum",
-			pair_name: "DYP-USDT",
-			link_pair: "https://app.dyp.finance/staking-usdt-90",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/USDT LP Pool Ethereum",
+		pair_name: "DYP-USDT",
+		link_pair: "https://app.dyp.finance/staking-usdt-90",
+		return_types: "WETH"
+	},
 	"0x2b5d7a865a3888836d15d69dccbad682663dcdbb":
-		{
-			pool_name: "DYP/USDC LP Pool Ethereum",
-			pair_name: "DYP-USDC",
-			link_pair: "https://app.dyp.finance/staking-usdc-3",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/USDC LP Pool Ethereum",
+		pair_name: "DYP-USDC",
+		link_pair: "https://app.dyp.finance/staking-usdc-3",
+		return_types: "WETH"
+	},
 	"0xa52250f98293c17c894d58cf4f78c925dc8955d0":
-		{
-			pool_name: "DYP/USDC LP Pool Ethereum",
-			pair_name: "DYP-USDC",
-			link_pair: "https://app.dyp.finance/staking-usdc-30",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/USDC LP Pool Ethereum",
+		pair_name: "DYP-USDC",
+		link_pair: "https://app.dyp.finance/staking-usdc-30",
+		return_types: "WETH"
+	},
 	"0x924becc8f4059987e4bc4b741b7c354ff52c25e4":
-		{
-			pool_name: "DYP/USDC LP Pool Ethereum",
-			pair_name: "DYP-USDC",
-			link_pair: "https://app.dyp.finance/staking-usdc-60",
-			return_types: "WETH"
-		},
+	{
+		pool_name: "DYP/USDC LP Pool Ethereum",
+		pair_name: "DYP-USDC",
+		link_pair: "https://app.dyp.finance/staking-usdc-60",
+		return_types: "WETH"
+	},
 	"0xbe528593781988974d83c2655cba4c45fc75c033":
-		{
-			pool_name: "DYP/USDC LP Pool Ethereum",
-			pair_name: "DYP-USDC",
-			link_pair: "https://app.dyp.finance/staking-usdc-90",
-			return_types: "WETH"
-		}
+	{
+		pool_name: "DYP/USDC LP Pool Ethereum",
+		pair_name: "DYP-USDC",
+		link_pair: "https://app.dyp.finance/staking-usdc-90",
+		return_types: "WETH"
+	}
 }
 
 const IDs_bsc = {
 	"0xb4338fc62b1de93f63bfedb9fd9bac455d50a424":
-		{
-			pool_name: "DYP/ETH LP Pool BSC",
-			pair_name: "DYP-ETH",
-			link_pair: "https://app-bsc.dyp.finance/staking-eth-3",
-			return_types: "WBNB WETH DYP"
-		},
+	{
+		pool_name: "DYP/ETH LP Pool BSC",
+		pair_name: "DYP-ETH",
+		link_pair: "https://app-bsc.dyp.finance/staking-eth-3",
+		return_types: "WBNB WETH DYP"
+	},
 	"0x2c1411d4f1647b88a7b46c838a3760f925bac83b":
-		{
-			pool_name: "DYP/ETH LP Pool BSC",
-			pair_name: "DYP-ETH",
-			link_pair: "https://app-bsc.dyp.finance/staking-eth-30",
-			return_types: "WBNB WETH DYP"
-		},
+	{
+		pool_name: "DYP/ETH LP Pool BSC",
+		pair_name: "DYP-ETH",
+		link_pair: "https://app-bsc.dyp.finance/staking-eth-30",
+		return_types: "WBNB WETH DYP"
+	},
 	"0x2c51df297a2aa972a45ed52110afd24591c6f302":
-		{
-			pool_name: "DYP/ETH LP Pool BSC",
-			pair_name: "DYP-ETH",
-			link_pair: "https://app-bsc.dyp.finance/staking-eth-60",
-			return_types: "WBNB WETH DYP"
-		},
+	{
+		pool_name: "DYP/ETH LP Pool BSC",
+		pair_name: "DYP-ETH",
+		link_pair: "https://app-bsc.dyp.finance/staking-eth-60",
+		return_types: "WBNB WETH DYP"
+	},
 	"0xd7180d6fea393158d42d0d0cd66ab93048f581e3":
-		{
-			pool_name: "DYP/ETH LP Pool BSC",
-			pair_name: "DYP-ETH",
-			link_pair: "https://app-bsc.dyp.finance/staking-eth-90",
-			return_types: "WBNB WETH DYP"
-		},
+	{
+		pool_name: "DYP/ETH LP Pool BSC",
+		pair_name: "DYP-ETH",
+		link_pair: "https://app-bsc.dyp.finance/staking-eth-90",
+		return_types: "WBNB WETH DYP"
+	},
 	"0x8a607e099e835bdbc4a606acb600ef475414f450":
-		{
-			pool_name: "DYP/WBNB LP Pool BSC",
-			pair_name: "DYP-WBNB",
-			link_pair: "https://app-bsc.dyp.finance/staking-bnb-3",
-			return_types: "WBNB WETH DYP"
-		},
+	{
+		pool_name: "DYP/WBNB LP Pool BSC",
+		pair_name: "DYP-WBNB",
+		link_pair: "https://app-bsc.dyp.finance/staking-bnb-3",
+		return_types: "WBNB WETH DYP"
+	},
 	"0x34dd0d25fa2e3b220d1eb67460c45e586c61c2bb":
-		{
-			pool_name: "DYP/WBNB LP Pool BSC",
-			pair_name: "DYP-WBNB",
-			link_pair: "https://app-bsc.dyp.finance/staking-bnb-30",
-			return_types: "WBNB WETH DYP"
-		},
+	{
+		pool_name: "DYP/WBNB LP Pool BSC",
+		pair_name: "DYP-WBNB",
+		link_pair: "https://app-bsc.dyp.finance/staking-bnb-30",
+		return_types: "WBNB WETH DYP"
+	},
 	"0xb07c67b65e6916ba87b6e3fa245aa18f77b4413e":
-		{
-			pool_name: "DYP/WBNB LP Pool BSC",
-			pair_name: "DYP-WBNB",
-			link_pair: "https://app-bsc.dyp.finance/staking-bnb-60",
-			return_types: "WBNB WETH DYP"
-		},
+	{
+		pool_name: "DYP/WBNB LP Pool BSC",
+		pair_name: "DYP-WBNB",
+		link_pair: "https://app-bsc.dyp.finance/staking-bnb-60",
+		return_types: "WBNB WETH DYP"
+	},
 	"0x52adfbb5bc9f9fee825bd56feb11f1fc90e0b47e":
-		{
-			pool_name: "DYP/WBNB LP Pool BSC",
-			pair_name: "DYP-WBNB",
-			link_pair: "https://app-bsc.dyp.finance/staking-bnb-90",
-			return_types: "WBNB WETH DYP"
-		},
+	{
+		pool_name: "DYP/WBNB LP Pool BSC",
+		pair_name: "DYP-WBNB",
+		link_pair: "https://app-bsc.dyp.finance/staking-bnb-90",
+		return_types: "WBNB WETH DYP"
+	},
 	"0x111ae4ca424036d09b4e0fc9f1de5e6dc90d586b":
-		{
-			pool_name: "DYP/BUSD LP Pool BSC",
-			pair_name: "DYP-BUSD",
-			link_pair: "https://app-bsc.dyp.finance/staking-busd-3",
-			return_types: "WBNB WETH DYP"
-		},
+	{
+		pool_name: "DYP/BUSD LP Pool BSC",
+		pair_name: "DYP-BUSD",
+		link_pair: "https://app-bsc.dyp.finance/staking-busd-3",
+		return_types: "WBNB WETH DYP"
+	},
 	"0x7637fa253180556ba486d2fa5d2bb328eb0aa7ca":
-		{
-			pool_name: "DYP/BUSD LP Pool BSC",
-			pair_name: "DYP-BUSD",
-			link_pair: "https://app-bsc.dyp.finance/staking-busd-30",
-			return_types: "WBNB WETH DYP"
-		},
+	{
+		pool_name: "DYP/BUSD LP Pool BSC",
+		pair_name: "DYP-BUSD",
+		link_pair: "https://app-bsc.dyp.finance/staking-busd-30",
+		return_types: "WBNB WETH DYP"
+	},
 	"0x2f3c4a08dad0f8a56ede3961ab654020534b8a8c":
-		{
-			pool_name: "DYP/BUSD LP Pool BSC",
-			pair_name: "DYP-BUSD",
-			link_pair: "https://app-bsc.dyp.finance/staking-busd-60",
-			return_types: "WBNB WETH DYP"
-		},
+	{
+		pool_name: "DYP/BUSD LP Pool BSC",
+		pair_name: "DYP-BUSD",
+		link_pair: "https://app-bsc.dyp.finance/staking-busd-60",
+		return_types: "WBNB WETH DYP"
+	},
 	"0x417538f319afddd351f33222592b60f985475a21":
-		{
-			pool_name: "DYP/BUSD LP Pool BSC",
-			pair_name: "DYP-BUSD",
-			link_pair: "https://app-bsc.dyp.finance/staking-busd-90",
-			return_types: "WBNB WETH DYP"
-		}
+	{
+		pool_name: "DYP/BUSD LP Pool BSC",
+		pair_name: "DYP-BUSD",
+		link_pair: "https://app-bsc.dyp.finance/staking-busd-90",
+		return_types: "WBNB WETH DYP"
+	}
 }
 
 const IDs_avax = {
 	"0x499c588146443235357e9c630a66d6fe0250caa1":
-		{
-			pool_name: "DYP/AVAX LP Pool AVAX",
-			pair_name: "DYP-AVAX",
-			link_pair: "https://app-avax.dyp.finance/staking-avax-3",
-			return_types: "WAVAX WETH DYP"
-		},
+	{
+		pool_name: "DYP/AVAX LP Pool AVAX",
+		pair_name: "DYP-AVAX",
+		link_pair: "https://app-avax.dyp.finance/staking-avax-3",
+		return_types: "WAVAX WETH DYP"
+	},
 	"0xd8af0591be4fba56e3634c992b7fe4ff0a90b584":
-		{
-			pool_name: "DYP/AVAX LP Pool AVAX",
-			pair_name: "DYP-AVAX",
-			link_pair: "https://app-avax.dyp.finance/staking-avax-30",
-			return_types: "WAVAX WETH DYP"
-		},
+	{
+		pool_name: "DYP/AVAX LP Pool AVAX",
+		pair_name: "DYP-AVAX",
+		link_pair: "https://app-avax.dyp.finance/staking-avax-30",
+		return_types: "WAVAX WETH DYP"
+	},
 	"0xbebe1fe1444a50ac6ee95ea25ba80adf5ac7322c":
-		{
-			pool_name: "DYP/AVAX LP Pool AVAX",
-			pair_name: "DYP-AVAX",
-			link_pair: "https://app-avax.dyp.finance/staking-avax-60",
-			return_types: "WAVAX WETH DYP"
-		},
+	{
+		pool_name: "DYP/AVAX LP Pool AVAX",
+		pair_name: "DYP-AVAX",
+		link_pair: "https://app-avax.dyp.finance/staking-avax-60",
+		return_types: "WAVAX WETH DYP"
+	},
 	"0x79be220ab2dfcc2f140b59a97bfe6751ed1579b0":
-		{
-			pool_name: "DYP/AVAX LP Pool AVAX",
-			pair_name: "DYP-AVAX",
-			link_pair: "https://app-avax.dyp.finance/staking-avax-90",
-			return_types: "WAVAX WETH DYP"
-		}
+	{
+		pool_name: "DYP/AVAX LP Pool AVAX",
+		pair_name: "DYP-AVAX",
+		link_pair: "https://app-avax.dyp.finance/staking-avax-90",
+		return_types: "WAVAX WETH DYP"
+	}
 }
 
 const IDs_constant = {
 	"0x7fc2174670d672ad7f666af0704c2d961ef32c73":
-		{
-			pool_name: "DYP Constant Staking",
-			pair_name: "DYP",
-			link_pair: "https://app.dyp.finance/constant-staking-30",
-			return_types: "DYP",
-			apy: 20
-		},
+	{
+		pool_name: "DYP Constant Staking",
+		pair_name: "DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-30",
+		return_types: "DYP",
+		apy: 20
+	},
 	"0x036e336ea3ac2e255124cf775c4fdab94b2c42e4":
-		{
-			pool_name: "DYP Constant Staking",
-			pair_name: "DYP",
-			link_pair: "https://app.dyp.finance/constant-staking-60",
-			return_types: "DYP",
-			apy: 25
-		},
+	{
+		pool_name: "DYP Constant Staking",
+		pair_name: "DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-60",
+		return_types: "DYP",
+		apy: 25
+	},
 	"0x0a32749d95217b7ee50127e24711c97849b70c6a":
-		{
-			pool_name: "DYP Constant Staking",
-			pair_name: "DYP",
-			link_pair: "https://app.dyp.finance/constant-staking-90",
-			return_types: "DYP",
-			apy: 30
-		},
+	{
+		pool_name: "DYP Constant Staking",
+		pair_name: "DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-90",
+		return_types: "DYP",
+		apy: 30
+	},
 	"0x82df1450efd6b504ee069f5e4548f2d5cb229880":
-		{
-			pool_name: "DYP Constant Staking",
-			pair_name: "DYP",
-			link_pair: "https://app.dyp.finance/constant-staking-120",
-			return_types: "DYP",
-			apy: 35
-		}
+	{
+		pool_name: "DYP Constant Staking",
+		pair_name: "DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-120",
+		return_types: "DYP",
+		apy: 35
+	},
+	"0x82df1450efd6b504ee069f5e4548f2d5cb229880":
+	{
+		pool_name: "DYP Constant Staking",
+		pair_name: "DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-120",
+		return_types: "DYP",
+		apy: 35
+	},
+
 }
+
+const IDs_constant_staking_idyp_eth = {
+	"0x50014432772b4123D04181727C6EdEAB34F5F988":
+	{
+		pool_name: "iDYP Constant Staking ETH",
+		pair_name: "iDYP",
+		link_pair: "https://app.dyp.finance/staking-idyp-3",
+		return_types: "iDYP",
+		lock_time: "No lock",
+		expired: "No",
+		apy: 15
+	},
+	"0x9eA966B4023049BFF858BB5E698ECfF24EA54c4A":
+	{
+		pool_name: "iDYP Constant Staking ETH",
+		pair_name: "iDYP",
+		link_pair: "https://app.dyp.finance/staking-idyp-1",
+		return_types: "iDYP",
+		lock_time: "No lock",
+		expired: "No",
+		apy: 20
+	},
+	"0xD4bE7a106ed193BEe39D6389a481ec76027B2660":
+	{
+		pool_name: "iDYP Constant Staking ETH",
+		pair_name: "iDYP",
+		link_pair: "https://app.dyp.finance/staking-idyp-4",
+		return_types: "iDYP",
+		lock_time: "90 days",
+		expired: "No",
+		apy: 30
+	},
+	"0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4":
+	{
+		pool_name: "iDYP Constant Staking ETH",
+		pair_name: "iDYP",
+		link_pair: "https://app.dyp.finance/staking-idyp-2",
+		return_types: "iDYP",
+		lock_time: "90 days",
+		expired: "No",
+		apy: 45
+	},
+
+}
+
+const IDs_constant_staking_dyp_eth = {
+	"0xa4da28B8e42680916b557459D338aF6e2D8d458f":
+	{
+		pool_name: "DYP Constant Staking ETH",
+		pair_name: "DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-1",
+		return_types: "iDYP",
+		lock_time: "No lock",
+		expired: "No",
+		apy: ""
+	},
+	"0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d":
+	{
+		pool_name: "DYP Constant Staking ETH",
+		pair_name: "DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-2",
+		return_types: "iDYP",
+		lock_time: "90 days",
+		expired: "No",
+		apy: ""
+	},
+	"0x44bEd8ea3296bda44870d0Da98575520De1735d4":
+	{
+		pool_name: "DYP Constant Staking ETH",
+		pair_name: "DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-3",
+		return_types: "DYP",
+		lock_time: "90 days",
+		expired: "Yes",
+		apy: 25
+	}
+}
+
+const IDs_nft_stake_eth = {
+	"0xee425bbbec5e9bf4a59a1c19efff522ad8b7a47a":
+	{
+		pool_name: "NFT Staking ETH",
+		pair_name: "CAWS",
+		link_pair: "https://dyp.finance/stake-caws",
+		return_types: "ETH",
+		floor_price: "",
+		total_nfts_locked: "",
+		tvl: "",
+		lock_time: "30 days",
+		expired: "No",
+		apy: 50,
+	}
+
+}
+
+const IDs_constant_staking_idyp_bnb = {
+	"0x7e766F7005C7a9e74123b156697B582eeCB8d2D7":
+	{
+		pool_name: "iDYP Constant Staking BNB",
+		pair_name: "iDYP",
+		link_pair: "https://app-bsc.dyp.finance/staking-idyp-3",
+		return_types: "iDYP",
+		lock_time: "No lock",
+		expired: "No",
+		apy: 15
+	},
+	"0x58366902082B90Fca01bE07D929478bD48AcFB19":
+	{
+		pool_name: "iDYP Constant Staking BNB",
+		pair_name: "iDYP",
+		link_pair: "https://app-bsc.dyp.finance/staking-idyp-1",
+		return_types: "iDYP",
+		lock_time: "No lock",
+		expired: "No",
+		apy: 20
+	},
+	"0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445":
+	{
+		pool_name: "iDYP Constant Staking BNB",
+		pair_name: "iDYP",
+		link_pair: "https://app-bsc.dyp.finance/staking-idyp-4",
+		return_types: "iDYP",
+		lock_time: "90 days",
+		expired: "No",
+		apy: 30
+	},
+	"0x160fF3c4A6E9Aa8E4271aa71226Cc811BFEf7ED9":
+	{
+		pool_name: "iDYP Constant Staking BNB",
+		pair_name: "iDYP",
+		link_pair: "https://app-bsc.dyp.finance/staking-idyp-2",
+		return_types: "iDYP",
+		lock_time: "90 days",
+		expired: "No",
+		apy: 45
+	},
+
+}
+
+const IDs_constant_staking_dyp_bnb = {
+	"0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90":
+	{
+		pool_name: "DYP Constant Staking BNB",
+		pair_name: "DYP",
+		link_pair: "https://app-bsc.dyp.finance/constant-staking-1",
+		return_types: "iDYP",
+		lock_time: "No lock",
+		expired: "Yes",
+		apy: ""
+	},
+	"0xaF411BF994dA1435A3150B874395B86376C5f2d5":
+	{
+		pool_name: "DYP Constant Staking BNB",
+		pair_name: "DYP",
+		link_pair: "https://app-bsc.dyp.finance/constant-staking-2",
+		return_types: "iDYP",
+		lock_time: "90 days",
+		expired: "Yes",
+		apy: ""
+	},
+	"0xfc4493E85fD5424456f22135DB6864Dd4E4ED662":
+	{
+		pool_name: "DYP Constant Staking BNB",
+		pair_name: "DYP",
+		link_pair: "https://app-bsc.dyp.finance/constant-staking-30",
+		return_types: "DYP",
+		lock_time: "30 days",
+		expired: "No",
+		apy: 10
+	},
+	"0xa9efab22cCbfeAbB6dc4583d81421e76342faf8b":
+	{
+		pool_name: "DYP Constant Staking BNB",
+		pair_name: "DYP",
+		link_pair: "https://app-bsc.dyp.finance/constant-staking-3",
+		return_types: "DYP",
+		lock_time: "90 days",
+		expired: "Yes",
+		apy: 25
+	},
+	"0xef9e50A19358CCC8816d9BC2c2355aea596efd06":
+	{
+		pool_name: "DYP Constant Staking BNB",
+		pair_name: "DYP",
+		link_pair: "https://app-bsc.dyp.finance/constant-staking-180",
+		return_types: "DYP",
+		lock_time: "180 days",
+		expired: "No",
+		apy: 30
+	}
+}
+
+const IDs_constant_staking_idyp_avax = {
+	"0xaF411BF994dA1435A3150B874395B86376C5f2d5":
+	{
+		pool_name: "iDYP Constant Staking AVAX",
+		pair_name: "iDYP",
+		link_pair: "https://app-avax.dyp.finance/staking-idyp-3",
+		return_types: "iDYP",
+		lock_time: "No lock",
+		expired: "No",
+		apy: 15
+	},
+	"0x8f28110325a727f70B64bffEbf2B9dc94B932452":
+	{
+		pool_name: "iDYP Constant Staking AVAX",
+		pair_name: "iDYP",
+		link_pair: "https://app-avax.dyp.finance/staking-idyp-1",
+		return_types: "iDYP",
+		lock_time: "No lock",
+		expired: "No",
+		apy: 20
+	},
+	"0xd13bdC0c9a9931cF959739631B1290b6BEE0c018":
+	{
+		pool_name: "iDYP Constant Staking AVAX",
+		pair_name: "iDYP",
+		link_pair: "https://app-avax.dyp.finance/staking-idyp-4",
+		return_types: "iDYP",
+		lock_time: "90 days",
+		expired: "No",
+		apy: 30
+	},
+	"0x5536E02336771CFa0317D4B6a042f3c38749535e":
+	{
+		pool_name: "iDYP Constant Staking AVAX",
+		pair_name: "iDYP",
+		link_pair: "https://app-avax.dyp.finance/staking-idyp-2",
+		return_types: "iDYP",
+		lock_time: "90 days",
+		expired: "No",
+		apy: 45
+	}
+}
+
+const IDs_constant_staking_dyp_avax = {
+	"0x1A4fd0E9046aeD92B6344F17B0a53969F4d5309B":
+	{
+		pool_name: "DYP Constant Staking AVAX",
+		pair_name: "DYP",
+		link_pair: "https://app-avax.dyp.finance/constant-staking-1",
+		return_types: "iDYP",
+		lock_time: "No lock",
+		expired: "Yes",
+		apy: ""
+	},
+	"0x5566B51a1B7D5E6CAC57a68182C63Cb615cAf3f9":
+	{
+		pool_name: "DYP Constant Staking AVAX",
+		pair_name: "DYP",
+		link_pair: "https://app-avax.dyp.finance/constant-staking-2",
+		return_types: "iDYP",
+		lock_time: "90 days",
+		expired: "Yes",
+		apy: ""
+	},
+	"0xb1875eeBbcF4456188968f439896053809698a8B":
+	{
+		pool_name: "DYP Constant Staking AVAX",
+		pair_name: "DYP",
+		link_pair: "https://app-avax.dyp.finance/constant-staking-30",
+		return_types: "DYP",
+		lock_time: "30 days",
+		expired: "No",
+		apy: 10
+	},
+	"0x16429e51A64B7f88D4C018fbf66266A693df64b3":
+	{
+		pool_name: "DYP Constant Staking AVAX",
+		pair_name: "DYP",
+		link_pair: "https://app-avax.dyp.finance/constant-staking-3",
+		return_types: "DYP",
+		lock_time: "90 days",
+		expired: "Yes",
+		apy: 25
+	},
+	"0xF035ec2562fbc4963e8c1c63f5c473D9696c59E3":
+	{
+		pool_name: "DYP Constant Staking AVAX",
+		pair_name: "DYP",
+		link_pair: "https://app-avax.dyp.finance/constant-staking-180",
+		return_types: "DYP",
+		lock_time: "180 days",
+		expired: "No",
+		apy: 30
+	}
+}
+
+const IDs_buyback_eth = {
+	"0xdCBB5B2148f0cf1Abd7757Ba04A5821fEaD80587":
+	{
+		pool_name: "DYP Buyback ETH",
+		pair_name: "WETH/WBTC/USDC/USDT",
+		link_pair: "https://app.dyp.finance/staking-buyback-1",
+		return_types: "DYP",
+		lock_time: "No lock",
+		expired: "No",
+		apy: ""
+	},
+	"0xDC65C4277d626d6A29C9Dc42Eb396d354fa5E85b":
+	{
+		pool_name: "DYP Buyback ETH",
+		pair_name: "WETH/WBTC/USDC/USDT",
+		link_pair: "https://app.dyp.finance/staking-buyback-2",
+		return_types: "DYP",
+		lock_time: "90 days",
+		expired: "No",
+		apy: ""
+	},
+}
+
+const IDs_buyback_bsc = {
+	"0x94b1a7b57c441890b7a0f64291b39ad6f7e14804":
+	{
+		pool_name: "DYP Buyback BNB",
+		pair_name: "WETH/WBTC/USDC/USDT/DAI/LINK",
+		link_pair: "https://app-bsc.dyp.finance/staking-buyback-1",
+		return_types: "DYP",
+		lock_time: "No lock",
+		expired: "Yes",
+		apy: ""
+	},
+	"0x4ef782e66244a0cf002016aa1db3019448c670ae":
+	{
+		pool_name: "DYP Buyback BNB",
+		pair_name: "WETH/WBTC/USDC/USDT/DAI/LINK",
+		link_pair: "https://app-bsc.dyp.finance/staking-buyback-2",
+		return_types: "DYP",
+		lock_time: "90 days",
+		expired: "Yes",
+		apy: ""
+	},
+}
+
+const IDs_buyback_avax = {
+	"0xC905D5DD9A4f26eD059F76929D11476B2844A7c3":
+	{
+		pool_name: "DYP Buyback AVAX",
+		pair_name: "WETH/WBTC/USDC/USDT/DAI/LINK",
+		link_pair: "https://app-avax.dyp.finance/staking-buyback-1",
+		return_types: "DYP",
+		lock_time: "No lock",
+		expired: "Yes",
+		apy: ""
+	},
+	"0x267434f01ac323C6A5BCf41Fa111701eE0165a37":
+	{
+		pool_name: "DYP Buyback BNB",
+		pair_name: "WETH/WBTC/USDC/USDT/DAI/LINK",
+		link_pair: "https://app-avax.dyp.finance/staking-buyback-2",
+		return_types: "DYP",
+		lock_time: "90 days",
+		expired: "Yes",
+		apy: ""
+	},
+}
+
+const TOKEN_ADDRESS_CAWS = "0xd06cF9e1189FEAb09c844C597abc3767BC12608c"
+const TOKEN_ADDRESS_CAWS_STAKE = "0xee425bbbec5e9bf4a59a1c19efff522ad8b7a47a"
+const TOKEN_ADDRESS_IDYP_ETH = "0xBD100d061E120b2c67A24453CF6368E63f1Be056"
+const TOKEN_ADDRESS_DYP_ETH = "0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17"
+const TOKEN_ADDRESS_IDYP_BNB = "0xBD100d061E120b2c67A24453CF6368E63f1Be056"
+const TOKEN_ADDRESS_DYP_BNB = "0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17"
+const TOKEN_ADDRESS_IDYP_AVAX = "0xbd100d061e120b2c67a24453cf6368e63f1be056"
+const TOKEN_ADDRESS_DYP_AVAX = "0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17"
+
+let [CAWS_TOTAL_LOCKED, cawsnfttvl] = [0, 0]
+
+let [stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45] = [0, 0, 0, 0]
+
+let [stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25] = [0, 0, 0]
+
+let [stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45] = [0, 0, 0, 0]
+
+let [stakingDYPBnbTvl1, stakingDYPBnbTvl2, stakingDYPBnbTvl10, stakingDYPBnbTvl25, stakingDYPBnbTvl30] = [0, 0, 0, 0, 0]
+
+let [stakingiDYPAvaxTvl15, stakingiDYPAvaxTvl20, stakingiDYPAvaxTvl30, stakingiDYPAvaxTvl45] = [0, 0, 0, 0]
+
+let [stakingDYPAvaxTvl1, stakingDYPAvaxTvl2, stakingDYPAvaxTvl10, stakingDYPAvaxTvl25, stakingDYPAvaxTvl30] = [0, 0, 0, 0, 0]
+
+let [buybackEthTvl1, buybackEthTvl2] = [0, 0]
+
+let [buybackBnbTvl1, buybackBnbTvl2] = [0, 0]
+
+let [buybackAvaxTvl1, buybackAvaxTvl2] = [0, 0]
+
+
+let [usdPerToken] = [0]
+
+const updateNFTStaking = async () => {
+	let caws_nft_contract = new infuraWeb3.eth.Contract(caws_nft_contract_abi, TOKEN_ADDRESS_CAWS, { from: undefined })
+	CAWS_TOTAL_LOCKED = await caws_nft_contract.methods.balanceOf(TOKEN_ADDRESS_CAWS_STAKE).call()
+	cawsnfttvl = CAWS_TOTAL_LOCKED * floorprice * eth_price
+
+}
+// we first instantiate the contracts, after which we fetch dyp and idyp current prices and the balances of the staking contracts
+// we then calculate the tvl for each staking contract and add it to the total tvl of the platform
+const updateStakingTVL = async () => {
+	let token_contract_eth_1 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_ETH, { from: undefined })
+	let token_contract_eth_2 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP_ETH, { from: undefined })
+	let token_contract_bnb_1 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_BNB, { from: undefined })
+	let token_contract_bnb_2 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP_BNB, { from: undefined })
+	let token_contract_avax_1 = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_AVAX, { from: undefined })
+	let token_contract_avax_2 = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP_AVAX, { from: undefined })
+	usdPerToken = await Promise.all([getPrice('defi-yield-protocol')])
+
+	//idyp eth starts here
+
+	let _tvliDYPEth15 = await token_contract_eth_1.methods.balanceOf('0x50014432772b4123D04181727C6EdEAB34F5F988').call()
+	let _tvliDYPEth15_2 = await token_contract_eth_2.methods.balanceOf('0x50014432772b4123D04181727C6EdEAB34F5F988').call()
+	_tvliDYPEth15 = _tvliDYPEth15 / 1e18 * usdPerToken
+	_tvliDYPEth15 = _tvliDYPEth15 + _tvliDYPEth15_2 / 1e18 * price_iDYP_eth
+	stakingiDYPEthTvl15 = _tvliDYPEth15;
+
+	let _tvliDYPEth20 = await token_contract_eth_1.methods.balanceOf('0x9eA966B4023049BFF858BB5E698ECfF24EA54c4A').call()
+	let _tvliDYPEth20_2 = await token_contract_eth_2.methods.balanceOf('0x9eA966B4023049BFF858BB5E698ECfF24EA54c4A').call()
+	_tvliDYPEth20 = _tvliDYPEth20 / 1e18 * usdPerToken
+	_tvliDYPEth20 = _tvliDYPEth20 + _tvliDYPEth20_2 / 1e18 * price_iDYP_eth
+	stakingiDYPEthTvl20 = _tvliDYPEth20;
+
+	let _tvliDYPEth30 = await token_contract_eth_1.methods.balanceOf('0xD4bE7a106ed193BEe39D6389a481ec76027B2660').call()
+	let _tvliDYPEth30_2 = await token_contract_eth_2.methods.balanceOf('0xD4bE7a106ed193BEe39D6389a481ec76027B2660').call()
+	_tvliDYPEth30 = _tvliDYPEth30 / 1e18 * usdPerToken
+	_tvliDYPEth30 = _tvliDYPEth30 + _tvliDYPEth30_2 / 1e18 * price_iDYP_eth
+	stakingiDYPEthTvl30 = _tvliDYPEth30;
+
+	let _tvliDYPEth45 = await token_contract_eth_1.methods.balanceOf('0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4').call()
+	let _tvliDYPEth45_2 = await token_contract_eth_2.methods.balanceOf('0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4').call()
+	_tvliDYPEth45 = _tvliDYPEth45 / 1e18 * usdPerToken
+	_tvliDYPEth45 = _tvliDYPEth45 + _tvliDYPEth45_2 / 1e18 * price_iDYP_eth
+	stakingiDYPEthTvl45 = _tvliDYPEth45;
+
+	//dyp eth starts here
+
+	let _tvlDYPEth1 = await token_contract_eth_1.methods.balanceOf('0xa4da28B8e42680916b557459D338aF6e2D8d458f').call()
+	let _tvlDYPEth1_2 = await token_contract_eth_2.methods.balanceOf('0xa4da28B8e42680916b557459D338aF6e2D8d458f').call()
+	_tvlDYPEth1 = _tvlDYPEth1 / 1e18 * usdPerToken
+	_tvlDYPEth1 = _tvlDYPEth1 + _tvlDYPEth1_2 / 1e18 * price_iDYP_eth
+	stakingDYPEthTvl1 = _tvlDYPEth1;
+
+	let _tvlDYPEth2 = await token_contract_eth_1.methods.balanceOf('0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d').call()
+	let _tvlDYPEth2_2 = await token_contract_eth_2.methods.balanceOf('0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d').call()
+	_tvlDYPEth2 = _tvlDYPEth2 / 1e18 * usdPerToken
+	_tvlDYPEth2 = _tvlDYPEth2 + _tvlDYPEth2_2 / 1e18 * price_iDYP_eth
+	stakingDYPEthTvl2 = _tvlDYPEth2;
+
+	let _tvlDYPEth25 = await token_contract_eth_1.methods.balanceOf('0x44bEd8ea3296bda44870d0Da98575520De1735d4').call()
+	let _tvlDYPEth25_2 = await token_contract_eth_2.methods.balanceOf('0x44bEd8ea3296bda44870d0Da98575520De1735d4').call()
+	_tvlDYPEth25 = _tvlDYPEth25 / 1e18 * usdPerToken
+	_tvlDYPEth25 = _tvlDYPEth25 + _tvlDYPEth25_2 / 1e18 * price_iDYP_eth
+	stakingDYPEthTvl25 = _tvlDYPEth25;
+
+	//idyp bnb starts here
+
+	let _tvliDYPBnb15 = await token_contract_bnb_1.methods.balanceOf('0x7e766F7005C7a9e74123b156697B582eeCB8d2D7').call()
+	let _tvliDYPBnb15_2 = await token_contract_bnb_2.methods.balanceOf('0x7e766F7005C7a9e74123b156697B582eeCB8d2D7').call()
+	_tvliDYPBnb15 = _tvliDYPBnb15 / 1e18 * usdPerToken
+	_tvliDYPBnb15 = _tvliDYPBnb15 + _tvliDYPBnb15_2 / 1e18 * price_iDYP_eth
+	stakingiDYPBnbTvl15 = _tvliDYPBnb15;
+
+	let _tvliDYPBnb20 = await token_contract_bnb_1.methods.balanceOf('0x58366902082B90Fca01bE07D929478bD48AcFB19').call()
+	let _tvliDYPBnb20_2 = await token_contract_bnb_2.methods.balanceOf('0x58366902082B90Fca01bE07D929478bD48AcFB19').call()
+	_tvliDYPBnb20 = _tvliDYPBnb20 / 1e18 * usdPerToken
+	_tvliDYPBnb20 = _tvliDYPBnb20 + _tvliDYPBnb20_2 / 1e18 * price_iDYP_eth
+	stakingiDYPBnbTvl20 = _tvliDYPBnb20;
+
+	let _tvliDYPBnb30 = await token_contract_bnb_1.methods.balanceOf('0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445').call()
+	let _tvliDYPBnb30_2 = await token_contract_bnb_2.methods.balanceOf('0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445').call()
+	_tvliDYPBnb30 = _tvliDYPBnb30 / 1e18 * usdPerToken
+	_tvliDYPBnb30 = _tvliDYPBnb30 + _tvliDYPBnb30_2 / 1e18 * price_iDYP_eth
+	stakingiDYPBnbTvl30 = _tvliDYPBnb30;
+
+	let _tvliDYPBnb45 = await token_contract_bnb_1.methods.balanceOf('0x160fF3c4A6E9Aa8E4271aa71226Cc811BFEf7ED9').call()
+	let _tvliDYPBnb45_2 = await token_contract_bnb_2.methods.balanceOf('0x160fF3c4A6E9Aa8E4271aa71226Cc811BFEf7ED9').call()
+	_tvliDYPBnb45 = _tvliDYPBnb45 / 1e18 * usdPerToken
+	_tvliDYPBnb45 = _tvliDYPBnb45 + _tvliDYPBnb45_2 / 1e18 * price_iDYP_eth
+	stakingiDYPBnbTvl45 = _tvliDYPBnb45;
+
+	//dyp bnb starts here
+
+	let _tvlDYPBnb1 = await token_contract_bnb_1.methods.balanceOf('0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90').call()
+	let _tvlDYPBnb1_2 = await token_contract_bnb_2.methods.balanceOf('0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90').call()
+	_tvlDYPBnb1 = _tvlDYPBnb1 / 1e18 * usdPerToken
+	_tvlDYPBnb1 = _tvlDYPBnb1 + _tvlDYPBnb1_2 / 1e18 * price_iDYP_eth
+	stakingDYPBnbTvl1 = _tvlDYPBnb1;
+
+	let _tvlDYPBnb2 = await token_contract_bnb_1.methods.balanceOf('0xaF411BF994dA1435A3150B874395B86376C5f2d5').call()
+	let _tvlDYPBnb2_2 = await token_contract_bnb_2.methods.balanceOf('0xaF411BF994dA1435A3150B874395B86376C5f2d5').call()
+	_tvlDYPBnb2 = _tvlDYPBnb2 / 1e18 * usdPerToken
+	_tvlDYPBnb2 = _tvlDYPBnb2 + _tvlDYPBnb2_2 / 1e18 * price_iDYP_eth
+	stakingDYPBnbTvl2 = _tvlDYPBnb2;
+
+	let _tvlDYPBnb10 = await token_contract_bnb_1.methods.balanceOf('0xfc4493E85fD5424456f22135DB6864Dd4E4ED662').call()
+	let _tvlDYPBnb10_2 = await token_contract_bnb_2.methods.balanceOf('0xfc4493E85fD5424456f22135DB6864Dd4E4ED662').call()
+	_tvlDYPBnb10 = _tvlDYPBnb10 / 1e18 * usdPerToken
+	_tvlDYPBnb10 = _tvlDYPBnb10 + _tvlDYPBnb10_2 / 1e18 * price_iDYP_eth
+	stakingDYPBnbTvl10 = _tvlDYPBnb10;
+
+	let _tvlDYPBnb25 = await token_contract_bnb_1.methods.balanceOf('0xa9efab22cCbfeAbB6dc4583d81421e76342faf8b').call()
+	let _tvlDYPBnb25_2 = await token_contract_bnb_2.methods.balanceOf('0xa9efab22cCbfeAbB6dc4583d81421e76342faf8b').call()
+	_tvlDYPBnb25 = _tvlDYPBnb25 / 1e18 * usdPerToken
+	_tvlDYPBnb25 = _tvlDYPBnb25 + _tvlDYPBnb25_2 / 1e18 * price_iDYP_eth
+	stakingDYPBnbTvl25 = _tvlDYPBnb25;
+
+	let _tvlDYPBnb30 = await token_contract_bnb_1.methods.balanceOf('0xef9e50A19358CCC8816d9BC2c2355aea596efd06').call()
+	let _tvlDYPBnb30_2 = await token_contract_bnb_2.methods.balanceOf('0xef9e50A19358CCC8816d9BC2c2355aea596efd06').call()
+	_tvlDYPBnb30 = _tvlDYPBnb30 / 1e18 * usdPerToken
+	_tvlDYPBnb30 = _tvlDYPBnb30 + _tvlDYPBnb30_2 / 1e18 * price_iDYP_eth
+	stakingDYPBnbTvl30 = _tvlDYPBnb30;
+
+	//idyp avax starts here
+
+	let _tvliDYPAvax15 = await token_contract_avax_1.methods.balanceOf('0xaF411BF994dA1435A3150B874395B86376C5f2d5').call()
+	let _tvliDYPAvax15_2 = await token_contract_avax_2.methods.balanceOf('0xaF411BF994dA1435A3150B874395B86376C5f2d5').call()
+	_tvliDYPAvax15 = _tvliDYPAvax15 / 1e18 * usdPerToken
+	_tvliDYPAvax15 = _tvliDYPAvax15 + _tvliDYPAvax15_2 / 1e18 * price_iDYP_eth
+	stakingiDYPAvaxTvl15 = _tvliDYPAvax15;
+
+	let _tvliDYPAvax20 = await token_contract_avax_1.methods.balanceOf('0x8f28110325a727f70B64bffEbf2B9dc94B932452').call()
+	let _tvliDYPAvax20_2 = await token_contract_avax_2.methods.balanceOf('0x8f28110325a727f70B64bffEbf2B9dc94B932452').call()
+	_tvliDYPAvax20 = _tvliDYPAvax20 / 1e18 * usdPerToken
+	_tvliDYPAvax20 = _tvliDYPAvax20 + _tvliDYPAvax20_2 / 1e18 * price_iDYP_eth
+	stakingiDYPAvaxTvl20 = _tvliDYPAvax20;
+
+	let _tvliDYPAvax30 = await token_contract_avax_1.methods.balanceOf('0xd13bdC0c9a9931cF959739631B1290b6BEE0c018').call()
+	let _tvliDYPAvax30_2 = await token_contract_avax_2.methods.balanceOf('0xd13bdC0c9a9931cF959739631B1290b6BEE0c018').call()
+	_tvliDYPAvax30 = _tvliDYPAvax30 / 1e18 * usdPerToken
+	_tvliDYPAvax30 = _tvliDYPAvax30 + _tvliDYPAvax30_2 / 1e18 * price_iDYP_eth
+	stakingiDYPAvaxTvl30 = _tvliDYPAvax30;
+
+	let _tvliDYPAvax45 = await token_contract_avax_1.methods.balanceOf('0x5536E02336771CFa0317D4B6a042f3c38749535e').call()
+	let _tvliDYPAvax45_2 = await token_contract_avax_2.methods.balanceOf('0x5536E02336771CFa0317D4B6a042f3c38749535e').call()
+	_tvliDYPAvax45 = _tvliDYPAvax45 / 1e18 * usdPerToken
+	_tvliDYPAvax45 = _tvliDYPAvax45 + _tvliDYPAvax45_2 / 1e18 * price_iDYP_eth
+	stakingiDYPAvaxTvl45 = _tvliDYPAvax45;
+
+	//dyp avax starts here
+
+	let _tvlDYPAvax1 = await token_contract_avax_1.methods.balanceOf('0x1A4fd0E9046aeD92B6344F17B0a53969F4d5309B').call()
+	let _tvlDYPAvax1_2 = await token_contract_avax_2.methods.balanceOf('0x1A4fd0E9046aeD92B6344F17B0a53969F4d5309B').call()
+	_tvlDYPAvax1 = _tvlDYPAvax1 / 1e18 * usdPerToken
+	_tvlDYPAvax1 = _tvlDYPAvax1 + _tvlDYPAvax1_2 / 1e18 * price_iDYP_eth
+	stakingDYPAvaxTvl1 = _tvlDYPAvax1;
+
+	let _tvlDYPAvax2 = await token_contract_avax_1.methods.balanceOf('0x5566B51a1B7D5E6CAC57a68182C63Cb615cAf3f9').call()
+	let _tvlDYPAvax2_2 = await token_contract_avax_2.methods.balanceOf('0x5566B51a1B7D5E6CAC57a68182C63Cb615cAf3f9').call()
+	_tvlDYPAvax2 = _tvlDYPAvax2 / 1e18 * usdPerToken
+	_tvlDYPAvax2 = _tvlDYPAvax2 + _tvlDYPAvax2_2 / 1e18 * price_iDYP_eth
+	stakingDYPAvaxTvl2 = _tvlDYPAvax2;
+
+	let _tvlDYPAvax10 = await token_contract_avax_1.methods.balanceOf('0xb1875eeBbcF4456188968f439896053809698a8B').call()
+	let _tvlDYPAvax10_2 = await token_contract_avax_2.methods.balanceOf('0xb1875eeBbcF4456188968f439896053809698a8B').call()
+	_tvlDYPAvax10 = _tvlDYPAvax10 / 1e18 * usdPerToken
+	_tvlDYPAvax10 = _tvlDYPAvax10 + _tvlDYPAvax10_2 / 1e18 * price_iDYP_eth
+	stakingDYPAvaxTvl10 = _tvlDYPAvax10;
+
+	let _tvlDYPAvax25 = await token_contract_avax_1.methods.balanceOf('0x16429e51A64B7f88D4C018fbf66266A693df64b3').call()
+	let _tvlDYPAvax25_2 = await token_contract_avax_2.methods.balanceOf('0x16429e51A64B7f88D4C018fbf66266A693df64b3').call()
+	_tvlDYPAvax25 = _tvlDYPAvax25 / 1e18 * usdPerToken
+	_tvlDYPAvax25 = _tvlDYPAvax25 + _tvlDYPAvax25_2 / 1e18 * price_iDYP_eth
+	stakingDYPAvaxTvl25 = _tvlDYPAvax25;
+
+	let _tvlDYPAvax30 = await token_contract_avax_1.methods.balanceOf('0xF035ec2562fbc4963e8c1c63f5c473D9696c59E3').call()
+	let _tvlDYPAvax30_2 = await token_contract_avax_2.methods.balanceOf('0xF035ec2562fbc4963e8c1c63f5c473D9696c59E3').call()
+	_tvlDYPAvax30 = _tvlDYPAvax30 / 1e18 * usdPerToken
+	_tvlDYPAvax30 = _tvlDYPAvax30 + _tvlDYPAvax30_2 / 1e18 * price_iDYP_eth
+	stakingDYPAvaxTvl30 = _tvlDYPAvax30;
+
+	//eth buyback starts here
+
+	let _tvlDYPBuybackEth1 = await token_contract_eth_1.methods.balanceOf('0xdCBB5B2148f0cf1Abd7757Ba04A5821fEaD80587').call()
+	let _tvlDYPBuybackEth1_2 = await token_contract_eth_2.methods.balanceOf('0xdCBB5B2148f0cf1Abd7757Ba04A5821fEaD80587').call()
+	_tvlDYPBuybackEth1 = _tvlDYPBuybackEth1 / 1e18 * usdPerToken
+	_tvlDYPBuybackEth1 = _tvlDYPBuybackEth1 + _tvlDYPBuybackEth1_2 / 1e18 * price_iDYP_eth
+	buybackEthTvl1 = _tvlDYPBuybackEth1;
+
+	let _tvlDYPBuybackEth2 = await token_contract_eth_1.methods.balanceOf('0xDC65C4277d626d6A29C9Dc42Eb396d354fa5E85b').call()
+	let _tvlDYPBuybackEth2_2 = await token_contract_eth_2.methods.balanceOf('0xDC65C4277d626d6A29C9Dc42Eb396d354fa5E85b').call()
+	_tvlDYPBuybackEth2 = _tvlDYPBuybackEth2 / 1e18 * usdPerToken
+	_tvlDYPBuybackEth2 = _tvlDYPBuybackEth2 + _tvlDYPBuybackEth2_2 / 1e18 * price_iDYP_eth
+	buybackEthTvl2 = _tvlDYPBuybackEth2;
+
+	//bnb buyback starts here
+
+	let _tvlDYPBuybackBnb1 = await token_contract_bnb_1.methods.balanceOf('0x94b1a7b57c441890b7a0f64291b39ad6f7e14804').call()
+	let _tvlDYPBuybackBnb1_2 = await token_contract_bnb_2.methods.balanceOf('0x94b1a7b57c441890b7a0f64291b39ad6f7e14804').call()
+	_tvlDYPBuybackBnb1 = _tvlDYPBuybackBnb1 / 1e18 * usdPerToken
+	_tvlDYPBuybackBnb1 = _tvlDYPBuybackBnb1 + _tvlDYPBuybackBnb1_2 / 1e18 * price_iDYP_eth
+	buybackBnbTvl1 = _tvlDYPBuybackBnb1;
+
+	let _tvlDYPBuybackBnb2 = await token_contract_bnb_1.methods.balanceOf('0x4ef782e66244a0cf002016aa1db3019448c670ae').call()
+	let _tvlDYPBuybackBnb2_2 = await token_contract_bnb_2.methods.balanceOf('0x4ef782e66244a0cf002016aa1db3019448c670ae').call()
+	_tvlDYPBuybackBnb2 = _tvlDYPBuybackBnb2 / 1e18 * usdPerToken
+	_tvlDYPBuybackBnb2 = _tvlDYPBuybackBnb2 + _tvlDYPBuybackBnb2_2 / 1e18 * price_iDYP_eth
+	buybackBnbTvl2 = _tvlDYPBuybackBnb2;
+
+	//avax buyback starts here
+
+	let _tvlDYPBuybackAvax1 = await token_contract_avax_1.methods.balanceOf('0xC905D5DD9A4f26eD059F76929D11476B2844A7c3').call()
+	let _tvlDYPBuybackAvax1_2 = await token_contract_avax_2.methods.balanceOf('0xC905D5DD9A4f26eD059F76929D11476B2844A7c3').call()
+	_tvlDYPBuybackAvax1 = _tvlDYPBuybackAvax1 / 1e18 * usdPerToken
+	_tvlDYPBuybackAvax1 = _tvlDYPBuybackAvax1 + _tvlDYPBuybackAvax1_2 / 1e18 * price_iDYP_eth
+	buybackAvaxTvl1 = _tvlDYPBuybackAvax1;
+
+	let _tvlDYPBuybackAvax2 = await token_contract_avax_1.methods.balanceOf('0x267434f01ac323C6A5BCf41Fa111701eE0165a37').call()
+	let _tvlDYPBuybackAvax2_2 = await token_contract_avax_2.methods.balanceOf('0x267434f01ac323C6A5BCf41Fa111701eE0165a37').call()
+	_tvlDYPBuybackAvax2 = _tvlDYPBuybackAvax2 / 1e18 * usdPerToken
+	_tvlDYPBuybackAvax2 = _tvlDYPBuybackAvax2 + _tvlDYPBuybackAvax2_2 / 1e18 * price_iDYP_eth
+	buybackAvaxTvl2 = _tvlDYPBuybackAvax2;
+
+	return usdPerToken,
+
+		stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45,
+
+		stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25,
+
+		stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45,
+
+		stakingDYPBnbTvl1, stakingDYPBnbTvl2, stakingDYPBnbTvl10, stakingDYPBnbTvl25, stakingDYPBnbTvl30,
+
+		stakingiDYPAvaxTvl15, stakingiDYPAvaxTvl20, stakingiDYPAvaxTvl30, stakingiDYPAvaxTvl45,
+
+		stakingDYPAvaxTvl1, stakingDYPAvaxTvl2, stakingDYPAvaxTvl10, stakingDYPAvaxTvl25, stakingDYPAvaxTvl30,
+
+		buybackEthTvl1, buybackEthTvl2,
+
+		buybackBnbTvl1, buybackBnbTvl2,
+
+		buybackAvaxTvl1, buybackAvaxTvl2;
+}
+
+let NftStakingInfo = [];
+
+const get_NFT_Staking_Info = () => {
+
+	NftStakingInfo = [];
+
+	let tvl = 0,
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		floor_price = "",
+		total_nfts_locked = "",
+		expired = "",
+		return_types = "",
+		lock_time = ""
+	let ids_constant_staking_eth = Object.keys(IDs_nft_stake_eth)
+	for (let id of ids_constant_staking_eth) {
+
+		tvl = cawsnfttvl
+		floor_price = floorprice
+		total_nfts_locked = CAWS_TOTAL_LOCKED
+		apy_percent = IDs_nft_stake_eth[id].apy
+		pool_name = IDs_nft_stake_eth[id].pool_name
+		pair_name = IDs_nft_stake_eth[id].pair_name
+		link_pair = IDs_nft_stake_eth[id].link_pair
+		return_types = IDs_nft_stake_eth[id].return_types
+		expired = IDs_nft_stake_eth[id].expired
+		lock_time = IDs_nft_stake_eth[id].lock_time
+
+		NftStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl,
+			floor_price: floor_price,
+			total_nfts_locked: total_nfts_locked,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired
+		})
+	}
+
+}
+
+let iDYPEthStakingInfo = [];
+let all_eth_apys = [];
+let ethcounter = 0;
+let highestethapy = [];
+
+const get_iDYP_ETH_Staking_Info = () => {
+
+
+	iDYPEthStakingInfo = [];
+
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = ""
+	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_idyp_eth)
+	for (let id of ids_constant_staking_eth) {
+
+		apy_percent = IDs_constant_staking_idyp_eth[id].apy
+
+		if (id == "0x50014432772b4123D04181727C6EdEAB34F5F988")
+			tvl_usd = stakingiDYPEthTvl15
+
+		if (id == "0x9eA966B4023049BFF858BB5E698ECfF24EA54c4A")
+			tvl_usd = stakingiDYPEthTvl20
+
+		if (id == "0xD4bE7a106ed193BEe39D6389a481ec76027B2660")
+			tvl_usd = stakingiDYPEthTvl30
+
+		if (id == "0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4")
+			tvl_usd = stakingiDYPEthTvl45
+
+
+		pool_name = IDs_constant_staking_idyp_eth[id].pool_name
+		pair_name = IDs_constant_staking_idyp_eth[id].pair_name
+		link_pair = IDs_constant_staking_idyp_eth[id].link_pair
+		return_types = IDs_constant_staking_idyp_eth[id].return_types
+		expired = IDs_constant_staking_idyp_eth[id].expired
+		lock_time = IDs_constant_staking_idyp_eth[id].lock_time
+
+		iDYPEthStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired
+		})
+	}
+
+}
+
+
+let DYPEthStakingInfo = [];
+
+const get_DYP_ETH_Staking_Info = () => {
+	ethcounter = 0;
+	all_eth_apys = [];
+	highestethapy = [];
+	DYPEthStakingInfo = [];
+
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = ""
+	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_dyp_eth)
+	for (let id of ids_constant_staking_eth) {
+
+		let apr1 = 25;
+		let apr2 = 50;
+		apy_percent = new BigNumber(apr1)
+			.div(1e2)
+			.times(price_iDYP_eth)
+			.div(usdPerToken)
+			.times(1e2)
+			.toFixed(2);
+
+		if (id == "0xa4da28B8e42680916b557459D338aF6e2D8d458f") {
+			tvl_usd = stakingDYPEthTvl1
+			apy_percent = new BigNumber(apr1)
+				.div(1e2)
+				.times(price_iDYP_eth)
+				.div(usdPerToken)
+				.times(1e2)
+				.toFixed(2);
+		}
+
+		if (id == "0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d") {
+			tvl_usd = stakingDYPEthTvl2
+			apy_percent = new BigNumber(apr2)
+				.div(1e2)
+				.times(price_iDYP_eth)
+				.div(usdPerToken)
+				.times(1e2)
+				.toFixed(2);
+		}
+
+		if (id == "0x44bEd8ea3296bda44870d0Da98575520De1735d4") {
+			tvl_usd = stakingDYPEthTvl25
+			apy_percent = IDs_constant_staking_dyp_eth[id].apy
+
+		}
+
+		pool_name = IDs_constant_staking_dyp_eth[id].pool_name
+		pair_name = IDs_constant_staking_dyp_eth[id].pair_name
+		link_pair = IDs_constant_staking_dyp_eth[id].link_pair
+		return_types = IDs_constant_staking_dyp_eth[id].return_types
+		expired = IDs_constant_staking_dyp_eth[id].expired
+		lock_time = IDs_constant_staking_dyp_eth[id].lock_time
+
+		DYPEthStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired
+		})
+		ethcounter++;
+		highestethapy[ethcounter] = parseFloat(apy_percent);
+	}
+
+}
+
+// idyp bnb staking info
+
+let iDYPBNBStakingInfo = [];
+let all_bsc_apys = [];
+let bsccounter = 0;
+let highestbnbapy = [];
+
+const get_iDYP_BNB_Staking_Info = () => {
+
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = ""
+	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_idyp_bnb)
+	for (let id of ids_constant_staking_eth) {
+
+		apy_percent = IDs_constant_staking_idyp_bnb[id].apy
+		if (id == "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7")
+			tvl_usd = stakingiDYPBnbTvl15
+
+		if (id == "0x58366902082B90Fca01bE07D929478bD48AcFB19")
+			tvl_usd = stakingiDYPBnbTvl20
+
+		if (id == "0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445")
+			tvl_usd = stakingiDYPBnbTvl30
+
+		if (id == "0x160fF3c4A6E9Aa8E4271aa71226Cc811BFEf7ED9")
+			tvl_usd = stakingiDYPBnbTvl45
+
+
+		pool_name = IDs_constant_staking_idyp_bnb[id].pool_name
+		pair_name = IDs_constant_staking_idyp_bnb[id].pair_name
+		link_pair = IDs_constant_staking_idyp_bnb[id].link_pair
+		return_types = IDs_constant_staking_idyp_bnb[id].return_types
+		expired = IDs_constant_staking_idyp_bnb[id].expired
+		lock_time = IDs_constant_staking_idyp_bnb[id].lock_time
+
+		iDYPBNBStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired
+		})
+	}
+}
+
+const get_ETH_STAKING_HIGHEST_APY= () => {
+
+	let aaa = 0;
+	for(i = 1; i <= ethcounter; i++)
+		if(highestethapy[i] > aaa)
+			aaa = highestethapy[i];
+	
+		all_eth_apys.push({
+			highest_apy: aaa,
+		})
+	}
+
+let DYPBnbStakingInfo = [];
+
+const get_DYP_BNB_Staking_Info = () => {
+	DYPBnbStakingInfo = [];
+	bsccounter = 0;
+	iDYPBNBStakingInfo = [];
+	all_bsc_apys = [];
+	highestbnbapy = [];
+
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = ""
+	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_dyp_bnb)
+	for (let id of ids_constant_staking_eth) {
+
+		let apr1 = 25;
+		let apr2 = 50;
+
+
+		if (id == "0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90") {
+			tvl_usd = stakingDYPBnbTvl1
+			apy_percent = new BigNumber(apr1)
+				.div(1e2)
+				.times(price_iDYP_eth)
+				.div(usdPerToken)
+				.times(1e2)
+				.toFixed(2);
+		}
+
+		if (id == "0xaF411BF994dA1435A3150B874395B86376C5f2d5") {
+			tvl_usd = stakingDYPBnbTvl2
+			apy_percent = new BigNumber(apr2)
+				.div(1e2)
+				.times(price_iDYP_eth)
+				.div(usdPerToken)
+				.times(1e2)
+				.toFixed(2);
+		}
+
+		if (id == "0xfc4493E85fD5424456f22135DB6864Dd4E4ED662") {
+			tvl_usd = stakingDYPBnbTvl10
+			apy_percent = IDs_constant_staking_dyp_bnb[id].apy
+
+		}
+		if (id == "0xa9efab22cCbfeAbB6dc4583d81421e76342faf8b") {
+			tvl_usd = stakingDYPBnbTvl25
+			apy_percent = IDs_constant_staking_dyp_bnb[id].apy
+
+		}
+
+		if (id == "0xef9e50A19358CCC8816d9BC2c2355aea596efd06") {
+			tvl_usd = stakingDYPBnbTvl30
+			apy_percent = IDs_constant_staking_dyp_bnb[id].apy
+
+		}
+
+
+
+		pool_name = IDs_constant_staking_dyp_bnb[id].pool_name
+		pair_name = IDs_constant_staking_dyp_bnb[id].pair_name
+		link_pair = IDs_constant_staking_dyp_bnb[id].link_pair
+		return_types = IDs_constant_staking_dyp_bnb[id].return_types
+		expired = IDs_constant_staking_dyp_bnb[id].expired
+		lock_time = IDs_constant_staking_dyp_bnb[id].lock_time
+
+		DYPBnbStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired
+		})
+		bsccounter++;
+		highestbnbapy[bsccounter] = parseFloat(apy_percent);
+
+
+	}
+
+}
+const get_BNB_STAKING_HIGHEST_APY= () => {
+
+	let aaa = 0;
+	for(i = 1; i <= bsccounter; i++)
+		if(highestbnbapy[i] > aaa)
+			aaa = highestbnbapy[i];
+	
+		all_bsc_apys.push({
+			highest_apy: aaa,
+		})
+	}
+
+//idyp avax staking info
+
+let iDYPAvaxStakingInfo = [];
+let all_avax_apys = [];
+let avaxcounter = 0;
+let highestavaxapy = [];
+
+const get_iDYP_AVAX_Staking_Info = () => {
+
+	iDYPAvaxStakingInfo = [];
+
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = ""
+	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_idyp_avax)
+	for (let id of ids_constant_staking_eth) {
+
+		apy_percent = IDs_constant_staking_idyp_avax[id].apy
+
+		if (id == "0xaF411BF994dA1435A3150B874395B86376C5f2d5")
+			tvl_usd = stakingiDYPAvaxTvl15
+
+		if (id == "0x8f28110325a727f70B64bffEbf2B9dc94B932452")
+			tvl_usd = stakingiDYPAvaxTvl20
+
+		if (id == "0xd13bdC0c9a9931cF959739631B1290b6BEE0c018")
+			tvl_usd = stakingiDYPAvaxTvl30
+
+		if (id == "0x5536E02336771CFa0317D4B6a042f3c38749535e")
+			tvl_usd = stakingiDYPAvaxTvl45
+
+
+		pool_name = IDs_constant_staking_idyp_avax[id].pool_name
+		pair_name = IDs_constant_staking_idyp_avax[id].pair_name
+		link_pair = IDs_constant_staking_idyp_avax[id].link_pair
+		return_types = IDs_constant_staking_idyp_avax[id].return_types
+		expired = IDs_constant_staking_idyp_avax[id].expired
+		lock_time = IDs_constant_staking_idyp_avax[id].lock_time
+
+		iDYPAvaxStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired
+		})
+
+	}
+
+}
+let DYPAvaxStakingInfo = [];
+
+const get_DYP_AVAX_Staking_Info = () => {
+
+	DYPAvaxStakingInfo = [];
+	avaxcounter = 0;
+	all_avax_apys = [];
+	highestavaxapy = [];
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = ""
+	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_dyp_avax)
+	for (let id of ids_constant_staking_eth) {
+
+		let apr1 = 25;
+		let apr2 = 50;
+
+
+		if (id == "0x1A4fd0E9046aeD92B6344F17B0a53969F4d5309B") {
+			tvl_usd = stakingDYPAvaxTvl1
+			apy_percent = new BigNumber(apr1)
+				.div(1e2)
+				.times(price_iDYP_eth)
+				.div(usdPerToken)
+				.times(1e2)
+				.toFixed(2);
+		}
+
+		if (id == "0x5566B51a1B7D5E6CAC57a68182C63Cb615cAf3f9") {
+			tvl_usd = stakingDYPAvaxTvl2
+			apy_percent = new BigNumber(apr2)
+				.div(1e2)
+				.times(price_iDYP_eth)
+				.div(usdPerToken)
+				.times(1e2)
+				.toFixed(2);
+		}
+
+		if (id == "0xb1875eeBbcF4456188968f439896053809698a8B") {
+			tvl_usd = stakingDYPAvaxTvl10
+			apy_percent = IDs_constant_staking_dyp_avax[id].apy
+
+		}
+		if (id == "0x16429e51A64B7f88D4C018fbf66266A693df64b3") {
+			tvl_usd = stakingDYPAvaxTvl25
+			apy_percent = IDs_constant_staking_dyp_avax[id].apy
+
+		}
+
+		if (id == "0xF035ec2562fbc4963e8c1c63f5c473D9696c59E3") {
+			tvl_usd = stakingDYPAvaxTvl30
+			apy_percent = IDs_constant_staking_dyp_avax[id].apy
+
+		}
+
+
+
+		pool_name = IDs_constant_staking_dyp_avax[id].pool_name
+		pair_name = IDs_constant_staking_dyp_avax[id].pair_name
+		link_pair = IDs_constant_staking_dyp_avax[id].link_pair
+		return_types = IDs_constant_staking_dyp_avax[id].return_types
+		expired = IDs_constant_staking_dyp_avax[id].expired
+		lock_time = IDs_constant_staking_dyp_avax[id].lock_time
+
+		DYPAvaxStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired
+		})
+		avaxcounter++;
+		highestavaxapy[avaxcounter] = parseFloat(apy_percent);
+	}
+
+}
+
+const get_AVAX_STAKING_HIGHEST_APY= () => {
+
+	let aaa = 0;
+	for(i = 1; i <= avaxcounter; i++)
+		if(highestavaxapy[i] > aaa)
+			aaa = highestavaxapy[i];
+	
+		all_avax_apys.push({
+			highest_apy: aaa,
+		})
+	}
+//buyback eth info
+
+let BuybackETHInfo = [];
+let BuybackETHhighestapy = [];
+let a1 = 0;
+let a2 = 0;
+const get_ETH_Buyback_Info = () => {
+
+	BuybackETHInfo = [];
+	BuybackETHhighestapy = [];
+	a1 = 0;
+	a2 = 0;
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = ""
+	let ids_constant_staking_eth = Object.keys(IDs_buyback_eth)
+	for (let id of ids_constant_staking_eth) {
+		let apy1_buyback2 = new BigNumber(0.75);
+		let apy1_buyback1 = new BigNumber(0.225);
+		let apy2_buyback1 = new BigNumber(0.25)
+			.div(usdPerToken)
+			.times(30)
+			.div(1e2)
+			.times(price_iDYP_eth);
+
+		let apy2_buyback2 = new BigNumber(0.25)
+			.div(usdPerToken)
+			.times(price_iDYP_eth);
+		if (id == "0xdCBB5B2148f0cf1Abd7757Ba04A5821fEaD80587") {
+			tvl_usd = buybackEthTvl1
+			apy_percent = new BigNumber(apy1_buyback1)
+				.plus(apy2_buyback1)
+				.times(1e2)
+				.toFixed(0);
+			a1 = apy_percent
+		}
+
+		if (id == "0xDC65C4277d626d6A29C9Dc42Eb396d354fa5E85b") {
+			tvl_usd = buybackEthTvl2
+			apy_percent = new BigNumber(apy1_buyback2)
+				.plus(apy2_buyback2)
+				.times(1e2)
+				.toFixed(0);
+				a2 = apy_percent
+		}
+
+		pool_name = IDs_buyback_eth[id].pool_name
+		pair_name = IDs_buyback_eth[id].pair_name
+		link_pair = IDs_buyback_eth[id].link_pair
+		return_types = IDs_buyback_eth[id].return_types
+		expired = IDs_buyback_eth[id].expired
+		lock_time = IDs_buyback_eth[id].lock_time
+
+		BuybackETHInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired
+		})
+		BuybackETHhighestapy.push({
+			highest_apy: 75
+		})
+
+	}
+
+}
+
+let BuybackBNBInfo = [];
+let BuybackBNBhighestapy = [];
+let b1 = 0;
+let b2 = 0;
+const get_BNB_Buyback_Info = () => {
+
+	BuybackBNBInfo = [];
+	b1 = 0;
+	b2 = 0;
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = ""
+	let ids_constant_staking_eth = Object.keys(IDs_buyback_bsc)
+	for (let id of ids_constant_staking_eth) {
+		let apy1_buyback2 = new BigNumber(0.75);
+		let apy1_buyback1 = new BigNumber(0.225);
+		let apy2_buyback1 = new BigNumber(0.25)
+			.div(usdPerToken)
+			.times(30)
+			.div(1e2)
+			.times(price_iDYP_eth);
+
+		let apy2_buyback2 = new BigNumber(0.25)
+			.div(usdPerToken)
+			.times(price_iDYP_eth);
+		if (id == "0x94b1a7b57c441890b7a0f64291b39ad6f7e14804") {
+			tvl_usd = buybackBnbTvl1
+			apy_percent = new BigNumber(apy1_buyback1)
+				.plus(apy2_buyback1)
+				.times(1e2)
+				.toFixed(0);
+				b1 = apy_percent
+			
+		}
+
+		if (id == "0x4ef782e66244a0cf002016aa1db3019448c670ae") {
+			tvl_usd = buybackBnbTvl2
+			apy_percent = new BigNumber(apy1_buyback2)
+				.plus(apy2_buyback2)
+				.times(1e2)
+				.toFixed(0);
+				b2 = apy_percent
+		}
+
+		pool_name = IDs_buyback_bsc[id].pool_name
+		pair_name = IDs_buyback_bsc[id].pair_name
+		link_pair = IDs_buyback_bsc[id].link_pair
+		return_types = IDs_buyback_bsc[id].return_types
+		expired = IDs_buyback_bsc[id].expired
+		lock_time = IDs_buyback_bsc[id].lock_time
+
+		BuybackBNBInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired
+		})
+		BuybackBNBhighestapy.push({
+			highest_apy: 75,
+		})
+	}
+
+}
+
+let BuybackAVAXInfo = [];
+let BuybackAVAXhighestapy = [];
+let c1 = 0;
+let c2 = 0;
+const get_AVAX_Buyback_Info = () => {
+
+	BuybackAVAXInfo = [];
+	BuybackAVAXhighestapy = [];
+	c1 = 0;
+	c2 = 0;
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = ""
+	let ids_constant_staking_eth = Object.keys(IDs_buyback_avax)
+	for (let id of ids_constant_staking_eth) {
+		let apy1_buyback2 = new BigNumber(0.75);
+		let apy1_buyback1 = new BigNumber(0.225);
+		let apy2_buyback1 = new BigNumber(0.25)
+			.div(usdPerToken)
+			.times(30)
+			.div(1e2)
+			.times(price_iDYP_eth);
+
+		let apy2_buyback2 = new BigNumber(0.25)
+			.div(usdPerToken)
+			.times(price_iDYP_eth);
+		if (id == "0xC905D5DD9A4f26eD059F76929D11476B2844A7c3") {
+			tvl_usd = buybackAvaxTvl1
+			apy_percent = new BigNumber(apy1_buyback1)
+				.plus(apy2_buyback1)
+				.times(1e2)
+				.toFixed(0);
+				c1 = parseFloat(apy_percent)
+		}
+
+		if (id == "0x267434f01ac323C6A5BCf41Fa111701eE0165a37") {
+			tvl_usd = buybackAvaxTvl2
+			apy_percent = new BigNumber(apy1_buyback2)
+				.plus(apy2_buyback2)
+				.times(1e2)
+				.toFixed(0);
+				c2 = parseFloat(apy_percent)
+		}
+
+		pool_name = IDs_buyback_avax[id].pool_name
+		pair_name = IDs_buyback_avax[id].pair_name
+		link_pair = IDs_buyback_avax[id].link_pair
+		return_types = IDs_buyback_avax[id].return_types
+		expired = IDs_buyback_avax[id].expired
+		lock_time = IDs_buyback_avax[id].lock_time
+
+		BuybackAVAXInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired
+		})
+			BuybackAVAXhighestapy.push({
+				highest_apy: 75
+			})
+
+	}
+}
+
+
+const BSC_ABI_TEST = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"owner","type":"address"}],"name":"EmergencyDeclared","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"referrer","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"ReferralFeeTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Reinvest","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"rewardRate","type":"uint256"}],"name":"RewardRateChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"RewardsTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"StakingFeeChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"UnstakingFeeChanged","type":"event"},{"inputs":[],"name":"ADMIN_CAN_CLAIM_AFTER","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"EMERGENCY_WAIT_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LOCKUP_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REFERRAL_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_INTERVAL","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"STAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"UNSTAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"adminClaimableTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"contractStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"declareEmergency","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToWithdraw","type":"uint256"}],"name":"emergencyUnstake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"getActiveReferredStaker","outputs":[{"internalType":"address","name":"_staker","type":"address"},{"internalType":"uint256","name":"_totalEarned","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getNumberOfHolders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"referrer","type":"address"}],"name":"getNumberOfReferredStakers","outputs":[{"internalType":"uint256","name":"_activeStakers","type":"uint256"},{"internalType":"uint256","name":"_totalStakers","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"getReferredStaker","outputs":[{"internalType":"address","name":"_staker","type":"address"},{"internalType":"uint256","name":"_totalEarned","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"startIndex","type":"uint256"},{"internalType":"uint256","name":"endIndex","type":"uint256"}],"name":"getStakersList","outputs":[{"internalType":"address[]","name":"stakers","type":"address[]"},{"internalType":"uint256[]","name":"stakingTimestamps","type":"uint256[]"},{"internalType":"uint256[]","name":"lastClaimedTimeStamps","type":"uint256[]"},{"internalType":"uint256[]","name":"stakedTokens","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getTotalPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isEmergency","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastClaimedTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"reInvest","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referrals","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"rewardsPendingClaim","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"newRewardRate","type":"uint256"}],"name":"setRewardRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newStakingFeeRateX100","type":"uint256"}],"name":"setStakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newUnstakingFeeRateX100","type":"uint256"}],"name":"setUnstakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToStake","type":"uint256"},{"internalType":"address","name":"referrer","type":"address"}],"name":"stake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"stakingTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedReferralFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedRewards","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalReferralFeeEarned","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferAnyERC20Token","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferAnyLegacyERC20Token","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToWithdraw","type":"uint256"}],"name":"unstake","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+const BSC_TEST = "0xef9e50A19358CCC8816d9BC2c2355aea596efd06"
+
+  const IDs_User_Pools = {
+	"0xef9e50A19358CCC8816d9BC2c2355aea596efd06":
+	{
+		contract_address: "0xef9e50A19358CCC8816d9BC2c2355aea596efd06",
+	},
+	
+}
+
+let accounts = []
+let UserPoolsInfo = []
+
+
+const get_USER_pools = async () => {
+
+	// let _id = BSC_TEST
+	UserPoolsInfo = []
+	accounts = []
+	let contract_address = ""
+		
+	accounts[1] = "0xabee4733f4e3d8f25754f4758c3d74bb44040955";
+
+	let ids_constant_staking_eth = Object.keys(IDs_User_Pools)
+	for (let id of ids_constant_staking_eth) {
+		contract_address = IDs_User_Pools[id].contract_address
+		if(id == contract_address)
+		{
+			getPendingDivs(id)
+		}
+		if((typeof global.pending_divs !== "undefined") && (global.pending_divs > 0))
+		{
+		UserPoolsInfo.push({
+			contract_address: contract_address,
+		})
+	}
+		else
+			UserPoolsInfo.push({
+				contract_address: "User is not in this pool"
+			})
+	}
+}
+
+//create a function that receives an id, contract_address and abi parameter  and returns pending_divs
+//create a function that receives an id, contract_address and abi parameter  and returns pending_divs
+
+
+const getPendingDivs = async (id) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools[id].contract_address
+	let test_contract = new bscWeb3.eth.Contract(BSC_ABI_TEST, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(accounts[1]).call();
+	pending_divs = pending_divs / 1e18
+	global.pending_divs = pending_divs;	
+}
+
+// function pendingDivsCallback(pending_divs) {
+// 	// Store the value of pending_divs in a global variable
+// 	global.pending_divs = pending_divs;
+//   }
 
 //Generate FarmInfo for Tools
 const getFarmInfo = () => {
@@ -5790,6 +7980,7 @@ const getFarmInfo = () => {
 		pair_name = "",
 		link_pair = "",
 		return_types = "",
+		expired = "",
 		__v = 0
 
 	//ETH
@@ -5891,13 +8082,13 @@ const getFarmInfo = () => {
 
 		apy_percent = IDs_constant[id].apy
 
-		if ( id == "0x7fc2174670d672ad7f666af0704c2d961ef32c73" )
+		if (id == "0x7fc2174670d672ad7f666af0704c2d961ef32c73")
 			tvl_usd = farmingTvl30
-		if ( id == "0x036e336ea3ac2e255124cf775c4fdab94b2c42e4" )
+		if (id == "0x036e336ea3ac2e255124cf775c4fdab94b2c42e4")
 			tvl_usd = farmingTvl60
-		if ( id == "0x0a32749d95217b7ee50127e24711c97849b70c6a" )
+		if (id == "0x0a32749d95217b7ee50127e24711c97849b70c6a")
 			tvl_usd = farmingTvl90
-		if ( id == "0x82df1450efd6b504ee069f5e4548f2d5cb229880" )
+		if (id == "0x82df1450efd6b504ee069f5e4548f2d5cb229880")
 			tvl_usd = farmingTvl120
 
 		pool_name = IDs_constant[id].pool_name
@@ -5942,57 +8133,57 @@ const getHashMaps = () => {
 	for (let pools of farmInfo) {
 
 		//HashMap for ETH network
-		if( (pools.pool_name).search('Ethereum') > 0 ) {
+		if ((pools.pool_name).search('Ethereum') > 0) {
 
 			let lock_pair = pools.link_pair.split('/')[3].split('-')[1]
 			let staking_pair = pools.link_pair.split('/')[3].split('-')[2]
 			staking_pair = lock_pair + '_' + staking_pair
 
-			if( (pools.pair_name).search('ETH') > 0 ){
+			if ((pools.pair_name).search('ETH') > 0) {
 				apyInfoEth.set(staking_pair, pools.apy_percent)
 			}
 
-			if( (pools.pair_name).search('BTC') > 0 ) {
+			if ((pools.pair_name).search('BTC') > 0) {
 				apyInfoEth.set(staking_pair, pools.apy_percent)
 			}
 
-			if( (pools.pair_name).search('USDC') > 0 ){
+			if ((pools.pair_name).search('USDC') > 0) {
 				apyInfoEth.set(staking_pair, pools.apy_percent)
 			}
 
-			if( (pools.pair_name).search('USDT') > 0 ){
+			if ((pools.pair_name).search('USDT') > 0) {
 				apyInfoEth.set(staking_pair, pools.apy_percent)
 			}
 		}
 
 		//HashMap for BSC network
-		if( (pools.pool_name).search('BSC') > 0 ) {
+		if ((pools.pool_name).search('BSC') > 0) {
 
 			let lock_pair = pools.link_pair.split('/')[3].split('-')[1]
 			let staking_pair = pools.link_pair.split('/')[3].split('-')[2]
 			staking_pair = lock_pair + '_' + staking_pair
 
-			if( (pools.pair_name).search('WBNB') > 0 ){
+			if ((pools.pair_name).search('WBNB') > 0) {
 				apyInfoBsc.set(staking_pair, pools.apy_percent)
 			}
 
-			if( (pools.pair_name).search('ETH') > 0 ) {
+			if ((pools.pair_name).search('ETH') > 0) {
 				apyInfoBsc.set(staking_pair, pools.apy_percent)
 			}
 
-			if( (pools.pair_name).search('BUSD') > 0 ){
+			if ((pools.pair_name).search('BUSD') > 0) {
 				apyInfoBsc.set(staking_pair, pools.apy_percent)
 			}
 		}
 
 		//HashMap for AVAX network
-		if( (pools.pool_name).search('AVAX') > 0 ) {
+		if ((pools.pool_name).search('AVAX') > 0) {
 
 			let lock_pair = pools.link_pair.split('/')[3].split('-')[1]
 			let staking_pair = pools.link_pair.split('/')[3].split('-')[2]
 			staking_pair = lock_pair + '_' + staking_pair
 
-			if( (pools.pair_name).search('AVAX') > 0 ){
+			if ((pools.pair_name).search('AVAX') > 0) {
 				apyInfoAvax.set(staking_pair, pools.apy_percent)
 			}
 		}
@@ -6045,10 +8236,10 @@ const bridgedOnAvalanche = async () => {
 	let contractListIds = contractListId
 	for (let id of contractListIds) {
 		let contractAddress = id.split('_')[0]
-		let contractBridge = new avaxWeb3.eth.Contract(TOKEN_ABI_AVAX, contractAddress, {from: undefined})
+		let contractBridge = new avaxWeb3.eth.Contract(TOKEN_ABI_AVAX, contractAddress, { from: undefined })
 		let totalSupply = await Promise.all([contractBridge.methods.totalSupply().call()])
 		let decimals = await Promise.all([contractBridge.methods.decimals().call()])
-		let tokens = totalSupply/eval('1e'+decimals)
+		let tokens = totalSupply / eval('1e' + decimals)
 
 		let pricePerToken = await getPrice(id.split('_')[1])
 
@@ -6061,13 +8252,13 @@ const bridgedOnAvalanche = async () => {
 
 const IDs_constant_avalanche = {
 	"0x4c7e0cbb0276a5e963266e6b9f34db73a1cb73f3":
-		{
-			pool_name: "DYP Buyback",
-			pair_name: "DYP",
-			link_pair: "https://app-avax.dyp.finance/staking-buyback",
-			return_types: "DYP",
-			apy: 100
-		}
+	{
+		pool_name: "DYP Buyback",
+		pair_name: "DYP",
+		link_pair: "https://app-avax.dyp.finance/staking-buyback",
+		return_types: "DYP",
+		apy: 100
+	}
 }
 
 let buybackTvl = 0
@@ -6125,7 +8316,7 @@ const getFarmInfoAvalanche = async () => {
 	let address_constant = ids_constant[0]
 
 	//Calculate TVL Buyback
-	let token_contract = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let token_contract = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
 	let _tvlBuyback = await token_contract.methods.balanceOf(address_constant).call()
 	_tvlBuyback = _tvlBuyback / 1e18 * usdPerToken
@@ -6135,7 +8326,7 @@ const getFarmInfoAvalanche = async () => {
 
 		apy_percent = IDs_constant_avalanche[id].apy
 
-		if ( id == "0x4c7e0cbb0276a5e963266e6b9f34db73a1cb73f3" )
+		if (id == "0x4c7e0cbb0276a5e963266e6b9f34db73a1cb73f3")
 			tvl_usd = buybackTvl
 
 		pool_name = IDs_constant_avalanche[id].pool_name
@@ -6165,13 +8356,13 @@ const getFarmInfoAvalanche = async () => {
 
 const IDs_constant_binance = {
 	"0x350f3fe979bfad4766298713c83b387c2d2d7a7a":
-		{
-			pool_name: "DYP Buyback",
-			pair_name: "DYP",
-			link_pair: "https://app-bsc.dyp.finance/staking-buyback",
-			return_types: "DYP",
-			apy: 100
-		}
+	{
+		pool_name: "DYP Buyback",
+		pair_name: "DYP",
+		link_pair: "https://app-bsc.dyp.finance/staking-buyback",
+		return_types: "DYP",
+		apy: 100
+	}
 }
 
 let buybackTvlBinance = 0
@@ -6229,7 +8420,7 @@ const getFarmInfoBinance = async () => {
 	let address_constant = ids_constant[0]
 
 	//Calculate TVL Buyback Binance
-	let token_contract = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let token_contract = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
 	let _tvlBuyback = await token_contract.methods.balanceOf(address_constant).call()
 	_tvlBuyback = _tvlBuyback / 1e18 * usdPerToken
@@ -6239,7 +8430,7 @@ const getFarmInfoBinance = async () => {
 
 		apy_percent = IDs_constant_binance[id].apy
 
-		if ( id == "0x350f3fe979bfad4766298713c83b387c2d2d7a7a" )
+		if (id == "0x350f3fe979bfad4766298713c83b387c2d2d7a7a")
 			tvl_usd = buybackTvlBinance
 
 		pool_name = IDs_constant_binance[id].pool_name
@@ -6269,13 +8460,13 @@ const getFarmInfoBinance = async () => {
 
 const IDs_constant_ethereum = {
 	"0xe5262f38bf13410a79149cb40429f8dc5e830542":
-		{
-			pool_name: "DYP Buyback",
-			pair_name: "DYP",
-			link_pair: "https://app.dyp.finance/staking-buyback",
-			return_types: "DYP",
-			apy: 100
-		}
+	{
+		pool_name: "DYP Buyback",
+		pair_name: "DYP",
+		link_pair: "https://app.dyp.finance/staking-buyback",
+		return_types: "DYP",
+		apy: 100
+	}
 }
 
 let buybackTvlEthereum = 0
@@ -6334,13 +8525,13 @@ const getFarmInfoEthereum = async () => {
 
 		apy_percent = IDs_constant[id].apy
 
-		if ( id == "0x7fc2174670d672ad7f666af0704c2d961ef32c73" )
+		if (id == "0x7fc2174670d672ad7f666af0704c2d961ef32c73")
 			tvl_usd = farmingTvl30
-		if ( id == "0x036e336ea3ac2e255124cf775c4fdab94b2c42e4" )
+		if (id == "0x036e336ea3ac2e255124cf775c4fdab94b2c42e4")
 			tvl_usd = farmingTvl60
-		if ( id == "0x0a32749d95217b7ee50127e24711c97849b70c6a" )
+		if (id == "0x0a32749d95217b7ee50127e24711c97849b70c6a")
 			tvl_usd = farmingTvl90
-		if ( id == "0x82df1450efd6b504ee069f5e4548f2d5cb229880" )
+		if (id == "0x82df1450efd6b504ee069f5e4548f2d5cb229880")
 			tvl_usd = farmingTvl120
 
 		pool_name = IDs_constant[id].pool_name
@@ -6370,7 +8561,7 @@ const getFarmInfoEthereum = async () => {
 	let address_constant = ids_constant[0]
 
 	//Calculate TVL Buyback Binance
-	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
 	let _tvlBuyback = await token_contract.methods.balanceOf(address_constant).call()
 	_tvlBuyback = _tvlBuyback / 1e18 * usdPerToken
@@ -6380,7 +8571,7 @@ const getFarmInfoEthereum = async () => {
 
 		apy_percent = IDs_constant_ethereum[id].apy
 
-		if ( id == "0xe5262f38bf13410a79149cb40429f8dc5e830542" )
+		if (id == "0xe5262f38bf13410a79149cb40429f8dc5e830542")
 			tvl_usd = buybackTvlEthereum
 
 		pool_name = IDs_constant_ethereum[id].pool_name
@@ -6409,6 +8600,7 @@ const getFarmInfoEthereum = async () => {
 /* Get Holders from all chains */
 
 const urlMetadata = require('url-metadata')
+const { data } = require('jquery')
 
 let totalHolders = 0
 let last_update_time_holders = 0
@@ -6459,30 +8651,30 @@ const TOKENS_DISBURSED_PER_YEAR_BSC_V2 = [
 ]
 
 const LP_IDs_BSC_V2 =
-	{
-		"wbnb": [
-			"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x537dc4fee298ea79a7f65676735415f1e2882f92",
-			"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x219717bf0bc33b2764a6c1a772f75305458bda3d",
-			"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0xd1151a2434931f34bcfa6c27639b67c1a23d93af",
-			"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0xed869ba773c3f1a1adcc87930ca36ee2dc73435d",
-			"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x415b1624710296717fa96cad84f53454e8f02d18",
-		]
-	}
+{
+	"wbnb": [
+		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x537dc4fee298ea79a7f65676735415f1e2882f92",
+		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x219717bf0bc33b2764a6c1a772f75305458bda3d",
+		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0xd1151a2434931f34bcfa6c27639b67c1a23d93af",
+		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0xed869ba773c3f1a1adcc87930ca36ee2dc73435d",
+		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x415b1624710296717fa96cad84f53454e8f02d18",
+	]
+}
 
 const LP_ID_LIST_BSC_V2 = Object.keys(LP_IDs_BSC_V2).map(key => LP_IDs_BSC_V2[key]).flat()
 const TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC_V2 = {}
 LP_ID_LIST_BSC_V2.forEach((lp_id, i) => TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC_V2[lp_id] = TOKENS_DISBURSED_PER_YEAR_BSC_V2[i])
 const VAULT_ADDRESSES_LIST = LP_ID_LIST_BSC_V2.map(id => id.split('-')[1])
 
-PANCAKESWAP_ROUTER_ABI = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"amountADesired","type":"uint256"},{"internalType":"uint256","name":"amountBDesired","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountTokenDesired","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountIn","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountOut","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"reserveA","type":"uint256"},{"internalType":"uint256","name":"reserveB","type":"uint256"}],"name":"quote","outputs":[{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETHSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermit","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermitSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityWithPermit","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapETHForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETHSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
-async function getPancakeswapRouterContract(address=config.pancakeswap_router_address) {
-	return (new bscWeb3.eth.Contract(PANCAKESWAP_ROUTER_ABI, address, {from: undefined}))
+PANCAKESWAP_ROUTER_ABI = [{ "inputs": [{ "internalType": "address", "name": "_factory", "type": "address" }, { "internalType": "address", "name": "_WETH", "type": "address" }], "stateMutability": "nonpayable", "type": "constructor" }, { "inputs": [], "name": "WETH", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "tokenA", "type": "address" }, { "internalType": "address", "name": "tokenB", "type": "address" }, { "internalType": "uint256", "name": "amountADesired", "type": "uint256" }, { "internalType": "uint256", "name": "amountBDesired", "type": "uint256" }, { "internalType": "uint256", "name": "amountAMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountBMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "addLiquidity", "outputs": [{ "internalType": "uint256", "name": "amountA", "type": "uint256" }, { "internalType": "uint256", "name": "amountB", "type": "uint256" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "amountTokenDesired", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountETHMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "addLiquidityETH", "outputs": [{ "internalType": "uint256", "name": "amountToken", "type": "uint256" }, { "internalType": "uint256", "name": "amountETH", "type": "uint256" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }], "stateMutability": "payable", "type": "function" }, { "inputs": [], "name": "factory", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "uint256", "name": "reserveIn", "type": "uint256" }, { "internalType": "uint256", "name": "reserveOut", "type": "uint256" }], "name": "getAmountIn", "outputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }], "stateMutability": "pure", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "reserveIn", "type": "uint256" }, { "internalType": "uint256", "name": "reserveOut", "type": "uint256" }], "name": "getAmountOut", "outputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }], "stateMutability": "pure", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }], "name": "getAmountsIn", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }], "name": "getAmountsOut", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountA", "type": "uint256" }, { "internalType": "uint256", "name": "reserveA", "type": "uint256" }, { "internalType": "uint256", "name": "reserveB", "type": "uint256" }], "name": "quote", "outputs": [{ "internalType": "uint256", "name": "amountB", "type": "uint256" }], "stateMutability": "pure", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "tokenA", "type": "address" }, { "internalType": "address", "name": "tokenB", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountAMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountBMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "removeLiquidity", "outputs": [{ "internalType": "uint256", "name": "amountA", "type": "uint256" }, { "internalType": "uint256", "name": "amountB", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountETHMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "removeLiquidityETH", "outputs": [{ "internalType": "uint256", "name": "amountToken", "type": "uint256" }, { "internalType": "uint256", "name": "amountETH", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountETHMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "removeLiquidityETHSupportingFeeOnTransferTokens", "outputs": [{ "internalType": "uint256", "name": "amountETH", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountETHMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }, { "internalType": "bool", "name": "approveMax", "type": "bool" }, { "internalType": "uint8", "name": "v", "type": "uint8" }, { "internalType": "bytes32", "name": "r", "type": "bytes32" }, { "internalType": "bytes32", "name": "s", "type": "bytes32" }], "name": "removeLiquidityETHWithPermit", "outputs": [{ "internalType": "uint256", "name": "amountToken", "type": "uint256" }, { "internalType": "uint256", "name": "amountETH", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountETHMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }, { "internalType": "bool", "name": "approveMax", "type": "bool" }, { "internalType": "uint8", "name": "v", "type": "uint8" }, { "internalType": "bytes32", "name": "r", "type": "bytes32" }, { "internalType": "bytes32", "name": "s", "type": "bytes32" }], "name": "removeLiquidityETHWithPermitSupportingFeeOnTransferTokens", "outputs": [{ "internalType": "uint256", "name": "amountETH", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "tokenA", "type": "address" }, { "internalType": "address", "name": "tokenB", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountAMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountBMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }, { "internalType": "bool", "name": "approveMax", "type": "bool" }, { "internalType": "uint8", "name": "v", "type": "uint8" }, { "internalType": "bytes32", "name": "r", "type": "bytes32" }, { "internalType": "bytes32", "name": "s", "type": "bytes32" }], "name": "removeLiquidityWithPermit", "outputs": [{ "internalType": "uint256", "name": "amountA", "type": "uint256" }, { "internalType": "uint256", "name": "amountB", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapETHForExactTokens", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactETHForTokens", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactETHForTokensSupportingFeeOnTransferTokens", "outputs": [], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactTokensForETH", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactTokensForETHSupportingFeeOnTransferTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactTokensForTokens", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactTokensForTokensSupportingFeeOnTransferTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "uint256", "name": "amountInMax", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapTokensForExactETH", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "uint256", "name": "amountInMax", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapTokensForExactTokens", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "nonpayable", "type": "function" }, { "stateMutability": "payable", "type": "receive" }]
+async function getPancakeswapRouterContract(address = config.pancakeswap_router_address) {
+	return (new bscWeb3.eth.Contract(PANCAKESWAP_ROUTER_ABI, address, { from: undefined }))
 }
 
 function get_usd_values_BSC_V2({
-							token_contract_addresses,
-							lp_ids,
-						}) {
+	token_contract_addresses,
+	lp_ids,
+}) {
 	return new Promise(async (resolve, reject) => {
 
 		let usd_per_eth = await getPrice(config.cg_ids['main'])
@@ -6507,11 +8699,11 @@ function get_usd_values_BSC_V2({
 			let token_price_usd = 0
 			for (let id of token_contract_addresses) {
 				//Add the price from iDYP
-				if(id==TOKEN_ADDRESS)
+				if (id == TOKEN_ADDRESS)
 					token_price_usd = await getPrice(config.cg_ids[id])
 				else
 					token_price_usd = parseFloat(_amountOutMin)
-				tokens.push({id, token_price_usd})
+				tokens.push({ id, token_price_usd })
 			}
 
 			let platformTokenContract = {}
@@ -6519,22 +8711,22 @@ function get_usd_values_BSC_V2({
 				let pairAddress = lp_id.split('-')[0]
 				let stakingContractAddress = lp_id.split('-')[1]
 
-				if (pairAddress == '0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb'){
-					platformTokenContract = new bscWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address2, {from: undefined})
+				if (pairAddress == '0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb') {
+					platformTokenContract = new bscWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address2, { from: undefined })
 					usdPerPlatformToken = _amountOutMin
 				}
 				else {
-					platformTokenContract = new bscWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
+					platformTokenContract = new bscWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, { from: undefined })
 					usdPerPlatformToken = aux_Price
 				}
 
-				let pairTokenContract = new bscWeb3.eth.Contract(TOKEN_ABI, pairAddress, {from: undefined})
+				let pairTokenContract = new bscWeb3.eth.Contract(TOKEN_ABI, pairAddress, { from: undefined })
 
 				let [lpTotalSupply, stakingLpBalance, platformTokenInLp] = await Promise.all([pairTokenContract.methods.totalSupply().call(), pairTokenContract.methods.balanceOf(stakingContractAddress).call(), platformTokenContract.methods.balanceOf(pairAddress).call()])
 
-				let usd_per_lp = platformTokenInLp / 1e18 * usdPerPlatformToken * 2  / (lpTotalSupply/1e18)
-				let usd_value_of_lp_staked = stakingLpBalance/1e18*usd_per_lp
-				let lp_staked = stakingLpBalance/1e18
+				let usd_per_lp = platformTokenInLp / 1e18 * usdPerPlatformToken * 2 / (lpTotalSupply / 1e18)
+				let usd_value_of_lp_staked = stakingLpBalance / 1e18 * usd_per_lp
+				let lp_staked = stakingLpBalance / 1e18
 				let id = lp_id
 				liquidityPositions.push({
 					id,
@@ -6543,9 +8735,11 @@ function get_usd_values_BSC_V2({
 					lp_staked
 				})
 			}
-			return {data: {
+			return {
+				data: {
 					tokens, liquidityPositions
-				}}
+				}
+			}
 		}
 
 		getData(token_contract_addresses.map(a => a.toLowerCase()), lp_ids.map(a => a.toLowerCase()))
@@ -6569,7 +8763,7 @@ function get_usd_values_BSC_V2({
 				data.liquidityPositions.forEach(lp => {
 					lp_data[lp.id] = lp
 				})
-				resolve({token_data, lp_data, usd_per_eth})
+				resolve({ token_data, lp_data, usd_per_eth })
 			} catch (e) {
 				console.error(e)
 				reject(e)
@@ -6586,17 +8780,17 @@ function get_usd_values_BSC_V2({
 async function get_number_of_stakers_BSC_V2(staking_pools_list) {
 
 	return (await Promise.all(staking_pools_list.map(contract_address => {
-		let contract = new bscWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		let contract = new bscWeb3.eth.Contract(STAKING_ABI, contract_address, { from: undefined })
 		return contract.methods.getNumberOfHolders().call()
 	}))).map(h => Number(h))
 }
 
 async function get_token_balances_BSC_V2({
-									  TOKEN_ADDRESS,
-									  HOLDERS_LIST
-								  }) {
+	TOKEN_ADDRESS,
+	HOLDERS_LIST
+}) {
 
-	let token_contract = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let token_contract = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 
 	return (await Promise.all(HOLDERS_LIST.map(h => {
 		return token_contract.methods.balanceOf(h).call()
@@ -6604,22 +8798,22 @@ async function get_token_balances_BSC_V2({
 }
 
 
-async function get_token_balances_idyp_BSC_V2({TOKEN_ADDRESS, HOLDERS_LIST}) {
+async function get_token_balances_idyp_BSC_V2({ TOKEN_ADDRESS, HOLDERS_LIST }) {
 
-	let token_contract = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let token_contract = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 	return token_contract.methods.balanceOf(HOLDERS_LIST).call()
 }
 
 async function get_to_be_burnt_bsc(staking_pools_list) {
 
 	return (await Promise.all(staking_pools_list.map(contract_address => {
-		let contract = new bscWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		let contract = new bscWeb3.eth.Contract(STAKING_ABI, contract_address, { from: undefined })
 		return contract.methods.tokensToBeDisbursedOrBurnt().call()
 	}))).map(h => Number(h))
 }
 
 async function get_apy_and_tvl_BSC_V2(usd_values) {
-	let {token_data, lp_data, usd_per_eth} = usd_values
+	let { token_data, lp_data, usd_per_eth } = usd_values
 
 	let magic_number = [
 		"2004008016031955", // 0.2%
@@ -6637,8 +8831,8 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 		"50"
 	]
 
-	let token_price_usd = token_data[TOKEN_ADDRESS_IDYP].token_price_usd*1
-	let dyp_price = token_data[TOKEN_ADDRESS].token_price_usd*1
+	let token_price_usd = token_data[TOKEN_ADDRESS_IDYP].token_price_usd * 1
+	let dyp_price = token_data[TOKEN_ADDRESS].token_price_usd * 1
 	let balances_by_address = {},
 		number_of_holders_by_address = {},
 		magic_number_of_pools = {},
@@ -6648,7 +8842,7 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 	let lp_ids = Object.keys(lp_data)
 	let pair_addrs = lp_ids.map(a => a.split('-')[0])
 	let addrs = lp_ids.map(a => a.split('-')[1])
-	let token_balances = await get_token_balances_BSC_V2({TOKEN_ADDRESS, HOLDERS_LIST: addrs})
+	let token_balances = await get_token_balances_BSC_V2({ TOKEN_ADDRESS, HOLDERS_LIST: addrs })
 	addrs.forEach((addr, i) => balances_by_address[addr] = token_balances[i])
 	addrs.forEach((addr, i) => apr_for_each_pool[addr] = apr_staking[i])
 
@@ -6667,16 +8861,16 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 	//console.log(tokens_to_be_burnt_by_pool)
 
 	//Get Balance of IDYP for each Pool in order to calculate the maxSwappableAmount.
-	let number_of_idyp_on_pair = await get_token_balances_idyp_BSC_V2({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: pair_addrs[0]})
+	let number_of_idyp_on_pair = await get_token_balances_idyp_BSC_V2({ TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: pair_addrs[0] })
 
 	lp_ids.forEach(lp_id => {
 		let apy = 0, tvl_usd = 0, apyFarming = 0, TOKENS_DISBURSED = 0, apyStaking = 0
 
 		let pool_address = lp_id.split('-')[1]
 		let token_balance = new BigNumber(balances_by_address[pool_address] || 0)
-		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2)*1
+		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2) * 1
 
-		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked*1
+		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked * 1
 
 		//apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC_V2[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
 
@@ -6685,18 +8879,18 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 		let to_be_distributed = TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC_V2[lp_id] / 365
 		let sum = new BigNumber(tokens_to_be_burnt_by_pool[pool_address]).div(1e18).plus(to_be_distributed).toFixed(0)
 
-		if(parseInt(sum) >= parseInt(maxSwappableAmount)){
+		if (parseInt(sum) >= parseInt(maxSwappableAmount)) {
 			TOKENS_DISBURSED = new BigNumber(maxSwappableAmount).multipliedBy(365).toFixed(0)
-		} else if(parseInt(sum) < parseInt(maxSwappableAmount)) {
+		} else if (parseInt(sum) < parseInt(maxSwappableAmount)) {
 			TOKENS_DISBURSED = new BigNumber(sum).multipliedBy(365).toFixed(0)
 		}
 
-		apyFarming = (TOKENS_DISBURSED * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+		apyFarming = (TOKENS_DISBURSED * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2) * 1
 		//console.log({sum, maxSwappableAmount, TOKENS_DISBURSED, apyFarming})
 
-		apyStaking = new BigNumber(0.25).div(dyp_price).times(apr_for_each_pool[pool_address]).div(1e2).times(token_price_usd).times(1e2).toFixed(2)*1
+		apyStaking = new BigNumber(0.25).div(dyp_price).times(apr_for_each_pool[pool_address]).div(1e2).times(token_price_usd).times(1e2).toFixed(2) * 1
 
-		apy = new BigNumber(apyFarming).multipliedBy(0.75).plus(apyStaking*0.25).toFixed(2)*1
+		apy = new BigNumber(apyFarming).multipliedBy(0.75).plus(apyStaking * 0.25).toFixed(2) * 1
 
 		lp_data[lp_id].apy = apy
 		lp_data[lp_id].apyFarming = apyFarming
@@ -6705,7 +8899,7 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 	})
 
-	return {token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS}
+	return { token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS }
 }
 
 async function get_usd_values_with_apy_and_tvl_BSC_V2(...arguments) {
@@ -6716,7 +8910,7 @@ let last_update_time_v2 = 0
 
 async function refresh_the_graph_result_BSC_V2() {
 	last_update_time_v2 = Date.now()
-	let result = await get_usd_values_with_apy_and_tvl_BSC_V2({token_contract_addresses: [TOKEN_ADDRESS, TOKEN_ADDRESS_IDYP], lp_ids: LP_ID_LIST_BSC_V2})
+	let result = await get_usd_values_with_apy_and_tvl_BSC_V2({ token_contract_addresses: [TOKEN_ADDRESS, TOKEN_ADDRESS_IDYP], lp_ids: LP_ID_LIST_BSC_V2 })
 	the_graph_result_BSC_V2 = result
 	//window.TVL_FARMING_POOLS = await refreshBalance()
 	return result
@@ -6753,14 +8947,14 @@ const newContracts = [
 	"0xbd574278fEbad04b7A0694C37DeF4f2ecFa9354A"
 ]
 
-async function totalTvliDYP () {
+async function totalTvliDYP() {
 	let tvliDYP = 0
 
-	let token_balances = await get_token_balances_BSC({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: newContracts})
+	let token_balances = await get_token_balances_BSC({ TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: newContracts })
 
 	await wait(2000)
 
-	for (let id of token_balances){
+	for (let id of token_balances) {
 		tvliDYP = new BigNumber(tvliDYP).plus(id)
 	}
 
@@ -6772,13 +8966,13 @@ async function totalTvliDYP () {
 
 /* TVL Staking + Farming -> DYP + LP BSC */
 
-async function totalTvlFarmingStakingV2 () {
+async function totalTvlFarmingStakingV2() {
 	let tvlTotal = 0
 	let tvlStaking = 0
 
 	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
 
-	let token_balances = await get_token_balances_BSC({TOKEN_ADDRESS: TOKEN_ADDRESS, HOLDERS_LIST: newContracts})
+	let token_balances = await get_token_balances_BSC({ TOKEN_ADDRESS: TOKEN_ADDRESS, HOLDERS_LIST: newContracts })
 
 	tvlTotal = tvlTotal + the_graph_result_BSC_V2.lp_data[LP_IDs_BSC_V2.wbnb[0]].tvl_usd +
 		the_graph_result_BSC_V2.lp_data[LP_IDs_BSC_V2.wbnb[1]].tvl_usd +
@@ -6786,7 +8980,7 @@ async function totalTvlFarmingStakingV2 () {
 		the_graph_result_BSC_V2.lp_data[LP_IDs_BSC_V2.wbnb[3]].tvl_usd +
 		the_graph_result_BSC_V2.lp_data[LP_IDs_BSC_V2.wbnb[4]].tvl_usd
 
-	for (let id of token_balances){
+	for (let id of token_balances) {
 		tvlStaking = new BigNumber(tvlStaking).plus(id)
 	}
 
@@ -6820,14 +9014,14 @@ const newContractsAvax = [
 	"0x9FF3DC1f7042bAF46651029C7284Fc3B93e21a4D"
 ]
 
-async function totalTvliDYPAvax () {
+async function totalTvliDYPAvax() {
 	let tvliDYP = 0
 
-	let token_balances = await get_token_balances_AVAX_V2({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: newContractsAvax})
+	let token_balances = await get_token_balances_AVAX_V2({ TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: newContractsAvax })
 
 	await wait(2000)
 
-	for (let id of token_balances){
+	for (let id of token_balances) {
 		tvliDYP = new BigNumber(tvliDYP).plus(id)
 	}
 
@@ -6839,13 +9033,13 @@ async function totalTvliDYPAvax () {
 
 /* TVL Staking + Farming -> DYP + LP AVAX */
 
-async function totalTvlFarmingStakingAvaxV2 () {
+async function totalTvlFarmingStakingAvaxV2() {
 	let tvlTotal = 0
 	let tvlStaking = 0
 
 	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
 
-	let token_balances = await get_token_balances_AVAX_V2({TOKEN_ADDRESS: TOKEN_ADDRESS, HOLDERS_LIST: newContractsAvax})
+	let token_balances = await get_token_balances_AVAX_V2({ TOKEN_ADDRESS: TOKEN_ADDRESS, HOLDERS_LIST: newContractsAvax })
 
 	tvlTotal = tvlTotal + the_graph_result_AVAX_V2.lp_data[LP_IDs_AVAX_V2.wavax[0]].tvl_usd +
 		the_graph_result_AVAX_V2.lp_data[LP_IDs_AVAX_V2.wavax[1]].tvl_usd +
@@ -6853,7 +9047,7 @@ async function totalTvlFarmingStakingAvaxV2 () {
 		the_graph_result_AVAX_V2.lp_data[LP_IDs_AVAX_V2.wavax[3]].tvl_usd +
 		the_graph_result_AVAX_V2.lp_data[LP_IDs_AVAX_V2.wavax[4]].tvl_usd
 
-	for (let id of token_balances){
+	for (let id of token_balances) {
 		tvlStaking = new BigNumber(tvlStaking).plus(id)
 	}
 
@@ -6888,14 +9082,14 @@ const newContractsEth = [
 	"0x1aB008CbfC99d0CA7e3FD8987ce1ebf832506F53"
 ]
 
-async function totalTvliDYPEth () {
+async function totalTvliDYPEth() {
 	let tvliDYP = 0
 
-	let token_balances = await get_token_balances_ETH_V2({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: newContractsEth})
+	let token_balances = await get_token_balances_ETH_V2({ TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: newContractsEth })
 
 	await wait(2000)
 
-	for (let id of token_balances){
+	for (let id of token_balances) {
 		tvliDYP = new BigNumber(tvliDYP).plus(id)
 	}
 
@@ -6907,13 +9101,13 @@ async function totalTvliDYPEth () {
 
 /* TVL Staking + Farming -> DYP + LP ETH V2 */
 
-async function totalTvlFarmingStakingEthV2 () {
+async function totalTvlFarmingStakingEthV2() {
 	let tvlTotal = 0
 	let tvlStaking = 0
 
 	let [usdPerToken] = await Promise.all([getPrice('defi-yield-protocol')])
 
-	let token_balances = await get_token_balances_AVAX_V2({TOKEN_ADDRESS: TOKEN_ADDRESS, HOLDERS_LIST: newContractsEth})
+	let token_balances = await get_token_balances_AVAX_V2({ TOKEN_ADDRESS: TOKEN_ADDRESS, HOLDERS_LIST: newContractsEth })
 
 	tvlTotal = tvlTotal + the_graph_result_ETH_V2.lp_data[LP_IDs_ETH_V2.weth[0]].tvl_usd +
 		the_graph_result_ETH_V2.lp_data[LP_IDs_ETH_V2.weth[1]].tvl_usd +
@@ -6921,7 +9115,7 @@ async function totalTvlFarmingStakingEthV2 () {
 		the_graph_result_ETH_V2.lp_data[LP_IDs_ETH_V2.weth[3]].tvl_usd +
 		the_graph_result_ETH_V2.lp_data[LP_IDs_ETH_V2.weth[4]].tvl_usd
 
-	for (let id of token_balances){
+	for (let id of token_balances) {
 		tvlStaking = new BigNumber(tvlStaking).plus(id)
 	}
 
@@ -7016,10 +9210,10 @@ const HOLDERS_LIST_IDYP_ETH = [
 ]
 
 async function get_token_balances_bsc({
-										  TOKEN_ADDRESS,
-										  HOLDERS_LIST
-									  }) {
-	let token_contract = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	TOKEN_ADDRESS,
+	HOLDERS_LIST
+}) {
+	let token_contract = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 
 	return (await Promise.all(HOLDERS_LIST.map(h => {
 		return token_contract.methods.balanceOf(h).call()
@@ -7033,10 +9227,10 @@ let last_update_time_idyp = 0;
 let circulating_supply_idyp = 0;
 async function update_token_balance_sum_bsc() {
 	last_update_time_idyp = Date.now()
-	token_balance_sum_idyp = get_token_balances_sum( await get_token_balances_bsc({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: HOLDERS_LIST_IDYP}) ).div(1e18).toString(10)
+	token_balance_sum_idyp = get_token_balances_sum(await get_token_balances_bsc({ TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: HOLDERS_LIST_IDYP })).div(1e18).toString(10)
 
-	token_balance_sum_idyp_eth = get_token_balances_sum( await get_token_balances({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: HOLDERS_LIST_IDYP_ETH}) ).div(1e18).toString(10)
-	token_balance_sum_idyp_avax = get_token_balances_sum( await get_token_balances_AVAX({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: HOLDERS_LIST_IDYP_AVAX}) ).div(1e18).toString(10)
+	token_balance_sum_idyp_eth = get_token_balances_sum(await get_token_balances({ TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: HOLDERS_LIST_IDYP_ETH })).div(1e18).toString(10)
+	token_balance_sum_idyp_avax = get_token_balances_sum(await get_token_balances_AVAX({ TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: HOLDERS_LIST_IDYP_AVAX })).div(1e18).toString(10)
 	let circulating_supply_eth = new BigNumber(286413839).minus(token_balance_sum_idyp_eth) //bridge
 	let circulating_supply_avax = new BigNumber(296413839).minus(token_balance_sum_idyp_avax) //bridge
 	// circulating_supply = new BigNumber(30000000).minus(token_balance_sum).plus(circulating_supply_bsc).plus(circulating_supply_avax)
@@ -7063,29 +9257,29 @@ const TOKENS_DISBURSED_PER_YEAR_AVAX_V2 = [
 ]
 
 const LP_IDs_AVAX_V2 =
-	{
-		"wavax": [
-			"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x035d65babf595758d7a439d5870badc44218d028",
-			"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x6c325dfea0d18387d423c869e328ef005cba024f",
-			"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x85c4f0cea0994de365dc47ba22dd0fd9899f93ab",
-			"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x6f5dc6777b2b4667bf183d093111867239518af5",
-			"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x10e105676cac55b74cb6500a8fb5d2f84804393d",
-		]
-	}
+{
+	"wavax": [
+		"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x035d65babf595758d7a439d5870badc44218d028",
+		"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x6c325dfea0d18387d423c869e328ef005cba024f",
+		"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x85c4f0cea0994de365dc47ba22dd0fd9899f93ab",
+		"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x6f5dc6777b2b4667bf183d093111867239518af5",
+		"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x10e105676cac55b74cb6500a8fb5d2f84804393d",
+	]
+}
 
 const LP_ID_LIST_AVAX_V2 = Object.keys(LP_IDs_AVAX_V2).map(key => LP_IDs_AVAX_V2[key]).flat()
 const TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX_V2 = {}
 LP_ID_LIST_AVAX_V2.forEach((lp_id, i) => TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX_V2[lp_id] = TOKENS_DISBURSED_PER_YEAR_AVAX_V2[i])
 
-PANGOLIN_ROUTER_ABI = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WAVAX","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WAVAX","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"amountADesired","type":"uint256"},{"internalType":"uint256","name":"amountBDesired","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountTokenDesired","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountAVAXMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidityAVAX","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountAVAX","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountIn","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountOut","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"reserveA","type":"uint256"},{"internalType":"uint256","name":"reserveB","type":"uint256"}],"name":"quote","outputs":[{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountAVAXMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityAVAX","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountAVAX","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountAVAXMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityAVAXSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountAVAX","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountAVAXMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityAVAXWithPermit","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountAVAX","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountAVAXMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityAVAXWithPermitSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountAVAX","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityWithPermit","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapAVAXForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactAVAXForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactAVAXForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForAVAX","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForAVAXSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactAVAX","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
-async function getPangolinRouterContract(address=config.pangolin_router_address) {
-	return (new avaxWeb3.eth.Contract(PANGOLIN_ROUTER_ABI, address, {from: undefined}))
+PANGOLIN_ROUTER_ABI = [{ "inputs": [{ "internalType": "address", "name": "_factory", "type": "address" }, { "internalType": "address", "name": "_WAVAX", "type": "address" }], "stateMutability": "nonpayable", "type": "constructor" }, { "inputs": [], "name": "WAVAX", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "tokenA", "type": "address" }, { "internalType": "address", "name": "tokenB", "type": "address" }, { "internalType": "uint256", "name": "amountADesired", "type": "uint256" }, { "internalType": "uint256", "name": "amountBDesired", "type": "uint256" }, { "internalType": "uint256", "name": "amountAMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountBMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "addLiquidity", "outputs": [{ "internalType": "uint256", "name": "amountA", "type": "uint256" }, { "internalType": "uint256", "name": "amountB", "type": "uint256" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "amountTokenDesired", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountAVAXMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "addLiquidityAVAX", "outputs": [{ "internalType": "uint256", "name": "amountToken", "type": "uint256" }, { "internalType": "uint256", "name": "amountAVAX", "type": "uint256" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }], "stateMutability": "payable", "type": "function" }, { "inputs": [], "name": "factory", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "uint256", "name": "reserveIn", "type": "uint256" }, { "internalType": "uint256", "name": "reserveOut", "type": "uint256" }], "name": "getAmountIn", "outputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }], "stateMutability": "pure", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "reserveIn", "type": "uint256" }, { "internalType": "uint256", "name": "reserveOut", "type": "uint256" }], "name": "getAmountOut", "outputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }], "stateMutability": "pure", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }], "name": "getAmountsIn", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }], "name": "getAmountsOut", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountA", "type": "uint256" }, { "internalType": "uint256", "name": "reserveA", "type": "uint256" }, { "internalType": "uint256", "name": "reserveB", "type": "uint256" }], "name": "quote", "outputs": [{ "internalType": "uint256", "name": "amountB", "type": "uint256" }], "stateMutability": "pure", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "tokenA", "type": "address" }, { "internalType": "address", "name": "tokenB", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountAMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountBMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "removeLiquidity", "outputs": [{ "internalType": "uint256", "name": "amountA", "type": "uint256" }, { "internalType": "uint256", "name": "amountB", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountAVAXMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "removeLiquidityAVAX", "outputs": [{ "internalType": "uint256", "name": "amountToken", "type": "uint256" }, { "internalType": "uint256", "name": "amountAVAX", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountAVAXMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "removeLiquidityAVAXSupportingFeeOnTransferTokens", "outputs": [{ "internalType": "uint256", "name": "amountAVAX", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountAVAXMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }, { "internalType": "bool", "name": "approveMax", "type": "bool" }, { "internalType": "uint8", "name": "v", "type": "uint8" }, { "internalType": "bytes32", "name": "r", "type": "bytes32" }, { "internalType": "bytes32", "name": "s", "type": "bytes32" }], "name": "removeLiquidityAVAXWithPermit", "outputs": [{ "internalType": "uint256", "name": "amountToken", "type": "uint256" }, { "internalType": "uint256", "name": "amountAVAX", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountAVAXMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }, { "internalType": "bool", "name": "approveMax", "type": "bool" }, { "internalType": "uint8", "name": "v", "type": "uint8" }, { "internalType": "bytes32", "name": "r", "type": "bytes32" }, { "internalType": "bytes32", "name": "s", "type": "bytes32" }], "name": "removeLiquidityAVAXWithPermitSupportingFeeOnTransferTokens", "outputs": [{ "internalType": "uint256", "name": "amountAVAX", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "tokenA", "type": "address" }, { "internalType": "address", "name": "tokenB", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountAMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountBMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }, { "internalType": "bool", "name": "approveMax", "type": "bool" }, { "internalType": "uint8", "name": "v", "type": "uint8" }, { "internalType": "bytes32", "name": "r", "type": "bytes32" }, { "internalType": "bytes32", "name": "s", "type": "bytes32" }], "name": "removeLiquidityWithPermit", "outputs": [{ "internalType": "uint256", "name": "amountA", "type": "uint256" }, { "internalType": "uint256", "name": "amountB", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapAVAXForExactTokens", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactAVAXForTokens", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactAVAXForTokensSupportingFeeOnTransferTokens", "outputs": [], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactTokensForAVAX", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactTokensForAVAXSupportingFeeOnTransferTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactTokensForTokens", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactTokensForTokensSupportingFeeOnTransferTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "uint256", "name": "amountInMax", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapTokensForExactAVAX", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "uint256", "name": "amountInMax", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapTokensForExactTokens", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "nonpayable", "type": "function" }, { "stateMutability": "payable", "type": "receive" }]
+async function getPangolinRouterContract(address = config.pangolin_router_address) {
+	return (new avaxWeb3.eth.Contract(PANGOLIN_ROUTER_ABI, address, { from: undefined }))
 }
 
 function get_usd_values_AVAX_V2({
-								   token_contract_addresses,
-								   lp_ids,
-							   }) {
+	token_contract_addresses,
+	lp_ids,
+}) {
 	return new Promise(async (resolve, reject) => {
 
 		let usd_per_eth = await getPrice(config.cg_ids_avax['main'])
@@ -7111,11 +9305,11 @@ function get_usd_values_AVAX_V2({
 			let token_price_usd = 0
 			for (let id of token_contract_addresses) {
 				//Add the price from iDYP
-				if(id==TOKEN_ADDRESS)
+				if (id == TOKEN_ADDRESS)
 					token_price_usd = await getPrice(config.cg_ids_avax[id])
 				else
 					token_price_usd = parseFloat(_amountOutMin)
-				tokens.push({id, token_price_usd})
+				tokens.push({ id, token_price_usd })
 			}
 
 			let platformTokenContract = {}
@@ -7123,22 +9317,22 @@ function get_usd_values_AVAX_V2({
 				let pairAddress = lp_id.split('-')[0]
 				let stakingContractAddress = lp_id.split('-')[1]
 
-				if (pairAddress == '0x66eecc97203704d9e2db4a431cb0e9ce92539d5a'){
-					platformTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address2, {from: undefined})
+				if (pairAddress == '0x66eecc97203704d9e2db4a431cb0e9ce92539d5a') {
+					platformTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address2, { from: undefined })
 					usdPerPlatformToken = _amountOutMin
 				}
 				else {
-					platformTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
+					platformTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, { from: undefined })
 					usdPerPlatformToken = aux_Price
 				}
 
-				let pairTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, pairAddress, {from: undefined})
+				let pairTokenContract = new avaxWeb3.eth.Contract(TOKEN_ABI, pairAddress, { from: undefined })
 
 				let [lpTotalSupply, stakingLpBalance, platformTokenInLp] = await Promise.all([pairTokenContract.methods.totalSupply().call(), pairTokenContract.methods.balanceOf(stakingContractAddress).call(), platformTokenContract.methods.balanceOf(pairAddress).call()])
 
-				let usd_per_lp = platformTokenInLp / 1e18 * usdPerPlatformToken * 2  / (lpTotalSupply/1e18)
-				let usd_value_of_lp_staked = stakingLpBalance/1e18*usd_per_lp
-				let lp_staked = stakingLpBalance/1e18
+				let usd_per_lp = platformTokenInLp / 1e18 * usdPerPlatformToken * 2 / (lpTotalSupply / 1e18)
+				let usd_value_of_lp_staked = stakingLpBalance / 1e18 * usd_per_lp
+				let lp_staked = stakingLpBalance / 1e18
 				let id = lp_id
 				liquidityPositions.push({
 					id,
@@ -7147,9 +9341,11 @@ function get_usd_values_AVAX_V2({
 					lp_staked
 				})
 			}
-			return {data: {
+			return {
+				data: {
 					tokens, liquidityPositions
-				}}
+				}
+			}
 		}
 
 		getData(token_contract_addresses.map(a => a.toLowerCase()), lp_ids.map(a => a.toLowerCase()))
@@ -7173,7 +9369,7 @@ function get_usd_values_AVAX_V2({
 				data.liquidityPositions.forEach(lp => {
 					lp_data[lp.id] = lp
 				})
-				resolve({token_data, lp_data, usd_per_eth})
+				resolve({ token_data, lp_data, usd_per_eth })
 			} catch (e) {
 				console.error(e)
 				reject(e)
@@ -7190,39 +9386,39 @@ function get_usd_values_AVAX_V2({
 async function get_number_of_stakers_AVAX_V2(staking_pools_list) {
 
 	return (await Promise.all(staking_pools_list.map(contract_address => {
-		let contract = new avaxWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		let contract = new avaxWeb3.eth.Contract(STAKING_ABI, contract_address, { from: undefined })
 		return contract.methods.getNumberOfHolders().call()
 	}))).map(h => Number(h))
 }
 
 async function get_token_balances_AVAX_V2({
-											 TOKEN_ADDRESS,
-											 HOLDERS_LIST
-										 }) {
+	TOKEN_ADDRESS,
+	HOLDERS_LIST
+}) {
 
-	let token_contract = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let token_contract = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 
 	return (await Promise.all(HOLDERS_LIST.map(h => {
 		return token_contract.methods.balanceOf(h).call()
 	})))
 }
 
-async function get_token_balances_idyp_AVAX_V2({TOKEN_ADDRESS, HOLDERS_LIST}) {
+async function get_token_balances_idyp_AVAX_V2({ TOKEN_ADDRESS, HOLDERS_LIST }) {
 
-	let token_contract = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let token_contract = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 	return token_contract.methods.balanceOf(HOLDERS_LIST).call()
 }
 
 async function get_to_be_burnt_avax(staking_pools_list) {
 
 	return (await Promise.all(staking_pools_list.map(contract_address => {
-		let contract = new avaxWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		let contract = new avaxWeb3.eth.Contract(STAKING_ABI, contract_address, { from: undefined })
 		return contract.methods.tokensToBeDisbursedOrBurnt().call()
 	}))).map(h => Number(h))
 }
 
 async function get_apy_and_tvl_AVAX_V2(usd_values) {
-	let {token_data, lp_data, usd_per_eth} = usd_values
+	let { token_data, lp_data, usd_per_eth } = usd_values
 
 	let magic_number = [
 		"2004008016031955", // 0.2%
@@ -7240,8 +9436,8 @@ async function get_apy_and_tvl_AVAX_V2(usd_values) {
 		"50"
 	]
 
-	let token_price_usd = token_data[TOKEN_ADDRESS_IDYP].token_price_usd*1
-	let dyp_price = token_data[TOKEN_ADDRESS].token_price_usd*1
+	let token_price_usd = token_data[TOKEN_ADDRESS_IDYP].token_price_usd * 1
+	let dyp_price = token_data[TOKEN_ADDRESS].token_price_usd * 1
 	let balances_by_address = {},
 		number_of_holders_by_address = {},
 		magic_number_of_pools = {},
@@ -7251,7 +9447,7 @@ async function get_apy_and_tvl_AVAX_V2(usd_values) {
 	let lp_ids = Object.keys(lp_data)
 	let pair_addrs = lp_ids.map(a => a.split('-')[0])
 	let addrs = lp_ids.map(a => a.split('-')[1])
-	let token_balances = await get_token_balances_AVAX_V2({TOKEN_ADDRESS, HOLDERS_LIST: addrs})
+	let token_balances = await get_token_balances_AVAX_V2({ TOKEN_ADDRESS, HOLDERS_LIST: addrs })
 	addrs.forEach((addr, i) => balances_by_address[addr] = token_balances[i])
 	addrs.forEach((addr, i) => apr_for_each_pool[addr] = apr_staking[i])
 
@@ -7269,16 +9465,16 @@ async function get_apy_and_tvl_AVAX_V2(usd_values) {
 	//console.log(tokens_to_be_burnt_by_pool)
 
 	//Get Balance of IDYP for each Pool in order to calculate the maxSwappableAmount.
-	let number_of_idyp_on_pair = await get_token_balances_idyp_AVAX_V2({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: pair_addrs[0]})
+	let number_of_idyp_on_pair = await get_token_balances_idyp_AVAX_V2({ TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: pair_addrs[0] })
 
 	lp_ids.forEach(lp_id => {
 		let apy = 0, tvl_usd = 0, apyFarming = 0, apyStaking = 0, TOKENS_DISBURSED = 0
 
 		let pool_address = lp_id.split('-')[1]
 		let token_balance = new BigNumber(balances_by_address[pool_address] || 0)
-		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2)*1
+		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2) * 1
 
-		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked*1
+		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked * 1
 
 		//apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX_V2[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
 
@@ -7287,17 +9483,17 @@ async function get_apy_and_tvl_AVAX_V2(usd_values) {
 		let to_be_distributed = TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX_V2[lp_id] / 365
 		let sum = new BigNumber(tokens_to_be_burnt_by_pool[pool_address]).div(1e18).plus(to_be_distributed).toFixed(0)
 
-		if(parseInt(sum) >= parseInt(maxSwappableAmount)){
+		if (parseInt(sum) >= parseInt(maxSwappableAmount)) {
 			TOKENS_DISBURSED = new BigNumber(maxSwappableAmount).multipliedBy(365).toFixed(0)
-		} else if(parseInt(sum) < parseInt(maxSwappableAmount)) {
+		} else if (parseInt(sum) < parseInt(maxSwappableAmount)) {
 			TOKENS_DISBURSED = new BigNumber(sum).multipliedBy(365).toFixed(0)
 		}
 
-		apyFarming = (TOKENS_DISBURSED * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+		apyFarming = (TOKENS_DISBURSED * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2) * 1
 
-		apyStaking = new BigNumber(0.25).div(dyp_price).times(apr_for_each_pool[pool_address]).div(1e2).times(token_price_usd).times(1e2).toFixed(2)*1
+		apyStaking = new BigNumber(0.25).div(dyp_price).times(apr_for_each_pool[pool_address]).div(1e2).times(token_price_usd).times(1e2).toFixed(2) * 1
 
-		apy = new BigNumber(apyFarming).multipliedBy(0.75).plus(apyStaking*0.25).toFixed(2)*1
+		apy = new BigNumber(apyFarming).multipliedBy(0.75).plus(apyStaking * 0.25).toFixed(2) * 1
 
 		//console.log({sum, maxSwappableAmount, TOKENS_DISBURSED, apyFarming})
 
@@ -7308,7 +9504,7 @@ async function get_apy_and_tvl_AVAX_V2(usd_values) {
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 	})
 
-	return {token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS}
+	return { token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS }
 }
 
 async function get_usd_values_with_apy_and_tvl_AVAX_V2(...arguments) {
@@ -7319,7 +9515,7 @@ let last_update_time_avax_v2 = 0
 
 async function refresh_the_graph_result_AVAX_V2() {
 	last_update_time_avax_v2 = Date.now()
-	let result = await get_usd_values_with_apy_and_tvl_AVAX_V2({token_contract_addresses: [TOKEN_ADDRESS, TOKEN_ADDRESS_IDYP], lp_ids: LP_ID_LIST_AVAX_V2})
+	let result = await get_usd_values_with_apy_and_tvl_AVAX_V2({ token_contract_addresses: [TOKEN_ADDRESS, TOKEN_ADDRESS_IDYP], lp_ids: LP_ID_LIST_AVAX_V2 })
 	the_graph_result_AVAX_V2 = result
 	//window.TVL_FARMING_POOLS = await refreshBalance()
 	return result
@@ -7342,29 +9538,29 @@ const TOKENS_DISBURSED_PER_YEAR_ETH_V2 = [
 ]
 
 const LP_IDs_ETH_V2 =
-	{
-		"weth": [
-			"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0xa68bbe793ad52d0e62bbf34a67f02235ba69e737",
-			"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0xcfd970494a0b3c52a81dce1ecbff2245e6b0b0e7",
-			"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0x49d02cf81cc352517350f25e200365360426af94",
-			"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0xf51965c570419f2576ec9aead6a3c5f674424a99",
-			"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0x997a7254e5567d0a70329defcc1e4d29d71ba224",
-		]
-	}
+{
+	"weth": [
+		"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0xa68bbe793ad52d0e62bbf34a67f02235ba69e737",
+		"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0xcfd970494a0b3c52a81dce1ecbff2245e6b0b0e7",
+		"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0x49d02cf81cc352517350f25e200365360426af94",
+		"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0xf51965c570419f2576ec9aead6a3c5f674424a99",
+		"0x7463286a379f6f128058bb92b355e3d6e8bdb219-0x997a7254e5567d0a70329defcc1e4d29d71ba224",
+	]
+}
 
 const LP_ID_LIST_ETH_V2 = Object.keys(LP_IDs_ETH_V2).map(key => LP_IDs_ETH_V2[key]).flat()
 const TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_ETH_V2 = {}
 LP_ID_LIST_ETH_V2.forEach((lp_id, i) => TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_ETH_V2[lp_id] = TOKENS_DISBURSED_PER_YEAR_ETH_V2[i])
 
-UNISWAP_ROUTER_ABI = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"amountADesired","type":"uint256"},{"internalType":"uint256","name":"amountBDesired","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountTokenDesired","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountIn","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountOut","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"reserveA","type":"uint256"},{"internalType":"uint256","name":"reserveB","type":"uint256"}],"name":"quote","outputs":[{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETHSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermit","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermitSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityWithPermit","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapETHForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETHSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
-async function getUniswapRouterContract(address=config.uniswap_router_address) {
-	return (new infuraWeb3.eth.Contract(UNISWAP_ROUTER_ABI, address, {from: undefined}))
+UNISWAP_ROUTER_ABI = [{ "inputs": [{ "internalType": "address", "name": "_factory", "type": "address" }, { "internalType": "address", "name": "_WETH", "type": "address" }], "stateMutability": "nonpayable", "type": "constructor" }, { "inputs": [], "name": "WETH", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "tokenA", "type": "address" }, { "internalType": "address", "name": "tokenB", "type": "address" }, { "internalType": "uint256", "name": "amountADesired", "type": "uint256" }, { "internalType": "uint256", "name": "amountBDesired", "type": "uint256" }, { "internalType": "uint256", "name": "amountAMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountBMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "addLiquidity", "outputs": [{ "internalType": "uint256", "name": "amountA", "type": "uint256" }, { "internalType": "uint256", "name": "amountB", "type": "uint256" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "amountTokenDesired", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountETHMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "addLiquidityETH", "outputs": [{ "internalType": "uint256", "name": "amountToken", "type": "uint256" }, { "internalType": "uint256", "name": "amountETH", "type": "uint256" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }], "stateMutability": "payable", "type": "function" }, { "inputs": [], "name": "factory", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "uint256", "name": "reserveIn", "type": "uint256" }, { "internalType": "uint256", "name": "reserveOut", "type": "uint256" }], "name": "getAmountIn", "outputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }], "stateMutability": "pure", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "reserveIn", "type": "uint256" }, { "internalType": "uint256", "name": "reserveOut", "type": "uint256" }], "name": "getAmountOut", "outputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }], "stateMutability": "pure", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }], "name": "getAmountsIn", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }], "name": "getAmountsOut", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountA", "type": "uint256" }, { "internalType": "uint256", "name": "reserveA", "type": "uint256" }, { "internalType": "uint256", "name": "reserveB", "type": "uint256" }], "name": "quote", "outputs": [{ "internalType": "uint256", "name": "amountB", "type": "uint256" }], "stateMutability": "pure", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "tokenA", "type": "address" }, { "internalType": "address", "name": "tokenB", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountAMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountBMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "removeLiquidity", "outputs": [{ "internalType": "uint256", "name": "amountA", "type": "uint256" }, { "internalType": "uint256", "name": "amountB", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountETHMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "removeLiquidityETH", "outputs": [{ "internalType": "uint256", "name": "amountToken", "type": "uint256" }, { "internalType": "uint256", "name": "amountETH", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountETHMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "removeLiquidityETHSupportingFeeOnTransferTokens", "outputs": [{ "internalType": "uint256", "name": "amountETH", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountETHMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }, { "internalType": "bool", "name": "approveMax", "type": "bool" }, { "internalType": "uint8", "name": "v", "type": "uint8" }, { "internalType": "bytes32", "name": "r", "type": "bytes32" }, { "internalType": "bytes32", "name": "s", "type": "bytes32" }], "name": "removeLiquidityETHWithPermit", "outputs": [{ "internalType": "uint256", "name": "amountToken", "type": "uint256" }, { "internalType": "uint256", "name": "amountETH", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountTokenMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountETHMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }, { "internalType": "bool", "name": "approveMax", "type": "bool" }, { "internalType": "uint8", "name": "v", "type": "uint8" }, { "internalType": "bytes32", "name": "r", "type": "bytes32" }, { "internalType": "bytes32", "name": "s", "type": "bytes32" }], "name": "removeLiquidityETHWithPermitSupportingFeeOnTransferTokens", "outputs": [{ "internalType": "uint256", "name": "amountETH", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "tokenA", "type": "address" }, { "internalType": "address", "name": "tokenB", "type": "address" }, { "internalType": "uint256", "name": "liquidity", "type": "uint256" }, { "internalType": "uint256", "name": "amountAMin", "type": "uint256" }, { "internalType": "uint256", "name": "amountBMin", "type": "uint256" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }, { "internalType": "bool", "name": "approveMax", "type": "bool" }, { "internalType": "uint8", "name": "v", "type": "uint8" }, { "internalType": "bytes32", "name": "r", "type": "bytes32" }, { "internalType": "bytes32", "name": "s", "type": "bytes32" }], "name": "removeLiquidityWithPermit", "outputs": [{ "internalType": "uint256", "name": "amountA", "type": "uint256" }, { "internalType": "uint256", "name": "amountB", "type": "uint256" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapETHForExactTokens", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactETHForTokens", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactETHForTokensSupportingFeeOnTransferTokens", "outputs": [], "stateMutability": "payable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactTokensForETH", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactTokensForETHSupportingFeeOnTransferTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactTokensForTokens", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountIn", "type": "uint256" }, { "internalType": "uint256", "name": "amountOutMin", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapExactTokensForTokensSupportingFeeOnTransferTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "uint256", "name": "amountInMax", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapTokensForExactETH", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountOut", "type": "uint256" }, { "internalType": "uint256", "name": "amountInMax", "type": "uint256" }, { "internalType": "address[]", "name": "path", "type": "address[]" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "deadline", "type": "uint256" }], "name": "swapTokensForExactTokens", "outputs": [{ "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "stateMutability": "nonpayable", "type": "function" }, { "stateMutability": "payable", "type": "receive" }]
+async function getUniswapRouterContract(address = config.uniswap_router_address) {
+	return (new infuraWeb3.eth.Contract(UNISWAP_ROUTER_ABI, address, { from: undefined }))
 }
 
 function get_usd_values_ETH_V2({
-									token_contract_addresses,
-									lp_ids,
-								}) {
+	token_contract_addresses,
+	lp_ids,
+}) {
 	return new Promise(async (resolve, reject) => {
 
 		let usd_per_eth = await getPrice(config.cg_ids_eth['main'])
@@ -7390,11 +9586,11 @@ function get_usd_values_ETH_V2({
 			let token_price_usd = 0
 			for (let id of token_contract_addresses) {
 				//Add the price from iDYP
-				if(id==TOKEN_ADDRESS)
+				if (id == TOKEN_ADDRESS)
 					token_price_usd = await getPrice(config.cg_ids_eth[id])
 				else
 					token_price_usd = parseFloat(_amountOutMin)
-				tokens.push({id, token_price_usd})
+				tokens.push({ id, token_price_usd })
 			}
 
 			let platformTokenContract = {}
@@ -7402,22 +9598,22 @@ function get_usd_values_ETH_V2({
 				let pairAddress = lp_id.split('-')[0]
 				let stakingContractAddress = lp_id.split('-')[1]
 
-				if (pairAddress == '0x7463286a379f6f128058bb92b355e3d6e8bdb219'){
-					platformTokenContract = new infuraWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address2, {from: undefined})
+				if (pairAddress == '0x7463286a379f6f128058bb92b355e3d6e8bdb219') {
+					platformTokenContract = new infuraWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address2, { from: undefined })
 					usdPerPlatformToken = _amountOutMin
 				}
 				else {
-					platformTokenContract = new infuraWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, {from: undefined})
+					platformTokenContract = new infuraWeb3.eth.Contract(TOKEN_ABI, config.reward_token_address, { from: undefined })
 					usdPerPlatformToken = aux_Price
 				}
 
-				let pairTokenContract = new infuraWeb3.eth.Contract(TOKEN_ABI, pairAddress, {from: undefined})
+				let pairTokenContract = new infuraWeb3.eth.Contract(TOKEN_ABI, pairAddress, { from: undefined })
 
 				let [lpTotalSupply, stakingLpBalance, platformTokenInLp] = await Promise.all([pairTokenContract.methods.totalSupply().call(), pairTokenContract.methods.balanceOf(stakingContractAddress).call(), platformTokenContract.methods.balanceOf(pairAddress).call()])
 
-				let usd_per_lp = platformTokenInLp / 1e18 * usdPerPlatformToken * 2  / (lpTotalSupply/1e18)
-				let usd_value_of_lp_staked = stakingLpBalance/1e18*usd_per_lp
-				let lp_staked = stakingLpBalance/1e18
+				let usd_per_lp = platformTokenInLp / 1e18 * usdPerPlatformToken * 2 / (lpTotalSupply / 1e18)
+				let usd_value_of_lp_staked = stakingLpBalance / 1e18 * usd_per_lp
+				let lp_staked = stakingLpBalance / 1e18
 				let id = lp_id
 				liquidityPositions.push({
 					id,
@@ -7426,9 +9622,11 @@ function get_usd_values_ETH_V2({
 					lp_staked
 				})
 			}
-			return {data: {
+			return {
+				data: {
 					tokens, liquidityPositions
-				}}
+				}
+			}
 		}
 
 		getData(token_contract_addresses.map(a => a.toLowerCase()), lp_ids.map(a => a.toLowerCase()))
@@ -7452,7 +9650,7 @@ function get_usd_values_ETH_V2({
 				data.liquidityPositions.forEach(lp => {
 					lp_data[lp.id] = lp
 				})
-				resolve({token_data, lp_data, usd_per_eth})
+				resolve({ token_data, lp_data, usd_per_eth })
 			} catch (e) {
 				console.error(e)
 				reject(e)
@@ -7469,39 +9667,39 @@ function get_usd_values_ETH_V2({
 async function get_number_of_stakers_ETH_V2(staking_pools_list) {
 
 	return (await Promise.all(staking_pools_list.map(contract_address => {
-		let contract = new infuraWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		let contract = new infuraWeb3.eth.Contract(STAKING_ABI, contract_address, { from: undefined })
 		return contract.methods.getNumberOfHolders().call()
 	}))).map(h => Number(h))
 }
 
 async function get_token_balances_ETH_V2({
-											  TOKEN_ADDRESS,
-											  HOLDERS_LIST
-										  }) {
+	TOKEN_ADDRESS,
+	HOLDERS_LIST
+}) {
 
-	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 
 	return (await Promise.all(HOLDERS_LIST.map(h => {
 		return token_contract.methods.balanceOf(h).call()
 	})))
 }
 
-async function get_token_balances_idyp_ETH_V2({TOKEN_ADDRESS, HOLDERS_LIST}) {
+async function get_token_balances_idyp_ETH_V2({ TOKEN_ADDRESS, HOLDERS_LIST }) {
 
-	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, {from: undefined})
+	let token_contract = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS, { from: undefined })
 	return token_contract.methods.balanceOf(HOLDERS_LIST).call()
 }
 
 async function get_to_be_burnt(staking_pools_list) {
 
 	return (await Promise.all(staking_pools_list.map(contract_address => {
-		let contract = new infuraWeb3.eth.Contract(STAKING_ABI, contract_address, {from: undefined})
+		let contract = new infuraWeb3.eth.Contract(STAKING_ABI, contract_address, { from: undefined })
 		return contract.methods.tokensToBeDisbursedOrBurnt().call()
 	}))).map(h => Number(h))
 }
 
 async function get_apy_and_tvl_ETH_V2(usd_values) {
-	let {token_data, lp_data, usd_per_eth} = usd_values
+	let { token_data, lp_data, usd_per_eth } = usd_values
 
 	// let magic_number = [
 	// 	"2004008016031955", // 0.2%
@@ -7527,8 +9725,8 @@ async function get_apy_and_tvl_ETH_V2(usd_values) {
 		"50"
 	]
 
-	let token_price_usd = token_data[TOKEN_ADDRESS_IDYP].token_price_usd*1
-	let dyp_price = token_data[TOKEN_ADDRESS].token_price_usd*1
+	let token_price_usd = token_data[TOKEN_ADDRESS_IDYP].token_price_usd * 1
+	let dyp_price = token_data[TOKEN_ADDRESS].token_price_usd * 1
 	let balances_by_address = {},
 		number_of_holders_by_address = {},
 		magic_number_of_pools = {},
@@ -7538,7 +9736,7 @@ async function get_apy_and_tvl_ETH_V2(usd_values) {
 	let lp_ids = Object.keys(lp_data)
 	let pair_addrs = lp_ids.map(a => a.split('-')[0])
 	let addrs = lp_ids.map(a => a.split('-')[1])
-	let token_balances = await get_token_balances_ETH_V2({TOKEN_ADDRESS, HOLDERS_LIST: addrs})
+	let token_balances = await get_token_balances_ETH_V2({ TOKEN_ADDRESS, HOLDERS_LIST: addrs })
 	addrs.forEach((addr, i) => balances_by_address[addr] = token_balances[i])
 	addrs.forEach((addr, i) => apr_for_each_pool[addr] = apr_staking[i])
 
@@ -7556,16 +9754,16 @@ async function get_apy_and_tvl_ETH_V2(usd_values) {
 	//console.log(tokens_to_be_burnt_by_pool)
 
 	//Get Balance of IDYP for each Pool in order to calculate the maxSwappableAmount.
-	let number_of_idyp_on_pair = await get_token_balances_idyp_ETH_V2({TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: pair_addrs[0]})
+	let number_of_idyp_on_pair = await get_token_balances_idyp_ETH_V2({ TOKEN_ADDRESS: TOKEN_ADDRESS_IDYP, HOLDERS_LIST: pair_addrs[0] })
 
 	lp_ids.forEach(lp_id => {
 		let apy = 0, apyFarming = 0, tvl_usd = 0, TOKENS_DISBURSED = 0, apyStaking = 0
 
 		let pool_address = lp_id.split('-')[1]
 		let token_balance = new BigNumber(balances_by_address[pool_address] || 0)
-		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2)*1
+		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2) * 1
 
-		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked*1
+		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked * 1
 
 		/**
 		 * TODO
@@ -7590,17 +9788,17 @@ async function get_apy_and_tvl_ETH_V2(usd_values) {
 		let to_be_distributed = TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_ETH_V2[lp_id] / 365
 		let sum = new BigNumber(tokens_to_be_burnt_by_pool[pool_address]).div(1e18).plus(to_be_distributed).toFixed(0)
 
-		if(parseInt(sum) >= parseInt(maxSwappableAmount)){
+		if (parseInt(sum) >= parseInt(maxSwappableAmount)) {
 			TOKENS_DISBURSED = new BigNumber(maxSwappableAmount).multipliedBy(365).toFixed(0)
-		} else if(parseInt(sum) < parseInt(maxSwappableAmount)) {
+		} else if (parseInt(sum) < parseInt(maxSwappableAmount)) {
 			TOKENS_DISBURSED = new BigNumber(sum).multipliedBy(365).toFixed(0)
 		}
 
-		apyFarming = (TOKENS_DISBURSED * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
+		apyFarming = (TOKENS_DISBURSED * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2) * 1
 
-		apyStaking = new BigNumber(0.25).div(dyp_price).times(apr_for_each_pool[pool_address]).div(1e2).times(token_price_usd).times(1e2).toFixed(2)*1
+		apyStaking = new BigNumber(0.25).div(dyp_price).times(apr_for_each_pool[pool_address]).div(1e2).times(token_price_usd).times(1e2).toFixed(2) * 1
 
-		apy = new BigNumber(apyFarming).multipliedBy(0.75).plus(apyStaking*0.25).toFixed(2)*1
+		apy = new BigNumber(apyFarming).multipliedBy(0.75).plus(apyStaking * 0.25).toFixed(2) * 1
 
 		//console.log({sum, maxSwappableAmount, TOKENS_DISBURSED, apyFarming})
 
@@ -7611,7 +9809,7 @@ async function get_apy_and_tvl_ETH_V2(usd_values) {
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 	})
 
-	return {token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS}
+	return { token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS }
 }
 
 async function get_usd_values_with_apy_and_tvl_ETH_V2(...arguments) {
@@ -7622,7 +9820,7 @@ let last_update_time_eth_v2 = 0
 
 async function refresh_the_graph_result_ETH_V2() {
 	last_update_time_eth_v2 = Date.now()
-	let result = await get_usd_values_with_apy_and_tvl_ETH_V2({token_contract_addresses: [TOKEN_ADDRESS, TOKEN_ADDRESS_IDYP], lp_ids: LP_ID_LIST_ETH_V2})
+	let result = await get_usd_values_with_apy_and_tvl_ETH_V2({ token_contract_addresses: [TOKEN_ADDRESS, TOKEN_ADDRESS_IDYP], lp_ids: LP_ID_LIST_ETH_V2 })
 	the_graph_result_ETH_V2 = result
 	return result
 }
@@ -7632,7 +9830,6 @@ async function firstRun() {
 	await refresh_the_graph_result()
 	await getCombinedTvlUsd_BSC()
 	await getCombinedTvlUsd_AVAX()
-
 	/* Get Price of DYPS */
 	await getPriceDYPS()
 
@@ -7640,6 +9837,17 @@ async function firstRun() {
 	await refresh_the_graph_result_BSC_V2()
 	await refresh_the_graph_result_AVAX_V2()
 	await refresh_the_graph_result_ETH_V2()
+
+
+	/* Get CAWS Floor Price & ETH Price */
+	await fecthNftFloorPrice()
+	await fecthETHPrice()
+
+
+	/* Get Staking Info */ 
+	await updateStakingTVL()
+	await updateNFTStaking()
+
 
 	/* Get Highest Apy & Total Tvl */
 	await GetHighestAPY()
@@ -7670,21 +9878,22 @@ app.get('/api/gov-stats', async (req, res) => {
 		await update_proposals()
 	}
 	res.type('application/json')
-	res.json({ proposals: {
-		bsc: bscProposals,
-		avax: avaxProposals,
-		eth: ethProposals,
-		
-	},
-		votes:{
-		bsc: bscVotes,
-		avax: avaxVotes,
-		eth: ethVotes,
-		},
-		totalVotes:totalVotes
+	res.json({
+		proposals: {
+			bsc: bscProposals,
+			avax: avaxProposals,
+			eth: ethProposals,
 
-	} )
-	
+		},
+		votes: {
+			bsc: bscVotes,
+			avax: avaxVotes,
+			eth: ethVotes,
+		},
+		totalVotes: totalVotes
+
+	})
+
 
 })
 
@@ -7853,6 +10062,99 @@ app.get('/api/get_farm_info', async (req, res) => {
 	res.type('application/json')
 	res.json({ farmInfo: farmInfo })
 })
+
+app.get('/api/get_staking_info_eth', async (req, res) => {
+
+	get_iDYP_ETH_Staking_Info()
+	get_DYP_ETH_Staking_Info()
+	get_NFT_Staking_Info()
+	get_ETH_STAKING_HIGHEST_APY()
+	res.type('application/json')
+	res.json({
+		stakingInfoiDYPEth: iDYPEthStakingInfo,
+		stakingInfoDYPEth: DYPEthStakingInfo,
+		stakingInfoCAWS: NftStakingInfo,
+		highestAPY_ETH: all_eth_apys
+	})
+})
+
+app.get('/api/get_staking_info_bnb', async (req, res) => {
+
+	get_iDYP_BNB_Staking_Info()
+	get_DYP_BNB_Staking_Info()
+	get_BNB_STAKING_HIGHEST_APY()
+	res.type('application/json')
+	res.json({
+		stakingInfoiDYPBnb: iDYPBNBStakingInfo,
+		stakingInfoDYPBnb: DYPBnbStakingInfo,
+		highestAPY_BNB: all_bsc_apys
+	})
+})
+
+app.get('/api/get_staking_info_avax', async (req, res) => {
+
+	get_iDYP_AVAX_Staking_Info()
+	get_DYP_AVAX_Staking_Info()
+	get_AVAX_STAKING_HIGHEST_APY()
+	res.type('application/json')
+	res.json({
+		stakingInfoiDYPAvax: iDYPAvaxStakingInfo,
+		stakingInfoDYPAvax: DYPAvaxStakingInfo,
+		highestAPY_AVAX: all_avax_apys
+	})
+})
+
+app.get('/api/get_buyback_info_eth', async (req, res) => {
+
+	get_ETH_Buyback_Info()
+	res.type('application/json')
+	res.json({
+		BuybackETHInfo: BuybackETHInfo,
+		BuybackHighestApy: BuybackETHhighestapy
+	})
+})
+
+app.get('/api/get_buyback_info_avax', async (req, res) => {
+
+	get_AVAX_Buyback_Info()
+	res.type('application/json')
+	res.json({
+		BuybackAVAXInfo: BuybackAVAXInfo,
+		BuybackHighestApyAVAX: BuybackAVAXhighestapy
+	})
+})
+
+app.get('/api/get_buyback_info_bnb', async (req, res) => {
+
+	get_BNB_Buyback_Info()
+	res.type('application/json')
+	res.json({
+		BuybackBNBInfo: BuybackBNBInfo,
+		BuybackHighestApyBNB: BuybackBNBhighestapy
+	})
+})
+app.get('/api/get_user_pool_info', async (req, res) => {
+	get_USER_pools()
+	res.type('application/json')
+	res.json({
+		PoolsUserIn: UserPoolsInfo
+	})
+})
+
+// app.get('/address', (req, res) => {
+
+
+// 	get_USER_pools()
+// 	Web3.eth.getAccounts((err, accounts) => {
+// 	  if (err) {
+// 		res.json({ address: "Couldn't get the address."})
+// 		// Handle the error
+// 	  } else {
+// 		// Return the user's wallet address to the client
+// 		res.json({ Pools_User_In:  })
+// 	  }
+// 	})
+//   })
 
 app.get('/api/get_farm_info_avalanche', async (req, res) => {
 
