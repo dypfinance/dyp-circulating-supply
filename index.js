@@ -6917,7 +6917,7 @@ const updateNFTStaking = async () => {
 }
 let totaltvl = 0;
 let totaltvlbsc = 0;
-let totaltvlavax =0;
+let totaltvlavax = 0;
 let totaltvlbuybackbsc = 0;
 let totaltvlbuybackavax = 0;
 let totaltvlbuybacketh = 0;
@@ -6925,11 +6925,11 @@ let totaltvlbuybacketh = 0;
 // we then calculate the tvl for each staking contract and add it to the total tvl of the platform
 const updateStakingTVL = async () => {
 	totaltvl = 0;
-totaltvlbsc = 0;
-totaltvlavax =0;
- totaltvlbuybackbsc = 0;
- totaltvlbuybackavax = 0;
- totaltvlbuybacketh = 0;
+	totaltvlbsc = 0;
+	totaltvlavax = 0;
+	totaltvlbuybackbsc = 0;
+	totaltvlbuybackavax = 0;
+	totaltvlbuybacketh = 0;
 	let token_contract_eth_1 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_ETH, { from: undefined })
 	let token_contract_eth_2 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP_ETH, { from: undefined })
 	let token_contract_bnb_1 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_BNB, { from: undefined })
@@ -7141,7 +7141,7 @@ totaltvlavax =0;
 	_tvlDYPBuybackAvax2 = _tvlDYPBuybackAvax2 / 1e18 * usdPerToken
 	_tvlDYPBuybackAvax2 = _tvlDYPBuybackAvax2 + _tvlDYPBuybackAvax2_2 / 1e18 * price_iDYP_eth
 	buybackAvaxTvl2 = _tvlDYPBuybackAvax2;
-	totaltvl= stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25
+	totaltvl = stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25
 	totaltvlbsc = stakingiDYPBnbTvl15 + stakingiDYPBnbTvl20 + stakingiDYPBnbTvl30 + stakingiDYPBnbTvl45 + stakingDYPBnbTvl1 + stakingDYPBnbTvl2 + stakingDYPBnbTvl10 + stakingDYPBnbTvl25 + stakingDYPBnbTvl30
 	totaltvlavax = stakingiDYPAvaxTvl15 + stakingiDYPAvaxTvl20 + stakingiDYPAvaxTvl30 + stakingiDYPAvaxTvl45 + stakingDYPAvaxTvl1 + stakingDYPAvaxTvl2 + stakingDYPAvaxTvl10 + stakingDYPAvaxTvl25 + stakingDYPAvaxTvl30
 	totaltvlbuybackavax = buybackAvaxTvl1 + buybackAvaxTvl2
@@ -7225,7 +7225,7 @@ const get_iDYP_ETH_Staking_Info = () => {
 	last_update_time_ethstake = Date.now();
 	//1 ora
 	iDYPEthStakingInfo = [];
-	total_eth_tvl=[];
+	total_eth_tvl = [];
 	let apy_percent = 0,
 		tvl_usd = 0,
 		link_logo = "https://app.dyp.finance/logo192.png",
@@ -7414,22 +7414,22 @@ const get_iDYP_BNB_Staking_Info = () => {
 	}
 }
 
-const get_ETH_STAKING_HIGHEST_APY= () => {
+const get_ETH_STAKING_HIGHEST_APY = () => {
 
 	let aaa = 0;
-	for(i = 1; i <= ethcounter; i++)
-		if(highestethapy[i] > aaa)
+	for (i = 1; i <= ethcounter; i++)
+		if (highestethapy[i] > aaa)
 			aaa = highestethapy[i];
-	
-		all_eth_apys.push({
-			highest_apy: aaa,
-		})
-	}
-	const get_ETH_STAKING_TOTALTVL = () => {
-		total_eth_tvl.push({
-				Total_TVL_ETH: tvltotal,
-			})
-		}
+
+	all_eth_apys.push({
+		highest_apy: aaa,
+	})
+}
+const get_ETH_STAKING_TOTALTVL = () => {
+	total_eth_tvl.push({
+		Total_TVL_ETH: tvltotal,
+	})
+}
 let DYPBnbStakingInfo = [];
 
 const get_DYP_BNB_Staking_Info = () => {
@@ -7519,17 +7519,17 @@ const get_DYP_BNB_Staking_Info = () => {
 	}
 
 }
-const get_BNB_STAKING_HIGHEST_APY= () => {
+const get_BNB_STAKING_HIGHEST_APY = () => {
 
 	let aaa = 0;
-	for(i = 1; i <= bsccounter; i++)
-		if(highestbnbapy[i] > aaa)
+	for (i = 1; i <= bsccounter; i++)
+		if (highestbnbapy[i] > aaa)
 			aaa = highestbnbapy[i];
-	
-		all_bsc_apys.push({
-			highest_apy: aaa,
-		})
-	}
+
+	all_bsc_apys.push({
+		highest_apy: aaa,
+	})
+}
 
 //idyp avax staking info
 
@@ -7680,17 +7680,17 @@ const get_DYP_AVAX_Staking_Info = () => {
 
 }
 
-const get_AVAX_STAKING_HIGHEST_APY= () => {
+const get_AVAX_STAKING_HIGHEST_APY = () => {
 
 	let aaa = 0;
-	for(i = 1; i <= avaxcounter; i++)
-		if(highestavaxapy[i] > aaa)
+	for (i = 1; i <= avaxcounter; i++)
+		if (highestavaxapy[i] > aaa)
 			aaa = highestavaxapy[i];
-	
-		all_avax_apys.push({
-			highest_apy: aaa,
-		})
-	}
+
+	all_avax_apys.push({
+		highest_apy: aaa,
+	})
+}
 //buyback eth info
 
 let BuybackETHInfo = [];
@@ -7741,7 +7741,7 @@ const get_ETH_Buyback_Info = () => {
 				.plus(apy2_buyback2)
 				.times(1e2)
 				.toFixed(0);
-				a2 = apy_percent
+			a2 = apy_percent
 		}
 
 		pool_name = IDs_buyback_eth[id].pool_name
@@ -7809,8 +7809,8 @@ const get_BNB_Buyback_Info = () => {
 				.plus(apy2_buyback1)
 				.times(1e2)
 				.toFixed(0);
-				b1 = apy_percent
-			
+			b1 = apy_percent
+
 		}
 
 		if (id == "0x4ef782e66244a0cf002016aa1db3019448c670ae") {
@@ -7819,7 +7819,7 @@ const get_BNB_Buyback_Info = () => {
 				.plus(apy2_buyback2)
 				.times(1e2)
 				.toFixed(0);
-				b2 = apy_percent
+			b2 = apy_percent
 		}
 
 		pool_name = IDs_buyback_bsc[id].pool_name
@@ -7887,7 +7887,7 @@ const get_AVAX_Buyback_Info = () => {
 				.plus(apy2_buyback1)
 				.times(1e2)
 				.toFixed(0);
-				c1 = parseFloat(apy_percent)
+			c1 = parseFloat(apy_percent)
 		}
 
 		if (id == "0x267434f01ac323C6A5BCf41Fa111701eE0165a37") {
@@ -7896,7 +7896,7 @@ const get_AVAX_Buyback_Info = () => {
 				.plus(apy2_buyback2)
 				.times(1e2)
 				.toFixed(0);
-				c2 = parseFloat(apy_percent)
+			c2 = parseFloat(apy_percent)
 		}
 
 		pool_name = IDs_buyback_avax[id].pool_name
@@ -7918,33 +7918,68 @@ const get_AVAX_Buyback_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
-			BuybackAVAXhighestapy.push({
-				highest_apy: 75
-			})
+		BuybackAVAXhighestapy.push({
+			highest_apy: 75
+		})
 
 	}
 }
 
 
-const ABI_IDYP = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"owner","type":"address"}],"name":"EmergencyDeclared","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"referrer","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"ReferralFeeTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Reinvest","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"rewardRate","type":"uint256"}],"name":"RewardRateChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"RewardsTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"StakingFeeChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"UnstakingFeeChanged","type":"event"},{"inputs":[],"name":"ADMIN_CAN_CLAIM_AFTER","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"EMERGENCY_WAIT_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LOCKUP_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REFERRAL_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_INTERVAL","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"STAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"UNSTAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"adminClaimableTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"contractStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"declareEmergency","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToWithdraw","type":"uint256"}],"name":"emergencyUnstake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"getActiveReferredStaker","outputs":[{"internalType":"address","name":"_staker","type":"address"},{"internalType":"uint256","name":"_totalEarned","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getNumberOfHolders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"referrer","type":"address"}],"name":"getNumberOfReferredStakers","outputs":[{"internalType":"uint256","name":"_activeStakers","type":"uint256"},{"internalType":"uint256","name":"_totalStakers","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"getReferredStaker","outputs":[{"internalType":"address","name":"_staker","type":"address"},{"internalType":"uint256","name":"_totalEarned","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"startIndex","type":"uint256"},{"internalType":"uint256","name":"endIndex","type":"uint256"}],"name":"getStakersList","outputs":[{"internalType":"address[]","name":"stakers","type":"address[]"},{"internalType":"uint256[]","name":"stakingTimestamps","type":"uint256[]"},{"internalType":"uint256[]","name":"lastClaimedTimeStamps","type":"uint256[]"},{"internalType":"uint256[]","name":"stakedTokens","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getTotalPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isEmergency","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastClaimedTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"reInvest","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referrals","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"rewardsPendingClaim","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"newRewardRate","type":"uint256"}],"name":"setRewardRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newStakingFeeRateX100","type":"uint256"}],"name":"setStakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newUnstakingFeeRateX100","type":"uint256"}],"name":"setUnstakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToStake","type":"uint256"},{"internalType":"address","name":"referrer","type":"address"}],"name":"stake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"stakingTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedReferralFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedRewards","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalReferralFeeEarned","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferAnyERC20Token","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferAnyLegacyERC20Token","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToWithdraw","type":"uint256"}],"name":"unstake","outputs":[],"stateMutability":"nonpayable","type":"function"}]
-const ABI_DYP_DYNAMIC = [{"inputs":[{"internalType":"address","name":"_uniswapV2RouterAddress","type":"address"},{"internalType":"address","name":"_feeRecipientAddress","type":"address"},{"internalType":"address","name":"trustedDepositTokenAddress","type":"address"},{"internalType":"address","name":"trustedRewardTokenAddress","type":"address"},{"internalType":"uint256","name":"referralFeeRateX100","type":"uint256"},{"internalType":"uint256","name":"stakingFeeRateX100","type":"uint256"},{"internalType":"uint256","name":"unstakingFeeRateX100","type":"uint256"},{"internalType":"uint256","name":"rewardRateX100","type":"uint256"},{"internalType":"uint256","name":"rewardInterval","type":"uint256"},{"internalType":"uint256","name":"lockupTime","type":"uint256"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"}],"name":"EmergencyDeclared","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"newAddress","type":"address"}],"name":"FeeRecipientAddressChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"_newLockupTime","type":"uint256"}],"name":"LockupTimeChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newFee","type":"uint256"}],"name":"ReferralFeeChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"referrer","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"ReferralFeeTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Reinvest","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"RewardsTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Stake","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newFee","type":"uint256"}],"name":"StakingFeeChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"contractAddress","type":"address"}],"name":"TrustedDepositContractAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"contractAddress","type":"address"}],"name":"TrustedDepositContractRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"router","type":"address"}],"name":"UniswapV2RouterChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Unstake","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newFee","type":"uint256"}],"name":"UnstakingFeeChanged","type":"event"},{"inputs":[],"name":"EMERGENCY_WAIT_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LOCKUP_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REFERRAL_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_INTERVAL","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"STAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_DEPOSIT_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_REWARD_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"UNSTAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"}],"name":"addTrustedDepositContractAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"adminCanClaimAfter","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"adminClaimableTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountOutMin_referralFee","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_claim","type":"uint256"},{"internalType":"uint256","name":"_deadline","type":"uint256"}],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"claimAnyToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"contractStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"declareEmergency","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_stakingReferralFee","type":"uint256"},{"internalType":"uint256","name":"_deadline","type":"uint256"}],"name":"depositByContract","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"feeRecipientAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"getActiveReferredStaker","outputs":[{"internalType":"address","name":"_staker","type":"address"},{"internalType":"uint256","name":"_totalEarned","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getNumberOfHolders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"referrer","type":"address"}],"name":"getNumberOfReferredStakers","outputs":[{"internalType":"uint256","name":"_activeStakers","type":"uint256"},{"internalType":"uint256","name":"_totalStakers","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"getReferredStaker","outputs":[{"internalType":"address","name":"_staker","type":"address"},{"internalType":"uint256","name":"_totalEarned","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"startIndex","type":"uint256"},{"internalType":"uint256","name":"endIndex","type":"uint256"}],"name":"getStakersList","outputs":[{"internalType":"address[]","name":"stakers","type":"address[]"},{"internalType":"uint256[]","name":"stakingTimestamps","type":"uint256[]"},{"internalType":"uint256[]","name":"lastClaimedTimeStamps","type":"uint256[]"},{"internalType":"uint256[]","name":"stakedTokens","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getTotalPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isEmergency","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"isTrustedDepositContract","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastClaimedTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountOutMin_referralFee","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_reinvest","type":"uint256"},{"internalType":"uint256","name":"_deadline","type":"uint256"}],"name":"reInvest","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referrals","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"}],"name":"removeTrustedDepositContractAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"rewardsPendingClaim","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"lockupTime","type":"uint256"},{"internalType":"uint256","name":"referralFeeRateX100","type":"uint256"},{"internalType":"uint256","name":"stakingFeeRateX100","type":"uint256"},{"internalType":"uint256","name":"unstakingFeeRateX100","type":"uint256"},{"internalType":"address","name":"router","type":"address"},{"internalType":"address","name":"_feeRecipientAddress","type":"address"}],"name":"setContractVariables","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newFeeRecipientAddress","type":"address"}],"name":"setFeeRecipientAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_newLockupTime","type":"uint256"}],"name":"setLockupTime","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_newReferralFeeRateX100","type":"uint256"}],"name":"setReferralFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_newStakingFeeRateX100","type":"uint256"}],"name":"setStakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract IUniswapV2Router","name":"_newUniswapV2Router","type":"address"}],"name":"setUniswapV2Router","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_newUnstakingFeeRateX100","type":"uint256"}],"name":"setUnstakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToStake","type":"uint256"},{"internalType":"address","name":"referrer","type":"address"},{"internalType":"uint256","name":"_amountOutMin_referralFee","type":"uint256"},{"internalType":"uint256","name":"_deadline","type":"uint256"}],"name":"stake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"stakingTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedReferralFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedRewards","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalReferralFeeEarned","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"uniswapV2Router","outputs":[{"internalType":"contract IUniswapV2Router","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToWithdraw","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_referralFee","type":"uint256"},{"internalType":"uint256","name":"_deadline","type":"uint256"}],"name":"unstake","outputs":[],"stateMutability":"nonpayable","type":"function"}]
-const ABI_DYP = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"owner","type":"address"}],"name":"EmergencyDeclared","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"referrer","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"ReferralFeeTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Reinvest","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"rewardRate","type":"uint256"}],"name":"RewardRateChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"RewardsTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"StakingFeeChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"UnstakingFeeChanged","type":"event"},{"inputs":[],"name":"ADMIN_CAN_CLAIM_AFTER","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"EMERGENCY_WAIT_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LOCKUP_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REFERRAL_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_INTERVAL","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"STAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"UNSTAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"adminClaimableTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"contractStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"declareEmergency","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToWithdraw","type":"uint256"}],"name":"emergencyUnstake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"getActiveReferredStaker","outputs":[{"internalType":"address","name":"_staker","type":"address"},{"internalType":"uint256","name":"_totalEarned","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getNumberOfHolders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"referrer","type":"address"}],"name":"getNumberOfReferredStakers","outputs":[{"internalType":"uint256","name":"_activeStakers","type":"uint256"},{"internalType":"uint256","name":"_totalStakers","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"getReferredStaker","outputs":[{"internalType":"address","name":"_staker","type":"address"},{"internalType":"uint256","name":"_totalEarned","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"startIndex","type":"uint256"},{"internalType":"uint256","name":"endIndex","type":"uint256"}],"name":"getStakersList","outputs":[{"internalType":"address[]","name":"stakers","type":"address[]"},{"internalType":"uint256[]","name":"stakingTimestamps","type":"uint256[]"},{"internalType":"uint256[]","name":"lastClaimedTimeStamps","type":"uint256[]"},{"internalType":"uint256[]","name":"stakedTokens","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getTotalPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isEmergency","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastClaimedTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"reInvest","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referrals","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"rewardsPendingClaim","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"newRewardRate","type":"uint256"}],"name":"setRewardRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newStakingFeeRateX100","type":"uint256"}],"name":"setStakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newUnstakingFeeRateX100","type":"uint256"}],"name":"setUnstakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToStake","type":"uint256"},{"internalType":"address","name":"referrer","type":"address"}],"name":"stake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"stakingTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedReferralFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedRewards","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalReferralFeeEarned","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferAnyERC20Token","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferAnyLegacyERC20Token","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToWithdraw","type":"uint256"}],"name":"unstake","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+const ABI_IDYP = [{ "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "owner", "type": "address" }], "name": "EmergencyDeclared", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "referrer", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "ReferralFeeTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "holder", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Reinvest", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "rewardRate", "type": "uint256" }], "name": "RewardRateChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "holder", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "RewardsTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "fee", "type": "uint256" }], "name": "StakingFeeChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "fee", "type": "uint256" }], "name": "UnstakingFeeChanged", "type": "event" }, { "inputs": [], "name": "ADMIN_CAN_CLAIM_AFTER", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "EMERGENCY_WAIT_TIME", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "LOCKUP_TIME", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REFERRAL_FEE_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REWARD_INTERVAL", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REWARD_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "STAKING_FEE_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "TRUSTED_TOKEN_ADDRESS", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "UNSTAKING_FEE_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "adminClaimableTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "claim", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "contractStartTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "declareEmergency", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "depositedTokens", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountToWithdraw", "type": "uint256" }], "name": "emergencyUnstake", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "i", "type": "uint256" }], "name": "getActiveReferredStaker", "outputs": [{ "internalType": "address", "name": "_staker", "type": "address" }, { "internalType": "uint256", "name": "_totalEarned", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "getNumberOfHolders", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "referrer", "type": "address" }], "name": "getNumberOfReferredStakers", "outputs": [{ "internalType": "uint256", "name": "_activeStakers", "type": "uint256" }, { "internalType": "uint256", "name": "_totalStakers", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_holder", "type": "address" }], "name": "getPendingDivs", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "i", "type": "uint256" }], "name": "getReferredStaker", "outputs": [{ "internalType": "address", "name": "_staker", "type": "address" }, { "internalType": "uint256", "name": "_totalEarned", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "startIndex", "type": "uint256" }, { "internalType": "uint256", "name": "endIndex", "type": "uint256" }], "name": "getStakersList", "outputs": [{ "internalType": "address[]", "name": "stakers", "type": "address[]" }, { "internalType": "uint256[]", "name": "stakingTimestamps", "type": "uint256[]" }, { "internalType": "uint256[]", "name": "lastClaimedTimeStamps", "type": "uint256[]" }, { "internalType": "uint256[]", "name": "stakedTokens", "type": "uint256[]" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_holder", "type": "address" }], "name": "getTotalPendingDivs", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "isEmergency", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "lastClaimedTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "reInvest", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "referrals", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "rewardsPendingClaim", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "newRewardRate", "type": "uint256" }], "name": "setRewardRateX100", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "newStakingFeeRateX100", "type": "uint256" }], "name": "setStakingFeeRateX100", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "newUnstakingFeeRateX100", "type": "uint256" }], "name": "setUnstakingFeeRateX100", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountToStake", "type": "uint256" }, { "internalType": "address", "name": "referrer", "type": "address" }], "name": "stake", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "stakingTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalClaimedReferralFee", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalClaimedRewards", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalEarnedTokens", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalReferralFeeEarned", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "tokenAddress", "type": "address" }, { "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transferAnyERC20Token", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "tokenAddress", "type": "address" }, { "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transferAnyLegacyERC20Token", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountToWithdraw", "type": "uint256" }], "name": "unstake", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]
+const ABI_DYP_DYNAMIC = [{ "inputs": [{ "internalType": "address", "name": "_uniswapV2RouterAddress", "type": "address" }, { "internalType": "address", "name": "_feeRecipientAddress", "type": "address" }, { "internalType": "address", "name": "trustedDepositTokenAddress", "type": "address" }, { "internalType": "address", "name": "trustedRewardTokenAddress", "type": "address" }, { "internalType": "uint256", "name": "referralFeeRateX100", "type": "uint256" }, { "internalType": "uint256", "name": "stakingFeeRateX100", "type": "uint256" }, { "internalType": "uint256", "name": "unstakingFeeRateX100", "type": "uint256" }, { "internalType": "uint256", "name": "rewardRateX100", "type": "uint256" }, { "internalType": "uint256", "name": "rewardInterval", "type": "uint256" }, { "internalType": "uint256", "name": "lockupTime", "type": "uint256" }], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "owner", "type": "address" }], "name": "EmergencyDeclared", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "newAddress", "type": "address" }], "name": "FeeRecipientAddressChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "_newLockupTime", "type": "uint256" }], "name": "LockupTimeChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "newFee", "type": "uint256" }], "name": "ReferralFeeChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "referrer", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "ReferralFeeTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "holder", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Reinvest", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "holder", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "RewardsTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "account", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Stake", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "newFee", "type": "uint256" }], "name": "StakingFeeChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "contractAddress", "type": "address" }], "name": "TrustedDepositContractAdded", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "contractAddress", "type": "address" }], "name": "TrustedDepositContractRemoved", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "router", "type": "address" }], "name": "UniswapV2RouterChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "account", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Unstake", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "newFee", "type": "uint256" }], "name": "UnstakingFeeChanged", "type": "event" }, { "inputs": [], "name": "EMERGENCY_WAIT_TIME", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "LOCKUP_TIME", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REFERRAL_FEE_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REWARD_INTERVAL", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REWARD_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "STAKING_FEE_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "TRUSTED_DEPOSIT_TOKEN_ADDRESS", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "TRUSTED_REWARD_TOKEN_ADDRESS", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "UNSTAKING_FEE_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_address", "type": "address" }], "name": "addTrustedDepositContractAddress", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "adminCanClaimAfter", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "adminClaimableTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_amountOutMin_referralFee", "type": "uint256" }, { "internalType": "uint256", "name": "_amountOutMin_claim", "type": "uint256" }, { "internalType": "uint256", "name": "_deadline", "type": "uint256" }], "name": "claim", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "claimAnyToken", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "contractStartTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "declareEmergency", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }, { "internalType": "uint256", "name": "_amountOutMin_stakingReferralFee", "type": "uint256" }, { "internalType": "uint256", "name": "_deadline", "type": "uint256" }], "name": "depositByContract", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "depositedTokens", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "feeRecipientAddress", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "i", "type": "uint256" }], "name": "getActiveReferredStaker", "outputs": [{ "internalType": "address", "name": "_staker", "type": "address" }, { "internalType": "uint256", "name": "_totalEarned", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "getNumberOfHolders", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "referrer", "type": "address" }], "name": "getNumberOfReferredStakers", "outputs": [{ "internalType": "uint256", "name": "_activeStakers", "type": "uint256" }, { "internalType": "uint256", "name": "_totalStakers", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_holder", "type": "address" }], "name": "getPendingDivs", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "i", "type": "uint256" }], "name": "getReferredStaker", "outputs": [{ "internalType": "address", "name": "_staker", "type": "address" }, { "internalType": "uint256", "name": "_totalEarned", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "startIndex", "type": "uint256" }, { "internalType": "uint256", "name": "endIndex", "type": "uint256" }], "name": "getStakersList", "outputs": [{ "internalType": "address[]", "name": "stakers", "type": "address[]" }, { "internalType": "uint256[]", "name": "stakingTimestamps", "type": "uint256[]" }, { "internalType": "uint256[]", "name": "lastClaimedTimeStamps", "type": "uint256[]" }, { "internalType": "uint256[]", "name": "stakedTokens", "type": "uint256[]" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_holder", "type": "address" }], "name": "getTotalPendingDivs", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "isEmergency", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "isTrustedDepositContract", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "lastClaimedTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_amountOutMin_referralFee", "type": "uint256" }, { "internalType": "uint256", "name": "_amountOutMin_reinvest", "type": "uint256" }, { "internalType": "uint256", "name": "_deadline", "type": "uint256" }], "name": "reInvest", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "referrals", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_address", "type": "address" }], "name": "removeTrustedDepositContractAddress", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "rewardsPendingClaim", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "lockupTime", "type": "uint256" }, { "internalType": "uint256", "name": "referralFeeRateX100", "type": "uint256" }, { "internalType": "uint256", "name": "stakingFeeRateX100", "type": "uint256" }, { "internalType": "uint256", "name": "unstakingFeeRateX100", "type": "uint256" }, { "internalType": "address", "name": "router", "type": "address" }, { "internalType": "address", "name": "_feeRecipientAddress", "type": "address" }], "name": "setContractVariables", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "newFeeRecipientAddress", "type": "address" }], "name": "setFeeRecipientAddress", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_newLockupTime", "type": "uint256" }], "name": "setLockupTime", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_newReferralFeeRateX100", "type": "uint256" }], "name": "setReferralFeeRateX100", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_newStakingFeeRateX100", "type": "uint256" }], "name": "setStakingFeeRateX100", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "contract IUniswapV2Router", "name": "_newUniswapV2Router", "type": "address" }], "name": "setUniswapV2Router", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_newUnstakingFeeRateX100", "type": "uint256" }], "name": "setUnstakingFeeRateX100", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountToStake", "type": "uint256" }, { "internalType": "address", "name": "referrer", "type": "address" }, { "internalType": "uint256", "name": "_amountOutMin_referralFee", "type": "uint256" }, { "internalType": "uint256", "name": "_deadline", "type": "uint256" }], "name": "stake", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "stakingTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalClaimedReferralFee", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalClaimedRewards", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalEarnedTokens", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalReferralFeeEarned", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "uniswapV2Router", "outputs": [{ "internalType": "contract IUniswapV2Router", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountToWithdraw", "type": "uint256" }, { "internalType": "uint256", "name": "_amountOutMin_referralFee", "type": "uint256" }, { "internalType": "uint256", "name": "_deadline", "type": "uint256" }], "name": "unstake", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]
+const ABI_DYP = [{ "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "owner", "type": "address" }], "name": "EmergencyDeclared", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "referrer", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "ReferralFeeTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "holder", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Reinvest", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "rewardRate", "type": "uint256" }], "name": "RewardRateChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "holder", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "RewardsTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "fee", "type": "uint256" }], "name": "StakingFeeChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "fee", "type": "uint256" }], "name": "UnstakingFeeChanged", "type": "event" }, { "inputs": [], "name": "ADMIN_CAN_CLAIM_AFTER", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "EMERGENCY_WAIT_TIME", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "LOCKUP_TIME", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REFERRAL_FEE_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REWARD_INTERVAL", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REWARD_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "STAKING_FEE_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "TRUSTED_TOKEN_ADDRESS", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "UNSTAKING_FEE_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "adminClaimableTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "claim", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "contractStartTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "declareEmergency", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "depositedTokens", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountToWithdraw", "type": "uint256" }], "name": "emergencyUnstake", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "i", "type": "uint256" }], "name": "getActiveReferredStaker", "outputs": [{ "internalType": "address", "name": "_staker", "type": "address" }, { "internalType": "uint256", "name": "_totalEarned", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "getNumberOfHolders", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "referrer", "type": "address" }], "name": "getNumberOfReferredStakers", "outputs": [{ "internalType": "uint256", "name": "_activeStakers", "type": "uint256" }, { "internalType": "uint256", "name": "_totalStakers", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_holder", "type": "address" }], "name": "getPendingDivs", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "i", "type": "uint256" }], "name": "getReferredStaker", "outputs": [{ "internalType": "address", "name": "_staker", "type": "address" }, { "internalType": "uint256", "name": "_totalEarned", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "startIndex", "type": "uint256" }, { "internalType": "uint256", "name": "endIndex", "type": "uint256" }], "name": "getStakersList", "outputs": [{ "internalType": "address[]", "name": "stakers", "type": "address[]" }, { "internalType": "uint256[]", "name": "stakingTimestamps", "type": "uint256[]" }, { "internalType": "uint256[]", "name": "lastClaimedTimeStamps", "type": "uint256[]" }, { "internalType": "uint256[]", "name": "stakedTokens", "type": "uint256[]" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_holder", "type": "address" }], "name": "getTotalPendingDivs", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "isEmergency", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "lastClaimedTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "reInvest", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "referrals", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "rewardsPendingClaim", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "newRewardRate", "type": "uint256" }], "name": "setRewardRateX100", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "newStakingFeeRateX100", "type": "uint256" }], "name": "setStakingFeeRateX100", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "newUnstakingFeeRateX100", "type": "uint256" }], "name": "setUnstakingFeeRateX100", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountToStake", "type": "uint256" }, { "internalType": "address", "name": "referrer", "type": "address" }], "name": "stake", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "stakingTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalClaimedReferralFee", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalClaimedRewards", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalEarnedTokens", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalReferralFeeEarned", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "tokenAddress", "type": "address" }, { "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transferAnyERC20Token", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "tokenAddress", "type": "address" }, { "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transferAnyLegacyERC20Token", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountToWithdraw", "type": "uint256" }], "name": "unstake", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]
+const ABI_DYP_ETHSPECIAL = [{ "inputs": [{ "internalType": "address", "name": "_uniswapV2RouterAddress", "type": "address" }, { "internalType": "address", "name": "_feeRecipientAddress", "type": "address" }, { "internalType": "address", "name": "trustedDepositTokenAddress", "type": "address" }, { "internalType": "address", "name": "trustedRewardTokenAddress", "type": "address" }, { "internalType": "uint256", "name": "referralFeeRateX100", "type": "uint256" }, { "internalType": "uint256", "name": "stakingFeeRateX100", "type": "uint256" }, { "internalType": "uint256", "name": "unstakingFeeRateX100", "type": "uint256" }, { "internalType": "uint256", "name": "rewardRateX100", "type": "uint256" }, { "internalType": "uint256", "name": "rewardInterval", "type": "uint256" }, { "internalType": "uint256", "name": "lockupTime", "type": "uint256" }], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "owner", "type": "address" }], "name": "EmergencyDeclared", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "newAddress", "type": "address" }], "name": "FeeRecipientAddressChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "_newLockupTime", "type": "uint256" }], "name": "LockupTimeChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "newFee", "type": "uint256" }], "name": "ReferralFeeChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "referrer", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "ReferralFeeTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "holder", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Reinvest", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "holder", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "RewardsTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "account", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Stake", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "newFee", "type": "uint256" }], "name": "StakingFeeChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "contractAddress", "type": "address" }], "name": "TrustedDepositContractAdded", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "contractAddress", "type": "address" }], "name": "TrustedDepositContractRemoved", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "router", "type": "address" }], "name": "UniswapV2RouterChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "address", "name": "account", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Unstake", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "internalType": "uint256", "name": "newFee", "type": "uint256" }], "name": "UnstakingFeeChanged", "type": "event" }, { "inputs": [], "name": "EMERGENCY_WAIT_TIME", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "LOCKUP_TIME", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REFERRAL_FEE_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REWARD_INTERVAL", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "REWARD_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "STAKING_FEE_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "TRUSTED_DEPOSIT_TOKEN_ADDRESS", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "TRUSTED_REWARD_TOKEN_ADDRESS", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "TRUSTED_WETH_TOKEN_ADDRESS", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "UNSTAKING_FEE_RATE_X_100", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_address", "type": "address" }], "name": "addTrustedDepositContractAddress", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "adminCanClaimAfter", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "adminClaimableTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_amountOutMin_referralFee", "type": "uint256" }, { "internalType": "uint256", "name": "_amountOutMin_claim", "type": "uint256" }, { "internalType": "uint256", "name": "_deadline", "type": "uint256" }], "name": "claim", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "token", "type": "address" }, { "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "claimAnyToken", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "contractStartTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "declareEmergency", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "depositedTokens", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "feeRecipientAddress", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "i", "type": "uint256" }], "name": "getActiveReferredStaker", "outputs": [{ "internalType": "address", "name": "_staker", "type": "address" }, { "internalType": "uint256", "name": "_totalEarned", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "getNumberOfHolders", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "referrer", "type": "address" }], "name": "getNumberOfReferredStakers", "outputs": [{ "internalType": "uint256", "name": "_activeStakers", "type": "uint256" }, { "internalType": "uint256", "name": "_totalStakers", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_holder", "type": "address" }], "name": "getPendingDivs", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "i", "type": "uint256" }], "name": "getReferredStaker", "outputs": [{ "internalType": "address", "name": "_staker", "type": "address" }, { "internalType": "uint256", "name": "_totalEarned", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "startIndex", "type": "uint256" }, { "internalType": "uint256", "name": "endIndex", "type": "uint256" }], "name": "getStakersList", "outputs": [{ "internalType": "address[]", "name": "stakers", "type": "address[]" }, { "internalType": "uint256[]", "name": "stakingTimestamps", "type": "uint256[]" }, { "internalType": "uint256[]", "name": "lastClaimedTimeStamps", "type": "uint256[]" }, { "internalType": "uint256[]", "name": "stakedTokens", "type": "uint256[]" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_holder", "type": "address" }], "name": "getTotalPendingDivs", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "isEmergency", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "isTrustedDepositContract", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "lastClaimedTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_amountOutMin_referralFee", "type": "uint256" }, { "internalType": "uint256", "name": "_amountOutMin_reinvest", "type": "uint256" }, { "internalType": "uint256", "name": "_deadline", "type": "uint256" }], "name": "reInvest", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "referrals", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_address", "type": "address" }], "name": "removeTrustedDepositContractAddress", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "rewardsPendingClaim", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "lockupTime", "type": "uint256" }, { "internalType": "uint256", "name": "referralFeeRateX100", "type": "uint256" }, { "internalType": "uint256", "name": "stakingFeeRateX100", "type": "uint256" }, { "internalType": "uint256", "name": "unstakingFeeRateX100", "type": "uint256" }, { "internalType": "address", "name": "router", "type": "address" }, { "internalType": "address", "name": "_feeRecipientAddress", "type": "address" }], "name": "setContractVariables", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "newFeeRecipientAddress", "type": "address" }], "name": "setFeeRecipientAddress", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_newLockupTime", "type": "uint256" }], "name": "setLockupTime", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_newReferralFeeRateX100", "type": "uint256" }], "name": "setReferralFeeRateX100", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_newRewardRate", "type": "uint256" }], "name": "setRewardRate", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_newStakingFeeRateX100", "type": "uint256" }], "name": "setStakingFeeRateX100", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "contract IUniswapV2Router", "name": "_newUniswapV2Router", "type": "address" }], "name": "setUniswapV2Router", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_newUnstakingFeeRateX100", "type": "uint256" }], "name": "setUnstakingFeeRateX100", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountToStake", "type": "uint256" }, { "internalType": "address", "name": "referrer", "type": "address" }, { "internalType": "uint256", "name": "_amountOutMin_referralFee", "type": "uint256" }, { "internalType": "uint256", "name": "_deadline", "type": "uint256" }], "name": "stake", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "stakingTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalClaimedReferralFee", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalClaimedRewards", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalEarnedTokens", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "totalReferralFeeEarned", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "uniswapV2Router", "outputs": [{ "internalType": "contract IUniswapV2Router", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amountToWithdraw", "type": "uint256" }, { "internalType": "uint256", "name": "_amountOutMin_referralFee", "type": "uint256" }, { "internalType": "uint256", "name": "_deadline", "type": "uint256" }], "name": "unstake", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]
+const ABI_BUYBACK = [{"inputs":[{"internalType":"address","name":"router","type":"address"},{"internalType":"address","name":"trustedPlatformTokenAddress","type":"address"},{"internalType":"address","name":"trustedDepositTokenAddress","type":"address"},{"internalType":"address","name":"_feeRecipientAddress","type":"address"},{"internalType":"uint256","name":"stakingFeeRateX100","type":"uint256"},{"internalType":"uint256","name":"unstakingFeeRateX100","type":"uint256"},{"internalType":"uint256","name":"lockupTime","type":"uint256"},{"internalType":"uint256","name":"adminCanClaimAfter","type":"uint256"},{"internalType":"uint256","name":"rewardRateX100","type":"uint256"},{"internalType":"uint256","name":"rewardInterval","type":"uint256"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"tokenAddress","type":"address"}],"name":"DepositTokenAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"tokenAddress","type":"address"}],"name":"DepositTokenRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"}],"name":"EmergencyDeclared","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"newAddress","type":"address"}],"name":"FeeRecipientAddressChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"lockupTime","type":"uint256"}],"name":"LockupTimeChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Reinvest","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"RewardsTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Stake","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"contractAddress","type":"address"}],"name":"StakingContractChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"StakingFeeChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"router","type":"address"}],"name":"UniswapV2RouterChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Unstake","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"UnstakingFeeChanged","type":"event"},{"inputs":[],"name":"EMERGENCY_WAIT_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LOCKUP_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_INTERVAL","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"STAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_DEPOSIT_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_PLATFORM_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_STAKING_CONTRACT_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"UNSTAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_tokenAddress","type":"address"}],"name":"addTrustedDepositToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"adminClaimableTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountOutMin","type":"uint256"},{"internalType":"uint256","name":"_deadline","type":"uint256"}],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"claimAnyToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"contractStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"declareEmergency","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"feeRecipientAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getNumberOfHolders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"startIndex","type":"uint256"},{"internalType":"uint256","name":"endIndex","type":"uint256"}],"name":"getStakersList","outputs":[{"internalType":"address[]","name":"stakers","type":"address[]"},{"internalType":"uint256[]","name":"stakingTimestamps","type":"uint256[]"},{"internalType":"uint256[]","name":"lastClaimedTimeStamps","type":"uint256[]"},{"internalType":"uint256[]","name":"stakedTokens","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getTotalPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isEmergency","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastClaimedTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"reInvest","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_tokenAddress","type":"address"}],"name":"removeTrustedDepositToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"rewardsPendingClaim","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"lockupTime","type":"uint256"},{"internalType":"uint256","name":"stakingFeeRateX100","type":"uint256"},{"internalType":"uint256","name":"unstakingFeeRateX100","type":"uint256"},{"internalType":"address","name":"router","type":"address"},{"internalType":"address","name":"newFeeRecipientAddress","type":"address"}],"name":"setContractVariables","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newFeeRecipientAddress","type":"address"}],"name":"setFeeRecipientAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"lockupTime","type":"uint256"}],"name":"setLockupTime","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"trustedStakingContractAddress","type":"address"}],"name":"setStakingContractAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newStakingFeeRateX100","type":"uint256"}],"name":"setStakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract IUniswapV2Router","name":"router","type":"address"}],"name":"setUniswapV2Router","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newUnstakingFeeRateX100","type":"uint256"}],"name":"setUnstakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToDeposit","type":"uint256"},{"internalType":"address","name":"depositToken","type":"address"},{"internalType":"uint256","name":"_amountOutMin_75Percent","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_25Percent","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_stakingReferralFee","type":"uint256"},{"internalType":"uint256","name":"_deadline","type":"uint256"}],"name":"stake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"stakingTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedRewards","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalDepositedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"trustedDepositTokens","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"uniswapV2Router","outputs":[{"internalType":"contract IUniswapV2Router","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToWithdraw","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin","type":"uint256"},{"internalType":"uint256","name":"_deadline","type":"uint256"}],"name":"unstake","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+const ABI_FARMING = [{"inputs":[{"internalType":"address[]","name":"swapPath","type":"address[]"},{"internalType":"address","name":"_uniswapV2RouterAddress","type":"address"},{"internalType":"address","name":"_feeRecipientAddress","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"tokenAddress","type":"address"}],"name":"ClaimableTokenAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"tokenAddress","type":"address"}],"name":"ClaimableTokenRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"owner","type":"address"}],"name":"EmergencyDeclared","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"EthRewardsDisbursed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"EthRewardsTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"newAddress","type":"address"}],"name":"FeeRecipientAddressChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"lockupTime","type":"uint256"}],"name":"LockupTimeChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newMagicNumber","type":"uint256"}],"name":"MagicNumberChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"RewardsDisbursed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"RewardsTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"StakingFeeChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"router","type":"address"}],"name":"UniswapV2RouterChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"UnstakingFeeChanged","type":"event"},{"inputs":[],"name":"BURN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"EMERGENCY_WAIT_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAGIC_NUMBER","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"STAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"SWAP_PATH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"UNSTAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"addContractBalance","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"trustedClaimableTokenAddress","type":"address"}],"name":"addTrustedClaimableToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"adminCanClaimAfter","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"adminClaimableTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"burnOrDisburseTokensPeriod","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"burnRewardTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountOutMin_claimAsToken_dyp","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_attemptSwap","type":"uint256"},{"internalType":"uint256","name":"_deadline","type":"uint256"}],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"claimAnyToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"claimAsToken","type":"address"},{"internalType":"uint256","name":"_amountOutMin_claimAsToken_weth","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_claimAsToken_dyp","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_attemptSwap","type":"uint256"},{"internalType":"uint256","name":"_deadline","type":"uint256"}],"name":"claimAs","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"cliffTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"contractBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"contractDeployTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"declareEmergency","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"depositToken","type":"address"},{"internalType":"uint256","name":"amountToStake","type":"uint256"},{"internalType":"uint256[]","name":"minAmounts","type":"uint256[]"},{"internalType":"uint256","name":"_deadline","type":"uint256"}],"name":"deposit","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"disburseAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"disburseDuration","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"disbursePercentX100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"disburseRewardTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"feeRecipientAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"startIndex","type":"uint256"},{"internalType":"uint256","name":"endIndex","type":"uint256"}],"name":"getDepositorsList","outputs":[{"internalType":"address[]","name":"stakers","type":"address[]"},{"internalType":"uint256[]","name":"stakingTimestamps","type":"uint256[]"},{"internalType":"uint256[]","name":"lastClaimedTimeStamps","type":"uint256[]"},{"internalType":"uint256[]","name":"stakedTokens","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getMaxSwappableAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getNumberOfHolders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getPendingDisbursement","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getPendingDivsEth","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isEmergency","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lastBurnOrTokenDistributeTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastClaimedTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lastDisburseTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastEthDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lastSwapExecutionTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"trustedClaimableTokenAddress","type":"address"}],"name":"removeTrustedClaimableToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newMagicNumber","type":"uint256"},{"internalType":"uint256","name":"lockupTime","type":"uint256"},{"internalType":"uint256","name":"stakingFeeRateX100","type":"uint256"},{"internalType":"uint256","name":"unstakingFeeRateX100","type":"uint256"},{"internalType":"address","name":"_uniswapV2RouterAddress","type":"address"},{"internalType":"address","name":"newFeeRecipientAddress","type":"address"}],"name":"setContractVariables","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newFeeRecipientAddress","type":"address"}],"name":"setFeeRecipientAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_newLockupTime","type":"uint256"}],"name":"setLockupTime","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newMagicNumber","type":"uint256"}],"name":"setMagicNumber","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newStakingFeeRateX100","type":"uint256"}],"name":"setStakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract IUniswapV2Router","name":"router","type":"address"}],"name":"setUniswapV2Router","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newUnstakingFeeRateX100","type":"uint256"}],"name":"setUnstakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"swapAttemptPeriod","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"tokensToBeDisbursedOrBurnt","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"tokensToBeSwapped","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedRewards","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedRewardsEth","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedEth","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalEthDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"trustedBaseTokenAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"trustedClaimableTokens","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"trustedDepositTokenAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"trustedPlatformTokenAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"trustedRewardTokenAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"trustedStakingContractAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"uniswapRouterV2","outputs":[{"internalType":"contract IUniswapV2Router","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"uniswapV2Pair","outputs":[{"internalType":"contract IUniswapV2Pair","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"withdrawAsToken","type":"address"},{"internalType":"uint256","name":"amountToWithdraw","type":"uint256"},{"internalType":"uint256[]","name":"minAmounts","type":"uint256[]"},{"internalType":"uint256","name":"_deadline","type":"uint256"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+const ABI_VAULT = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"CompoundRewardClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"EtherRewardClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"EtherRewardDisbursed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"PlatformTokenAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"PlatformTokenRewardClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenRewardClaimed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenRewardDisbursed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Withdraw","type":"event"},{"inputs":[],"name":"ADMIN_CAN_CLAIM_AFTER","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"BURN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"FEE_PERCENT_TO_BUYBACK_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"FEE_PERCENT_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LOCKUP_DURATION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MIN_ETH_FEE_IN_WEI","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"ONE_HUNDRED_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"POINT_MULTIPLIER","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_INTERVAL","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_RETURN_PERCENT_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_CTOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_DEPOSIT_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_PLATFORM_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"addPlatformTokenBalance","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"cTokenBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountOutMin_platformTokens","type":"uint256"}],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"claimAnyToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimCompoundDivs","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimEthDivs","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"claimExtraTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amountOutMin_platformTokens","type":"uint256"}],"name":"claimPlatformTokenDivs","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimTokenDivs","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"contractStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_ethFeeBuyBack","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"deposit","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositTokenBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"emergencyWithdraw","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"ethDivsBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"ethDivsOwing","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_cTokenBalance","type":"uint256"}],"name":"getConvertedBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"startIndex","type":"uint256"},{"internalType":"uint256","name":"endIndex","type":"uint256"}],"name":"getDepositorsList","outputs":[{"internalType":"address[]","name":"stakers","type":"address[]"},{"internalType":"uint256[]","name":"stakingTimestamps","type":"uint256[]"},{"internalType":"uint256[]","name":"lastClaimedTimeStamps","type":"uint256[]"},{"internalType":"uint256[]","name":"stakedTokens","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"getEstimatedCompoundDivsOwing","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getExchangeRateCurrent","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getExchangeRateStored","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getNumberOfHolders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastClaimedTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastEthDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastTokenDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"platformTokenDivsBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"platformTokenDivsOwing","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenBalances","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"tokenDivsBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"tokenDivsOwing","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalCTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalDepositedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedCompoundDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedEthDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedPlatformTokenDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedTokenDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalEthDisbursed","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalEthDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokenDivPoints","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalTokensDepositedByUser","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalTokensDisbursed","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalTokensWithdrawnByUser","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"uniswapRouterV2","outputs":[{"internalType":"contract IUniswapV2Router","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_ethFeeBuyBack","type":"uint256"},{"internalType":"uint256","name":"_amountOutMin_tokenFeeBuyBack","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"withdraw","outputs":[],"stateMutability":"payable","type":"function"},{"stateMutability":"payable","type":"receive"}]
 
 const IDYP_BNBS_1 = "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7"
-const IDYP_BNBS2 ="0x58366902082B90Fca01bE07D929478bD48AcFB19"
-const IDYP_BNBS3 = "0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445"
-const IDYP_BNBS4 = "0x160fF3c4A6E9Aa8E4271aa71226Cc811BFEf7ED9"
+const IDYP_BNBS_2 = "0x58366902082B90Fca01bE07D929478bD48AcFB19"
+const IDYP_BNBS_3 = "0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445"
+const IDYP_BNBS_4 = "0x160fF3c4A6E9Aa8E4271aa71226Cc811BFEf7ED9"
 
-const DYP_BNBS_1DYNAMIC = "0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90"
-const DYP_BNBS_2DYNAMIC = "0xaF411BF994dA1435A3150B874395B86376C5f2d5"
+const DYP_BNBS_1_DYNAMIC = "0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90"
+const DYP_BNBS_2_DYNAMIC = "0xaF411BF994dA1435A3150B874395B86376C5f2d5"
 
 const DYP_BNBS_3 = "0xfc4493E85fD5424456f22135DB6864Dd4E4ED662"
 const DYP_BNBS_4 = "0xa9efab22cCbfeAbB6dc4583d81421e76342faf8b"
 const DYP_BNBS_5 = "0xef9e50A19358CCC8816d9BC2c2355aea596efd06"
 
+const IDYP_ETHS_1 = "0x50014432772b4123D04181727C6EdEAB34F5F988"
+const IDYP_ETHS_2 = "0x9eA966B4023049BFF858BB5E698ECfF24EA54c4A"
+const IDYP_ETHS_3 = "0xD4bE7a106ed193BEe39D6389a481ec76027B2660"
+const IDYP_ETHS_4 = "0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4"
+
+const DYP_ETHS_1_DYNAMIC = "0xa4da28B8e42680916b557459D338aF6e2D8d458f"
+const DYP_ETHS_2_DYNAMIC = "0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d"
+
+const DYP_ETHS_1 = "0x44bEd8ea3296bda44870d0Da98575520De1735d4"
+
+const IDYP_AVAXS_1 = "0xaF411BF994dA1435A3150B874395B86376C5f2d5"
+const IDYP_AVAXS_2 = "0x8f28110325a727f70B64bffEbf2B9dc94B932452"
+const IDYP_AVAXS_3 = "0xd13bdC0c9a9931cF959739631B1290b6BEE0c018"
+const IDYP_AVAXS_4 = "0x5536E02336771CFa0317D4B6a042f3c38749535e	"
+
+const DYP_AVAXS_1_DYNAMIC = "0x1A4fd0E9046aeD92B6344F17B0a53969F4d5309B"
+const DYP_AVAXS_2_DYNAMIC = "0x5566B51a1B7D5E6CAC57a68182C63Cb615cAf3f9"
+
+const DYP_AVAXS_1 = "0xb1875eeBbcF4456188968f439896053809698a8B"
+const DYP_AVAXS_2 = "0x16429e51A64B7f88D4C018fbf66266A693df64b3"
+const DYP_AVAXS_3 = "0xF035ec2562fbc4963e8c1c63f5c473D9696c59E3"
+
+const BUYBACK_ETH_1 = "0xdCBB5B2148f0cf1Abd7757Ba04A5821fEaD80587"
+const BUYBACK_ETH_2 ="0xDC65C4277d626d6A29C9Dc42Eb396d354fa5E85b"
+
+const BUYBACK_BSC_1 ="0x94b1a7b57c441890b7a0f64291b39ad6f7e14804"
+const BUYBACK_BSC_2 ="0x4ef782e66244a0cf002016aa1db3019448c670ae"
+
+const BUYBACK_AVAX_1 ="0xC905D5DD9A4f26eD059F76929D11476B2844A7c3"
+const BUYBACK_AVAX_2 ="0x267434f01ac323C6A5BCf41Fa111701eE0165a37"
 
 
-  const IDs_User_Pools_BSC_IDYP = {
+
+const IDs_User_Pools_BSC_IDYP = {
 	"0x7e766F7005C7a9e74123b156697B582eeCB8d2D7":
 	{
 		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
@@ -7987,162 +8022,585 @@ const IDs_User_Pools_BSC_DYP = {
 	},
 }
 
-let accounts = "0xa51765674e3e4c7056b99713778a601667b667b2";
+const IDs_User_Pools_ETH_IDYP = {
+	"0x50014432772b4123D04181727C6EdEAB34F5F988":
+	{
+		contract_address: "0x50014432772b4123D04181727C6EdEAB34F5F988",
+	},
+	"0x9eA966B4023049BFF858BB5E698ECfF24EA54c4A":
+	{
+		contract_address: "0x9eA966B4023049BFF858BB5E698ECfF24EA54c4A",
+	},
+	"0xD4bE7a106ed193BEe39D6389a481ec76027B2660":
+	{
+		contract_address: "0xD4bE7a106ed193BEe39D6389a481ec76027B2660",
+	},
+	"0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4":
+	{
+		contract_address: "0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4",
+	},
+}
+const IDs_User_Pools_ETH_DYP_DYNAMIC = {
+	"0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d":
+	{
+		contract_address: "0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d",
+	},
+	"0xa4da28B8e42680916b557459D338aF6e2D8d458f":
+	{
+		contract_address: "0xa4da28B8e42680916b557459D338aF6e2D8d458f",
+	},
+}
+const IDs_User_Pools_ETH_DYP = {
+	"0x44bEd8ea3296bda44870d0Da98575520De1735d4":
+	{
+		contract_address: "0x44bEd8ea3296bda44870d0Da98575520De1735d4",
+	},
+}
+
+
+const IDs_User_Pools_AVAX_IDYP = {
+	"0xaF411BF994dA1435A3150B874395B86376C5f2d5":
+	{
+		contract_address: "0xaF411BF994dA1435A3150B874395B86376C5f2d5",
+	},
+	"0x8f28110325a727f70B64bffEbf2B9dc94B932452":
+	{
+		contract_address: "0x8f28110325a727f70B64bffEbf2B9dc94B932452",
+	},
+	"0xd13bdC0c9a9931cF959739631B1290b6BEE0c018":
+	{
+		contract_address: "0xd13bdC0c9a9931cF959739631B1290b6BEE0c018",
+	},
+	"0x5536E02336771CFa0317D4B6a042f3c38749535e":
+	{
+		contract_address: "0x5536E02336771CFa0317D4B6a042f3c38749535e",
+	},
+}
+const IDs_User_Pools_AVAX_DYP_DYNAMIC = {
+	"0x1A4fd0E9046aeD92B6344F17B0a53969F4d5309B":
+	{
+		contract_address: "0x1A4fd0E9046aeD92B6344F17B0a53969F4d5309B",
+	},
+	"0x5566B51a1B7D5E6CAC57a68182C63Cb615cAf3f9":
+	{
+		contract_address: "0x5566B51a1B7D5E6CAC57a68182C63Cb615cAf3f9",
+	},
+}
+const IDs_User_Pools_AVAX_DYP = {
+	"0xb1875eeBbcF4456188968f439896053809698a8B":
+	{
+		contract_address: "0xb1875eeBbcF4456188968f439896053809698a8B",
+	},
+	"0x16429e51A64B7f88D4C018fbf66266A693df64b3":
+	{
+		contract_address: "0x16429e51A64B7f88D4C018fbf66266A693df64b3",
+	},
+	"0xF035ec2562fbc4963e8c1c63f5c473D9696c59E3":
+	{
+		contract_address: "0xF035ec2562fbc4963e8c1c63f5c473D9696c59E3",
+	},
+}
+
+const IDs_User_Pools_ETH_BUYBACK = {
+	"0xdCBB5B2148f0cf1Abd7757Ba04A5821fEaD80587":
+	{
+		contract_address: "0xdCBB5B2148f0cf1Abd7757Ba04A5821fEaD80587",
+	},
+	"0xDC65C4277d626d6A29C9Dc42Eb396d354fa5E85b":
+	{
+		contract_address: "0xDC65C4277d626d6A29C9Dc42Eb396d354fa5E85b",
+	},
+}
+
+const IDs_User_Pools_BSC_BUYBACK = {
+	"0x94b1a7b57c441890b7a0f64291b39ad6f7e14804":
+	{
+		contract_address: "0x94b1a7b57c441890b7a0f64291b39ad6f7e14804",
+	},
+	"0x4ef782e66244a0cf002016aa1db3019448c670ae":
+	{
+		contract_address: "0x4ef782e66244a0cf002016aa1db3019448c670ae",
+	},
+}
+
+const IDs_User_Pools_AVAX_BUYBACK = {
+	"0xC905D5DD9A4f26eD059F76929D11476B2844A7c3":
+	{
+		contract_address: "0xC905D5DD9A4f26eD059F76929D11476B2844A7c3",
+	},
+	"0x267434f01ac323C6A5BCf41Fa111701eE0165a37":
+	{
+		contract_address: "0x267434f01ac323C6A5BCf41Fa111701eE0165a37",
+	},
+}
+
+const IDs_User_Pools_ETH_FARMING={
+	"0xa68BBe793ad52d0E62bBf34A67F02235bA69E737":
+	{
+		contract_address: "0xa68BBe793ad52d0E62bBf34A67F02235bA69E737",
+	},
+	"0xCFd970494a0b3C52a81dcE1EcBFF2245e6b0B0E7":
+	{
+		contract_address: "0xCFd970494a0b3C52a81dcE1EcBFF2245e6b0B0E7",
+	},
+	"0x49D02CF81Cc352517350F25E200365360426aF94":
+	{
+		contract_address: "0x49D02CF81Cc352517350F25E200365360426aF94",
+	},
+	"0xf51965c570419F2576ec9AeAD6A3C5F674424A99":
+	{
+		contract_address: "0xf51965c570419F2576ec9AeAD6A3C5F674424A99",
+	},
+	"0x997A7254E5567d0A70329DEFCc1E4d29d71Ba224":
+	{
+		contract_address: "0x997A7254E5567d0A70329DEFCc1E4d29d71Ba224",
+	},
+}
+
+const IDs_User_Pools_BSC_FARMING={
+	"0x537DC4fee298Ea79A7F65676735415f1E2882F92":
+	{
+		contract_address: "0x537DC4fee298Ea79A7F65676735415f1E2882F92",
+	},
+	"0x219717BF0bC33b2764A6c1A772F75305458BDA3d":
+	{
+		contract_address: "0x219717BF0bC33b2764A6c1A772F75305458BDA3d",
+	},
+	"0xD1151a2434931f34bcFA6c27639b67C1A23D93Af":
+	{
+		contract_address: "0xD1151a2434931f34bcFA6c27639b67C1A23D93Af",
+	},
+	"0xed869Ba773c3F1A1adCC87930Ca36eE2dC73435d":
+	{
+		contract_address: "0xed869Ba773c3F1A1adCC87930Ca36eE2dC73435d",
+	},
+	"0x415B1624710296717FA96cAD84F53454E8F02D18":
+	{
+		contract_address: "0x415B1624710296717FA96cAD84F53454E8F02D18",
+	},
+}
+
+const IDs_User_Pools_AVAX_FARMING={
+	"0x035d65babF595758D7A439D5870BAdc44218D028":
+	{
+		contract_address: "0x035d65babF595758D7A439D5870BAdc44218D028",
+	},
+	"0x6c325DfEA0d18387D423C869E328Ef005cBA024F":
+	{
+		contract_address: "0x6c325DfEA0d18387D423C869E328Ef005cBA024F",
+	},
+	"0x85C4f0CEA0994dE365dC47ba22dD0FD9899F93Ab":
+	{
+		contract_address: "0x85C4f0CEA0994dE365dC47ba22dD0FD9899F93Ab",
+	},
+	"0x6f5dC6777b2B4667Bf183D093111867239518af5":
+	{
+		contract_address: "0x6f5dC6777b2B4667Bf183D093111867239518af5",
+	},
+	"0x10E105676CAC55b74cb6500a8Fb5d2f84804393D":
+	{
+		contract_address: "0x10E105676CAC55b74cb6500a8Fb5d2f84804393D",
+	},
+}
+
+const IDs_User_Pools_ETH_VAULTS={
+	"0x28eabA060E5EF0d41eeB20d41aafaE8f685739d9":
+	{
+		contract_address: "0x28eabA060E5EF0d41eeB20d41aafaE8f685739d9",
+	},
+	"0x2F2cff66fEB7320FC9Adf91b7B74bFb5a80C7C35":
+	{
+		contract_address: "0x2F2cff66fEB7320FC9Adf91b7B74bFb5a80C7C35",
+	},
+	"0xA987aEE0189Af45d5FA95a9FBBCB4374228f375E":
+	{
+		contract_address: "0xA987aEE0189Af45d5FA95a9FBBCB4374228f375E",
+	},
+	"0x251B9ee6cEd97565A821C5608014a107ddc9C98F":
+	{
+		contract_address: "0x251B9ee6cEd97565A821C5608014a107ddc9C98F",
+	},
+	"0x54F30bFfeb925F47225e148f0bAe17a452d6b8c0":
+	{
+		contract_address: "0x54F30bFfeb925F47225e148f0bAe17a452d6b8c0",
+	},
+}
+
 let UserPoolsInfo = []
 
 
-const get_USER_pools = async () => {
+const get_USER_pools = async (user) => {
 
-	// let _id = BSC_TEST
 	UserPoolsInfo = []
-	// accounts = []
+
 	let contract_address = ""
-		
-	// accounts[1] = "0xabee4733f4e3d8f25754f4758c3d74bb44040955";
 
 	let ids_constant_staking_bsc = Object.keys(IDs_User_Pools_BSC_IDYP)
 	for (let id of ids_constant_staking_bsc) {
 		contract_address = IDs_User_Pools_BSC_IDYP[id].contract_address
 
-		let res = await getPendingDivsBSC_IDYP(id)
+		let res = await getPendingDivsBSC_IDYP(id, user)
 
-		if((res !== "undefined") && (res > 0)){
+		if ((res !== "undefined") && (res > 0)) {
 			UserPoolsInfo.push({
 				contract_address: contract_address,
 			})
 		}
-		// else{
-		// 	UserPoolsInfo.push({
-		// 		contract_address: "User is not in this pool"
-		// 	})
-		// }
+
 	}
 	let ids_constant_staking_bsc_dyp = Object.keys(IDs_User_Pools_BSC_DYP)
 	for (let id of ids_constant_staking_bsc_dyp) {
 		contract_address = IDs_User_Pools_BSC_DYP[id].contract_address
 
-		let res = await getPendingDivsBSC_DYP(id)
+		let res = await getPendingDivsBSC_DYP(id, user)
 
-		if((res !== "undefined") && (res > 0)){
+		if ((res !== "undefined") && (res > 0)) {
 			UserPoolsInfo.push({
 				contract_address: contract_address,
 			})
 		}
-		// else{
-		// 	UserPoolsInfo.push({
-		// 		contract_address: "User is not in this pool"
-		// 	})
-		// }
+
 	}
 	let ids_constant_staking_bsc_dyp_dynamic = Object.keys(IDs_User_Pools_BSC_DYP_DYNAMIC)
 	for (let id of ids_constant_staking_bsc_dyp_dynamic) {
 		contract_address = IDs_User_Pools_BSC_DYP_DYNAMIC[id].contract_address
 
-		let res = await getPendingDivsBSC_DYP_DYNAMIC(id)
+		let res = await getPendingDivsBSC_DYP_DYNAMIC(id, user)
 
-		if((res !== "undefined") && (res > 0)){
+		if ((res !== "undefined") && (res > 0)) {
 			UserPoolsInfo.push({
 				contract_address: contract_address,
 			})
 		}
-		// else{
-		// 	UserPoolsInfo.push({
-		// 		contract_address: "User is not in this pool"
-		// 	})
-		// }
+
+	}
+
+	let ids_constant_staking_eth = Object.keys(IDs_User_Pools_ETH_IDYP)
+	for (let id of ids_constant_staking_eth) {
+		contract_address = IDs_User_Pools_ETH_IDYP[id].contract_address
+
+		let res = await getPendingDivsETH_IDYP(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}
+
+	}
+	let ids_constant_staking_eth_dyp = Object.keys(IDs_User_Pools_ETH_DYP)
+	for (let id of ids_constant_staking_eth_dyp) {
+		contract_address = IDs_User_Pools_ETH_DYP[id].contract_address
+
+		let res = await getPendingDivsETH_DYP(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}
+
+	}
+	let ids_constant_staking_eth_dyp_dynamic = Object.keys(IDs_User_Pools_ETH_DYP_DYNAMIC)
+	for (let id of ids_constant_staking_eth_dyp_dynamic) {
+		contract_address = IDs_User_Pools_ETH_DYP_DYNAMIC[id].contract_address
+
+		let res = await getPendingDivsETH_DYP_DYNAMIC(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}
+
 	}
 
 
-	// let ids_constant_staking_eth = Object.keys(IDs_User_Pools_BSC)
-	// for (let id of ids_constant_staking_eth) {
-	// 	contract_address = IDs_User_Pools_BSC[id].contract_address
-	// 	if(id == contract_address)
-	// 	{
-	// 		getPendingDivsETH(id)
-	// 	}
-	// 	if((typeof global.pending_divs !== "undefined") && (global.pending_divs > 0))
-	// 	{
-	// 	UserPoolsInfo.push({
-	// 		contract_address: contract_address,
-	// 	})
-	// }
-	// 	else
-	// 		UserPoolsInfo.push({
-	// 			contract_address: "User is not in this pool"
-	// 		})
-	// }
-	// let ids_constant_staking_avax = Object.keys(IDs_User_Pools_BSC)
-	// for (let id of ids_constant_staking_avax) {
-	// 	contract_address = IDs_User_Pools_BSC[id].contract_address
-	// 	if(id == contract_address)
-	// 	{
-	// 		getPendingDivsAVAX(id)
-	// 	}
-	// 	if((typeof global.pending_divs !== "undefined") && (global.pending_divs > 0))
-	// 	{
-	// 	UserPoolsInfo.push({
-	// 		contract_address: contract_address,
-	// 	})
-	// }
-	// 	else
-	// 		UserPoolsInfo.push({
-	// 			contract_address: "User is not in this pool"
-	// 		})
-	// }
+	let ids_constant_staking_AVAX = Object.keys(IDs_User_Pools_AVAX_IDYP)
+	for (let id of ids_constant_staking_AVAX) {
+		contract_address = IDs_User_Pools_AVAX_IDYP[id].contract_address
+
+		let res = await getPendingDivsAVAX_IDYP(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}
+
+	}
+	let ids_constant_staking_AVAX_dyp = Object.keys(IDs_User_Pools_AVAX_DYP)
+	for (let id of ids_constant_staking_AVAX_dyp) {
+		contract_address = IDs_User_Pools_AVAX_DYP[id].contract_address
+
+		let res = await getPendingDivsAVAX_DYP(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}
+
+	}
+	let ids_constant_staking_AVAX_dyp_dynamic = Object.keys(IDs_User_Pools_AVAX_DYP_DYNAMIC)
+	for (let id of ids_constant_staking_AVAX_dyp_dynamic) {
+		contract_address = IDs_User_Pools_AVAX_DYP_DYNAMIC[id].contract_address
+
+		let res = await getPendingDivsAVAX_DYP_DYNAMIC(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}
+
+	}
+
+	let ids_constant_staking_ETH_BUYBACK = Object.keys(IDs_User_Pools_ETH_BUYBACK)
+	for (let id of ids_constant_staking_ETH_BUYBACK) {
+		contract_address = IDs_User_Pools_ETH_BUYBACK[id].contract_address
+
+		let res = await getPendingDivs_ETH_BUYBACK(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}
+
+	}
+
+	let ids_constant_staking_BSC_BUYBACK = Object.keys(IDs_User_Pools_BSC_BUYBACK)
+	for (let id of ids_constant_staking_BSC_BUYBACK) {
+		contract_address = IDs_User_Pools_BSC_BUYBACK[id].contract_address
+
+		let res = await getPendingDivs_BSC_BUYBACK(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}
+
+	}
+
+	let ids_constant_staking_AVAX_BUYBACK = Object.keys(IDs_User_Pools_AVAX_BUYBACK)
+	for (let id of ids_constant_staking_AVAX_BUYBACK) {
+		contract_address = IDs_User_Pools_AVAX_BUYBACK[id].contract_address
+
+		let res = await getPendingDivs_AVAX_BUYBACK(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}
+
+	}
+
+	let ids_constant_staking_ETH_FARMING = Object.keys(IDs_User_Pools_ETH_FARMING)
+	for (let id of ids_constant_staking_ETH_FARMING) {
+		contract_address = IDs_User_Pools_ETH_FARMING[id].contract_address
+
+		let res = await getPendingDivs_ETH_FARMING(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}
+
+	}
+
+	let ids_constant_staking_BSC_FARMING = Object.keys(IDs_User_Pools_BSC_FARMING)
+	for (let id of ids_constant_staking_BSC_FARMING) {
+		contract_address = IDs_User_Pools_BSC_FARMING[id].contract_address
+
+		let res = await getPendingDivs_BSC_FARMING(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}
+
+	}
+
+	let ids_constant_staking_AVAX_FARMING = Object.keys(IDs_User_Pools_AVAX_FARMING)
+	for (let id of ids_constant_staking_AVAX_FARMING) {
+		contract_address = IDs_User_Pools_AVAX_FARMING[id].contract_address
+
+		let res = await getPendingDivs_AVAX_FARMING(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}
+
+	}
+
+	let ids_constant_staking_ETH_VAULTS = Object.keys(IDs_User_Pools_ETH_VAULTS)
+	for (let id of ids_constant_staking_ETH_VAULTS) {
+		contract_address = IDs_User_Pools_ETH_VAULTS[id].contract_address
+
+		let res = await getPendingDivs_ETH_VAULTS(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}
+
+	}
+
 }
 
-//create a function that receives an id, contract_address and abi parameter  and returns pending_divs
-//create a function that receives an id, contract_address and abi parameter  and returns pending_divs
 
-
-const getPendingDivsBSC_IDYP = async (id) => {
+const getPendingDivsBSC_IDYP = async (id, user) => {
 	let pending_divs = 0
 	let contract_address = IDs_User_Pools_BSC_IDYP[id].contract_address
 	let test_contract = new bscWeb3.eth.Contract(ABI_IDYP, contract_address, { from: undefined });
-	pending_divs = await test_contract.methods.depositedTokens(accounts).call();
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
 	pending_divs = pending_divs / 1e18
-	return pending_divs;	
+	return pending_divs;
 }
 
-const getPendingDivsBSC_DYP = async (id) => {
+const getPendingDivsBSC_DYP = async (id, user) => {
 	let pending_divs = 0
 	let contract_address = IDs_User_Pools_BSC_DYP[id].contract_address
 	let test_contract = new bscWeb3.eth.Contract(ABI_DYP, contract_address, { from: undefined });
-	pending_divs = await test_contract.methods.depositedTokens(accounts).call();
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
 	pending_divs = pending_divs / 1e18
-	return pending_divs;	
+	return pending_divs;
 }
 
-const getPendingDivsBSC_DYP_DYNAMIC = async (id) => {
+const getPendingDivsBSC_DYP_DYNAMIC = async (id, user) => {
 	let pending_divs = 0
 	let contract_address = IDs_User_Pools_BSC_DYP_DYNAMIC[id].contract_address
 	let test_contract = new bscWeb3.eth.Contract(ABI_DYP_DYNAMIC, contract_address, { from: undefined });
-	pending_divs = await test_contract.methods.depositedTokens(accounts).call();
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
 	pending_divs = pending_divs / 1e18
-	return pending_divs;	
+	return pending_divs;
 }
 
-const getPendingDivsETH = async (id) => {
+const getPendingDivsETH_IDYP = async (id, user) => {
 	let pending_divs = 0
-	let contract_address = IDs_User_Pools_BSC[id].contract_address
-	let test_contract = new bscWeb3.eth.Contract(BSC_ABI_TEST, contract_address, { from: undefined });
-	pending_divs = await test_contract.methods.depositedTokens(accounts[1]).call();
+	let contract_address = IDs_User_Pools_ETH_IDYP[id].contract_address
+	let test_contract = new infuraWeb3.eth.Contract(ABI_IDYP, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
 	pending_divs = pending_divs / 1e18
-	global.pending_divs = pending_divs;	
-}
-const getPendingDivsAVAX = async (id) => {
-	let pending_divs = 0
-	let contract_address = IDs_User_Pools_BSC[id].contract_address
-	let test_contract = new bscWeb3.eth.Contract(BSC_ABI_TEST, contract_address, { from: undefined });
-	pending_divs = await test_contract.methods.depositedTokens(accounts[1]).call();
-	pending_divs = pending_divs / 1e18
-	global.pending_divs = pending_divs;	
+	return pending_divs;
 }
 
-// function pendingDivsCallback(pending_divs) {
-// 	// Store the value of pending_divs in a global variable
-// 	global.pending_divs = pending_divs;
-//   }
+const getPendingDivsETH_DYP = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_ETH_DYP[id].contract_address
+	let test_contract = new infuraWeb3.eth.Contract(ABI_DYP_ETHSPECIAL, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
+
+const getPendingDivsETH_DYP_DYNAMIC = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_ETH_DYP_DYNAMIC[id].contract_address
+	let test_contract = new infuraWeb3.eth.Contract(ABI_DYP_DYNAMIC, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
+
+
+const getPendingDivsAVAX_IDYP = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_AVAX_IDYP[id].contract_address
+	let test_contract = new avaxWeb3.eth.Contract(ABI_IDYP, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
+
+const getPendingDivsAVAX_DYP = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_AVAX_DYP[id].contract_address
+	let test_contract = new avaxWeb3.eth.Contract(ABI_DYP, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
+
+const getPendingDivsAVAX_DYP_DYNAMIC = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_AVAX_DYP_DYNAMIC[id].contract_address
+	let test_contract = new avaxWeb3.eth.Contract(ABI_DYP_DYNAMIC, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
+
+const getPendingDivs_ETH_BUYBACK = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_ETH_BUYBACK[id].contract_address
+	let test_contract = new infuraWeb3.eth.Contract(ABI_BUYBACK, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
+
+const getPendingDivs_BSC_BUYBACK = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_BSC_BUYBACK[id].contract_address
+	let test_contract = new bscWeb3.eth.Contract(ABI_BUYBACK, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
+
+const getPendingDivs_AVAX_BUYBACK = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_AVAX_BUYBACK[id].contract_address
+	let test_contract = new avaxWeb3.eth.Contract(ABI_BUYBACK, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
+
+const getPendingDivs_ETH_FARMING = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_ETH_FARMING[id].contract_address
+	let test_contract = new infuraWeb3.eth.Contract(ABI_FARMING, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
+
+const getPendingDivs_BSC_FARMING = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_BSC_FARMING[id].contract_address
+	let test_contract = new bscWeb3.eth.Contract(ABI_FARMING, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
+
+const getPendingDivs_AVAX_FARMING = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_AVAX_FARMING[id].contract_address
+	let test_contract = new avaxWeb3.eth.Contract(ABI_FARMING, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
+
+const getPendingDivs_ETH_VAULTS = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_ETH_VAULTS[id].contract_address
+	let test_contract = new infuraWeb3.eth.Contract(ABI_VAULT, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositTokenBalance(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
 
 //Generate FarmInfo for Tools
 const getFarmInfo = () => {
@@ -10026,7 +10484,7 @@ async function firstRun() {
 	await fecthETHPrice()
 
 
-	/* Get Staking Info */ 
+	/* Get Staking Info */
 	await updateStakingTVL()
 	await updateNFTStaking()
 
@@ -10247,10 +10705,10 @@ app.get('/api/get_farm_info', async (req, res) => {
 
 app.get('/api/get_staking_info_eth', async (req, res) => {
 	if (Date.now() - last_update_time_ethstake > 3600e3) {
-	get_iDYP_ETH_Staking_Info()
-	get_DYP_ETH_Staking_Info()
-	get_NFT_Staking_Info()
-	get_ETH_STAKING_HIGHEST_APY()
+		get_iDYP_ETH_Staking_Info()
+		get_DYP_ETH_Staking_Info()
+		get_NFT_Staking_Info()
+		get_ETH_STAKING_HIGHEST_APY()
 	}
 	res.type('application/json')
 	res.json({
@@ -10265,10 +10723,10 @@ app.get('/api/get_staking_info_eth', async (req, res) => {
 app.get('/api/get_staking_info_bnb', async (req, res) => {
 	if (Date.now() - last_update_time_bnbstake > 3600e3) {
 		get_iDYP_BNB_Staking_Info()
-	get_DYP_BNB_Staking_Info()
-	get_BNB_STAKING_HIGHEST_APY()
-	  }
-	
+		get_DYP_BNB_Staking_Info()
+		get_BNB_STAKING_HIGHEST_APY()
+	}
+
 	res.type('application/json')
 	res.json({
 		stakingInfoiDYPBnb: iDYPBNBStakingInfo,
@@ -10280,9 +10738,9 @@ app.get('/api/get_staking_info_bnb', async (req, res) => {
 
 app.get('/api/get_staking_info_avax', async (req, res) => {
 	if (Date.now() - last_update_time_avaxstake > 3600e3) {
-	get_iDYP_AVAX_Staking_Info()
-	get_DYP_AVAX_Staking_Info()
-	get_AVAX_STAKING_HIGHEST_APY()
+		get_iDYP_AVAX_Staking_Info()
+		get_DYP_AVAX_Staking_Info()
+		get_AVAX_STAKING_HIGHEST_APY()
 	}
 	res.type('application/json')
 	res.json({
@@ -10295,7 +10753,7 @@ app.get('/api/get_staking_info_avax', async (req, res) => {
 
 app.get('/api/get_buyback_info_eth', async (req, res) => {
 	if (Date.now() - last_update_time_ethbuyback > 3600e3) {
-	get_ETH_Buyback_Info()
+		get_ETH_Buyback_Info()
 	}
 	res.type('application/json')
 	res.json({
@@ -10307,7 +10765,7 @@ app.get('/api/get_buyback_info_eth', async (req, res) => {
 
 app.get('/api/get_buyback_info_avax', async (req, res) => {
 	if (Date.now() - last_update_time_avaxbuyback > 3600e3) {
-	get_AVAX_Buyback_Info()
+		get_AVAX_Buyback_Info()
 	}
 	res.type('application/json')
 	res.json({
@@ -10319,7 +10777,7 @@ app.get('/api/get_buyback_info_avax', async (req, res) => {
 
 app.get('/api/get_buyback_info_bnb', async (req, res) => {
 	if (Date.now() - last_update_time_bnbbuyback > 3600e3) {
-	get_BNB_Buyback_Info()
+		get_BNB_Buyback_Info()
 	}
 	res.type('application/json')
 	res.json({
@@ -10328,12 +10786,29 @@ app.get('/api/get_buyback_info_bnb', async (req, res) => {
 		totalTVL_BUYBACK_BNB: totaltvlbuybackbsc
 	})
 })
-app.get('/api/get_user_pool_info', async (req, res) => {
-	await get_USER_pools()
-	res.type('application/json')
-	res.json({
+// app.get('/api/get_user_pool_info', async (req, res) => {
+// 	await get_USER_pools()
+// 	res.type('application/json')
+// 	res.json({
+// 		PoolsUserIn: UserPoolsInfo
+// 	})
+// })
+
+app.get('/api/user_pools/:address',  async (req, res) =>
+{
+    if (Web3.utils.isAddress(req.params.address))
+    {
+        let address = String(req.params.address).toLowerCase()
+
+        let user = address
+
+		await get_USER_pools(user)
+		res.type('application/json')
+		res.json({
 		PoolsUserIn: UserPoolsInfo
-	})
+		})
+
+    }
 })
 
 // app.get('/address', (req, res) => {
