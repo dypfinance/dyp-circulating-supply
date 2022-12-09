@@ -6915,14 +6915,120 @@ const updateNFTStaking = async () => {
 	cawsnfttvl = CAWS_TOTAL_LOCKED * floorprice * eth_price
 
 }
+
+
+
+const IDs_User_Pools_ETH_VAULTS1 = {
+	"0x28eabA060E5EF0d41eeB20d41aafaE8f685739d9":
+	{
+		contract_address: "0x28eabA060E5EF0d41eeB20d41aafaE8f685739d9",
+		tvl:""
+	},
+	"0x2F2cff66fEB7320FC9Adf91b7B74bFb5a80C7C35":
+	{
+		contract_address: "0x2F2cff66fEB7320FC9Adf91b7B74bFb5a80C7C35",
+		tvl:""
+	},
+	"0xA987aEE0189Af45d5FA95a9FBBCB4374228f375E":
+	{
+		contract_address: "0xA987aEE0189Af45d5FA95a9FBBCB4374228f375E",
+		tvl:""
+	},
+	"0x251B9ee6cEd97565A821C5608014a107ddc9C98F":
+	{
+		contract_address: "0x251B9ee6cEd97565A821C5608014a107ddc9C98F",
+		tvl:""
+	},
+	"0x54F30bFfeb925F47225e148f0bAe17a452d6b8c0":
+	{
+		contract_address: "0x54F30bFfeb925F47225e148f0bAe17a452d6b8c0",
+		tvl:""
+	},
+}
+let totaltvlvault = 0
+let _tvlvaultDAI = 0
+let _tvlvaultUSDC = 0
+let _tvlvaultUSDT = 0
+let _tvlvaultWBTC = 0
+let _tvlvaultWETH = 0
+
+
+const updateVaultTVL = async () => {
+totaltvlvault = 0
+_tvlvaultDAI = 0
+_tvlvaultUSDC = 0
+_tvlvaultUSDT = 0
+_tvlvaultWBTC = 0
+_tvlvaultWETH = 0
+	
+
+let token_contract_dyp = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYPS_ETH, { from: undefined })
+
+_tvlvaultWETH = await token_contract_dyp.methods.balanceOf(VAULT_ETH_WETH).call()
+_tvlvaultWBTC = await token_contract_dyp.methods.balanceOf(VAULT_ETH_WBTC).call()
+_tvlvaultUSDC = await token_contract_dyp.methods.balanceOf(VAULT_ETH_USDC).call()
+_tvlvaultUSDT = await token_contract_dyp.methods.balanceOf(VAULT_ETH_USDT).call()
+ _tvlvaultDAI = await token_contract_dyp.methods.balanceOf(VAULT_ETH_DAI).call()
+
+_tvlvaultWETH = _tvlvaultWETH /1e18 * price_DYPS
+_tvlvaultWBTC = _tvlvaultWBTC /1e18 * price_DYPS
+_tvlvaultUSDC = _tvlvaultUSDC /1e18 * price_DYPS
+_tvlvaultUSDT = _tvlvaultUSDT /1e18 * price_DYPS
+_tvlvaultDAI = _tvlvaultDAI /1e18 * price_DYPS
+
+totaltvlvault = _tvlvaultWETH + _tvlvaultWBTC + _tvlvaultUSDC + _tvlvaultUSDT + _tvlvaultDAI
+
+}
+let last_update_time_vault = 0;
+let VaultTVLInfo = [];
+let VaultTVLTotal =[];
+const get_iDYP_Vault_TVL_Info = () => {
+	last_update_time_vault = Date.now();
+	//1 ora
+	VaultTVLInfo = [];
+	total_eth_tvl = [];
+	VaultTVLTotal = [];
+
+	let 
+		contract_address = "",
+		tvl_usd = 0;
+
+	let ids_constant_staking_eth = Object.keys(IDs_User_Pools_ETH_VAULTS1)
+	for (let id of ids_constant_staking_eth) {
+
+		if (id == "0x28eabA060E5EF0d41eeB20d41aafaE8f685739d9")
+			tvl_usd = _tvlvaultWETH
+
+		if (id == "0x2F2cff66fEB7320FC9Adf91b7B74bFb5a80C7C35")
+			tvl_usd = _tvlvaultWBTC
+
+		if (id == "0xA987aEE0189Af45d5FA95a9FBBCB4374228f375E")
+			tvl_usd = _tvlvaultUSDT
+
+		if (id == "0x251B9ee6cEd97565A821C5608014a107ddc9C98F")
+			tvl_usd = _tvlvaultUSDC
+			if (id == "0x54F30bFfeb925F47225e148f0bAe17a452d6b8c0")
+			tvl_usd = _tvlvaultDAI
+
+
+			contract_address = IDs_User_Pools_ETH_VAULTS1[id].contract_address
+
+		VaultTVLInfo.push({
+			contract_address: contract_address,
+			tvl: tvl_usd
+		})
+	}
+	VaultTVLTotal.push({
+		tvl: totaltvlvault
+	})
+
+}
 let totaltvl = 0;
 let totaltvlbsc = 0;
 let totaltvlavax = 0;
 let totaltvlbuybackbsc = 0;
 let totaltvlbuybackavax = 0;
 let totaltvlbuybacketh = 0;
-// we first instantiate the contracts, after which we fetch dyp and idyp current prices and the balances of the staking contracts
-// we then calculate the tvl for each staking contract and add it to the total tvl of the platform
 const updateStakingTVL = async () => {
 	totaltvl = 0;
 	totaltvlbsc = 0;
@@ -7167,6 +7273,9 @@ const updateStakingTVL = async () => {
 
 		buybackAvaxTvl1, buybackAvaxTvl2;
 }
+
+
+
 
 let NftStakingInfo = [];
 
@@ -10537,7 +10646,7 @@ async function firstRun() {
 	/* Get CAWS Floor Price & ETH Price */
 	await fecthNftFloorPrice()
 	await fecthETHPrice()
-
+	await updateVaultTVL()
 
 	/* Get Staking Info */
 	await updateStakingTVL()
@@ -10774,7 +10883,17 @@ app.get('/api/get_staking_info_eth', async (req, res) => {
 		totalTVL_ETH: totaltvl
 	})
 })
+app.get('/api/get_vault_info', async (req, res) => {
+	if (Date.now() - last_update_time_vault > 3600e3) {
+		get_iDYP_Vault_TVL_Info()
+	}
+	res.type('application/json')
+	res.json({
+		VaultTVLs: VaultTVLInfo,
+		VaultTotalTVL: VaultTVLTotal
 
+	})
+})
 app.get('/api/get_staking_info_bnb', async (req, res) => {
 	if (Date.now() - last_update_time_bnbstake > 3600e3) {
 		get_iDYP_BNB_Staking_Info()
