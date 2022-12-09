@@ -7773,11 +7773,12 @@ const get_ETH_Buyback_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
-		BuybackETHhighestapy.push({
-			highest_apy: 75
-		})
+		
 
 	}
+	BuybackETHhighestapy.push({
+		highest_apy: 75
+	})
 
 }
 
@@ -7851,10 +7852,11 @@ const get_BNB_Buyback_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
-		BuybackBNBhighestapy.push({
-			highest_apy: 75,
-		})
+		
 	}
+	BuybackBNBhighestapy.push({
+		highest_apy: 75,
+	})
 
 }
 
@@ -7928,11 +7930,12 @@ const get_AVAX_Buyback_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
-		BuybackAVAXhighestapy.push({
-			highest_apy: 75
-		})
+		
 
 	}
+	BuybackAVAXhighestapy.push({
+		highest_apy: 75
+	})
 }
 
 //contract abis start here
