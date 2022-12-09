@@ -7351,8 +7351,7 @@ const get_DYP_ETH_Staking_Info = () => {
 			expired: expired
 		})
 		ethcounter++;
-		if(expired == "No")
-		{
+		if (expired == "No") {
 			highestethapy[ethcounter] = parseFloat(apy_percent);
 			ethcounter++;
 		}
@@ -7516,8 +7515,7 @@ const get_DYP_BNB_Staking_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
-		if(expired == "No")
-		{
+		if (expired == "No") {
 			highestbnbapy[bsccounter] = parseFloat(apy_percent);
 			bsccounter++;
 		}
@@ -7681,8 +7679,7 @@ const get_DYP_AVAX_Staking_Info = () => {
 			expired: expired
 		})
 
-		if(expired == "No")
-		{
+		if (expired == "No") {
 			highestavaxapy[avaxcounter] = parseFloat(apy_percent);
 			avaxcounter++;
 		}
@@ -7773,13 +7770,19 @@ const get_ETH_Buyback_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
-		
+
 
 	}
-	BuybackETHhighestapy.push({
-		highest_apy: 75
-	})
-
+	if (a1 > a2) {
+		BuybackETHhighestapy.push({
+			highest_apy: a1
+		})
+	}
+	else {
+		BuybackETHhighestapy.push({
+			highest_apy: a2
+		})
+	}
 }
 
 let BuybackBNBInfo = [];
@@ -7852,11 +7855,18 @@ const get_BNB_Buyback_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
-		
+
 	}
-	BuybackBNBhighestapy.push({
-		highest_apy: 75,
-	})
+	if (b1 > b2) {
+		BuybackBNBhighestapy.push({
+			highest_apy: b1
+		})
+	}
+	else {
+		BuybackBNBhighestapy.push({
+			highest_apy: b2
+		})
+	}
 
 }
 
@@ -7930,12 +7940,19 @@ const get_AVAX_Buyback_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
-		
+
 
 	}
-	BuybackAVAXhighestapy.push({
-		highest_apy: 75
-	})
+	if (c1 > c2) {
+		BuybackAVAXhighestapy.push({
+			highest_apy: c1
+		})
+	}
+	else {
+		BuybackAVAXhighestapy.push({
+			highest_apy: c2
+		})
+	}
 }
 
 //contract abis start here
