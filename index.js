@@ -9072,6 +9072,7 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 		apy = new BigNumber(apyFarming).multipliedBy(0.75).plus(apyStaking * 0.25).toFixed(2) * 1
 
 		lp_data[lp_id].apy = apy
+		lp_data[lp_id].apy_percent = apy
 		lp_data[lp_id].apyFarming = apyFarming
 		lp_data[lp_id].apyStaking = apyStaking
 		lp_data[lp_id].tvl_usd = tvl_usd
@@ -9677,6 +9678,7 @@ async function get_apy_and_tvl_AVAX_V2(usd_values) {
 		//console.log({sum, maxSwappableAmount, TOKENS_DISBURSED, apyFarming})
 
 		lp_data[lp_id].apy = apy
+		lp_data[lp_id].apy_percent = apy
 		lp_data[lp_id].apyFarming = apyFarming
 		lp_data[lp_id].apyStaking = apyStaking
 		lp_data[lp_id].tvl_usd = tvl_usd
@@ -9982,6 +9984,7 @@ async function get_apy_and_tvl_ETH_V2(usd_values) {
 		//console.log({sum, maxSwappableAmount, TOKENS_DISBURSED, apyFarming})
 
 		lp_data[lp_id].apy = apy
+		lp_data[lp_id].apy_percent = apy
 		lp_data[lp_id].apyFarming = apyFarming
 		lp_data[lp_id].apyStaking = apyStaking
 		lp_data[lp_id].tvl_usd = tvl_usd
