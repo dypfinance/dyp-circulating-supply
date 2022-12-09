@@ -7351,7 +7351,11 @@ const get_DYP_ETH_Staking_Info = () => {
 			expired: expired
 		})
 		ethcounter++;
-		highestethapy[ethcounter] = parseFloat(apy_percent);
+		if(expired == "No")
+		{
+			highestethapy[ethcounter] = parseFloat(apy_percent);
+			ethcounter++;
+		}
 	}
 
 }
@@ -7512,9 +7516,11 @@ const get_DYP_BNB_Staking_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
-		bsccounter++;
-		highestbnbapy[bsccounter] = parseFloat(apy_percent);
-
+		if(expired == "No")
+		{
+			highestbnbapy[bsccounter] = parseFloat(apy_percent);
+			bsccounter++;
+		}
 
 	}
 
@@ -7674,8 +7680,12 @@ const get_DYP_AVAX_Staking_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
-		avaxcounter++;
-		highestavaxapy[avaxcounter] = parseFloat(apy_percent);
+
+		if(expired == "No")
+		{
+			highestavaxapy[avaxcounter] = parseFloat(apy_percent);
+			avaxcounter++;
+		}
 	}
 
 }
