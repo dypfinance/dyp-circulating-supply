@@ -6915,9 +6915,21 @@ const updateNFTStaking = async () => {
 	cawsnfttvl = CAWS_TOTAL_LOCKED * floorprice * eth_price
 
 }
+let totaltvl = 0;
+let totaltvlbsc = 0;
+let totaltvlavax =0;
+let totaltvlbuybackbsc = 0;
+let totaltvlbuybackavax = 0;
+let totaltvlbuybacketh = 0;
 // we first instantiate the contracts, after which we fetch dyp and idyp current prices and the balances of the staking contracts
 // we then calculate the tvl for each staking contract and add it to the total tvl of the platform
 const updateStakingTVL = async () => {
+	totaltvl = 0;
+totaltvlbsc = 0;
+totaltvlavax =0;
+ totaltvlbuybackbsc = 0;
+ totaltvlbuybackavax = 0;
+ totaltvlbuybacketh = 0;
 	let token_contract_eth_1 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_ETH, { from: undefined })
 	let token_contract_eth_2 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP_ETH, { from: undefined })
 	let token_contract_bnb_1 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_BNB, { from: undefined })
@@ -7129,7 +7141,12 @@ const updateStakingTVL = async () => {
 	_tvlDYPBuybackAvax2 = _tvlDYPBuybackAvax2 / 1e18 * usdPerToken
 	_tvlDYPBuybackAvax2 = _tvlDYPBuybackAvax2 + _tvlDYPBuybackAvax2_2 / 1e18 * price_iDYP_eth
 	buybackAvaxTvl2 = _tvlDYPBuybackAvax2;
-
+	totaltvl= stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25
+	totaltvlbsc = stakingiDYPBnbTvl15 + stakingiDYPBnbTvl20 + stakingiDYPBnbTvl30 + stakingiDYPBnbTvl45 + stakingDYPBnbTvl1 + stakingDYPBnbTvl2 + stakingDYPBnbTvl10 + stakingDYPBnbTvl25 + stakingDYPBnbTvl30
+	totaltvlavax = stakingiDYPAvaxTvl15 + stakingiDYPAvaxTvl20 + stakingiDYPAvaxTvl30 + stakingiDYPAvaxTvl45 + stakingDYPAvaxTvl1 + stakingDYPAvaxTvl2 + stakingDYPAvaxTvl10 + stakingDYPAvaxTvl25 + stakingDYPAvaxTvl30
+	totaltvlbuybackavax = buybackAvaxTvl1 + buybackAvaxTvl2
+	totaltvlbuybackbsc = buybackBnbTvl1 + buybackBnbTvl2
+	totaltvlbuybacketh = buybackEthTvl1 + buybackEthTvl2
 	return usdPerToken,
 
 		stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45,
@@ -7198,9 +7215,9 @@ const get_NFT_Staking_Info = () => {
 	}
 
 }
-
 let iDYPEthStakingInfo = [];
 let all_eth_apys = [];
+let total_eth_tvl = [];
 let ethcounter = 0;
 let highestethapy = [];
 let last_update_time_ethstake = 0;
@@ -7208,7 +7225,7 @@ const get_iDYP_ETH_Staking_Info = () => {
 	last_update_time_ethstake = Date.now();
 	//1 ora
 	iDYPEthStakingInfo = [];
-
+	total_eth_tvl=[];
 	let apy_percent = 0,
 		tvl_usd = 0,
 		link_logo = "https://app.dyp.finance/logo192.png",
@@ -7234,7 +7251,6 @@ const get_iDYP_ETH_Staking_Info = () => {
 
 		if (id == "0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4")
 			tvl_usd = stakingiDYPEthTvl45
-
 
 		pool_name = IDs_constant_staking_idyp_eth[id].pool_name
 		pair_name = IDs_constant_staking_idyp_eth[id].pair_name
@@ -7409,7 +7425,11 @@ const get_ETH_STAKING_HIGHEST_APY= () => {
 			highest_apy: aaa,
 		})
 	}
-
+	const get_ETH_STAKING_TOTALTVL = () => {
+		total_eth_tvl.push({
+				Total_TVL_ETH: tvltotal,
+			})
+		}
 let DYPBnbStakingInfo = [];
 
 const get_DYP_BNB_Staking_Info = () => {
@@ -7906,18 +7926,30 @@ const get_AVAX_Buyback_Info = () => {
 }
 
 
-const BSC_ABI_TEST = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"owner","type":"address"}],"name":"EmergencyDeclared","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"referrer","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"ReferralFeeTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Reinvest","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"rewardRate","type":"uint256"}],"name":"RewardRateChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"RewardsTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"StakingFeeChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"UnstakingFeeChanged","type":"event"},{"inputs":[],"name":"ADMIN_CAN_CLAIM_AFTER","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"EMERGENCY_WAIT_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LOCKUP_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REFERRAL_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_INTERVAL","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"STAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"UNSTAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"adminClaimableTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"contractStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"declareEmergency","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToWithdraw","type":"uint256"}],"name":"emergencyUnstake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"getActiveReferredStaker","outputs":[{"internalType":"address","name":"_staker","type":"address"},{"internalType":"uint256","name":"_totalEarned","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getNumberOfHolders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"referrer","type":"address"}],"name":"getNumberOfReferredStakers","outputs":[{"internalType":"uint256","name":"_activeStakers","type":"uint256"},{"internalType":"uint256","name":"_totalStakers","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"getReferredStaker","outputs":[{"internalType":"address","name":"_staker","type":"address"},{"internalType":"uint256","name":"_totalEarned","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"startIndex","type":"uint256"},{"internalType":"uint256","name":"endIndex","type":"uint256"}],"name":"getStakersList","outputs":[{"internalType":"address[]","name":"stakers","type":"address[]"},{"internalType":"uint256[]","name":"stakingTimestamps","type":"uint256[]"},{"internalType":"uint256[]","name":"lastClaimedTimeStamps","type":"uint256[]"},{"internalType":"uint256[]","name":"stakedTokens","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getTotalPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isEmergency","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastClaimedTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"reInvest","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referrals","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"rewardsPendingClaim","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"newRewardRate","type":"uint256"}],"name":"setRewardRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newStakingFeeRateX100","type":"uint256"}],"name":"setStakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newUnstakingFeeRateX100","type":"uint256"}],"name":"setUnstakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToStake","type":"uint256"},{"internalType":"address","name":"referrer","type":"address"}],"name":"stake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"stakingTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedReferralFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedRewards","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalReferralFeeEarned","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferAnyERC20Token","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferAnyLegacyERC20Token","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToWithdraw","type":"uint256"}],"name":"unstake","outputs":[],"stateMutability":"nonpayable","type":"function"}]
-const BSC_TEST = "0xef9e50A19358CCC8816d9BC2c2355aea596efd06"
+const ABI_IDYP = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"owner","type":"address"}],"name":"EmergencyDeclared","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"referrer","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"ReferralFeeTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Reinvest","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"rewardRate","type":"uint256"}],"name":"RewardRateChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"holder","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"RewardsTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"StakingFeeChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"fee","type":"uint256"}],"name":"UnstakingFeeChanged","type":"event"},{"inputs":[],"name":"ADMIN_CAN_CLAIM_AFTER","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"EMERGENCY_WAIT_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"LOCKUP_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REFERRAL_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_INTERVAL","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REWARD_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"STAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TRUSTED_TOKEN_ADDRESS","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"UNSTAKING_FEE_RATE_X_100","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"adminClaimableTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"contractStartTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"declareEmergency","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"depositedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToWithdraw","type":"uint256"}],"name":"emergencyUnstake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"getActiveReferredStaker","outputs":[{"internalType":"address","name":"_staker","type":"address"},{"internalType":"uint256","name":"_totalEarned","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getNumberOfHolders","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"referrer","type":"address"}],"name":"getNumberOfReferredStakers","outputs":[{"internalType":"uint256","name":"_activeStakers","type":"uint256"},{"internalType":"uint256","name":"_totalStakers","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"i","type":"uint256"}],"name":"getReferredStaker","outputs":[{"internalType":"address","name":"_staker","type":"address"},{"internalType":"uint256","name":"_totalEarned","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"startIndex","type":"uint256"},{"internalType":"uint256","name":"endIndex","type":"uint256"}],"name":"getStakersList","outputs":[{"internalType":"address[]","name":"stakers","type":"address[]"},{"internalType":"uint256[]","name":"stakingTimestamps","type":"uint256[]"},{"internalType":"uint256[]","name":"lastClaimedTimeStamps","type":"uint256[]"},{"internalType":"uint256[]","name":"stakedTokens","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_holder","type":"address"}],"name":"getTotalPendingDivs","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isEmergency","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"lastClaimedTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"reInvest","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referrals","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"rewardsPendingClaim","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"newRewardRate","type":"uint256"}],"name":"setRewardRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newStakingFeeRateX100","type":"uint256"}],"name":"setStakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newUnstakingFeeRateX100","type":"uint256"}],"name":"setUnstakingFeeRateX100","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToStake","type":"uint256"},{"internalType":"address","name":"referrer","type":"address"}],"name":"stake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"stakingTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedReferralFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalClaimedRewards","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalEarnedTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalReferralFeeEarned","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferAnyERC20Token","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferAnyLegacyERC20Token","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountToWithdraw","type":"uint256"}],"name":"unstake","outputs":[],"stateMutability":"nonpayable","type":"function"}]
 
-  const IDs_User_Pools = {
+const IDYP_BNBS_1 = "0xef9e50A19358CCC8816d9BC2c2355aea596efd06"
+// const IDYP_BNBS2 =
+// const IDYP_BNBS3 = 
+// const IDYP_BNBS4 =
+
+// const DYP_BNBS_1 =
+// const DYP_BNBS_2 =
+// const DYP_BNBS_3 = 
+// const DYP_BNBS_4 =
+// const DYP_BNBS_5 = 
+
+
+  const IDs_User_Pools_BSC_IDYP = {
 	"0xef9e50A19358CCC8816d9BC2c2355aea596efd06":
 	{
 		contract_address: "0xef9e50A19358CCC8816d9BC2c2355aea596efd06",
 	},
+
 	
 }
 
-let accounts = []
+let accounts = "0xabee4733f4e3d8f25754f4758c3d74bb44040955";
 let UserPoolsInfo = []
 
 
@@ -7925,38 +7957,90 @@ const get_USER_pools = async () => {
 
 	// let _id = BSC_TEST
 	UserPoolsInfo = []
-	accounts = []
+	// accounts = []
 	let contract_address = ""
 		
-	accounts[1] = "0xabee4733f4e3d8f25754f4758c3d74bb44040955";
+	// accounts[1] = "0xabee4733f4e3d8f25754f4758c3d74bb44040955";
 
-	let ids_constant_staking_eth = Object.keys(IDs_User_Pools)
-	for (let id of ids_constant_staking_eth) {
-		contract_address = IDs_User_Pools[id].contract_address
-		if(id == contract_address)
-		{
-			getPendingDivs(id)
-		}
-		if((typeof global.pending_divs !== "undefined") && (global.pending_divs > 0))
-		{
-		UserPoolsInfo.push({
-			contract_address: contract_address,
-		})
-	}
-		else
+	let ids_constant_staking_bsc = Object.keys(IDs_User_Pools_BSC_IDYP)
+	for (let id of ids_constant_staking_bsc) {
+		contract_address = IDs_User_Pools_BSC_IDYP[id].contract_address
+
+		let res = await getPendingDivsBSC(id)
+
+		// console.log(res);
+
+		if((res !== "undefined") && (res > 0)){
+			UserPoolsInfo.push({
+				contract_address: contract_address,
+			})
+		}else{
 			UserPoolsInfo.push({
 				contract_address: "User is not in this pool"
 			})
+		}
 	}
+	// let ids_constant_staking_eth = Object.keys(IDs_User_Pools_BSC)
+	// for (let id of ids_constant_staking_eth) {
+	// 	contract_address = IDs_User_Pools_BSC[id].contract_address
+	// 	if(id == contract_address)
+	// 	{
+	// 		getPendingDivsETH(id)
+	// 	}
+	// 	if((typeof global.pending_divs !== "undefined") && (global.pending_divs > 0))
+	// 	{
+	// 	UserPoolsInfo.push({
+	// 		contract_address: contract_address,
+	// 	})
+	// }
+	// 	else
+	// 		UserPoolsInfo.push({
+	// 			contract_address: "User is not in this pool"
+	// 		})
+	// }
+	// let ids_constant_staking_avax = Object.keys(IDs_User_Pools_BSC)
+	// for (let id of ids_constant_staking_avax) {
+	// 	contract_address = IDs_User_Pools_BSC[id].contract_address
+	// 	if(id == contract_address)
+	// 	{
+	// 		getPendingDivsAVAX(id)
+	// 	}
+	// 	if((typeof global.pending_divs !== "undefined") && (global.pending_divs > 0))
+	// 	{
+	// 	UserPoolsInfo.push({
+	// 		contract_address: contract_address,
+	// 	})
+	// }
+	// 	else
+	// 		UserPoolsInfo.push({
+	// 			contract_address: "User is not in this pool"
+	// 		})
+	// }
 }
 
 //create a function that receives an id, contract_address and abi parameter  and returns pending_divs
 //create a function that receives an id, contract_address and abi parameter  and returns pending_divs
 
 
-const getPendingDivs = async (id) => {
+const getPendingDivsBSC = async (id) => {
 	let pending_divs = 0
-	let contract_address = IDs_User_Pools[id].contract_address
+	let contract_address = IDs_User_Pools_BSC_IDYP[id].contract_address
+	let test_contract = new bscWeb3.eth.Contract(BSC_ABI_TEST, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(accounts).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;	
+}
+const getPendingDivsETH = async (id) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_BSC[id].contract_address
+	let test_contract = new bscWeb3.eth.Contract(BSC_ABI_TEST, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(accounts[1]).call();
+	pending_divs = pending_divs / 1e18
+	global.pending_divs = pending_divs;	
+}
+const getPendingDivsAVAX = async (id) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_BSC[id].contract_address
 	let test_contract = new bscWeb3.eth.Contract(BSC_ABI_TEST, contract_address, { from: undefined });
 	pending_divs = await test_contract.methods.depositedTokens(accounts[1]).call();
 	pending_divs = pending_divs / 1e18
@@ -10078,7 +10162,8 @@ app.get('/api/get_staking_info_eth', async (req, res) => {
 		stakingInfoiDYPEth: iDYPEthStakingInfo,
 		stakingInfoDYPEth: DYPEthStakingInfo,
 		stakingInfoCAWS: NftStakingInfo,
-		highestAPY_ETH: all_eth_apys
+		highestAPY_ETH: all_eth_apys,
+		totalTVL_ETH: totaltvl
 	})
 })
 
@@ -10093,7 +10178,8 @@ app.get('/api/get_staking_info_bnb', async (req, res) => {
 	res.json({
 		stakingInfoiDYPBnb: iDYPBNBStakingInfo,
 		stakingInfoDYPBnb: DYPBnbStakingInfo,
-		highestAPY_BNB: all_bsc_apys
+		highestAPY_BNB: all_bsc_apys,
+		totalTVL_BNB: totaltvlbsc
 	})
 })
 
@@ -10107,7 +10193,8 @@ app.get('/api/get_staking_info_avax', async (req, res) => {
 	res.json({
 		stakingInfoiDYPAvax: iDYPAvaxStakingInfo,
 		stakingInfoDYPAvax: DYPAvaxStakingInfo,
-		highestAPY_AVAX: all_avax_apys
+		highestAPY_AVAX: all_avax_apys,
+		totalTVL_AVAX: totaltvlavax
 	})
 })
 
@@ -10118,7 +10205,8 @@ app.get('/api/get_buyback_info_eth', async (req, res) => {
 	res.type('application/json')
 	res.json({
 		BuybackETHInfo: BuybackETHInfo,
-		BuybackHighestApy: BuybackETHhighestapy
+		BuybackHighestApy: BuybackETHhighestapy,
+		totalTVL_BUYBACK_ETH: totaltvlbuybacketh
 	})
 })
 
@@ -10129,7 +10217,8 @@ app.get('/api/get_buyback_info_avax', async (req, res) => {
 	res.type('application/json')
 	res.json({
 		BuybackAVAXInfo: BuybackAVAXInfo,
-		BuybackHighestApyAVAX: BuybackAVAXhighestapy
+		BuybackHighestApyAVAX: BuybackAVAXhighestapy,
+		totalTVL_BUYBACK_AVAX: totaltvlbuybackavax
 	})
 })
 
@@ -10140,11 +10229,12 @@ app.get('/api/get_buyback_info_bnb', async (req, res) => {
 	res.type('application/json')
 	res.json({
 		BuybackBNBInfo: BuybackBNBInfo,
-		BuybackHighestApyBNB: BuybackBNBhighestapy
+		BuybackHighestApyBNB: BuybackBNBhighestapy,
+		totalTVL_BUYBACK_BNB: totaltvlbuybackbsc
 	})
 })
 app.get('/api/get_user_pool_info', async (req, res) => {
-	get_USER_pools()
+	await get_USER_pools()
 	res.type('application/json')
 	res.json({
 		PoolsUserIn: UserPoolsInfo
