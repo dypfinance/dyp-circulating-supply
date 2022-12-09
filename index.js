@@ -7203,10 +7203,10 @@ let iDYPEthStakingInfo = [];
 let all_eth_apys = [];
 let ethcounter = 0;
 let highestethapy = [];
-
+let last_update_time_ethstake = 0;
 const get_iDYP_ETH_Staking_Info = () => {
-
-
+	last_update_time_ethstake = Date.now();
+	//1 ora
 	iDYPEthStakingInfo = [];
 
 	let apy_percent = 0,
@@ -7341,14 +7341,15 @@ const get_DYP_ETH_Staking_Info = () => {
 }
 
 // idyp bnb staking info
-
+let last_update_time_bnbstake = 0;
 let iDYPBNBStakingInfo = [];
 let all_bsc_apys = [];
 let bsccounter = 0;
 let highestbnbapy = [];
 
 const get_iDYP_BNB_Staking_Info = () => {
-
+	iDYPBNBStakingInfo = [];
+	last_update_time_bnbstake = Date.now();
 	let apy_percent = 0,
 		tvl_usd = 0,
 		link_logo = "https://app.dyp.finance/logo192.png",
@@ -7414,7 +7415,6 @@ let DYPBnbStakingInfo = [];
 const get_DYP_BNB_Staking_Info = () => {
 	DYPBnbStakingInfo = [];
 	bsccounter = 0;
-	iDYPBNBStakingInfo = [];
 	all_bsc_apys = [];
 	highestbnbapy = [];
 
@@ -7517,9 +7517,9 @@ let iDYPAvaxStakingInfo = [];
 let all_avax_apys = [];
 let avaxcounter = 0;
 let highestavaxapy = [];
-
+let last_update_time_avaxstake = 0;
 const get_iDYP_AVAX_Staking_Info = () => {
-
+	last_update_time_avaxstake = Date.now();
 	iDYPAvaxStakingInfo = [];
 
 	let apy_percent = 0,
@@ -7677,8 +7677,9 @@ let BuybackETHInfo = [];
 let BuybackETHhighestapy = [];
 let a1 = 0;
 let a2 = 0;
+let last_update_time_ethbuyback = 0;
 const get_ETH_Buyback_Info = () => {
-
+	last_update_time_ethbuyback = Date.now()
 	BuybackETHInfo = [];
 	BuybackETHhighestapy = [];
 	a1 = 0;
@@ -7754,8 +7755,9 @@ let BuybackBNBInfo = [];
 let BuybackBNBhighestapy = [];
 let b1 = 0;
 let b2 = 0;
+let last_update_time_bnbbuyback = 0;
 const get_BNB_Buyback_Info = () => {
-
+	last_update_time_bnbbuyback = Date.now()
 	BuybackBNBInfo = [];
 	b1 = 0;
 	b2 = 0;
@@ -7830,8 +7832,9 @@ let BuybackAVAXInfo = [];
 let BuybackAVAXhighestapy = [];
 let c1 = 0;
 let c2 = 0;
+let last_update_time_avaxbuyback = 0;
 const get_AVAX_Buyback_Info = () => {
-
+	last_update_time_avaxbuyback = Date.now()
 	BuybackAVAXInfo = [];
 	BuybackAVAXhighestapy = [];
 	c1 = 0;
@@ -10064,11 +10067,12 @@ app.get('/api/get_farm_info', async (req, res) => {
 })
 
 app.get('/api/get_staking_info_eth', async (req, res) => {
-
+	if (Date.now() - last_update_time_ethstake > 3600e3) {
 	get_iDYP_ETH_Staking_Info()
 	get_DYP_ETH_Staking_Info()
 	get_NFT_Staking_Info()
 	get_ETH_STAKING_HIGHEST_APY()
+	}
 	res.type('application/json')
 	res.json({
 		stakingInfoiDYPEth: iDYPEthStakingInfo,
@@ -10079,10 +10083,12 @@ app.get('/api/get_staking_info_eth', async (req, res) => {
 })
 
 app.get('/api/get_staking_info_bnb', async (req, res) => {
-
-	get_iDYP_BNB_Staking_Info()
+	if (Date.now() - last_update_time_bnbstake > 3600e3) {
+		get_iDYP_BNB_Staking_Info()
 	get_DYP_BNB_Staking_Info()
 	get_BNB_STAKING_HIGHEST_APY()
+	  }
+	
 	res.type('application/json')
 	res.json({
 		stakingInfoiDYPBnb: iDYPBNBStakingInfo,
@@ -10092,10 +10098,11 @@ app.get('/api/get_staking_info_bnb', async (req, res) => {
 })
 
 app.get('/api/get_staking_info_avax', async (req, res) => {
-
+	if (Date.now() - last_update_time_avaxstake > 3600e3) {
 	get_iDYP_AVAX_Staking_Info()
 	get_DYP_AVAX_Staking_Info()
 	get_AVAX_STAKING_HIGHEST_APY()
+	}
 	res.type('application/json')
 	res.json({
 		stakingInfoiDYPAvax: iDYPAvaxStakingInfo,
@@ -10105,8 +10112,9 @@ app.get('/api/get_staking_info_avax', async (req, res) => {
 })
 
 app.get('/api/get_buyback_info_eth', async (req, res) => {
-
+	if (Date.now() - last_update_time_ethbuyback > 3600e3) {
 	get_ETH_Buyback_Info()
+	}
 	res.type('application/json')
 	res.json({
 		BuybackETHInfo: BuybackETHInfo,
@@ -10115,8 +10123,9 @@ app.get('/api/get_buyback_info_eth', async (req, res) => {
 })
 
 app.get('/api/get_buyback_info_avax', async (req, res) => {
-
+	if (Date.now() - last_update_time_avaxbuyback > 3600e3) {
 	get_AVAX_Buyback_Info()
+	}
 	res.type('application/json')
 	res.json({
 		BuybackAVAXInfo: BuybackAVAXInfo,
@@ -10125,8 +10134,9 @@ app.get('/api/get_buyback_info_avax', async (req, res) => {
 })
 
 app.get('/api/get_buyback_info_bnb', async (req, res) => {
-
+	if (Date.now() - last_update_time_bnbbuyback > 3600e3) {
 	get_BNB_Buyback_Info()
+	}
 	res.type('application/json')
 	res.json({
 		BuybackBNBInfo: BuybackBNBInfo,
