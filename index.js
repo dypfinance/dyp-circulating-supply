@@ -6573,7 +6573,7 @@ const IDs_constant_staking_dyp_eth = {
 		link_pair: "https://app.dyp.finance/constant-staking-1",
 		return_types: "iDYP",
 		lock_time: "No lock",
-		expired: "No",
+		expired: "Yes",
 		apy: ""
 	},
 	"0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d":
@@ -6912,7 +6912,7 @@ let [usdPerToken] = [0]
 const updateNFTStaking = async () => {
 	let caws_nft_contract = new infuraWeb3.eth.Contract(caws_nft_contract_abi, TOKEN_ADDRESS_CAWS, { from: undefined })
 	CAWS_TOTAL_LOCKED = await caws_nft_contract.methods.balanceOf(TOKEN_ADDRESS_CAWS_STAKE).call()
-	cawsnfttvl = CAWS_TOTAL_LOCKED * floorprice * eth_price
+	cawsnfttvl = CAWS_TOTAL_LOCKED * 0.08 * eth_price
 
 }
 
