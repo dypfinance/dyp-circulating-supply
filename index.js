@@ -6214,7 +6214,6 @@ const CheckBscStaking = async (addressToCheck) => {
 	return result
 }
 let floorprice = 0;
-let eth_price = 0;
 function fecthNftFloorPrice() {
 	fetch('https://api.opensea.io/api/v1/collection/catsandwatchessocietycaws/stats?format=json')
 		.then(response => {
@@ -6225,18 +6224,6 @@ function fecthNftFloorPrice() {
 		})
 		.then(data => {
 			floorprice = data.stats.floor_price
-		});
-}
-function fecthETHPrice() {
-	fetch('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD')
-		.then(response => {
-			if (!response.ok) {
-				throw Error('X');
-			}
-			return response.json();
-		})
-		.then(data => {
-			eth_price = data.USD
 		});
 }
 
@@ -6912,7 +6899,7 @@ let [usdPerToken] = [0]
 const updateNFTStaking = async () => {
 	let caws_nft_contract = new infuraWeb3.eth.Contract(caws_nft_contract_abi, TOKEN_ADDRESS_CAWS, { from: undefined })
 	CAWS_TOTAL_LOCKED = await caws_nft_contract.methods.balanceOf(TOKEN_ADDRESS_CAWS_STAKE).call()
-	cawsnfttvl = CAWS_TOTAL_LOCKED * 0.08 * eth_price
+	cawsnfttvl = parseInt(CAWS_TOTAL_LOCKED) * 0.08 * parseInt(the_graph_result_ETH_V2.usd_per_eth)
 }
 
 
@@ -10748,7 +10735,6 @@ async function firstRun() {
 
 	/* Get CAWS Floor Price & ETH Price */
 	await fecthNftFloorPrice()
-	await fecthETHPrice()
 	await updateVaultTVL()
 
 	/* Get Staking Info */
