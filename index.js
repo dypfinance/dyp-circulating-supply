@@ -4,7 +4,7 @@ const cors = require('cors')
 const express = require('express')
 const BigNumber = require('bignumber.js')
 const Web3 = require('web3')
-
+const moment = require('moment');
 const { JSDOM } = require("jsdom")
 const { window } = new JSDOM("")
 const $ = require("jquery")(window)
@@ -7544,7 +7544,109 @@ const get_ETH_STAKING_TOTALTVL = () => {
 	})
 }
 let DYPBnbStakingInfo = [];
+let proposals_info_eth = [];
+let proposals_info_bsc = [];
+let proposals_info_avax = [];
+let last_update_time_proposals_info = 0;
+const get_proposals_info =  async () => {
+	last_update_time_proposals_info = Date.now();
+	proposals_info_eth = [];
+	proposals_info_bsc = [];
+	proposals_info_avax = [];
+	let gov_contract_bsc = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC, { from: undefined })
+	let gov_contract_eth = new infuraWeb3.eth.Contract(GOV_ABI_ETH, GOV_ADDRESS_ETH, { from: undefined })
+	let gov_contract_avax = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX, { from: undefined })
+	let proposal_index_eth = await gov_contract_eth.methods.lastIndex().call()
+	let proposal_index_bsc = await gov_contract_bsc.methods.lastIndex().call()
+	let proposal_index_avax = await gov_contract_avax.methods.lastIndex().call()
+	for (let i = proposal_index_eth - 2; i <= proposal_index_eth; i++) {
+		let time = await gov_contract_eth.methods.getProposal(i).call()
+		let id = await gov_contract_eth.methods.getProposal(i).call()
+		time = time._proposalStartTime
+		time = new Date(time * 1000)
+		let humanize = moment.duration(time - Date.now(), "milliseconds").humanize();
+		id = id._proposalAction 
+		if(id == 0){
+			id = "Disburse / Burn"
+		}
+		if(id == 1){
+			id = "Upgrade Governance"
+		}
+		if(id == 2){
+			id = "Change Quorum"
+		}
+		if(id == 3){
+			id = "Other / Free Text"
+		}
+		if(id == 4){
+			id = "Change Min Balance"
+		}
+		
+		
+		proposals_info_eth.push({
+			title: "DYP Proposal",
+			date: humanize + " ago",
+			type: id
+		})
+	}
+	for (let i = proposal_index_bsc - 2; i <= proposal_index_bsc; i++) {
+		let time = await gov_contract_bsc.methods.getProposal(i).call()
+		let id = await gov_contract_bsc.methods.getProposal(i).call()
+		time = time._proposalStartTime
+		time = new Date(time * 1000)
+		let humanize = moment.duration(time - Date.now(), "milliseconds").humanize();
+		id = id._proposalAction 
+		if(id == 0){
+			id = "Disburse / Burn"
+		}
+		if(id == 1){
+			id = "Upgrade Governance"
+		}
+		if(id == 2){
+			id = "Change Quorum"
+		}
+		if(id == 3 || id == 5){
+			id = "Other / Free Text"
+		}
+		if(id == 4){
+			id = "Change Min Balance"
+		}
+		proposals_info_bsc.push({
+			title: "DYP Proposal",
+			date: humanize + " ago",
+			type: id
+		})
+	}
 
+	for (let i = proposal_index_avax - 2; i <= proposal_index_avax; i++) {
+		let time = await gov_contract_avax.methods.getProposal(i).call()
+		let id = await gov_contract_avax.methods.getProposal(i).call()
+		time = time._proposalStartTime
+		time = new Date(time * 1000)
+		let humanize = moment.duration(time - Date.now(), "milliseconds").humanize();
+		id = id._proposalAction 
+		if(id == 0){
+			id = "Disburse / Burn"
+		}
+		if(id == 1){
+			id = "Upgrade Governance"
+		}
+		if(id == 2){
+			id = "Change Quorum"
+		}
+		if(id == 3 || id == 5){
+			id = "Other / Free Text"
+		}
+		if(id == 4){
+			id = "Change Min Balance"
+		}
+		proposals_info_avax.push({
+			title: "DYP Proposal",
+			date: humanize + " ago",
+			type: id
+		})
+	}
+	}
 const get_DYP_BNB_Staking_Info = () => {
 	DYPBnbStakingInfo = [];
 	bsccounter = 0;
@@ -10884,6 +10986,20 @@ app.get('/api/get_staking_info_eth', async (req, res) => {
 		totalTVL_ETH: totaltvl
 	})
 })
+
+app.get('/api/get_proposals_info', async (req, res) => {
+	if (Date.now() - last_update_time_proposals_info > 3600e3) {
+		await get_proposals_info()
+	}
+
+	res.type('application/json')
+	res.json({
+		ProposalsInfoETH: proposals_info_eth,
+		ProposalsInfoBSC: proposals_info_bsc,
+		ProposalsInfoAVAX: proposals_info_avax
+	})
+})
+
 app.get('/api/get_vault_info', async (req, res) => {
 	if (Date.now() - last_update_time_vault > 3600e3) {
 		get_iDYP_Vault_TVL_Info()
