@@ -6559,7 +6559,7 @@ const IDs_constant_staking_idyp_eth = {
 		link_pair: "https://app.dyp.finance/staking-idyp-2",
 		return_types: "iDYP",
 		lock_time: "90 days",
-		expired: "No",
+		expired: "Yes",
 		apy: 45
 	},
 
@@ -6583,7 +6583,7 @@ const IDs_constant_staking_dyp_eth = {
 		link_pair: "https://app.dyp.finance/constant-staking-2",
 		return_types: "iDYP",
 		lock_time: "90 days",
-		expired: "No",
+		expired: "Yes",
 		apy: ""
 	},
 	"0x44bEd8ea3296bda44870d0Da98575520De1735d4":
@@ -6593,7 +6593,7 @@ const IDs_constant_staking_dyp_eth = {
 		link_pair: "https://app.dyp.finance/constant-staking-3",
 		return_types: "DYP",
 		lock_time: "90 days",
-		expired: "Yes",
+		expired: "Yes", 
 		apy: 25
 	}
 }
@@ -6653,7 +6653,7 @@ const IDs_constant_staking_idyp_bnb = {
 		link_pair: "https://app-bsc.dyp.finance/staking-idyp-2",
 		return_types: "iDYP",
 		lock_time: "90 days",
-		expired: "No",
+		expired: "Yes",
 		apy: 45
 	},
 
@@ -6750,7 +6750,7 @@ const IDs_constant_staking_idyp_avax = {
 		link_pair: "https://app-avax.dyp.finance/staking-idyp-2",
 		return_types: "iDYP",
 		lock_time: "90 days",
-		expired: "No",
+		expired: "Yes",
 		apy: 45
 	}
 }
@@ -7332,6 +7332,8 @@ let highestethapy = [];
 let last_update_time_ethstake = 0;
 const get_iDYP_ETH_Staking_Info = () => {
 	last_update_time_ethstake = Date.now();
+	ethcounter = 0;
+	highestethapy = [];
 	//1 ora
 	iDYPEthStakingInfo = [];
 	total_eth_tvl = [];
@@ -7380,7 +7382,12 @@ const get_iDYP_ETH_Staking_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
+		if (expired == "No") {
+			highestethapy[ethcounter] = parseFloat(apy_percent);
+			ethcounter++;
+		}
 	}
+
 
 }
 
@@ -7388,9 +7395,7 @@ const get_iDYP_ETH_Staking_Info = () => {
 let DYPEthStakingInfo = [];
 
 const get_DYP_ETH_Staking_Info = () => {
-	ethcounter = 0;
 	all_eth_apys = [];
-	highestethapy = [];
 	DYPEthStakingInfo = [];
 
 	let apy_percent = 0,
@@ -7459,11 +7464,7 @@ const get_DYP_ETH_Staking_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
-		ethcounter++;
-		if (expired == "No") {
-			highestethapy[ethcounter] = parseFloat(apy_percent);
-			ethcounter++;
-		}
+		
 	}
 
 }
