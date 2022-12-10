@@ -7332,6 +7332,8 @@ let highestethapy = [];
 let last_update_time_ethstake = 0;
 const get_iDYP_ETH_Staking_Info = () => {
 	last_update_time_ethstake = Date.now();
+	ethcounter = 0;
+	highestethapy = [];
 	//1 ora
 	iDYPEthStakingInfo = [];
 	total_eth_tvl = [];
@@ -7380,7 +7382,12 @@ const get_iDYP_ETH_Staking_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
+		if (expired == "No") {
+			highestethapy[ethcounter] = parseFloat(apy_percent);
+			ethcounter++;
+		}
 	}
+
 
 }
 
@@ -7388,9 +7395,7 @@ const get_iDYP_ETH_Staking_Info = () => {
 let DYPEthStakingInfo = [];
 
 const get_DYP_ETH_Staking_Info = () => {
-	ethcounter = 0;
 	all_eth_apys = [];
-	highestethapy = [];
 	DYPEthStakingInfo = [];
 
 	let apy_percent = 0,
@@ -7459,11 +7464,7 @@ const get_DYP_ETH_Staking_Info = () => {
 			lock_time: lock_time,
 			expired: expired
 		})
-		ethcounter++;
-		if (expired == "No") {
-			highestethapy[ethcounter] = parseFloat(apy_percent);
-			ethcounter++;
-		}
+		
 	}
 
 }
