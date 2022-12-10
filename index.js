@@ -6913,7 +6913,6 @@ const updateNFTStaking = async () => {
 	let caws_nft_contract = new infuraWeb3.eth.Contract(caws_nft_contract_abi, TOKEN_ADDRESS_CAWS, { from: undefined })
 	CAWS_TOTAL_LOCKED = await caws_nft_contract.methods.balanceOf(TOKEN_ADDRESS_CAWS_STAKE).call()
 	cawsnfttvl = CAWS_TOTAL_LOCKED * 0.08 * eth_price
-
 }
 
 
@@ -6982,7 +6981,7 @@ totaltvlvault = _tvlvaultWETH + _tvlvaultWBTC + _tvlvaultUSDC + _tvlvaultUSDT + 
 let last_update_time_vault = 0;
 let VaultTVLInfo = [];
 let VaultTVLTotal =[];
-const get_iDYP_Vault_TVL_Info = () => {
+const get_iDYP_Vault_TVL_Info = async () => {
 	last_update_time_vault = Date.now();
 	//1 ora
 	VaultTVLInfo = [];
@@ -7025,7 +7024,7 @@ const get_iDYP_Vault_TVL_Info = () => {
 }
 let NftStakingInfo = [];
 
-const get_NFT_Staking_Info = () => {
+const get_NFT_Staking_Info = async () => {
 
 	NftStakingInfo = [];
 
@@ -7331,7 +7330,7 @@ let total_eth_tvl = [];
 let ethcounter = 0;
 let highestethapy = [];
 let last_update_time_ethstake = 0;
-const get_iDYP_ETH_Staking_Info = () => {
+const get_iDYP_ETH_Staking_Info = async () => {
 	last_update_time_ethstake = Date.now();
 	ethcounter = 0;
 	highestethapy = [];
@@ -7395,7 +7394,7 @@ const get_iDYP_ETH_Staking_Info = () => {
 
 let DYPEthStakingInfo = [];
 
-const get_DYP_ETH_Staking_Info = () => {
+const get_DYP_ETH_Staking_Info =  async () => {
 	all_eth_apys = [];
 	DYPEthStakingInfo = [];
 
@@ -7528,7 +7527,7 @@ const get_iDYP_BNB_Staking_Info = () => {
 	}
 }
 
-const get_ETH_STAKING_HIGHEST_APY = () => {
+const get_ETH_STAKING_HIGHEST_APY = async () => {
 
 	let aaa = 0;
 	for (i = 1; i <= ethcounter; i++)
@@ -10973,10 +10972,10 @@ app.get('/api/get_farm_info', async (req, res) => {
 
 app.get('/api/get_staking_info_eth', async (req, res) => {
 	if (Date.now() - last_update_time_ethstake > 3600e3) {
-		get_iDYP_ETH_Staking_Info()
-		get_DYP_ETH_Staking_Info()
-		get_NFT_Staking_Info()
-		get_ETH_STAKING_HIGHEST_APY()
+		await get_iDYP_ETH_Staking_Info()
+		await get_DYP_ETH_Staking_Info()
+		await get_NFT_Staking_Info()
+		await get_ETH_STAKING_HIGHEST_APY()
 	}
 	res.type('application/json')
 	res.json({
