@@ -7023,6 +7023,53 @@ const get_iDYP_Vault_TVL_Info = () => {
 	})
 
 }
+let NftStakingInfo = [];
+
+const get_NFT_Staking_Info = () => {
+
+	NftStakingInfo = [];
+
+	let tvl = 0,
+		link_logo = "https://app.dyp.finance/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		floor_price = "",
+		total_nfts_locked = "",
+		expired = "",
+		return_types = "",
+		lock_time = ""
+	let ids_constant_staking_eth = Object.keys(IDs_nft_stake_eth)
+	for (let id of ids_constant_staking_eth) {
+
+		tvl = cawsnfttvl
+		floor_price = floorprice
+		total_nfts_locked = CAWS_TOTAL_LOCKED
+		apy_percent = IDs_nft_stake_eth[id].apy
+		pool_name = IDs_nft_stake_eth[id].pool_name
+		pair_name = IDs_nft_stake_eth[id].pair_name
+		link_pair = IDs_nft_stake_eth[id].link_pair
+		return_types = IDs_nft_stake_eth[id].return_types
+		expired = IDs_nft_stake_eth[id].expired
+		lock_time = IDs_nft_stake_eth[id].lock_time
+
+		NftStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl,
+			floor_price: floor_price,
+			total_nfts_locked: total_nfts_locked,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired
+		})
+	}
+
+}
 let totaltvl = 0;
 let totaltvlbsc = 0;
 let totaltvlavax = 0;
@@ -7247,7 +7294,7 @@ const updateStakingTVL = async () => {
 	_tvlDYPBuybackAvax2 = _tvlDYPBuybackAvax2 / 1e18 * usdPerToken
 	_tvlDYPBuybackAvax2 = _tvlDYPBuybackAvax2 + _tvlDYPBuybackAvax2_2 / 1e18 * price_iDYP_eth
 	buybackAvaxTvl2 = _tvlDYPBuybackAvax2;
-	totaltvl = stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25
+	totaltvl = stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25 + cawsnfttvl
 	totaltvlbsc = stakingiDYPBnbTvl15 + stakingiDYPBnbTvl20 + stakingiDYPBnbTvl30 + stakingiDYPBnbTvl45 + stakingDYPBnbTvl1 + stakingDYPBnbTvl2 + stakingDYPBnbTvl10 + stakingDYPBnbTvl25 + stakingDYPBnbTvl30
 	totaltvlavax = stakingiDYPAvaxTvl15 + stakingiDYPAvaxTvl20 + stakingiDYPAvaxTvl30 + stakingiDYPAvaxTvl45 + stakingDYPAvaxTvl1 + stakingDYPAvaxTvl2 + stakingDYPAvaxTvl10 + stakingDYPAvaxTvl25 + stakingDYPAvaxTvl30
 	totaltvlbuybackavax = buybackAvaxTvl1 + buybackAvaxTvl2
@@ -7277,53 +7324,7 @@ const updateStakingTVL = async () => {
 
 
 
-let NftStakingInfo = [];
 
-const get_NFT_Staking_Info = () => {
-
-	NftStakingInfo = [];
-
-	let tvl = 0,
-		link_logo = "https://app.dyp.finance/logo192.png",
-		pool_name = "",
-		pair_name = "",
-		link_pair = "",
-		floor_price = "",
-		total_nfts_locked = "",
-		expired = "",
-		return_types = "",
-		lock_time = ""
-	let ids_constant_staking_eth = Object.keys(IDs_nft_stake_eth)
-	for (let id of ids_constant_staking_eth) {
-
-		tvl = cawsnfttvl
-		floor_price = floorprice
-		total_nfts_locked = CAWS_TOTAL_LOCKED
-		apy_percent = IDs_nft_stake_eth[id].apy
-		pool_name = IDs_nft_stake_eth[id].pool_name
-		pair_name = IDs_nft_stake_eth[id].pair_name
-		link_pair = IDs_nft_stake_eth[id].link_pair
-		return_types = IDs_nft_stake_eth[id].return_types
-		expired = IDs_nft_stake_eth[id].expired
-		lock_time = IDs_nft_stake_eth[id].lock_time
-
-		NftStakingInfo.push({
-			id: id,
-			apy_percent: apy_percent,
-			tvl_usd: tvl,
-			floor_price: floor_price,
-			total_nfts_locked: total_nfts_locked,
-			link_logo: link_logo,
-			link_pair: link_pair,
-			pool_name: pool_name,
-			pair_name: pair_name,
-			return_types: return_types,
-			lock_time: lock_time,
-			expired: expired
-		})
-	}
-
-}
 let iDYPEthStakingInfo = [];
 let all_eth_apys = [];
 let total_eth_tvl = [];
@@ -10752,8 +10753,8 @@ async function firstRun() {
 	await updateVaultTVL()
 
 	/* Get Staking Info */
-	await updateStakingTVL()
 	await updateNFTStaking()
+	await updateStakingTVL()
 
 
 	/* Get Highest Apy & Total Tvl */
