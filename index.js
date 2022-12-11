@@ -4917,8 +4917,9 @@ async function update_proposals() {
 
 	for (let i = 1; i <= ethProposals2; i++) {
 		let vote = await gov_contract_eth2.methods.getProposal(i).call()
-		ethVotes2 = ethVotes2 + parseInt(((vote._optionOneVotes) / 1e18)) + parseInt(((vote._optionTwoVotes) / 1e18))
+		ethVotes2 = ethVotes2 + (((vote._optionOneVotes) / 1e18)) + (((vote._optionTwoVotes) / 1e18))
 	}
+
 
 	for (let i = 1; i <= avaxProposals2; i++) {
 		let vote = await gov_contract_avax2.methods.getProposal(i).call()
@@ -7538,11 +7539,13 @@ let proposals_info_eth = [];
 let proposals_info_bsc = [];
 let proposals_info_avax = [];
 let last_update_time_proposals_info = 0;
+let state = "";
 const get_proposals_info =  async () => {
 	last_update_time_proposals_info = Date.now();
 	proposals_info_eth = [];
 	proposals_info_bsc = [];
 	proposals_info_avax = [];
+	state = "Inactive";
 	let gov_contract_bsc = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC, { from: undefined })
 	let gov_contract_eth = new infuraWeb3.eth.Contract(GOV_ABI_ETH, GOV_ADDRESS_ETH, { from: undefined })
 	let gov_contract_avax = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX, { from: undefined })
@@ -7571,14 +7574,21 @@ const get_proposals_info =  async () => {
 		if(id == 4){
 			id = "Change Min Balance"
 		}
-		
+		if(humanize == "a day")
+		state = "Active"
+		if(humanize == "two days")
+		state = "Active"
+		if(humanize == "three days")
+		state = "Active"
 		
 		proposals_info_eth.push({
 			title: "DYP Proposal",
 			date: humanize + " ago",
-			type: id
+			type: id,
+			status: state
 		})
 	}
+	state = "Inactive";
 	for (let i = proposal_index_bsc - 2; i <= proposal_index_bsc; i++) {
 		let time = await gov_contract_bsc.methods.getProposal(i).call()
 		let id = await gov_contract_bsc.methods.getProposal(i).call()
@@ -7601,13 +7611,22 @@ const get_proposals_info =  async () => {
 		if(id == 4){
 			id = "Change Min Balance"
 		}
+
+		if(humanize == "a day")
+		state = "Active"
+		if(humanize == "two days")
+		state = "Active"
+		if(humanize == "three days")
+		state = "Active"
+
 		proposals_info_bsc.push({
 			title: "DYP Proposal",
 			date: humanize + " ago",
-			type: id
+			type: id,
+			status: state
 		})
 	}
-
+	state = "Inactive";
 	for (let i = proposal_index_avax - 2; i <= proposal_index_avax; i++) {
 		let time = await gov_contract_avax.methods.getProposal(i).call()
 		let id = await gov_contract_avax.methods.getProposal(i).call()
@@ -7630,10 +7649,19 @@ const get_proposals_info =  async () => {
 		if(id == 4){
 			id = "Change Min Balance"
 		}
+
+		if(humanize == "a day")
+		state = "Active"
+		if(humanize == "two days")
+		state = "Active"
+		if(humanize == "three days")
+		state = "Active"
+
 		proposals_info_avax.push({
 			title: "DYP Proposal",
 			date: humanize + " ago",
-			type: id
+			type: id,
+			status: state
 		})
 	}
 	}
