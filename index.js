@@ -5190,6 +5190,7 @@ async function get_apy_and_tvl_BSC(usd_values) {
 		lp_data[lp_id].apy = apy
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
+		lp_data[lp_id].expired = "Yes"
 	})
 
 	return { token_data, lp_data, usd_per_eth, token_price_usd }
@@ -5362,6 +5363,7 @@ async function get_apy_and_tvl_AVAX(usd_values) {
 		lp_data[lp_id].apy = apy
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
+		lp_data[lp_id].expired = "Yes"
 	})
 
 	return { token_data, lp_data, usd_per_eth, token_price_usd }
@@ -5605,6 +5607,7 @@ async function get_apy_and_tvl(usd_values) {
 		lp_data[lp_id].apy = apy
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
+		lp_data[lp_id].expired = "Yes"
 	})
 
 	return { token_data, lp_data, usd_per_eth, token_price_usd }
@@ -9789,6 +9792,7 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 		lp_data[lp_id].apyStaking = apyStaking
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
+		lp_data[lp_id].expired = "Yes"
 	})
 
 	return { token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS }
@@ -10395,6 +10399,7 @@ async function get_apy_and_tvl_AVAX_V2(usd_values) {
 		lp_data[lp_id].apyStaking = apyStaking
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
+		lp_data[lp_id].expired = "Yes"
 	})
 
 	return { token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS }
@@ -10701,6 +10706,7 @@ async function get_apy_and_tvl_ETH_V2(usd_values) {
 		lp_data[lp_id].apyStaking = apyStaking
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
+		lp_data[lp_id].expired = "Yes"
 	})
 
 	return { token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS }
