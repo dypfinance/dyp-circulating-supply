@@ -6526,7 +6526,7 @@ const IDs_constant_staking_idyp_eth = {
 		link_pair: "https://app.dyp.finance/staking-idyp-1",
 		return_types: "iDYP",
 		lock_time: "No lock",
-		expired: "No",
+		expired: "Yes",
 		apy: 20
 	},
 	"0xD4bE7a106ed193BEe39D6389a481ec76027B2660":
@@ -6620,7 +6620,7 @@ const IDs_constant_staking_idyp_bnb = {
 		link_pair: "https://app-bsc.dyp.finance/staking-idyp-1",
 		return_types: "iDYP",
 		lock_time: "No lock",
-		expired: "No",
+		expired: "Yes",
 		apy: 20
 	},
 	"0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445":
@@ -6717,7 +6717,7 @@ const IDs_constant_staking_idyp_avax = {
 		link_pair: "https://app-avax.dyp.finance/staking-idyp-1",
 		return_types: "iDYP",
 		lock_time: "No lock",
-		expired: "No",
+		expired: "Yes",
 		apy: 20
 	},
 	"0xd13bdC0c9a9931cF959739631B1290b6BEE0c018":
