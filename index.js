@@ -7072,7 +7072,7 @@ const get_NFT_Staking_Info = async () => {
 	NftStakingInfo = [];
 
 	let tvl = 0,
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
@@ -7382,7 +7382,7 @@ const get_iDYP_ETH_Staking_Info = async () => {
 	total_eth_tvl = [];
 	let apy_percent = 0,
 		tvl_usd = 0,
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
@@ -7450,7 +7450,7 @@ const get_DYP_ETH_Staking_Info =  async () => {
 
 	let apy_percent = 0,
 		tvl_usd = 0,
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
@@ -7538,7 +7538,7 @@ const get_iDYP_BNB_Staking_Info = () => {
 	last_update_time_bnbstake = Date.now();
 	let apy_percent = 0,
 		tvl_usd = 0,
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
@@ -7744,7 +7744,7 @@ const get_DYP_BNB_Staking_Info = () => {
 
 	let apy_percent = 0,
 		tvl_usd = 0,
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
@@ -7858,7 +7858,7 @@ const get_iDYP_AVAX_Staking_Info = () => {
 
 	let apy_percent = 0,
 		tvl_usd = 0,
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
@@ -7922,7 +7922,7 @@ const get_DYP_AVAX_Staking_Info = () => {
 	highestavaxapy = [];
 	let apy_percent = 0,
 		tvl_usd = 0,
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
@@ -8038,7 +8038,7 @@ const get_ETH_Buyback_Info = () => {
 	a2 = 0;
 	let apy_percent = 0,
 		tvl_usd = 0,
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
@@ -8122,7 +8122,7 @@ const get_BNB_Buyback_Info = () => {
 	b2 = 0;
 	let apy_percent = 0,
 		tvl_usd = 0,
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
@@ -8208,7 +8208,7 @@ const get_AVAX_Buyback_Info = () => {
 	c2 = 0;
 	let apy_percent = 0,
 		tvl_usd = 0,
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
@@ -8992,7 +8992,7 @@ const getFarmInfo = () => {
 		apy_percent_url = "",
 		tvl_usd_url = "",
 		_id = "6099a8c6efc4dfef87fd2ce0",
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
@@ -9290,7 +9290,7 @@ const getFarmInfoAvalanche = async () => {
 		apy_percent_url = "",
 		tvl_usd_url = "",
 		_id = "6099a8c6efc4dfef87fd2ce0",
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
@@ -9394,7 +9394,7 @@ const getFarmInfoBinance = async () => {
 		apy_percent_url = "",
 		tvl_usd_url = "",
 		_id = "6099a8c6efc4dfef87fd2ce0",
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
@@ -9498,7 +9498,7 @@ const getFarmInfoEthereum = async () => {
 		apy_percent_url = "",
 		tvl_usd_url = "",
 		_id = "6099a8c6efc4dfef87fd2ce0",
-		link_logo = "https://app.dyp.finance/logo192.png",
+		link_logo = "https://www.dypius.com/logo192.png",
 		pool_name = "",
 		pair_name = "",
 		link_pair = "",
