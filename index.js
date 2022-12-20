@@ -6218,7 +6218,13 @@ const CheckBscStaking = async (addressToCheck) => {
 	return result
 }
 let floorprice = 0;
+let owners = 0;
+let totalsales = 0;
+let totalsupply = 0;
+let thirthydaysales = 0;
+let totalvolume = 0;
 function fecthNftFloorPrice() {
+
 	fetch('https://api.opensea.io/api/v1/collection/catsandwatchessocietycaws/stats?format=json')
 		.then(response => {
 			if (!response.ok) {
@@ -6228,12 +6234,30 @@ function fecthNftFloorPrice() {
 		})
 		.then(data => {
 			floorprice = data.stats.floor_price
+			owners = data.stats.num_owners
+			totalsales = data.stats.total_sales
+			totalsupply = data.stats.total_supply
+			thirthydaysales = data.stats.thirty_day_sales
+			totalvolume = data.stats.total_volume
 		});
 }
 
+let id = 0;
+// function RandomNFT () {
 
+// 	fetch ("https://api.opensea.io/api/v1/asset/0xd06cF9e1189FEAb09c844C597abc3767BC12608c/1/?format=json")
+// 	.then(response => {
+// 		if (!response.ok) {
+// 			throw Error('X');
+// 		}
+// 		return response.json();
+// 	})
+// 	.then(data => {
+// 		id = data.image_url
+// 	});
+// 	}
 
-let farmInfo = []
+let farmInfo = []	
 
 const IDs_eth = {
 	"0xa7d6f5fa9b0be0e98b3b40e6ac884e53f2f9460e":
@@ -7736,6 +7760,93 @@ const get_proposals_info =  async () => {
 		})
 	}
 	}
+let openseastats = [];
+let last_update_time_opensea_stats = 0;
+	const get_opensea_stats =  async () => {
+		last_update_time_opensea_stats = Date.now();
+		openseastats = [];
+			openseastats.push({
+				floorprice: floorprice,
+				owners: owners,
+			totalsales: totalsales,
+			totalsupply: totalsupply,
+			thirthydaysales: thirthydaysales,
+			totalvolume: totalvolume,
+			})
+		}
+let randomnfts = [];
+let randomnft = 0;
+let last_update_time_random_nfts = 0;
+const get_random_nfts = async () => {
+	last_update_time_random_nfts = Date.now();
+	randomnfts = [];
+	randomnft = 0;
+	for(let i = 0; i < 20; i++){
+	randomnft = Math.floor(Math.random() * (10000 - 1 + 1) + 1)
+	randomnft = randomnft.toString()
+	randomnfts.push({
+		img: 	"https://mint.dyp.finance/images/" + randomnft + ".png",
+	})
+}
+}
+
+
+const IDs_rarest_nfts = {
+	"1":
+	{
+		img: "https://mint.dyp.finance/images/5386.png",
+	},
+	"2":
+	{
+		img: "https://mint.dyp.finance/images/3.png",
+	},
+	"3":
+	{
+		img: "https://mint.dyp.finance/images/10.png",
+	},
+	"4":
+	{
+		img: "https://mint.dyp.finance/images/5.png",
+	},
+	"5":
+	{
+		img: "https://mint.dyp.finance/images/9.png",
+	},
+	"6":
+	{
+		img: "https://mint.dyp.finance/images/2.png",
+	},
+	"7":
+	{
+		img: "https://mint.dyp.finance/images/1.png",
+	},
+	"8":
+	{
+		img: "https://mint.dyp.finance/images/8.png",
+	},
+	"9":
+	{
+		img: "https://mint.dyp.finance/images/15.png",
+	},
+	"10":
+	{
+		img: "https://mint.dyp.finance/images/18.png",
+	},
+}
+let rarestnfts = [];
+let last_update_time_rarest_nfts = 0;
+const get_rarest_nfts = async () => {
+	last_update_time_rarest_nfts = Date.now();
+    rarestnfts = [];
+	let ids_rarest_nfts = Object.keys(IDs_rarest_nfts)
+	for (let id of ids_rarest_nfts) {
+		rarestnfts.push({
+			img: IDs_rarest_nfts[id].img,
+		})
+
+}
+}
+
 const get_DYP_BNB_Staking_Info = () => {
 	DYPBnbStakingInfo = [];
 	bsccounter = 0;
@@ -10861,7 +10972,6 @@ async function firstRun() {
 	await refresh_the_graph_result_AVAX_V2()
 	await refresh_the_graph_result_ETH_V2()
 
-
 	/* Get CAWS Floor Price & ETH Price */
 	await fecthNftFloorPrice()
 	await updateVaultTVL()
@@ -11102,6 +11212,7 @@ app.get('/api/get_staking_info_eth', async (req, res) => {
 	})
 })
 
+
 app.get('/api/get_proposals_info', async (req, res) => {
 	if (Date.now() - last_update_time_proposals_info > 3600e3) {
 		await get_proposals_info()
@@ -11112,6 +11223,42 @@ app.get('/api/get_proposals_info', async (req, res) => {
 		ProposalsInfoETH: proposals_info_eth,
 		ProposalsInfoBSC: proposals_info_bsc,
 		ProposalsInfoAVAX: proposals_info_avax
+	})
+})
+
+app.get('/api/get_opensea_stats', async (req, res) => {
+	if (Date.now() - last_update_time_opensea_stats > 3600e3) {
+		await fecthNftFloorPrice()
+		await get_opensea_stats()
+	}
+
+	res.type('application/json')
+	res.json({
+		OpenSeaStats: openseastats
+	})
+})
+
+app.get('/api/get_random_nfts', async (req, res) => {
+	if (Date.now() - last_update_time_random_nfts > 3600e3) {
+		await get_random_nfts()
+	}
+
+	res.type('application/json')
+	res.json({
+		RandomNFTs: randomnfts
+	})
+})
+
+
+
+app.get('/api/get_rarest_nfts', async (req, res) => {
+	if (Date.now() - last_update_time_rarest_nfts > 3600e3) {
+		await get_rarest_nfts()
+	}
+
+	res.type('application/json')
+	res.json({
+		RarestNFTs: rarestnfts
 	})
 })
 
