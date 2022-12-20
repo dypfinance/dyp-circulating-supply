@@ -7760,11 +7760,101 @@ const get_proposals_info =  async () => {
 		})
 	}
 	}
+
+
+		const IDs_rarest_nfts = {
+			"1":
+			{
+				img: "https://mint.dyp.finance/images/5386.png",
+				img_thumb: "https://mint.dyp.finance/thumbs/5386.png",
+				opensea_link: "https://opensea.io/assets/ethereum/0xd06cf9e1189feab09c844c597abc3767bc12608c/5386",
+			},
+			"2":
+			{
+				img: "https://mint.dyp.finance/images/3.png",
+				img_thumb: "https://mint.dyp.finance/thumbs/3.png",
+				opensea_link: "https://opensea.io/assets/ethereum/0xd06cf9e1189feab09c844c597abc3767bc12608c/3",
+			},
+			"3":
+			{
+				img: "https://mint.dyp.finance/images/10.png",
+				img_thumb: "https://mint.dyp.finance/thumbs/10.png",
+				opensea_link: "https://opensea.io/assets/ethereum/0xd06cf9e1189feab09c844c597abc3767bc12608c/10",
+			},
+			"4":
+			{
+				img: "https://mint.dyp.finance/images/5.png",
+				img_thumb: "https://mint.dyp.finance/thumbs/5.png",
+				opensea_link: "https://opensea.io/assets/ethereum/0xd06cf9e1189feab09c844c597abc3767bc12608c/5",
+			},
+			"5":
+			{
+				img: "https://mint.dyp.finance/images/9.png",
+				img_thumb: "https://mint.dyp.finance/thumbs/9.png",
+				opensea_link: "https://opensea.io/assets/ethereum/0xd06cf9e1189feab09c844c597abc3767bc12608c/9",
+			},
+			"6":
+			{
+				img: "https://mint.dyp.finance/images/2.png",
+				img_thumb: "https://mint.dyp.finance/thumbs/2.png",
+				opensea_link: "https://opensea.io/assets/ethereum/0xd06cf9e1189feab09c844c597abc3767bc12608c/2",
+			},
+			"7":
+			{
+				img: "https://mint.dyp.finance/images/1.png",
+				img_thumb: "https://mint.dyp.finance/thumbs/1.png",
+				opensea_link: "https://opensea.io/assets/ethereum/0xd06cf9e1189feab09c844c597abc3767bc12608c/1",
+			},
+			"8":
+			{
+				img: "https://mint.dyp.finance/images/8.png",
+				img_thumb: "https://mint.dyp.finance/thumbs/8.png",
+				opensea_link: "https://opensea.io/assets/ethereum/0xd06cf9e1189feab09c844c597abc3767bc12608c/8",
+			},
+			"9":
+			{
+				img: "https://mint.dyp.finance/images/15.png",
+				img_thumb: "https://mint.dyp.finance/thumbs/15.png",
+				opensea_link: "https://opensea.io/assets/ethereum/0xd06cf9e1189feab09c844c597abc3767bc12608c/15",
+		
+			},
+			"10":
+			{
+				img: "https://mint.dyp.finance/images/18.png",
+				img_thumb: "https://mint.dyp.finance/thumbs/18.png",
+				opensea_link: "https://opensea.io/assets/ethereum/0xd06cf9e1189feab09c844c597abc3767bc12608c/18",
+			},
+		}
+let randomnfts = [];
+let rarestnfts = [];
 let openseastats = [];
-let last_update_time_opensea_stats = 0;
-	const get_opensea_stats =  async () => {
-		last_update_time_opensea_stats = Date.now();
-		openseastats = [];
+let randomnft = 0;
+let last_update_time_random_nfts = 0;
+const get_random_nfts = async () => {
+	last_update_time_random_nfts = Date.now();
+	randomnfts = [];
+	rarestnfts = [];
+	openseastats = [];
+	randomnft = 0;
+	for(let i = 0; i < 20; i++){
+	randomnft = Math.floor(Math.random() * (10000 - 1 + 1) + 1)
+	randomnft = randomnft.toString()
+	randomnfts.push({
+		img_normal: 	"https://mint.dyp.finance/images/" + randomnft + ".png",
+		img_thumb: 	"https://mint.dyp.finance/thumbs/" + randomnft + ".png",
+		opensea_link: "https://opensea.io/assets/ethereum/0xd06cf9e1189feab09c844c597abc3767bc12608c/" + randomnft,
+	})
+}
+
+let ids_rarest_nfts = Object.keys(IDs_rarest_nfts)
+for (let id of ids_rarest_nfts) {
+	rarestnfts.push({
+		img_normal: IDs_rarest_nfts[id].img,
+		img_thumb: IDs_rarest_nfts[id].img_thumb,
+		opensea_link: IDs_rarest_nfts[id].opensea_link,
+	})
+
+}
 			openseastats.push({
 				floorprice: floorprice,
 				owners: owners,
@@ -7773,79 +7863,11 @@ let last_update_time_opensea_stats = 0;
 			thirthydaysales: thirthydaysales,
 			totalvolume: totalvolume,
 			})
-		}
-let randomnfts = [];
-let randomnft = 0;
-let last_update_time_random_nfts = 0;
-const get_random_nfts = async () => {
-	last_update_time_random_nfts = Date.now();
-	randomnfts = [];
-	randomnft = 0;
-	for(let i = 0; i < 20; i++){
-	randomnft = Math.floor(Math.random() * (10000 - 1 + 1) + 1)
-	randomnft = randomnft.toString()
-	randomnfts.push({
-		img: 	"https://mint.dyp.finance/images/" + randomnft + ".png",
-	})
-}
 }
 
 
-const IDs_rarest_nfts = {
-	"1":
-	{
-		img: "https://mint.dyp.finance/images/5386.png",
-	},
-	"2":
-	{
-		img: "https://mint.dyp.finance/images/3.png",
-	},
-	"3":
-	{
-		img: "https://mint.dyp.finance/images/10.png",
-	},
-	"4":
-	{
-		img: "https://mint.dyp.finance/images/5.png",
-	},
-	"5":
-	{
-		img: "https://mint.dyp.finance/images/9.png",
-	},
-	"6":
-	{
-		img: "https://mint.dyp.finance/images/2.png",
-	},
-	"7":
-	{
-		img: "https://mint.dyp.finance/images/1.png",
-	},
-	"8":
-	{
-		img: "https://mint.dyp.finance/images/8.png",
-	},
-	"9":
-	{
-		img: "https://mint.dyp.finance/images/15.png",
-	},
-	"10":
-	{
-		img: "https://mint.dyp.finance/images/18.png",
-	},
-}
-let rarestnfts = [];
-let last_update_time_rarest_nfts = 0;
-const get_rarest_nfts = async () => {
-	last_update_time_rarest_nfts = Date.now();
-    rarestnfts = [];
-	let ids_rarest_nfts = Object.keys(IDs_rarest_nfts)
-	for (let id of ids_rarest_nfts) {
-		rarestnfts.push({
-			img: IDs_rarest_nfts[id].img,
-		})
 
-}
-}
+
 
 const get_DYP_BNB_Staking_Info = () => {
 	DYPBnbStakingInfo = [];
@@ -11238,14 +11260,18 @@ app.get('/api/get_opensea_stats', async (req, res) => {
 	})
 })
 
-app.get('/api/get_random_nfts', async (req, res) => {
-	if (Date.now() - last_update_time_random_nfts > 3600e3) {
+app.get('/api/get_nft_stats', async (req, res) => {
+	if (Date.now() - last_update_time_random_nfts > 900e3) {
+		await fecthNftFloorPrice()
 		await get_random_nfts()
 	}
 
 	res.type('application/json')
 	res.json({
-		RandomNFTs: randomnfts
+		RandomNFTs: randomnfts,
+		RarestNFTs: rarestnfts,
+		OpenSeaStats: openseastats
+
 	})
 })
 
