@@ -4905,8 +4905,8 @@ let unlockedAvax = 0;
 let last_update_time_tokenomics = 0;
 async function update_tokenomics() {
 	last_update_time_tokenomics = Date.now()
-	token_balance_sum_bsc = get_token_balances_sum(await get_token_balances_BSC({ TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_BSC_CONTRACTS })).div(1e18).toString(10)
-	token_balance_sum_avax = get_token_balances_sum(await get_token_balances_AVAX({ TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_AVAX_CONTRACTS })).div(1e18).toString(10)
+	let token_balance_sum_bsc = get_token_balances_sum(await get_token_balances_BSC({ TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_BSC_CONTRACTS })).div(1e18).toString(10)
+	let token_balance_sum_avax = get_token_balances_sum(await get_token_balances_AVAX({ TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_AVAX_CONTRACTS })).div(1e18).toString(10)
 	// let circulating_supply_bsc = new BigNumber(24963431).minus(token_balance_sum_bsc)
 	// let circulating_supply_avax = new BigNumber(24963431).minus(token_balance_sum_avax)
 	// circulating_supply = new BigNumber(30000000).minus(token_balance_sum).plus(circulating_supply_bsc).plus(circulating_supply_avax)
