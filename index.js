@@ -11067,7 +11067,7 @@ async function firstRun() {
 	await updateNFTStaking()
 	await updateStakingTVL()
 
-
+	await wait(60000)
 	/* Get Highest Apy & Total Tvl */
 	await GetHighestAPY()
 	await getTotalTvl()
