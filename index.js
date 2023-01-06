@@ -4850,6 +4850,7 @@ async function update_token_balance_sum() {
 const HOLDERS_AVAX_CONTRACTS = [
 	//Reserves
 	"0x5200718cba9376afa068e1180eabb506e6d13802",
+	"0x910090ea889b64b4e722ea4b8ff6d5e734dfb38f",
 	//Bridge
 	"0x229ed0b61bea41710a79a3634e06b1a619a0ebcb",
 	//Staking
@@ -4872,6 +4873,7 @@ const HOLDERS_AVAX_CONTRACTS = [
 const HOLDERS_BSC_CONTRACTS = [
 	//Reserves
 	"0xc44c1c7f68cdd84fc77cc9618f8f0b7e03345b20",
+	"0x910090ea889b64b4e722ea4b8ff6d5e734dfb38f",
 	//Vesting
 	"0x291b6d632f9a67017e6dc4942bb6d658a8a6cba4",
 	//Bridges
