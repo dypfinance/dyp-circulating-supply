@@ -6697,6 +6697,18 @@ const IDs_constant_staking_dyp_eth = {
 		apy_performancefee: 25,
 		performancefee: 0
 
+	},
+	"0xeb7dd6b50db34f7ff14898d0be57a99a9f158c4d":
+	{
+		pool_name: "DYP Constant Staking ETH",
+		pair_name:"DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-3",
+		return_types: "DYP",
+		lock_time: "90 days",
+		expired: "No",
+		apy: 7.35,
+		apy_performancefee: 7.35,
+		performancefee: 0,
 	}
 }
 
@@ -7029,7 +7041,7 @@ let [CAWS_TOTAL_LOCKED, cawsnfttvl] = [0, 0]
 
 let [stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45] = [0, 0, 0, 0]
 
-let [stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25] = [0, 0, 0]
+let [stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25, stakingDYPEthTvl7] = [0, 0, 0, 0]
 
 let [stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45] = [0, 0, 0, 0]
 
@@ -7271,9 +7283,20 @@ const updateStakingTVL = async () => {
 
 	let _tvlDYPEth25 = await token_contract_eth_1.methods.balanceOf('0x44bEd8ea3296bda44870d0Da98575520De1735d4').call()
 	let _tvlDYPEth25_2 = await token_contract_eth_2.methods.balanceOf('0x44bEd8ea3296bda44870d0Da98575520De1735d4').call()
+	
+
+
 	_tvlDYPEth25 = _tvlDYPEth25 / 1e18 * usdPerToken
 	_tvlDYPEth25 = _tvlDYPEth25 + _tvlDYPEth25_2 / 1e18 * price_iDYP_eth
 	stakingDYPEthTvl25 = _tvlDYPEth25;
+
+	let _tvlDYPEth7 = await token_contract_eth_1.methods.balanceOf('0xeb7dd6b50db34f7ff14898d0be57a99a9f158c4d').call()
+	let _tvlDYPEth7_2 = await token_contract_eth_2.methods.balanceOf('0xeb7dd6b50db34f7ff14898d0be57a99a9f158c4d').call()
+
+	_tvlDYPEth7 = _tvlDYPEth7 / 1e18 * usdPerToken
+	_tvlDYPEth7 = _tvlDYPEth7 + _tvlDYPEth7_2 / 1e18 * price_iDYP_eth
+	stakingDYPEthTvl7 = _tvlDYPEth7;
+
 
 	//idyp bnb starts here
 
@@ -7432,7 +7455,7 @@ const updateStakingTVL = async () => {
 	_tvlDYPBuybackAvax2 = _tvlDYPBuybackAvax2 / 1e18 * usdPerToken
 	_tvlDYPBuybackAvax2 = _tvlDYPBuybackAvax2 + _tvlDYPBuybackAvax2_2 / 1e18 * price_iDYP_eth
 	buybackAvaxTvl2 = _tvlDYPBuybackAvax2;
-	totaltvl = stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25 + cawsnfttvl
+	totaltvl = stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25 + stakingDYPEthTvl7 + cawsnfttvl
 	totaltvlbsc = stakingiDYPBnbTvl15 + stakingiDYPBnbTvl20 + stakingiDYPBnbTvl30 + stakingiDYPBnbTvl45 + stakingDYPBnbTvl1 + stakingDYPBnbTvl2 + stakingDYPBnbTvl10 + stakingDYPBnbTvl25 + stakingDYPBnbTvl30
 	totaltvlavax = stakingiDYPAvaxTvl15 + stakingiDYPAvaxTvl20 + stakingiDYPAvaxTvl30 + stakingiDYPAvaxTvl45 + stakingDYPAvaxTvl1 + stakingDYPAvaxTvl2 + stakingDYPAvaxTvl10 + stakingDYPAvaxTvl25 + stakingDYPAvaxTvl30
 	totaltvlbuybackavax = buybackAvaxTvl1 + buybackAvaxTvl2
@@ -7442,7 +7465,7 @@ const updateStakingTVL = async () => {
 
 		stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45,
 
-		stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25,
+		stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25, stakingDYPEthTvl7,
 
 		stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45,
 
@@ -7594,6 +7617,12 @@ const get_DYP_ETH_Staking_Info =  async () => {
 			apy_percent = IDs_constant_staking_dyp_eth[id].apy
 			apy_performancefee = IDs_constant_staking_dyp_eth[id].apy_performancefee
 
+		}
+
+		if(id == "0xeb7dd6b50db34f7ff14898d0be57a99a9f158c4d"){
+			tvl_usd = stakingDYPEthTvl7
+			apy_percent = IDs_constant_staking_dyp_eth[id].apy
+			apy_performancefee = IDs_constant_staking_dyp_eth[id].apy_performancefee
 		}
 
 		pool_name = IDs_constant_staking_dyp_eth[id].pool_name
@@ -8639,6 +8668,10 @@ const IDs_User_Pools_ETH_DYP = {
 	"0x44bEd8ea3296bda44870d0Da98575520De1735d4":
 	{
 		contract_address: "0x44bEd8ea3296bda44870d0Da98575520De1735d4",
+	},
+	"0xeb7dd6b50db34f7ff14898d0be57a99a9f158c4d":
+	{
+		contract_address: "0xeb7dd6b50db34f7ff14898d0be57a99a9f158c4d",
 	},
 }
 
@@ -11278,7 +11311,7 @@ app.get('/api/totalpaid', async (req, res) => {
 	})
 })
 
-app.get('/api/check-eth', async (req, res) => {
+app.get('	', async (req, res) => {
 	let results = 0
 
 	results = await CheckEthStaking(req.query.address)
