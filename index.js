@@ -5081,7 +5081,8 @@ LP_ID_LIST_AVAX.forEach((lp_id, i) => TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX[lp
 
 function getPrice_BSC(coingecko_id = 'ethereum', vs_currency = 'usd') {
 	return new Promise((resolve, reject) => {
-		$.get(`https://api.coingecko.com/api/v3/simple/price?ids=${coingecko_id}&vs_currencies=${vs_currency}`)
+		$.get(`https://pro-api.coingecko.com/api/v3/simple/price?ids=${coingecko_id}&vs_currencies=${vs_currency}&x_cg_pro_api_key=CG-4cvtCNDCA4oLfmxagFJ84qev`)
+		// https://api.coingecko.com/api/v3/simple/price?ids=${coingecko_id}&vs_currencies=${vs_currency}`)
 			.then((result) => {
 				resolve(result[coingecko_id][vs_currency])
 			})
@@ -5093,7 +5094,8 @@ function getPrice_BSC(coingecko_id = 'ethereum', vs_currency = 'usd') {
 
 function getPrice(coingecko_id = 'ethereum', vs_currency = 'usd') {
 	return new Promise((resolve, reject) => {
-		$.get(`https://api.coingecko.com/api/v3/simple/price?ids=${coingecko_id}&vs_currencies=${vs_currency}`)
+		$.get(`https://pro-api.coingecko.com/api/v3/simple/price?ids=${coingecko_id}&vs_currencies=${vs_currency}&x_cg_pro_api_key=CG-4cvtCNDCA4oLfmxagFJ84qev`)
+		// $.get(`https://api.coingecko.com/api/v3/simple/price?ids=${coingecko_id}&vs_currencies=${vs_currency}`)
 			.then((result) => {
 				resolve(result[coingecko_id][vs_currency])
 			})
@@ -7658,7 +7660,7 @@ let all_bsc_apys = [];
 let bsccounter = 0;
 let highestbnbapy = [];
 
-const get_iDYP_BNB_Staking_Info = () => {
+const get_iDYP_BNB_Staking_Info = async () => {
 	iDYPBNBStakingInfo = [];
 	last_update_time_bnbstake = Date.now();
 	let apy_percent = 0,
@@ -7970,7 +7972,7 @@ for (let id of ids_rarest_nfts) {
 
 
 
-const get_DYP_BNB_Staking_Info = () => {
+const get_DYP_BNB_Staking_Info = async () => {
 	DYPBnbStakingInfo = [];
 	bsccounter = 0;
 	all_bsc_apys = [];
@@ -8067,7 +8069,7 @@ const get_DYP_BNB_Staking_Info = () => {
 	}
 
 }
-const get_BNB_STAKING_HIGHEST_APY = () => {
+const get_BNB_STAKING_HIGHEST_APY = async () => {
 
 	let aaa = 0;
 	for (i = 1; i <= bsccounter; i++)
@@ -8086,7 +8088,7 @@ let all_avax_apys = [];
 let avaxcounter = 0;
 let highestavaxapy = [];
 let last_update_time_avaxstake = 0;
-const get_iDYP_AVAX_Staking_Info = () => {
+const get_iDYP_AVAX_Staking_Info = async () => {
 	last_update_time_avaxstake = Date.now();
 	iDYPAvaxStakingInfo = [];
 
@@ -8148,7 +8150,7 @@ const get_iDYP_AVAX_Staking_Info = () => {
 }
 let DYPAvaxStakingInfo = [];
 
-const get_DYP_AVAX_Staking_Info = () => {
+const get_DYP_AVAX_Staking_Info = async () => {
 
 	DYPAvaxStakingInfo = [];
 	avaxcounter = 0;
@@ -8246,7 +8248,7 @@ const get_DYP_AVAX_Staking_Info = () => {
 
 }
 
-const get_AVAX_STAKING_HIGHEST_APY = () => {
+const get_AVAX_STAKING_HIGHEST_APY = async () => {
 
 	let aaa = 0;
 	for (i = 1; i <= avaxcounter; i++)
@@ -8264,7 +8266,7 @@ let BuybackETHhighestapy = [];
 let a1 = 0;
 let a2 = 0;
 let last_update_time_ethbuyback = 0;
-const get_ETH_Buyback_Info = () => {
+const get_ETH_Buyback_Info = async () => {
 	last_update_time_ethbuyback = Date.now()
 	BuybackETHInfo = [];
 	BuybackETHhighestapy = [];
@@ -8349,7 +8351,7 @@ let BuybackBNBhighestapy = [];
 let b1 = 0;
 let b2 = 0;
 let last_update_time_bnbbuyback = 0;
-const get_BNB_Buyback_Info = () => {
+const get_BNB_Buyback_Info = async () => {
 	last_update_time_bnbbuyback = Date.now()
 	BuybackBNBInfo = [];
 	b1 = 0;
@@ -8434,7 +8436,7 @@ let BuybackAVAXhighestapy = [];
 let c1 = 0;
 let c2 = 0;
 let last_update_time_avaxbuyback = 0;
-const get_AVAX_Buyback_Info = () => {
+const get_AVAX_Buyback_Info = async () => {
 	last_update_time_avaxbuyback = Date.now()
 	BuybackAVAXInfo = [];
 	BuybackAVAXhighestapy = [];
@@ -11107,7 +11109,7 @@ async function firstRun() {
 	await updateNFTStaking()
 	await updateStakingTVL()
 
-	await wait(60000)
+	// await wait(60000)
 	/* Get Highest Apy & Total Tvl */
 	await GetHighestAPY()
 	await getTotalTvl()
@@ -11342,7 +11344,7 @@ app.get('/api/get_farm_info', async (req, res) => {
 })
 
 app.get('/api/get_staking_info_eth', async (req, res) => {
-	if (Date.now() - last_update_time_ethstake > 3600e3) {
+	if (Date.now() - last_update_time_ethstake > 60e3) {
 		await get_iDYP_ETH_Staking_Info()
 		await get_DYP_ETH_Staking_Info()
 		await get_NFT_Staking_Info()
@@ -11375,7 +11377,7 @@ app.get('/api/get_proposals_info', async (req, res) => {
 app.get('/api/get_opensea_stats', async (req, res) => {
 	if (Date.now() - last_update_time_opensea_stats > 3600e3) {
 		await fecthNftFloorPrice()
-		await get_opensea_stats()
+		// await get_opensea_stats()
 	}
 
 	res.type('application/json')
@@ -11401,20 +11403,20 @@ app.get('/api/get_nft_stats', async (req, res) => {
 
 
 
-app.get('/api/get_rarest_nfts', async (req, res) => {
-	if (Date.now() - last_update_time_rarest_nfts > 3600e3) {
-		await get_rarest_nfts()
-	}
-
-	res.type('application/json')
-	res.json({
-		RarestNFTs: rarestnfts
-	})
-})
+// app.get('/api/get_rarest_nfts', async (req, res) => {
+// 	if (Date.now() - last_update_time_rarest_nfts > 3600e3) {
+// 		await get_rarest_nfts()
+// 	}
+//
+// 	res.type('application/json')
+// 	res.json({
+// 		RarestNFTs: rarestnfts
+// 	})
+// })
 
 app.get('/api/get_vault_info', async (req, res) => {
 	if (Date.now() - last_update_time_vault > 3600e3) {
-		get_iDYP_Vault_TVL_Info()
+		await get_iDYP_Vault_TVL_Info()
 	}
 	res.type('application/json')
 	res.json({
@@ -11424,10 +11426,10 @@ app.get('/api/get_vault_info', async (req, res) => {
 	})
 })
 app.get('/api/get_staking_info_bnb', async (req, res) => {
-	if (Date.now() - last_update_time_bnbstake > 3600e3) {
-		get_iDYP_BNB_Staking_Info()
-		get_DYP_BNB_Staking_Info()
-		get_BNB_STAKING_HIGHEST_APY()
+	if (Date.now() - last_update_time_bnbstake > 60e3) {
+		await get_iDYP_BNB_Staking_Info()
+		await get_DYP_BNB_Staking_Info()
+		await get_BNB_STAKING_HIGHEST_APY()
 	}
 
 	res.type('application/json')
@@ -11440,10 +11442,10 @@ app.get('/api/get_staking_info_bnb', async (req, res) => {
 })
 
 app.get('/api/get_staking_info_avax', async (req, res) => {
-	if (Date.now() - last_update_time_avaxstake > 3600e3) {
-		get_iDYP_AVAX_Staking_Info()
-		get_DYP_AVAX_Staking_Info()
-		get_AVAX_STAKING_HIGHEST_APY()
+	if (Date.now() - last_update_time_avaxstake > 60e3) {
+		await get_iDYP_AVAX_Staking_Info()
+		await get_DYP_AVAX_Staking_Info()
+		await get_AVAX_STAKING_HIGHEST_APY()
 	}
 	res.type('application/json')
 	res.json({
@@ -11456,7 +11458,7 @@ app.get('/api/get_staking_info_avax', async (req, res) => {
 
 app.get('/api/get_buyback_info_eth', async (req, res) => {
 	if (Date.now() - last_update_time_ethbuyback > 3600e3) {
-		get_ETH_Buyback_Info()
+		await get_ETH_Buyback_Info()
 	}
 	res.type('application/json')
 	res.json({
@@ -11468,7 +11470,7 @@ app.get('/api/get_buyback_info_eth', async (req, res) => {
 
 app.get('/api/get_buyback_info_avax', async (req, res) => {
 	if (Date.now() - last_update_time_avaxbuyback > 3600e3) {
-		get_AVAX_Buyback_Info()
+		await get_AVAX_Buyback_Info()
 	}
 	res.type('application/json')
 	res.json({
@@ -11480,7 +11482,7 @@ app.get('/api/get_buyback_info_avax', async (req, res) => {
 
 app.get('/api/get_buyback_info_bnb', async (req, res) => {
 	if (Date.now() - last_update_time_bnbbuyback > 3600e3) {
-		get_BNB_Buyback_Info()
+		await get_BNB_Buyback_Info()
 	}
 	res.type('application/json')
 	res.json({
