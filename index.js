@@ -6617,6 +6617,7 @@ const IDs_constant_staking_idyp_eth = {
 		return_types: "iDYP",
 		lock_time: "No lock",
 		expired: "No",
+		new_pool: "No",
 		apy: 15,
 		apy_performancefee: 14,
 		performancefee: 1
@@ -6629,6 +6630,7 @@ const IDs_constant_staking_idyp_eth = {
 		return_types: "iDYP",
 		lock_time: "No lock",
 		expired: "Yes",
+		new_pool: "No",
 		apy: 20,
 		apy_performancefee: 20,
 		performancefee: 0
@@ -6641,6 +6643,7 @@ const IDs_constant_staking_idyp_eth = {
 		return_types: "iDYP",
 		lock_time: "90 days",
 		expired: "No",
+		new_pool: "No",
 		apy: 30,
 		apy_performancefee: 26.5,
 		performancefee: 3.5
@@ -6653,6 +6656,7 @@ const IDs_constant_staking_idyp_eth = {
 		return_types: "iDYP",
 		lock_time: "90 days",
 		expired: "Yes",
+		new_pool: "No",
 		apy: 45,
 		apy_performancefee: 45,
 		performancefee: 0
@@ -6669,6 +6673,7 @@ const IDs_constant_staking_dyp_eth = {
 		return_types: "iDYP",
 		lock_time: "No lock",
 		expired: "Yes",
+		new_pool: "No",
 		apy: "",
 		apy_performancefee: "",
 		performancefee: 0.25
@@ -6681,6 +6686,7 @@ const IDs_constant_staking_dyp_eth = {
 		return_types: "iDYP",
 		lock_time: "90 days",
 		expired: "Yes",
+		new_pool: "No",
 		apy: "",
 		apy_performancefee: "",
 		performancefee: 0.5
@@ -6693,6 +6699,7 @@ const IDs_constant_staking_dyp_eth = {
 		return_types: "DYP",
 		lock_time: "90 days",
 		expired: "Yes", 
+		new_pool: "No",
 		apy: 25,
 		apy_performancefee: 25,
 		performancefee: 0
@@ -6706,6 +6713,7 @@ const IDs_constant_staking_dyp_eth = {
 		return_types: "DYP",
 		lock_time: "90 days",
 		expired: "No",
+		new_pool: "Yes",
 		apy: 7.35,
 		apy_performancefee: 7.35,
 		performancefee: 0,
@@ -6739,6 +6747,7 @@ const IDs_constant_staking_idyp_bnb = {
 		return_types: "iDYP",
 		lock_time: "No lock",
 		expired: "No",
+		new_pool: "No",
 		apy: 15,
 		apy_performancefee: 14,
 		performancefee: 1
@@ -6751,6 +6760,7 @@ const IDs_constant_staking_idyp_bnb = {
 		return_types: "iDYP",
 		lock_time: "No lock",
 		expired: "Yes",
+		new_pool: "No",
 		apy: 20,
 		apy_performancefee: 20,
 		performancefee: 0
@@ -6763,6 +6773,7 @@ const IDs_constant_staking_idyp_bnb = {
 		return_types: "iDYP",
 		lock_time: "90 days",
 		expired: "No",
+		new_pool: "No",
 		apy: 30,
 		apy_performancefee: 26.5,
 		performancefee: 3.5
@@ -6775,6 +6786,7 @@ const IDs_constant_staking_idyp_bnb = {
 		return_types: "iDYP",
 		lock_time: "90 days",
 		expired: "Yes",
+		new_pool: "No",
 		apy: 45,
 		apy_performancefee: 45,
 		performancefee: 0
@@ -6791,6 +6803,7 @@ const IDs_constant_staking_dyp_bnb = {
 		return_types: "iDYP",
 		lock_time: "No lock",
 		expired: "Yes",
+		new_pool: "No",
 		apy: "",
 		apy_performancefee: "",
 		performancefee: 0.25
@@ -6803,6 +6816,7 @@ const IDs_constant_staking_dyp_bnb = {
 		return_types: "iDYP",
 		lock_time: "90 days",
 		expired: "Yes",
+		new_pool: "No",
 		apy: "",
 		apy_performancefee: "",
 		performancefee: 0.5
@@ -6815,6 +6829,7 @@ const IDs_constant_staking_dyp_bnb = {
 		return_types: "DYP",
 		lock_time: "30 days",
 		expired: "No",
+		new_pool: "No",
 		apy: 10,
 		apy_performancefee: 9,
 		performancefee: 1
@@ -6827,6 +6842,7 @@ const IDs_constant_staking_dyp_bnb = {
 		return_types: "DYP",
 		lock_time: "90 days",
 		expired: "Yes",
+		new_pool: "No",
 		apy: 25,
 		apy_performancefee: 25,
 		performancefee: 0
@@ -6839,6 +6855,7 @@ const IDs_constant_staking_dyp_bnb = {
 		return_types: "DYP",
 		lock_time: "180 days",
 		expired: "No",
+		new_pool: "No",
 		apy: 30,
 		apy_performancefee: 26.5,
 		performancefee: 3.5
@@ -6854,6 +6871,7 @@ const IDs_constant_staking_idyp_avax = {
 		return_types: "iDYP",
 		lock_time: "No lock",
 		expired: "No",
+		new_pool: "No",
 		apy: 15,
 		apy_performancefee: 14,
 		performancefee: 1
@@ -6866,6 +6884,7 @@ const IDs_constant_staking_idyp_avax = {
 		return_types: "iDYP",
 		lock_time: "No lock",
 		expired: "Yes",
+		new_pool: "No",
 		apy: 20,
 		apy_performancefee: 20,
 		performancefee: 0
@@ -6878,6 +6897,7 @@ const IDs_constant_staking_idyp_avax = {
 		return_types: "iDYP",
 		lock_time: "90 days",
 		expired: "No",
+		new_pool: "No",
 		apy: 30,
 		apy_performancefee: 26.5,
 		performancefee: 3.5
@@ -6890,6 +6910,7 @@ const IDs_constant_staking_idyp_avax = {
 		return_types: "iDYP",
 		lock_time: "90 days",
 		expired: "Yes",
+		new_pool: "No",
 		apy: 45,
 		apy_performancefee: 45,
 		performancefee: 0
@@ -6905,6 +6926,7 @@ const IDs_constant_staking_dyp_avax = {
 		return_types: "iDYP",
 		lock_time: "No lock",
 		expired: "Yes",
+		new_pool: "No",
 		apy: "",
 		apy_performancefee: "",
 		performancefee: 0.25
@@ -6917,6 +6939,7 @@ const IDs_constant_staking_dyp_avax = {
 		return_types: "iDYP",
 		lock_time: "90 days",
 		expired: "Yes",
+		new_pool: "No",
 		apy: "",
 		apy_performancefee: "",
 		performancefee: 0.5
@@ -6929,6 +6952,7 @@ const IDs_constant_staking_dyp_avax = {
 		return_types: "DYP",
 		lock_time: "30 days",
 		expired: "No",
+		new_pool: "No",
 		apy: 10,
 		apy_performancefee: 9,
 		performancefee: 1
@@ -6941,6 +6965,7 @@ const IDs_constant_staking_dyp_avax = {
 		return_types: "DYP",
 		lock_time: "90 days",
 		expired: "Yes",
+		new_pool: "No",
 		apy: 25,
 		apy_performancefee: 25,
 		performancefee: 0
@@ -6953,6 +6978,7 @@ const IDs_constant_staking_dyp_avax = {
 		return_types: "DYP",
 		lock_time: "180 days",
 		expired: "No",
+		new_pool: "No",
 		apy: 30,
 		apy_performancefee: 26.5,
 		performancefee: 3.5
@@ -6968,6 +6994,7 @@ const IDs_buyback_eth = {
 		return_types: "DYP",
 		lock_time: "No lock",
 		expired: "No",
+		new_pool: "No",
 		apy: ""
 	},
 	"0xDC65C4277d626d6A29C9Dc42Eb396d354fa5E85b":
@@ -6978,6 +7005,7 @@ const IDs_buyback_eth = {
 		return_types: "DYP",
 		lock_time: "90 days",
 		expired: "No",
+		new_pool: "No",
 		apy: ""
 	},
 }
@@ -7508,6 +7536,7 @@ const get_iDYP_ETH_Staking_Info = async () => {
 		expired = "",
 		return_types = "",
 		lock_time = "",
+		new_pool = "",
 		apy_performancefee = 0,
 		performancefee = 0
 
@@ -7536,6 +7565,7 @@ const get_iDYP_ETH_Staking_Info = async () => {
 		lock_time = IDs_constant_staking_idyp_eth[id].lock_time
 		apy_performancefee = IDs_constant_staking_idyp_eth[id].apy_performancefee,
 		performancefee = IDs_constant_staking_idyp_eth[id].performancefee
+		new_pool = IDs_constant_staking_idyp_eth[id].new_pool
 
 		iDYPEthStakingInfo.push({
 			id: id,
@@ -7548,6 +7578,7 @@ const get_iDYP_ETH_Staking_Info = async () => {
 			return_types: return_types,
 			lock_time: lock_time,
 			expired: expired,
+			new_pool: new_pool,
 			apy_performancefee: apy_performancefee,
 			performancefee: performancefee
 		})
@@ -7576,6 +7607,7 @@ const get_DYP_ETH_Staking_Info =  async () => {
 		expired = "",
 		return_types = "",
 		lock_time = "",
+		new_pool = "",
 		apy_performancefee = 0,
 		performancefee = 0
 	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_dyp_eth)
@@ -7632,6 +7664,7 @@ const get_DYP_ETH_Staking_Info =  async () => {
 		expired = IDs_constant_staking_dyp_eth[id].expired
 		lock_time = IDs_constant_staking_dyp_eth[id].lock_time
 		performancefee = IDs_constant_staking_dyp_eth[id].performancefee
+		new_pool = IDs_constant_staking_dyp_eth[id].new_pool
 		DYPEthStakingInfo.push({
 			id: id,
 			apy_percent: apy_percent,
@@ -7643,6 +7676,7 @@ const get_DYP_ETH_Staking_Info =  async () => {
 			return_types: return_types,
 			lock_time: lock_time,
 			expired: expired,
+			new_pool: new_pool,
 			apy_performancefee: apy_performancefee,
 			performancefee: performancefee
 		})
@@ -7670,6 +7704,7 @@ const get_iDYP_BNB_Staking_Info = () => {
 		expired = "",
 		return_types = "",
 		lock_time = "",
+		new_pool = "",
 		apy_performancefee = 0,
 		performancefee = 0
 	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_idyp_bnb)
@@ -7697,6 +7732,7 @@ const get_iDYP_BNB_Staking_Info = () => {
 		lock_time = IDs_constant_staking_idyp_bnb[id].lock_time
 		apy_performancefee = IDs_constant_staking_idyp_bnb[id].apy_performancefee
 		performancefee = IDs_constant_staking_idyp_bnb[id].performancefee
+		new_pool = IDs_constant_staking_idyp_bnb[id].new_pool
 		iDYPBNBStakingInfo.push({
 			id: id,
 			apy_percent: apy_percent,
@@ -7708,6 +7744,7 @@ const get_iDYP_BNB_Staking_Info = () => {
 			return_types: return_types,
 			lock_time: lock_time,
 			expired: expired,
+			new_pool: new_pool,
 			apy_performancefee: apy_performancefee,
 			performancefee: performancefee
 		})
@@ -7985,6 +8022,7 @@ const get_DYP_BNB_Staking_Info = () => {
 		expired = "",
 		return_types = "",
 		lock_time = "",
+		new_pool = "",
 		apy_performancefee = 0,
 		apy_stakingfee = 0
 	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_dyp_bnb)
@@ -8044,7 +8082,7 @@ const get_DYP_BNB_Staking_Info = () => {
 		expired = IDs_constant_staking_dyp_bnb[id].expired
 		lock_time = IDs_constant_staking_dyp_bnb[id].lock_time
 		performancefee = IDs_constant_staking_dyp_bnb[id].performancefee
-
+		new_pool = IDs_constant_staking_dyp_bnb[id].new_pool
 		DYPBnbStakingInfo.push({
 			id: id,
 			apy_percent: apy_percent,
@@ -8056,6 +8094,7 @@ const get_DYP_BNB_Staking_Info = () => {
 			return_types: return_types,
 			lock_time: lock_time,
 			expired: expired,
+			new_pool: new_pool,
 			apy_performancefee: apy_performancefee,
 			performancefee: performancefee
 		})
@@ -8099,6 +8138,7 @@ const get_iDYP_AVAX_Staking_Info = () => {
 		expired = "",
 		return_types = "",
 		lock_time = "",
+		new_pool = "",
 		apy_performancefee = 0,
 		performancefee = 0
 	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_idyp_avax)
@@ -8127,6 +8167,7 @@ const get_iDYP_AVAX_Staking_Info = () => {
 		lock_time = IDs_constant_staking_idyp_avax[id].lock_time
 		apy_performancefee = IDs_constant_staking_idyp_avax[id].apy_performancefee
 		performancefee = IDs_constant_staking_idyp_avax[id].performancefee
+		new_pool = IDs_constant_staking_idyp_avax[id].new_pool
 
 		iDYPAvaxStakingInfo.push({
 			id: id,
@@ -8139,6 +8180,7 @@ const get_iDYP_AVAX_Staking_Info = () => {
 			return_types: return_types,
 			lock_time: lock_time,
 			expired: expired,
+			new_pool: new_pool,
 			apy_performancefee: apy_performancefee,
 			performancefee: performancefee
 		})
@@ -8163,6 +8205,7 @@ const get_DYP_AVAX_Staking_Info = () => {
 		expired = "",
 		return_types = "",
 		lock_time = "",
+		new_pool = "",
 		apy_performancefee = 0,
 		performancefee = 0
 	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_dyp_avax)
@@ -8222,6 +8265,7 @@ const get_DYP_AVAX_Staking_Info = () => {
 		expired = IDs_constant_staking_dyp_avax[id].expired
 		lock_time = IDs_constant_staking_dyp_avax[id].lock_time
 		performancefee = IDs_constant_staking_dyp_avax[id].performancefee
+		new_pool = IDs_constant_staking_dyp_avax[id].new_pool
 
 		DYPAvaxStakingInfo.push({
 			id: id,
@@ -8234,6 +8278,7 @@ const get_DYP_AVAX_Staking_Info = () => {
 			return_types: return_types,
 			lock_time: lock_time,
 			expired: expired,
+			new_pool: new_pool,
 			apy_performancefee: apy_performancefee,
 			performancefee: performancefee
 		})
