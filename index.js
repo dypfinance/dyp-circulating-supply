@@ -7206,7 +7206,9 @@ const get_iDYP_Vault_TVL_Info = async () => {
 let NftStakingInfo = [];
 
 const get_NFT_Staking_Info = async () => {
-
+	await fecthNftFloorPrice()
+	await updateVaultTVL()
+	await updateNFTStaking();
 	NftStakingInfo = [];
 
 	let tvl = 0,
@@ -7256,136 +7258,17 @@ let totaltvlavax = 0;
 let totaltvlbuybackbsc = 0;
 let totaltvlbuybackavax = 0;
 let totaltvlbuybacketh = 0;
-const updateStakingTVL = async () => {
-	totaltvl = 0;
-	totaltvlbsc = 0;
+
+const updateStakingTVLAVAX = async () => {
+
 	totaltvlavax = 0;
-	totaltvlbuybackbsc = 0;
-	totaltvlbuybackavax = 0;
-	totaltvlbuybacketh = 0;
-	let token_contract_eth_1 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_ETH, { from: undefined })
-	let token_contract_eth_2 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP_ETH, { from: undefined })
-	let token_contract_bnb_1 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_BNB, { from: undefined })
-	let token_contract_bnb_2 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP_BNB, { from: undefined })
+
 	let token_contract_avax_1 = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_AVAX, { from: undefined })
 	let token_contract_avax_2 = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP_AVAX, { from: undefined })
+
 	usdPerToken = await Promise.all([getPrice('defi-yield-protocol')])
 
-	//idyp eth starts here
-
-	let _tvliDYPEth15 = await token_contract_eth_1.methods.balanceOf('0x50014432772b4123D04181727C6EdEAB34F5F988').call()
-	let _tvliDYPEth15_2 = await token_contract_eth_2.methods.balanceOf('0x50014432772b4123D04181727C6EdEAB34F5F988').call()
-	_tvliDYPEth15 = _tvliDYPEth15 / 1e18 * usdPerToken
-	_tvliDYPEth15 = _tvliDYPEth15 + _tvliDYPEth15_2 / 1e18 * price_iDYP_eth
-	stakingiDYPEthTvl15 = _tvliDYPEth15;
-
-	let _tvliDYPEth20 = await token_contract_eth_1.methods.balanceOf('0x9eA966B4023049BFF858BB5E698ECfF24EA54c4A').call()
-	let _tvliDYPEth20_2 = await token_contract_eth_2.methods.balanceOf('0x9eA966B4023049BFF858BB5E698ECfF24EA54c4A').call()
-	_tvliDYPEth20 = _tvliDYPEth20 / 1e18 * usdPerToken
-	_tvliDYPEth20 = _tvliDYPEth20 + _tvliDYPEth20_2 / 1e18 * price_iDYP_eth
-	stakingiDYPEthTvl20 = _tvliDYPEth20;
-
-	let _tvliDYPEth30 = await token_contract_eth_1.methods.balanceOf('0xD4bE7a106ed193BEe39D6389a481ec76027B2660').call()
-	let _tvliDYPEth30_2 = await token_contract_eth_2.methods.balanceOf('0xD4bE7a106ed193BEe39D6389a481ec76027B2660').call()
-	_tvliDYPEth30 = _tvliDYPEth30 / 1e18 * usdPerToken
-	_tvliDYPEth30 = _tvliDYPEth30 + _tvliDYPEth30_2 / 1e18 * price_iDYP_eth
-	stakingiDYPEthTvl30 = _tvliDYPEth30;
-
-	let _tvliDYPEth45 = await token_contract_eth_1.methods.balanceOf('0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4').call()
-	let _tvliDYPEth45_2 = await token_contract_eth_2.methods.balanceOf('0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4').call()
-	_tvliDYPEth45 = _tvliDYPEth45 / 1e18 * usdPerToken
-	_tvliDYPEth45 = _tvliDYPEth45 + _tvliDYPEth45_2 / 1e18 * price_iDYP_eth
-	stakingiDYPEthTvl45 = _tvliDYPEth45;
-
-	//dyp eth starts here
-
-	let _tvlDYPEth1 = await token_contract_eth_1.methods.balanceOf('0xa4da28B8e42680916b557459D338aF6e2D8d458f').call()
-	let _tvlDYPEth1_2 = await token_contract_eth_2.methods.balanceOf('0xa4da28B8e42680916b557459D338aF6e2D8d458f').call()
-	_tvlDYPEth1 = _tvlDYPEth1 / 1e18 * usdPerToken
-	_tvlDYPEth1 = _tvlDYPEth1 + _tvlDYPEth1_2 / 1e18 * price_iDYP_eth
-	stakingDYPEthTvl1 = _tvlDYPEth1;
-
-	let _tvlDYPEth2 = await token_contract_eth_1.methods.balanceOf('0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d').call()
-	let _tvlDYPEth2_2 = await token_contract_eth_2.methods.balanceOf('0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d').call()
-	_tvlDYPEth2 = _tvlDYPEth2 / 1e18 * usdPerToken
-	_tvlDYPEth2 = _tvlDYPEth2 + _tvlDYPEth2_2 / 1e18 * price_iDYP_eth
-	stakingDYPEthTvl2 = _tvlDYPEth2;
-
-	let _tvlDYPEth25 = await token_contract_eth_1.methods.balanceOf('0x44bEd8ea3296bda44870d0Da98575520De1735d4').call()
-	let _tvlDYPEth25_2 = await token_contract_eth_2.methods.balanceOf('0x44bEd8ea3296bda44870d0Da98575520De1735d4').call()
 	
-
-
-	_tvlDYPEth25 = _tvlDYPEth25 / 1e18 * usdPerToken
-	_tvlDYPEth25 = _tvlDYPEth25 + _tvlDYPEth25_2 / 1e18 * price_iDYP_eth
-	stakingDYPEthTvl25 = _tvlDYPEth25;
-
-	let _tvlDYPEth7 = await token_contract_eth_1.methods.balanceOf('0xeb7dd6b50db34f7ff14898d0be57a99a9f158c4d').call()
-	let _tvlDYPEth7_2 = await token_contract_eth_2.methods.balanceOf('0xeb7dd6b50db34f7ff14898d0be57a99a9f158c4d').call()
-
-	_tvlDYPEth7 = _tvlDYPEth7 / 1e18 * usdPerToken
-	_tvlDYPEth7 = _tvlDYPEth7 + _tvlDYPEth7_2 / 1e18 * price_iDYP_eth
-	stakingDYPEthTvl7 = _tvlDYPEth7;
-
-
-	//idyp bnb starts here
-
-	let _tvliDYPBnb15 = await token_contract_bnb_1.methods.balanceOf('0x7e766F7005C7a9e74123b156697B582eeCB8d2D7').call()
-	let _tvliDYPBnb15_2 = await token_contract_bnb_2.methods.balanceOf('0x7e766F7005C7a9e74123b156697B582eeCB8d2D7').call()
-	_tvliDYPBnb15 = _tvliDYPBnb15 / 1e18 * usdPerToken
-	_tvliDYPBnb15 = _tvliDYPBnb15 + _tvliDYPBnb15_2 / 1e18 * price_iDYP_eth
-	stakingiDYPBnbTvl15 = _tvliDYPBnb15;
-
-	let _tvliDYPBnb20 = await token_contract_bnb_1.methods.balanceOf('0x58366902082B90Fca01bE07D929478bD48AcFB19').call()
-	let _tvliDYPBnb20_2 = await token_contract_bnb_2.methods.balanceOf('0x58366902082B90Fca01bE07D929478bD48AcFB19').call()
-	_tvliDYPBnb20 = _tvliDYPBnb20 / 1e18 * usdPerToken
-	_tvliDYPBnb20 = _tvliDYPBnb20 + _tvliDYPBnb20_2 / 1e18 * price_iDYP_eth
-	stakingiDYPBnbTvl20 = _tvliDYPBnb20;
-
-	let _tvliDYPBnb30 = await token_contract_bnb_1.methods.balanceOf('0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445').call()
-	let _tvliDYPBnb30_2 = await token_contract_bnb_2.methods.balanceOf('0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445').call()
-	_tvliDYPBnb30 = _tvliDYPBnb30 / 1e18 * usdPerToken
-	_tvliDYPBnb30 = _tvliDYPBnb30 + _tvliDYPBnb30_2 / 1e18 * price_iDYP_eth
-	stakingiDYPBnbTvl30 = _tvliDYPBnb30;
-
-	let _tvliDYPBnb45 = await token_contract_bnb_1.methods.balanceOf('0x160fF3c4A6E9Aa8E4271aa71226Cc811BFEf7ED9').call()
-	let _tvliDYPBnb45_2 = await token_contract_bnb_2.methods.balanceOf('0x160fF3c4A6E9Aa8E4271aa71226Cc811BFEf7ED9').call()
-	_tvliDYPBnb45 = _tvliDYPBnb45 / 1e18 * usdPerToken
-	_tvliDYPBnb45 = _tvliDYPBnb45 + _tvliDYPBnb45_2 / 1e18 * price_iDYP_eth
-	stakingiDYPBnbTvl45 = _tvliDYPBnb45;
-
-	//dyp bnb starts here
-
-	let _tvlDYPBnb1 = await token_contract_bnb_1.methods.balanceOf('0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90').call()
-	let _tvlDYPBnb1_2 = await token_contract_bnb_2.methods.balanceOf('0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90').call()
-	_tvlDYPBnb1 = _tvlDYPBnb1 / 1e18 * usdPerToken
-	_tvlDYPBnb1 = _tvlDYPBnb1 + _tvlDYPBnb1_2 / 1e18 * price_iDYP_eth
-	stakingDYPBnbTvl1 = _tvlDYPBnb1;
-
-	let _tvlDYPBnb2 = await token_contract_bnb_1.methods.balanceOf('0xaF411BF994dA1435A3150B874395B86376C5f2d5').call()
-	let _tvlDYPBnb2_2 = await token_contract_bnb_2.methods.balanceOf('0xaF411BF994dA1435A3150B874395B86376C5f2d5').call()
-	_tvlDYPBnb2 = _tvlDYPBnb2 / 1e18 * usdPerToken
-	_tvlDYPBnb2 = _tvlDYPBnb2 + _tvlDYPBnb2_2 / 1e18 * price_iDYP_eth
-	stakingDYPBnbTvl2 = _tvlDYPBnb2;
-
-	let _tvlDYPBnb10 = await token_contract_bnb_1.methods.balanceOf('0xfc4493E85fD5424456f22135DB6864Dd4E4ED662').call()
-	let _tvlDYPBnb10_2 = await token_contract_bnb_2.methods.balanceOf('0xfc4493E85fD5424456f22135DB6864Dd4E4ED662').call()
-	_tvlDYPBnb10 = _tvlDYPBnb10 / 1e18 * usdPerToken
-	_tvlDYPBnb10 = _tvlDYPBnb10 + _tvlDYPBnb10_2 / 1e18 * price_iDYP_eth
-	stakingDYPBnbTvl10 = _tvlDYPBnb10;
-
-	let _tvlDYPBnb25 = await token_contract_bnb_1.methods.balanceOf('0xa9efab22cCbfeAbB6dc4583d81421e76342faf8b').call()
-	let _tvlDYPBnb25_2 = await token_contract_bnb_2.methods.balanceOf('0xa9efab22cCbfeAbB6dc4583d81421e76342faf8b').call()
-	_tvlDYPBnb25 = _tvlDYPBnb25 / 1e18 * usdPerToken
-	_tvlDYPBnb25 = _tvlDYPBnb25 + _tvlDYPBnb25_2 / 1e18 * price_iDYP_eth
-	stakingDYPBnbTvl25 = _tvlDYPBnb25;
-
-	let _tvlDYPBnb30 = await token_contract_bnb_1.methods.balanceOf('0xef9e50A19358CCC8816d9BC2c2355aea596efd06').call()
-	let _tvlDYPBnb30_2 = await token_contract_bnb_2.methods.balanceOf('0xef9e50A19358CCC8816d9BC2c2355aea596efd06').call()
-	_tvlDYPBnb30 = _tvlDYPBnb30 / 1e18 * usdPerToken
-	_tvlDYPBnb30 = _tvlDYPBnb30 + _tvlDYPBnb30_2 / 1e18 * price_iDYP_eth
-	stakingDYPBnbTvl30 = _tvlDYPBnb30;
-
 	//idyp avax starts here
 
 	let _tvliDYPAvax15 = await token_contract_avax_1.methods.balanceOf('0xaF411BF994dA1435A3150B874395B86376C5f2d5').call()
@@ -7444,72 +7327,163 @@ const updateStakingTVL = async () => {
 	_tvlDYPAvax30 = _tvlDYPAvax30 + _tvlDYPAvax30_2 / 1e18 * price_iDYP_eth
 	stakingDYPAvaxTvl30 = _tvlDYPAvax30;
 
-	//eth buyback starts here
+	totaltvlavax = stakingiDYPAvaxTvl15 + stakingiDYPAvaxTvl20 + stakingiDYPAvaxTvl30 + stakingiDYPAvaxTvl45 + stakingDYPAvaxTvl1 + stakingDYPAvaxTvl2 + stakingDYPAvaxTvl10 + stakingDYPAvaxTvl25 + stakingDYPAvaxTvl30
 
-	let _tvlDYPBuybackEth1 = await token_contract_eth_1.methods.balanceOf('0xdCBB5B2148f0cf1Abd7757Ba04A5821fEaD80587').call()
-	let _tvlDYPBuybackEth1_2 = await token_contract_eth_2.methods.balanceOf('0xdCBB5B2148f0cf1Abd7757Ba04A5821fEaD80587').call()
-	_tvlDYPBuybackEth1 = _tvlDYPBuybackEth1 / 1e18 * usdPerToken
-	_tvlDYPBuybackEth1 = _tvlDYPBuybackEth1 + _tvlDYPBuybackEth1_2 / 1e18 * price_iDYP_eth
-	buybackEthTvl1 = _tvlDYPBuybackEth1;
+	return usdPerToken,
+	
+	stakingiDYPAvaxTvl15, stakingiDYPAvaxTvl20, stakingiDYPAvaxTvl30, stakingiDYPAvaxTvl45,
 
-	let _tvlDYPBuybackEth2 = await token_contract_eth_1.methods.balanceOf('0xDC65C4277d626d6A29C9Dc42Eb396d354fa5E85b').call()
-	let _tvlDYPBuybackEth2_2 = await token_contract_eth_2.methods.balanceOf('0xDC65C4277d626d6A29C9Dc42Eb396d354fa5E85b').call()
-	_tvlDYPBuybackEth2 = _tvlDYPBuybackEth2 / 1e18 * usdPerToken
-	_tvlDYPBuybackEth2 = _tvlDYPBuybackEth2 + _tvlDYPBuybackEth2_2 / 1e18 * price_iDYP_eth
-	buybackEthTvl2 = _tvlDYPBuybackEth2;
+	stakingDYPAvaxTvl1, stakingDYPAvaxTvl2, stakingDYPAvaxTvl10, stakingDYPAvaxTvl25, stakingDYPAvaxTvl30;
+}
 
-	//bnb buyback starts here
 
-	let _tvlDYPBuybackBnb1 = await token_contract_bnb_1.methods.balanceOf('0x94b1a7b57c441890b7a0f64291b39ad6f7e14804').call()
-	let _tvlDYPBuybackBnb1_2 = await token_contract_bnb_2.methods.balanceOf('0x94b1a7b57c441890b7a0f64291b39ad6f7e14804').call()
-	_tvlDYPBuybackBnb1 = _tvlDYPBuybackBnb1 / 1e18 * usdPerToken
-	_tvlDYPBuybackBnb1 = _tvlDYPBuybackBnb1 + _tvlDYPBuybackBnb1_2 / 1e18 * price_iDYP_eth
-	buybackBnbTvl1 = _tvlDYPBuybackBnb1;
+const updateStakingTVLBNB = async () => {
+	totaltvlbsc = 0;
+	let token_contract_bnb_1 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_BNB, { from: undefined })
+	let token_contract_bnb_2 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP_BNB, { from: undefined })
 
-	let _tvlDYPBuybackBnb2 = await token_contract_bnb_1.methods.balanceOf('0x4ef782e66244a0cf002016aa1db3019448c670ae').call()
-	let _tvlDYPBuybackBnb2_2 = await token_contract_bnb_2.methods.balanceOf('0x4ef782e66244a0cf002016aa1db3019448c670ae').call()
-	_tvlDYPBuybackBnb2 = _tvlDYPBuybackBnb2 / 1e18 * usdPerToken
-	_tvlDYPBuybackBnb2 = _tvlDYPBuybackBnb2 + _tvlDYPBuybackBnb2_2 / 1e18 * price_iDYP_eth
-	buybackBnbTvl2 = _tvlDYPBuybackBnb2;
+	usdPerToken = await Promise.all([getPrice('defi-yield-protocol')])
 
-	//avax buyback starts here
+	let _tvliDYPBnb15 = await token_contract_bnb_1.methods.balanceOf('0x7e766F7005C7a9e74123b156697B582eeCB8d2D7').call()
+	let _tvliDYPBnb15_2 = await token_contract_bnb_2.methods.balanceOf('0x7e766F7005C7a9e74123b156697B582eeCB8d2D7').call()
+	_tvliDYPBnb15 = _tvliDYPBnb15 / 1e18 * usdPerToken
+	_tvliDYPBnb15 = _tvliDYPBnb15 + _tvliDYPBnb15_2 / 1e18 * price_iDYP_eth
+	stakingiDYPBnbTvl15 = _tvliDYPBnb15;
 
-	let _tvlDYPBuybackAvax1 = await token_contract_avax_1.methods.balanceOf('0xC905D5DD9A4f26eD059F76929D11476B2844A7c3').call()
-	let _tvlDYPBuybackAvax1_2 = await token_contract_avax_2.methods.balanceOf('0xC905D5DD9A4f26eD059F76929D11476B2844A7c3').call()
-	_tvlDYPBuybackAvax1 = _tvlDYPBuybackAvax1 / 1e18 * usdPerToken
-	_tvlDYPBuybackAvax1 = _tvlDYPBuybackAvax1 + _tvlDYPBuybackAvax1_2 / 1e18 * price_iDYP_eth
-	buybackAvaxTvl1 = _tvlDYPBuybackAvax1;
+	let _tvliDYPBnb20 = await token_contract_bnb_1.methods.balanceOf('0x58366902082B90Fca01bE07D929478bD48AcFB19').call()
+	let _tvliDYPBnb20_2 = await token_contract_bnb_2.methods.balanceOf('0x58366902082B90Fca01bE07D929478bD48AcFB19').call()
+	_tvliDYPBnb20 = _tvliDYPBnb20 / 1e18 * usdPerToken
+	_tvliDYPBnb20 = _tvliDYPBnb20 + _tvliDYPBnb20_2 / 1e18 * price_iDYP_eth
+	stakingiDYPBnbTvl20 = _tvliDYPBnb20;
 
-	let _tvlDYPBuybackAvax2 = await token_contract_avax_1.methods.balanceOf('0x267434f01ac323C6A5BCf41Fa111701eE0165a37').call()
-	let _tvlDYPBuybackAvax2_2 = await token_contract_avax_2.methods.balanceOf('0x267434f01ac323C6A5BCf41Fa111701eE0165a37').call()
-	_tvlDYPBuybackAvax2 = _tvlDYPBuybackAvax2 / 1e18 * usdPerToken
-	_tvlDYPBuybackAvax2 = _tvlDYPBuybackAvax2 + _tvlDYPBuybackAvax2_2 / 1e18 * price_iDYP_eth
-	buybackAvaxTvl2 = _tvlDYPBuybackAvax2;
+	let _tvliDYPBnb30 = await token_contract_bnb_1.methods.balanceOf('0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445').call()
+	let _tvliDYPBnb30_2 = await token_contract_bnb_2.methods.balanceOf('0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445').call()
+	_tvliDYPBnb30 = _tvliDYPBnb30 / 1e18 * usdPerToken
+	_tvliDYPBnb30 = _tvliDYPBnb30 + _tvliDYPBnb30_2 / 1e18 * price_iDYP_eth
+	stakingiDYPBnbTvl30 = _tvliDYPBnb30;
+
+	let _tvliDYPBnb45 = await token_contract_bnb_1.methods.balanceOf('0x160fF3c4A6E9Aa8E4271aa71226Cc811BFEf7ED9').call()
+	let _tvliDYPBnb45_2 = await token_contract_bnb_2.methods.balanceOf('0x160fF3c4A6E9Aa8E4271aa71226Cc811BFEf7ED9').call()
+	_tvliDYPBnb45 = _tvliDYPBnb45 / 1e18 * usdPerToken
+	_tvliDYPBnb45 = _tvliDYPBnb45 + _tvliDYPBnb45_2 / 1e18 * price_iDYP_eth
+	stakingiDYPBnbTvl45 = _tvliDYPBnb45;
+
+	//dyp bnb starts here
+
+	let _tvlDYPBnb1 = await token_contract_bnb_1.methods.balanceOf('0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90').call()
+	let _tvlDYPBnb1_2 = await token_contract_bnb_2.methods.balanceOf('0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90').call()
+	_tvlDYPBnb1 = _tvlDYPBnb1 / 1e18 * usdPerToken
+	_tvlDYPBnb1 = _tvlDYPBnb1 + _tvlDYPBnb1_2 / 1e18 * price_iDYP_eth
+	stakingDYPBnbTvl1 = _tvlDYPBnb1;
+
+	let _tvlDYPBnb2 = await token_contract_bnb_1.methods.balanceOf('0xaF411BF994dA1435A3150B874395B86376C5f2d5').call()
+	let _tvlDYPBnb2_2 = await token_contract_bnb_2.methods.balanceOf('0xaF411BF994dA1435A3150B874395B86376C5f2d5').call()
+	_tvlDYPBnb2 = _tvlDYPBnb2 / 1e18 * usdPerToken
+	_tvlDYPBnb2 = _tvlDYPBnb2 + _tvlDYPBnb2_2 / 1e18 * price_iDYP_eth
+	stakingDYPBnbTvl2 = _tvlDYPBnb2;
+
+	let _tvlDYPBnb10 = await token_contract_bnb_1.methods.balanceOf('0xfc4493E85fD5424456f22135DB6864Dd4E4ED662').call()
+	let _tvlDYPBnb10_2 = await token_contract_bnb_2.methods.balanceOf('0xfc4493E85fD5424456f22135DB6864Dd4E4ED662').call()
+	_tvlDYPBnb10 = _tvlDYPBnb10 / 1e18 * usdPerToken
+	_tvlDYPBnb10 = _tvlDYPBnb10 + _tvlDYPBnb10_2 / 1e18 * price_iDYP_eth
+	stakingDYPBnbTvl10 = _tvlDYPBnb10;
+
+	let _tvlDYPBnb25 = await token_contract_bnb_1.methods.balanceOf('0xa9efab22cCbfeAbB6dc4583d81421e76342faf8b').call()
+	let _tvlDYPBnb25_2 = await token_contract_bnb_2.methods.balanceOf('0xa9efab22cCbfeAbB6dc4583d81421e76342faf8b').call()
+	_tvlDYPBnb25 = _tvlDYPBnb25 / 1e18 * usdPerToken
+	_tvlDYPBnb25 = _tvlDYPBnb25 + _tvlDYPBnb25_2 / 1e18 * price_iDYP_eth
+	stakingDYPBnbTvl25 = _tvlDYPBnb25;
+
+	let _tvlDYPBnb30 = await token_contract_bnb_1.methods.balanceOf('0xef9e50A19358CCC8816d9BC2c2355aea596efd06').call()
+	let _tvlDYPBnb30_2 = await token_contract_bnb_2.methods.balanceOf('0xef9e50A19358CCC8816d9BC2c2355aea596efd06').call()
+	_tvlDYPBnb30 = _tvlDYPBnb30 / 1e18 * usdPerToken
+	_tvlDYPBnb30 = _tvlDYPBnb30 + _tvlDYPBnb30_2 / 1e18 * price_iDYP_eth
+	stakingDYPBnbTvl30 = _tvlDYPBnb30;
+
+	totaltvlbsc = stakingiDYPBnbTvl15 + stakingiDYPBnbTvl20 + stakingiDYPBnbTvl30 + stakingiDYPBnbTvl45 + stakingDYPBnbTvl1 + stakingDYPBnbTvl2 + stakingDYPBnbTvl10 + stakingDYPBnbTvl25 + stakingDYPBnbTvl30
+
+	return usdPerToken,
+	stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45,
+
+	stakingDYPBnbTvl1, stakingDYPBnbTvl2, stakingDYPBnbTvl10, stakingDYPBnbTvl25, stakingDYPBnbTvl30;
+}
+
+const updateStakingTVLETH = async () => {
+	await updateNFTStaking()
+	totaltvl = 0;
+	totaltvlbuybackbsc = 0;
+	totaltvlbuybackavax = 0;
+	totaltvlbuybacketh = 0;
+
+	let token_contract_eth_1 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_ETH, { from: undefined })
+	let token_contract_eth_2 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP_ETH, { from: undefined })
+
+	usdPerToken = await Promise.all([getPrice('defi-yield-protocol')])
+
+	//idyp eth starts here
+
+	let _tvliDYPEth15 = await token_contract_eth_1.methods.balanceOf('0x50014432772b4123D04181727C6EdEAB34F5F988').call()
+	let _tvliDYPEth15_2 = await token_contract_eth_2.methods.balanceOf('0x50014432772b4123D04181727C6EdEAB34F5F988').call()
+	_tvliDYPEth15 = _tvliDYPEth15 / 1e18 * usdPerToken
+	_tvliDYPEth15 = _tvliDYPEth15 + _tvliDYPEth15_2 / 1e18 * price_iDYP_eth
+	stakingiDYPEthTvl15 = _tvliDYPEth15;
+
+	let _tvliDYPEth20 = await token_contract_eth_1.methods.balanceOf('0x9eA966B4023049BFF858BB5E698ECfF24EA54c4A').call()
+	let _tvliDYPEth20_2 = await token_contract_eth_2.methods.balanceOf('0x9eA966B4023049BFF858BB5E698ECfF24EA54c4A').call()
+	_tvliDYPEth20 = _tvliDYPEth20 / 1e18 * usdPerToken
+	_tvliDYPEth20 = _tvliDYPEth20 + _tvliDYPEth20_2 / 1e18 * price_iDYP_eth
+	stakingiDYPEthTvl20 = _tvliDYPEth20;
+
+	let _tvliDYPEth30 = await token_contract_eth_1.methods.balanceOf('0xD4bE7a106ed193BEe39D6389a481ec76027B2660').call()
+	let _tvliDYPEth30_2 = await token_contract_eth_2.methods.balanceOf('0xD4bE7a106ed193BEe39D6389a481ec76027B2660').call()
+	_tvliDYPEth30 = _tvliDYPEth30 / 1e18 * usdPerToken
+	_tvliDYPEth30 = _tvliDYPEth30 + _tvliDYPEth30_2 / 1e18 * price_iDYP_eth
+	stakingiDYPEthTvl30 = _tvliDYPEth30;
+
+	let _tvliDYPEth45 = await token_contract_eth_1.methods.balanceOf('0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4').call()
+	let _tvliDYPEth45_2 = await token_contract_eth_2.methods.balanceOf('0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4').call()
+	_tvliDYPEth45 = _tvliDYPEth45 / 1e18 * usdPerToken
+	_tvliDYPEth45 = _tvliDYPEth45 + _tvliDYPEth45_2 / 1e18 * price_iDYP_eth
+	stakingiDYPEthTvl45 = _tvliDYPEth45;
+
+	//dyp eth starts here
+
+	let _tvlDYPEth1 = await token_contract_eth_1.methods.balanceOf('0xa4da28B8e42680916b557459D338aF6e2D8d458f').call()
+	let _tvlDYPEth1_2 = await token_contract_eth_2.methods.balanceOf('0xa4da28B8e42680916b557459D338aF6e2D8d458f').call()
+	_tvlDYPEth1 = _tvlDYPEth1 / 1e18 * usdPerToken
+	_tvlDYPEth1 = _tvlDYPEth1 + _tvlDYPEth1_2 / 1e18 * price_iDYP_eth
+	stakingDYPEthTvl1 = _tvlDYPEth1;
+
+	let _tvlDYPEth2 = await token_contract_eth_1.methods.balanceOf('0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d').call()
+	let _tvlDYPEth2_2 = await token_contract_eth_2.methods.balanceOf('0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d').call()
+	_tvlDYPEth2 = _tvlDYPEth2 / 1e18 * usdPerToken
+	_tvlDYPEth2 = _tvlDYPEth2 + _tvlDYPEth2_2 / 1e18 * price_iDYP_eth
+	stakingDYPEthTvl2 = _tvlDYPEth2;
+
+	let _tvlDYPEth25 = await token_contract_eth_1.methods.balanceOf('0x44bEd8ea3296bda44870d0Da98575520De1735d4').call()
+	let _tvlDYPEth25_2 = await token_contract_eth_2.methods.balanceOf('0x44bEd8ea3296bda44870d0Da98575520De1735d4').call()
+	
+
+
+	_tvlDYPEth25 = _tvlDYPEth25 / 1e18 * usdPerToken
+	_tvlDYPEth25 = _tvlDYPEth25 + _tvlDYPEth25_2 / 1e18 * price_iDYP_eth
+	stakingDYPEthTvl25 = _tvlDYPEth25;
+
+	let _tvlDYPEth7 = await token_contract_eth_1.methods.balanceOf('0xeb7dd6b50db34f7ff14898d0be57a99a9f158c4d').call()
+	let _tvlDYPEth7_2 = await token_contract_eth_2.methods.balanceOf('0xeb7dd6b50db34f7ff14898d0be57a99a9f158c4d').call()
+
+	_tvlDYPEth7 = _tvlDYPEth7 / 1e18 * usdPerToken
+	_tvlDYPEth7 = _tvlDYPEth7 + _tvlDYPEth7_2 / 1e18 * price_iDYP_eth
+	stakingDYPEthTvl7 = _tvlDYPEth7;
+
 	totaltvl = stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25 + stakingDYPEthTvl7 + cawsnfttvl
 	totaltvlbsc = stakingiDYPBnbTvl15 + stakingiDYPBnbTvl20 + stakingiDYPBnbTvl30 + stakingiDYPBnbTvl45 + stakingDYPBnbTvl1 + stakingDYPBnbTvl2 + stakingDYPBnbTvl10 + stakingDYPBnbTvl25 + stakingDYPBnbTvl30
-	totaltvlavax = stakingiDYPAvaxTvl15 + stakingiDYPAvaxTvl20 + stakingiDYPAvaxTvl30 + stakingiDYPAvaxTvl45 + stakingDYPAvaxTvl1 + stakingDYPAvaxTvl2 + stakingDYPAvaxTvl10 + stakingDYPAvaxTvl25 + stakingDYPAvaxTvl30
-	totaltvlbuybackavax = buybackAvaxTvl1 + buybackAvaxTvl2
-	totaltvlbuybackbsc = buybackBnbTvl1 + buybackBnbTvl2
-	totaltvlbuybacketh = buybackEthTvl1 + buybackEthTvl2
+
 	return usdPerToken,
 
 		stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45,
 
-		stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25, stakingDYPEthTvl7,
-
-		stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45,
-
-		stakingDYPBnbTvl1, stakingDYPBnbTvl2, stakingDYPBnbTvl10, stakingDYPBnbTvl25, stakingDYPBnbTvl30,
-
-		stakingiDYPAvaxTvl15, stakingiDYPAvaxTvl20, stakingiDYPAvaxTvl30, stakingiDYPAvaxTvl45,
-
-		stakingDYPAvaxTvl1, stakingDYPAvaxTvl2, stakingDYPAvaxTvl10, stakingDYPAvaxTvl25, stakingDYPAvaxTvl30,
-
-		buybackEthTvl1, buybackEthTvl2,
-
-		buybackBnbTvl1, buybackBnbTvl2,
-
-		buybackAvaxTvl1, buybackAvaxTvl2;
+		stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25, stakingDYPEthTvl7;
 }
 
 
@@ -11146,14 +11120,6 @@ async function firstRun() {
 	await refresh_the_graph_result_AVAX_V2()
 	await refresh_the_graph_result_ETH_V2()
 
-	/* Get CAWS Floor Price & ETH Price */
-	await fecthNftFloorPrice()
-	await updateVaultTVL()
-
-	/* Get Staking Info */
-	await updateNFTStaking()
-	await updateStakingTVL()
-
 	// await wait(60000)
 	/* Get Highest Apy & Total Tvl */
 	await GetHighestAPY()
@@ -11389,7 +11355,8 @@ app.get('/api/get_farm_info', async (req, res) => {
 })
 
 app.get('/api/get_staking_info_eth', async (req, res) => {
-	if (Date.now() - last_update_time_ethstake > 60e3) {
+	if (Date.now() - last_update_time_ethstake > 300e3) {
+		await updateStakingTVLETH()
 		await get_iDYP_ETH_Staking_Info()
 		await get_DYP_ETH_Staking_Info()
 		await get_NFT_Staking_Info()
@@ -11471,7 +11438,8 @@ app.get('/api/get_vault_info', async (req, res) => {
 	})
 })
 app.get('/api/get_staking_info_bnb', async (req, res) => {
-	if (Date.now() - last_update_time_bnbstake > 60e3) {
+	if (Date.now() - last_update_time_bnbstake > 300e3) {
+		await updateStakingTVLBNB()
 		await get_iDYP_BNB_Staking_Info()
 		await get_DYP_BNB_Staking_Info()
 		await get_BNB_STAKING_HIGHEST_APY()
@@ -11487,7 +11455,8 @@ app.get('/api/get_staking_info_bnb', async (req, res) => {
 })
 
 app.get('/api/get_staking_info_avax', async (req, res) => {
-	if (Date.now() - last_update_time_avaxstake > 60e3) {
+	if (Date.now() - last_update_time_avaxstake > 300e3) {
+		await updateStakingTVLAVAX()
 		await get_iDYP_AVAX_Staking_Info()
 		await get_DYP_AVAX_Staking_Info()
 		await get_AVAX_STAKING_HIGHEST_APY()
