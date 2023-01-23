@@ -8154,7 +8154,10 @@ const get_DYP_BNB_Staking_Info = async () => {
 }
 const get_BNB_STAKING_HIGHEST_APY = async () => {
 
-	aaa = 10;
+	let aaa = 0;
+	for (i = 0; i < bsccounter; i++)
+		if (highestbnbapy[i] > aaa)
+			aaa = highestbnbapy[i];
 
 	all_bsc_apys.push({
 		highest_apy: aaa,
@@ -8336,7 +8339,10 @@ const get_DYP_AVAX_Staking_Info = async () => {
 
 const get_AVAX_STAKING_HIGHEST_APY = async () => {
 
-	aaa = 10;
+	let aaa = 0;
+	for (i = 0; i < avaxcounter; i++)
+		if (highestavaxapy[i] > aaa)
+			aaa = highestavaxapy[i];
 
 	all_avax_apys.push({
 		highest_apy: aaa,
