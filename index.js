@@ -11453,6 +11453,15 @@ app.get('/api/get_staking_info_eth', async (req, res) => {
 	})
 })
 
+app.get('/api/get_wod', async (req, res) => {
+	res.type('application/json')
+	res.json({
+		playing: 500,
+		registered: 6857,
+		discordmembers: 13+'K',
+		twitterfollowers: 123+'K',
+	})
+})
 
 app.get('/api/get_proposals_info', async (req, res) => {
 	if (Date.now() - last_update_time_proposals_info > 3600e3) {
