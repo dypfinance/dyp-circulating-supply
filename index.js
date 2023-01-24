@@ -5409,7 +5409,10 @@ function wait_AVAX(ms) {
  *
  * @param {{token_data, lp_data}} usd_values - assuming only one token is there in token_list
  */
+
+let totaltvlfarmingavax = 0;
 async function get_apy_and_tvl_AVAX(usd_values) {
+	totaltvlfarmingavax = 0;
 	let { token_data, lp_data, usd_per_eth } = usd_values
 
 	let token_price_usd = token_data[TOKEN_ADDRESS].token_price_usd * 1
@@ -5432,6 +5435,7 @@ async function get_apy_and_tvl_AVAX(usd_values) {
 		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2) * 1
 
 		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked * 1
+		totaltvlfarmingavax = totaltvlfarmingavax + tvl_usd;
 
 		apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_AVAX[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2) * 1
 
@@ -5440,7 +5444,6 @@ async function get_apy_and_tvl_AVAX(usd_values) {
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 		lp_data[lp_id].expired = "Yes"
 	})
-
 	return { token_data, lp_data, usd_per_eth, token_price_usd }
 }
 
@@ -9315,7 +9318,7 @@ let last_update_time_totaltvl = 0;
 const getTotalTvlNew = async () => {
 	last_update_time_totaltvl = Date.now()
 	totaltvlnew = 0; 
-	totaltvlnew = totaltvlbsc + totaltvlavax + totaltvl + totaltvlvault
+	totaltvlnew = totaltvlbsc + totaltvlavax + totaltvl + totaltvlvault + totaltvlfarmingavax + totaltvlfarmingbsc +totaltvlfarmingeth
 	return totaltvlnew;
 }
 //Generate FarmInfo for Tools
@@ -10164,8 +10167,9 @@ async function get_to_be_burnt_bsc(staking_pools_list) {
 		return contract.methods.tokensToBeDisbursedOrBurnt().call()
 	}))).map(h => Number(h))
 }
-
+let totaltvlfarmingbsc = 0
 async function get_apy_and_tvl_BSC_V2(usd_values) {
+	totaltvlfarmingbsc = 0
 	let { token_data, lp_data, usd_per_eth } = usd_values
 
 	let magic_number = [
@@ -10224,6 +10228,7 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2) * 1
 
 		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked * 1
+		totaltvlfarmingbsc = totaltvlfarmingbsc + tvl_usd
 
 		//apy = (TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC_V2[lp_id] * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2)*1
 
@@ -11054,8 +11059,9 @@ async function get_to_be_burnt(staking_pools_list) {
 		return contract.methods.tokensToBeDisbursedOrBurnt().call()
 	}))).map(h => Number(h))
 }
-
+let totaltvlfarmingeth = 0
 async function get_apy_and_tvl_ETH_V2(usd_values) {
+	totaltvlfarmingeth = 0
 	let { token_data, lp_data, usd_per_eth } = usd_values
 
 	// let magic_number = [
@@ -11121,7 +11127,7 @@ async function get_apy_and_tvl_ETH_V2(usd_values) {
 		let token_balance_value_usd = token_balance.div(1e18).times(token_price_usd).toFixed(2) * 1
 
 		tvl_usd = token_balance_value_usd + lp_data[lp_id].usd_value_of_lp_staked * 1
-
+		totaltvlfarmingeth = totaltvlfarmingeth + tvl_usd
 		/**
 		 * TODO
 		 * 1. Calculez maximul pe care contractul il poate schimba (Ex: Max 2.5%):
@@ -11167,7 +11173,6 @@ async function get_apy_and_tvl_ETH_V2(usd_values) {
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
 		lp_data[lp_id].expired = "Yes"
 	})
-
 	return { token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS }
 }
 
@@ -11358,6 +11363,9 @@ app.get('/api/highest-apy', async (req, res) => {
 app.get('/api/totaltvl', async (req, res) => {
 	//12 minutes
 	if (Date.now() - last_update_time_totaltvl > 720e3) {
+		await refresh_the_graph_result_BSC_V2()
+		await refresh_the_graph_result_ETH_V2()
+		await refresh_the_graph_result_AVAX_V2()
 		await updateStakingTVLETH()
 		await updateStakingTVLBNB()
 		await updateStakingTVLAVAX()
