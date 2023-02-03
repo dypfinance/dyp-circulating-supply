@@ -8051,8 +8051,22 @@ for (let id of ids_rarest_nfts) {
 			totalvolume: totalvolume,
 			})
 }
-
-
+let registered_users = 0;
+let last_update_time_wod = 0;
+const get_wod_info = async () => {
+	last_update_time_wod = Date.now();
+	registered_users = 0;
+		fetch('https://api3.dyp.finance/api/whitelist/count')
+			.then(response => {
+				if (!response.ok) {
+					throw Error('X');
+				}
+				return response.json();
+			})
+			.then(data => {
+				registered_users = data.count;
+			});
+	}
 
 
 
@@ -11212,7 +11226,7 @@ async function firstRun() {
 	await PaidAllInUsd()
 }
 
-firstRun()
+// firstRun()
 
 const app = express()
 app.use(cors())
@@ -11462,12 +11476,15 @@ app.get('/api/get_staking_info_eth', async (req, res) => {
 })
 
 app.get('/api/get_wod', async (req, res) => {
+	if (Date.now()- last_update_time_wod > 300e3) {
+		await get_wod_info()
+	}
 	res.type('application/json')
 	res.json({
-		playing: 500,
-		registered: 6857,
+		playing: 600,
+		registered: registered_users,
 		discordmembers: 13+'K',
-		twitterfollowers: 123+'K',
+		twitterfollowers: 122+'K',
 	})
 })
 
