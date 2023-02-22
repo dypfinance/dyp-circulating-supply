@@ -6756,7 +6756,7 @@ const IDs_land_stake_eth = {
 		tvl: "",
 		lock_time: "No lock",
 		expired: "No",
-		apy: 20,
+		apy: 25,
 
 	}
 
