@@ -6744,6 +6744,24 @@ const IDs_nft_stake_eth = {
 
 }
 
+const IDs_land_stake_eth = {
+	"0x6821710B0D6E9e10ACfd8433aD023f874ed782F1":
+	{
+		pool_name: "Genesis Land Staking ETH",
+		pair_name: "WoD",
+		link_pair: "https://dyp.finance/stake-land",
+		return_types: "ETH",
+		floor_price: "",
+		total_nfts_locked: "",
+		tvl: "",
+		lock_time: "No lock",
+		expired: "No",
+		apy: 20,
+
+	}
+
+}
+
 const IDs_constant_staking_idyp_bnb = {
 	"0x7e766F7005C7a9e74123b156697B582eeCB8d2D7":
 	{
@@ -7064,6 +7082,8 @@ const IDs_buyback_avax = {
 
 const TOKEN_ADDRESS_CAWS = "0xd06cF9e1189FEAb09c844C597abc3767BC12608c"
 const TOKEN_ADDRESS_CAWS_STAKE = "0xee425bbbec5e9bf4a59a1c19efff522ad8b7a47a"
+const TOKEN_ADDRESS_LAND = "0xcd60d912655281908EE557CE1Add61e983385a03"
+const TOKEN_ADDRESS_LAND_STAKE = "0x6821710B0D6E9e10ACfd8433aD023f874ed782F1"
 const TOKEN_ADDRESS_IDYP_ETH = "0xBD100d061E120b2c67A24453CF6368E63f1Be056"
 const TOKEN_ADDRESS_DYP_ETH = "0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17"
 const TOKEN_ADDRESS_IDYP_BNB = "0xBD100d061E120b2c67A24453CF6368E63f1Be056"
@@ -7071,7 +7091,11 @@ const TOKEN_ADDRESS_DYP_BNB = "0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17"
 const TOKEN_ADDRESS_IDYP_AVAX = "0xbd100d061e120b2c67a24453cf6368e63f1be056"
 const TOKEN_ADDRESS_DYP_AVAX = "0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17"
 
+const land_contract_abi = [{"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"symbol","type":"string"},{"internalType":"uint256","name":"maxNftSupply","type":"uint256"},{"internalType":"uint256","name":"saleStart","type":"uint256"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"approved","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"operator","type":"address"},{"indexed":false,"internalType":"bool","name":"approved","type":"bool"}],"name":"ApprovalForAll","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"LandPriceDiscount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_MINT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAX_WOD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REVEAL_TIMESTAMP","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"WOD_PROVENANCE","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"approve","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"baseURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"cawsContract","outputs":[{"internalType":"contract CawsContract","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"cawsUsed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"emergencySetStartingIndexBlock","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"flipSaleState","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"getApproved","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"operator","type":"address"}],"name":"isApprovedForAll","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"landPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"maxLandPurchase","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"numberOfTokens","type":"uint256"},{"internalType":"uint256[]","name":"tokenIds","type":"uint256[]"}],"name":"mintWodGenesis","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"nextOwnerToExplicitlySet","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"ownerOf","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"numberOfTokens","type":"uint256"}],"name":"reserveWod","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"saleIsActive","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"operator","type":"address"},{"internalType":"bool","name":"approved","type":"bool"}],"name":"setApprovalForAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"tokenURI","type":"string"}],"name":"setBaseURI","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"provenanceHash","type":"string"}],"name":"setProvenanceHash","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"revealTimeStamp","type":"uint256"}],"name":"setRevealTimestamp","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"setStartingIndex","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"stakeContract","outputs":[{"internalType":"contract StakeContract","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"startingIndex","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"startingIndexBlock","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"index","type":"uint256"}],"name":"tokenByIndex","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"uint256","name":"index","type":"uint256"}],"name":"tokenOfOwnerByIndex","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"tokenURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"transferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+
 let [CAWS_TOTAL_LOCKED, cawsnfttvl] = [0, 0]
+
+let [LAND_TOTAL_LOCKED, landnfttvl] = [0, 0]
 
 let [stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45] = [0, 0, 0, 0]
 
@@ -7100,7 +7124,11 @@ const updateNFTStaking = async () => {
 	cawsnfttvl = parseInt(CAWS_TOTAL_LOCKED) * 0.08 * parseInt(the_graph_result_ETH_V2.usd_per_eth)
 }
 
-
+const updateGENESISStaking = async () => {
+	let land_nft_contract = new infuraWeb3.eth.Contract(land_contract_abi, TOKEN_ADDRESS_LAND, { from: undefined })
+	LAND_TOTAL_LOCKED = await land_nft_contract.methods.balanceOf(TOKEN_ADDRESS_LAND_STAKE).call()
+	landnfttvl = parseInt(LAND_TOTAL_LOCKED) * 0.72 * parseInt(the_graph_result_ETH_V2.usd_per_eth)
+}
 
 const IDs_User_Pools_ETH_VAULTS1 = {
 	"0x28eabA060E5EF0d41eeB20d41aafaE8f685739d9":
@@ -7326,6 +7354,57 @@ const get_NFT_Staking_Info = async () => {
 	}
 
 }
+
+let landStakingInfo = [];
+
+const get_Land_Staking_Info = async () => {
+	// await updateLandStaking();
+	await updateGENESISStaking();
+	let floorpriceland = 0.72
+	landStakingInfo = [];
+
+	let tvl = 0,
+		link_logo = "https://www.dypius.com/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		floor_price = "",
+		total_nfts_locked = "",
+		expired = "",
+		return_types = "",
+		lock_time = ""
+	let ids_constant_staking_eth = Object.keys(IDs_land_stake_eth)
+	for (let id of ids_constant_staking_eth) {
+		
+		tvl = landnfttvl
+		floor_price = floorpriceland
+		total_nfts_locked = LAND_TOTAL_LOCKED
+		apy_percent = IDs_land_stake_eth[id].apy
+		pool_name = IDs_land_stake_eth[id].pool_name
+		pair_name = IDs_land_stake_eth[id].pair_name
+		link_pair = IDs_land_stake_eth[id].link_pair
+		return_types = IDs_land_stake_eth[id].return_types
+		expired = IDs_land_stake_eth[id].expired
+		lock_time = IDs_land_stake_eth[id].lock_time
+
+		landStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl,
+			floor_price: floor_price,
+			total_nfts_locked: total_nfts_locked,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired
+		})
+	}
+}
+
+
 let totaltvl = 0;
 let totaltvlbsc = 0;
 let totaltvlavax = 0;
@@ -7484,6 +7563,7 @@ const updateStakingTVLBNB = async () => {
 
 const updateStakingTVLETH = async () => {
 	await updateNFTStaking()
+	await updateGENESISStaking()
 	totaltvl = 0;
 	totaltvlbuybackbsc = 0;
 	totaltvlbuybackavax = 0;
@@ -7550,8 +7630,7 @@ const updateStakingTVLETH = async () => {
 	_tvlDYPEth7 = _tvlDYPEth7 + _tvlDYPEth7_2 / 1e18 * price_iDYP_eth
 	stakingDYPEthTvl7 = _tvlDYPEth7;
 
-	totaltvl = stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25 + stakingDYPEthTvl7 + cawsnfttvl
-
+	totaltvl = stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25 + stakingDYPEthTvl7 + cawsnfttvl + landnfttvl
 	return totaltvl,
 
 		stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45,
@@ -11468,14 +11547,18 @@ app.get('/api/get_staking_info_eth', async (req, res) => {
 		await updateStakingTVLETH()
 		await get_iDYP_ETH_Staking_Info()
 		await get_DYP_ETH_Staking_Info()
-		await get_NFT_Staking_Info()
 		await get_ETH_STAKING_HIGHEST_APY()
+		await get_NFT_Staking_Info()
+		await get_Land_Staking_Info()
+		await get_NFT_Staking_Info()
+
 	}
 	res.type('application/json')
 	res.json({
 		stakingInfoiDYPEth: iDYPEthStakingInfo,
 		stakingInfoDYPEth: DYPEthStakingInfo,
 		stakingInfoCAWS: NftStakingInfo,
+		stakingInfoLAND: landStakingInfo,
 		highestAPY_ETH: all_eth_apys,
 		totalTVL_ETH: totaltvl
 	})
