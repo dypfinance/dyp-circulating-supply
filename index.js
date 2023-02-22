@@ -8018,6 +8018,7 @@ let openseastats = [];
 let randomnft = 0;
 let last_update_time_random_nfts = 0;
 const get_random_nfts = async () => {
+	await fecthNftFloorPrice();
 	last_update_time_random_nfts = Date.now();
 	randomnfts = [];
 	rarestnfts = [];
@@ -8051,20 +8052,22 @@ for (let id of ids_rarest_nfts) {
 			totalvolume: totalvolume,
 			})
 }
-let registered_users = 0;
+
 let last_update_time_wod = 0;
+let registered_users = 6435;
+let registered_users2 = 0;
 const get_wod_info = async () => {
 	last_update_time_wod = Date.now();
-	registered_users = 0;
-		fetch('https://api3.dyp.finance/api/whitelist/count')
+		fetch('https://api3.dyp.finance/api/beta_tester_application/count')
 			.then(response => {
 				if (!response.ok) {
 					throw Error('X');
 				}
 				return response.json();
+				
 			})
 			.then(data => {
-				registered_users = data.count;
+				registered_users2 = data.count + registered_users;
 			});
 	}
 
@@ -11224,6 +11227,9 @@ async function firstRun() {
 	/* Get Total Paid */
 	await PaidOutETH()
 	await PaidAllInUsd()
+
+	fecthNftFloorPrice()
+	await get_wod_info()
 }
 
 firstRun()
@@ -11476,13 +11482,13 @@ app.get('/api/get_staking_info_eth', async (req, res) => {
 })
 
 app.get('/api/get_wod', async (req, res) => {
-	if (Date.now()- last_update_time_wod > 300e3) {
+	if (Date.now()- last_update_time_wod > 3600e3) {
 		await get_wod_info()
 	}
 	res.type('application/json')
 	res.json({
-		playing: 700,
-		registered: registered_users,
+		playing: 900,
+		registered: registered_users2,
 		discordmembers: 13+'K',
 		twitterfollowers: 122+'K',
 	})
@@ -11501,17 +11507,6 @@ app.get('/api/get_proposals_info', async (req, res) => {
 	})
 })
 
-app.get('/api/get_opensea_stats', async (req, res) => {
-	if (Date.now() - last_update_time_opensea_stats > 3600e3) {
-		await fecthNftFloorPrice()
-		// await get_opensea_stats()
-	}
-
-	res.type('application/json')
-	res.json({
-		OpenSeaStats: openseastats
-	})
-})
 
 app.get('/api/get_nft_stats', async (req, res) => {
 	if (Date.now() - last_update_time_random_nfts > 900e3) {
