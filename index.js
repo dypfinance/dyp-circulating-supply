@@ -4771,6 +4771,7 @@ const HOLDERS_LIST = LP_ID_LIST.map(a => a.split('-')[1]).concat([
 const HOLDERS_LIST_BSC = [
 	//Token Lock
 	"0xc44c1c7f68cdd84fc77cc9618f8f0b7e03345b20",
+	"0xb4657bd14ffc573528feb29d357a750d7543dd22",
 	//Buyback V1
 	"0x350f3fe979bfad4766298713c83b387c2d2d7a7a",
 	//Dead
@@ -4794,6 +4795,7 @@ const HOLDERS_LIST_BSC = [
 const HOLDERS_LIST_AVAX = [
 	//Token Lock
 	"0x5200718cba9376afa068e1180eabb506e6d13802",
+	"0xc4986e4473893c67d5b6326c1699b3749d6cef1c",
 	//Buyback V1
 	"0x4c7e0cbb0276a5e963266e6b9f34db73a1cb73f3",
 	//Dead
@@ -4851,6 +4853,7 @@ const HOLDERS_AVAX_CONTRACTS = [
 	//Reserves
 	"0x5200718cba9376afa068e1180eabb506e6d13802",
 	"0x910090ea889b64b4e722ea4b8ff6d5e734dfb38f",
+	"0xc4986e4473893c67d5b6326c1699b3749d6cef1c",
 	//Bridge
 	"0x229ed0b61bea41710a79a3634e06b1a619a0ebcb",
 	//Staking
@@ -4877,6 +4880,7 @@ const HOLDERS_BSC_CONTRACTS = [
 	//Reserves
 	"0xc44c1c7f68cdd84fc77cc9618f8f0b7e03345b20",
 	"0x910090ea889b64b4e722ea4b8ff6d5e734dfb38f",
+	"0xb4657bd14ffc573528feb29d357a750d7543dd22",
 	//Vesting
 	"0x291b6d632f9a67017e6dc4942bb6d658a8a6cba4",
 	//Bridges
