@@ -8879,6 +8879,10 @@ const IDs_User_Pools_BSC_DYP = {
 	{
 		contract_address: "0xef9e50A19358CCC8816d9BC2c2355aea596efd06",
 	},
+	"0x7c82513b69c1b42c23760cfc34234558119a3399":
+	{
+		contract_address: "0x7c82513b69c1b42c23760cfc34234558119a3399",
+	},
 }
 
 const IDs_User_Pools_ETH_IDYP = {
@@ -8962,6 +8966,10 @@ const IDs_User_Pools_AVAX_DYP = {
 	{
 		contract_address: "0xF035ec2562fbc4963e8c1c63f5c473D9696c59E3",
 	},
+	"0x6eb643813f0b4351b993f98bdeaef6e0f79573e9":
+	{
+		contract_address: "0x6eb643813f0b4351b993f98bdeaef6e0f79573e9",
+	}
 }
 
 const IDs_User_Pools_ETH_BUYBACK = {
