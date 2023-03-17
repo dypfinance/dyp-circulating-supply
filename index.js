@@ -2682,6 +2682,8 @@ const GOV_ABI_ETH = [
 	}
 ]
 
+const genesis_nft_contract_abi = [{"inputs":[{"internalType":"address","name":"_stakingDestinationAddress","type":"address"},{"internalType":"address","name":"_WoDcontractaddress","type":"address"},{"internalType":"uint256","name":"_rate","type":"uint256"},{"internalType":"uint256","name":"_expiration","type":"uint256"},{"internalType":"address","name":"_erc20Address","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newExpiration","type":"uint256"}],"name":"ExpirationChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newLockTime","type":"uint256"}],"name":"LockTimeChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"account","type":"address"}],"name":"Paused","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newRate","type":"uint256"}],"name":"RateChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"account","type":"address"}],"name":"Unpaused","type":"event"},{"inputs":[],"name":"LOCKUP_TIME","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"WoDcontractaddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"_depositBlocks","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"calculateReward","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256[]","name":"tokenIds","type":"uint256[]"}],"name":"calculateRewards","outputs":[{"internalType":"uint256[]","name":"rewards","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256[]","name":"tokenIds","type":"uint256[]"}],"name":"claimRewards","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256[]","name":"tokenIds","type":"uint256[]"},{"internalType":"uint256[]","name":"tokenIdsWoD","type":"uint256[]"}],"name":"deposit","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"depositsOf","outputs":[{"internalType":"uint256[]","name":"","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"depositsOfWoD","outputs":[{"internalType":"uint256[]","name":"","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256[]","name":"tokenIds","type":"uint256[]"},{"internalType":"uint256[]","name":"tokenIdsWoD","type":"uint256[]"}],"name":"emergencyWithdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"erc20Address","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"expiration","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"bytes","name":"","type":"bytes"}],"name":"onERC721Received","outputs":[{"internalType":"bytes4","name":"","type":"bytes4"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pause","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"paused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"rate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_expiration","type":"uint256"}],"name":"setExpiration","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_lockTime","type":"uint256"}],"name":"setLockTime","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_rate","type":"uint256"}],"name":"setRate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"stakingDestinationAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"stakingTime","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"unpause","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256[]","name":"tokenIds","type":"uint256[]"},{"internalType":"uint256[]","name":"tokenIdsWoD","type":"uint256[]"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"withdrawTokens","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+
 const caws_nft_contract_abi = [
 	{
 		"inputs": [
@@ -6324,6 +6326,32 @@ function fecthNftFloorPrice() {
 		});
 }
 
+
+let floorpriceland = 0;
+let ownersland = 0;
+let totalsalesland = 0;
+let totalsupplyland = 0;
+let thirthydaysalesland = 0;
+let totalvolumeland = 0;
+function fecthLandFloorPrice() {
+
+	fetch('https://api.opensea.io/api/v1/collection/worldofdypians/stats?format=json')
+		.then(response => {
+			if (!response.ok) {
+				throw Error('X');
+			}
+			return response.json();
+		})
+		.then(data => {
+			floorpriceland = data.stats.floor_price
+			ownersland = data.stats.num_owners
+			totalsalesland = data.stats.total_sales
+			totalsupplyland = data.stats.total_supply
+			thirthydaysalesland = data.stats.thirty_day_sales
+			totalvolumeland = data.stats.total_volume
+		});
+}
+
 let id = 0;
 // function RandomNFT () {
 
@@ -6766,6 +6794,23 @@ const IDs_land_stake_eth = {
 
 }
 
+const IDs_genesis_land_stake_eth = {
+	"0xD324A03BF17Eee8D34A8843D094a76FF8f561e38":
+	{
+		pool_name: "Genesis Land & CAWS Staking ETH",
+		pair_name: "WoD + CAWS",
+		link_pair: "https://dyp.finance/stake-land-caws",
+		return_types: "ETH",
+		floor_price: "",
+		total_nfts_locked: "",
+		tvl: "",
+		lock_time: "No lock",
+		expired: "No",
+		apy: 50,
+
+	}
+}
+
 const IDs_constant_staking_idyp_bnb = {
 	"0x7e766F7005C7a9e74123b156697B582eeCB8d2D7":
 	{
@@ -7114,6 +7159,7 @@ const TOKEN_ADDRESS_CAWS = "0xd06cF9e1189FEAb09c844C597abc3767BC12608c"
 const TOKEN_ADDRESS_CAWS_STAKE = "0xee425bbbec5e9bf4a59a1c19efff522ad8b7a47a"
 const TOKEN_ADDRESS_LAND = "0xcd60d912655281908EE557CE1Add61e983385a03"
 const TOKEN_ADDRESS_LAND_STAKE = "0x6821710B0D6E9e10ACfd8433aD023f874ed782F1"
+const TOKEN_ADDRESS_GENESIS_STAKE = "0xd324a03bf17eee8d34a8843d094a76ff8f561e38"
 const TOKEN_ADDRESS_IDYP_ETH = "0xBD100d061E120b2c67A24453CF6368E63f1Be056"
 const TOKEN_ADDRESS_DYP_ETH = "0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17"
 const TOKEN_ADDRESS_IDYP_BNB = "0xBD100d061E120b2c67A24453CF6368E63f1Be056"
@@ -7126,6 +7172,8 @@ const land_contract_abi = [{"inputs":[{"internalType":"string","name":"name","ty
 let [CAWS_TOTAL_LOCKED, cawsnfttvl] = [0, 0]
 
 let [LAND_TOTAL_LOCKED, landnfttvl] = [0, 0]
+
+let [LAND_CAWS_TOTAL_LOCKED, CAWS_LAND_TOTAL_LOCKED, landcawstvl, totalcawslandlocked] = [0, 0, 0, 0]
 
 let [stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45] = [0, 0, 0, 0]
 
@@ -7149,16 +7197,30 @@ let [buybackAvaxTvl1, buybackAvaxTvl2] = [0, 0]
 let [usdPerToken] = [0]
 
 const updateNFTStaking = async () => {
+	await fecthNftFloorPrice()
 	let caws_nft_contract = new infuraWeb3.eth.Contract(caws_nft_contract_abi, TOKEN_ADDRESS_CAWS, { from: undefined })
 	CAWS_TOTAL_LOCKED = await caws_nft_contract.methods.balanceOf(TOKEN_ADDRESS_CAWS_STAKE).call()
 	cawsnfttvl = parseInt(CAWS_TOTAL_LOCKED) * 0.08 * parseInt(the_graph_result_ETH_V2.usd_per_eth)
 }
 
 const updateGENESISStaking = async () => {
+	await fecthLandFloorPrice()
 	let land_nft_contract = new infuraWeb3.eth.Contract(land_contract_abi, TOKEN_ADDRESS_LAND, { from: undefined })
 	LAND_TOTAL_LOCKED = await land_nft_contract.methods.balanceOf(TOKEN_ADDRESS_LAND_STAKE).call()
-	landnfttvl = parseInt(LAND_TOTAL_LOCKED) * 0.72 * parseInt(the_graph_result_ETH_V2.usd_per_eth)
+	landnfttvl = parseInt(LAND_TOTAL_LOCKED) * floorpriceland * parseInt(the_graph_result_ETH_V2.usd_per_eth)
 }
+
+const updateGENESISCAWSStaking = async () => {
+	await fecthLandFloorPrice()
+	await fecthNftFloorPrice()
+	let genesis_land_contract = new infuraWeb3.eth.Contract(genesis_nft_contract_abi, TOKEN_ADDRESS_GENESIS_STAKE, { from: undefined })
+	let land_nft_contract = new infuraWeb3.eth.Contract(land_contract_abi, TOKEN_ADDRESS_LAND, { from: undefined })
+	let caws_nft_contract = new infuraWeb3.eth.Contract(caws_nft_contract_abi, TOKEN_ADDRESS_CAWS, { from: undefined })
+	CAWS_LAND_TOTAL_LOCKED = await land_nft_contract.methods.balanceOf(TOKEN_ADDRESS_GENESIS_STAKE).call()
+	LAND_CAWS_TOTAL_LOCKED = await caws_nft_contract.methods.balanceOf(TOKEN_ADDRESS_GENESIS_STAKE).call()
+	totalcawslandlocked = parseInt(CAWS_LAND_TOTAL_LOCKED) + parseInt(LAND_CAWS_TOTAL_LOCKED)
+	landcawstvl = parseInt(CAWS_LAND_TOTAL_LOCKED) * floorprice + parseInt(LAND_CAWS_TOTAL_LOCKED) * floorpriceland * parseInt(the_graph_result_ETH_V2.usd_per_eth)
+}	
 
 const IDs_User_Pools_ETH_VAULTS1 = {
 	"0x28eabA060E5EF0d41eeB20d41aafaE8f685739d9":
@@ -7389,8 +7451,8 @@ let landStakingInfo = [];
 
 const get_Land_Staking_Info = async () => {
 	// await updateLandStaking();
+	await fecthLandFloorPrice()
 	await updateGENESISStaking();
-	let floorpriceland = 0.72
 	landStakingInfo = [];
 
 	let tvl = 0,
@@ -7418,6 +7480,55 @@ const get_Land_Staking_Info = async () => {
 		lock_time = IDs_land_stake_eth[id].lock_time
 
 		landStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl,
+			floor_price: floor_price,
+			total_nfts_locked: total_nfts_locked,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired
+		})
+	}
+}
+
+let landCawsStakingInfo = [];
+
+const get_Land_Caws_Staking_info = async () => {
+	// await updateLandStaking();
+	await fecthLandFloorPrice()
+	await updateGENESISCAWSStaking();
+	landCawsStakingInfo = [];
+
+	let tvl = 0,
+		link_logo = "https://www.dypius.com/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		floor_price = "",
+		total_nfts_locked = "",
+		expired = "",
+		return_types = "",
+		lock_time = ""
+	let ids_constant_staking_eth = Object.keys(IDs_genesis_land_stake_eth)
+	for (let id of ids_constant_staking_eth) {
+		
+		tvl = landcawstvl
+		floor_price = floorpriceland
+		total_nfts_locked = totalcawslandlocked
+		apy_percent = IDs_genesis_land_stake_eth[id].apy
+		pool_name = IDs_genesis_land_stake_eth[id].pool_name
+		pair_name = IDs_genesis_land_stake_eth[id].pair_name
+		link_pair = IDs_genesis_land_stake_eth[id].link_pair
+		return_types = IDs_genesis_land_stake_eth[id].return_types
+		expired = IDs_genesis_land_stake_eth[id].expired
+		lock_time = IDs_genesis_land_stake_eth[id].lock_time
+
+		landCawsStakingInfo.push({
 			id: id,
 			apy_percent: apy_percent,
 			tvl_usd: tvl,
@@ -7604,8 +7715,11 @@ const updateStakingTVLBNB = async () => {
 }
 
 const updateStakingTVLETH = async () => {
-	await updateNFTStaking()
-	await updateGENESISStaking()
+	fecthNftFloorPrice();
+	fecthLandFloorPrice();
+	await updateGENESISStaking();
+	await updateGENESISCAWSStaking();
+	await updateNFTStaking();
 	totaltvl = 0;
 	totaltvlbuybackbsc = 0;
 	totaltvlbuybackavax = 0;
@@ -7672,7 +7786,7 @@ const updateStakingTVLETH = async () => {
 	_tvlDYPEth7 = _tvlDYPEth7 + _tvlDYPEth7_2 / 1e18 * price_iDYP_eth
 	stakingDYPEthTvl7 = _tvlDYPEth7;
 
-	totaltvl = stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25 + stakingDYPEthTvl7 + cawsnfttvl + landnfttvl
+	totaltvl = stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25 + stakingDYPEthTvl7 + cawsnfttvl + landnfttvl + landcawstvl
 	return totaltvl,
 
 		stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45,
@@ -11371,6 +11485,7 @@ async function firstRun() {
 	await PaidAllInUsd()
 
 	fecthNftFloorPrice()
+	fecthLandFloorPrice()
 	await get_wod_info()
 }
 
@@ -11607,14 +11722,14 @@ app.get('/api/get_farm_info', async (req, res) => {
 
 app.get('/api/get_staking_info_eth', async (req, res) => {
 	if (Date.now() - last_update_time_ethstake > 300e3) {
+		await get_Land_Staking_Info()
+		await get_Land_Caws_Staking_info()
+		await get_NFT_Staking_Info()
 		await updateStakingTVLETH()
 		await get_iDYP_ETH_Staking_Info()
 		await get_DYP_ETH_Staking_Info()
 		await get_ETH_STAKING_HIGHEST_APY()
 		await get_NFT_Staking_Info()
-		await get_Land_Staking_Info()
-		await get_NFT_Staking_Info()
-
 	}
 	res.type('application/json')
 	res.json({
@@ -11622,6 +11737,7 @@ app.get('/api/get_staking_info_eth', async (req, res) => {
 		stakingInfoDYPEth: DYPEthStakingInfo,
 		stakingInfoCAWS: NftStakingInfo,
 		stakingInfoLAND: landStakingInfo,
+		stakinginfoCAWSLAND: landCawsStakingInfo,
 		highestAPY_ETH: all_eth_apys,
 		totalTVL_ETH: totaltvl
 	})
