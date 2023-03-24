@@ -4856,8 +4856,10 @@ const HOLDERS_AVAX_CONTRACTS = [
 	"0x5200718cba9376afa068e1180eabb506e6d13802",
 	"0x910090ea889b64b4e722ea4b8ff6d5e734dfb38f",
 	"0xc4986e4473893c67d5b6326c1699b3749d6cef1c",
+	//Vesting
+	"0xc4986E4473893c67D5B6326C1699B3749D6CeF1C",
 	//Bridge
-	"0x229ed0b61bea41710a79a3634e06b1a619a0ebcb",
+	"0x4D960CDC46E8728eEb26af8105c277Ee5c3CC252",
 	//Staking
 	"0xf035ec2562fbc4963e8c1c63f5c473d9696c59e3",
 	"0x9ff3dc1f7042baf46651029c7284fc3b93e21a4d",
@@ -4869,6 +4871,7 @@ const HOLDERS_AVAX_CONTRACTS = [
 	"0x1a4fd0e9046aed92b6344f17b0a53969f4d5309b",
 	"0xb1875eebbcf4456188968f439896053809698a8b",
 	"0x16429e51a64b7f88d4c018fbf66266a693df64b3",
+	"0x6eb643813f0b4351b993f98bdeaef6e0f79573e9",
 	//Kyber
 	"0xf530a090ef6481cfb33f98c63532e7745abab58a",
 	//Avax
@@ -4885,8 +4888,9 @@ const HOLDERS_BSC_CONTRACTS = [
 	"0xb4657bd14ffc573528feb29d357a750d7543dd22",
 	//Vesting
 	"0x291b6d632f9a67017e6dc4942bb6d658a8a6cba4",
+	"0xb4657bD14ffC573528fEb29D357A750d7543Dd22",
 	//Bridges
-	"0x229ed0b61bea41710a79a3634e06b1a619a0ebcb",
+	"0xF237EA816b52572c4118c9D275b5807369E38d9F",
 	//Staking
 	"0xaf411bf994da1435a3150b874395b86376c5f2d5",
 	"0xa9efab22ccbfeabb6dc4583d81421e76342faf8b",
@@ -4898,6 +4902,7 @@ const HOLDERS_BSC_CONTRACTS = [
 	"0xc794cdb8d6ac5eb42d5aba9c1e641ae17c239c8c",
 	"0x264922696b9972687522b6e98bf78a0430e2163c",
 	"0xef9e50a19358ccc8816d9bc2c2355aea596efd06",
+	"0x7c82513b69c1b42c23760cfc34234558119a3399",
 	//Bsc
 	"0x083d808F4272C52c9D3a7c58939610C8dDF952C0",
 	//dEaD
@@ -4911,15 +4916,15 @@ let unlockedAvax = 0;
 let last_update_time_tokenomics = 0;
 async function update_tokenomics() {
 	last_update_time_tokenomics = Date.now()
-	let token_balance_sum_bsc = get_token_balances_sum(await get_token_balances_BSC({ TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_BSC_CONTRACTS })).div(1e18).toString(10)
-	let token_balance_sum_avax = get_token_balances_sum(await get_token_balances_AVAX({ TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_AVAX_CONTRACTS })).div(1e18).toString(10)
+	let token_balance_sum_bsc_2 = get_token_balances_sum(await get_token_balances_BSC({ TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_BSC_CONTRACTS })).div(1e18).toString(10)
+	let token_balance_sum_avax_2 = get_token_balances_sum(await get_token_balances_AVAX({ TOKEN_ADDRESS, HOLDERS_LIST: HOLDERS_AVAX_CONTRACTS })).div(1e18).toString(10)
 	// let circulating_supply_bsc = new BigNumber(24963431).minus(token_balance_sum_bsc)
 	// let circulating_supply_avax = new BigNumber(24963431).minus(token_balance_sum_avax)
 	// circulating_supply = new BigNumber(30000000).minus(token_balance_sum).plus(circulating_supply_bsc).plus(circulating_supply_avax)
-	lockedBsc = token_balance_sum_bsc
-	lockedAvax = token_balance_sum_avax
-	unlockedBsc = new BigNumber(24963431).minus(token_balance_sum_bsc);
-	unlockedAvax = new BigNumber(24963431).minus(token_balance_sum_avax);
+	lockedBsc = token_balance_sum_bsc_2
+	lockedAvax = token_balance_sum_avax_2
+	unlockedBsc = new BigNumber(24963431).minus(token_balance_sum_bsc_2);
+	unlockedAvax = new BigNumber(24963431).minus(token_balance_sum_avax_2);
 	return { lockedBsc, lockedAvax, unlockedAvax, unlockedBsc }
 }
 
