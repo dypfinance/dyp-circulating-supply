@@ -6774,7 +6774,7 @@ const IDs_nft_stake_eth = {
 		total_nfts_locked: "",
 		tvl: "",
 		lock_time: "30 days",
-		expired: "No",
+		expired: "Yes",
 		apy: 50,
 
 	}
@@ -7798,9 +7798,6 @@ const updateStakingTVLETH = async () => {
 
 		stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25, stakingDYPEthTvl7;
 }
-
-
-
 
 
 let iDYPEthStakingInfo = [];
@@ -11453,6 +11450,7 @@ async function get_apy_and_tvl_ETH_V2(usd_values) {
 	})
 	return { token_data, lp_data, usd_per_eth, token_price_usd, price_DYPS }
 }
+
 
 async function get_usd_values_with_apy_and_tvl_ETH_V2(...arguments) {
 	return (await get_apy_and_tvl_ETH_V2(await get_usd_values_ETH_V2(...arguments)))
