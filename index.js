@@ -11752,7 +11752,7 @@ app.get('/api/get_wod', async (req, res) => {
 	}
 	res.type('application/json')
 	res.json({
-		playing: 2300,
+		playing: 2500,
 		registered: registered_users2,
 		discordmembers: 13+'K',
 		twitterfollowers: 122+'K',
