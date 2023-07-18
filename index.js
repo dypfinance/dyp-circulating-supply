@@ -10546,6 +10546,9 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 		lp_data[lp_id].apyStaking = apyStaking
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
+		if(lp_data[lp_id].id=="0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x90124d8dced672986b05c17a4003f8f0a7f2e3ae")
+		lp_data[lp_id].expired = "No"
+		else
 		lp_data[lp_id].expired = "Yes"
 	})
 
