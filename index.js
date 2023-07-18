@@ -5549,7 +5549,7 @@ async function get_usd_values({
 	lp_ids,
 }) {
 	return new Promise((resolve, reject) => {
-		fetch('https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2', {
+		fetch('https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v2-dev', {
 			method: 'POST',
 			mode: 'cors',
 			headers: { 'Content-Type': 'application/json' },
@@ -5709,11 +5709,15 @@ async function get_usd_values_with_apy_and_tvl(...arguments) {
 let last_update_time3 = 0
 
 async function refresh_the_graph_result() {
+	try{
 	last_update_time3 = Date.now()
 	let result = await get_usd_values_with_apy_and_tvl({ token_contract_addresses: [TOKEN_ADDRESS], lp_ids: LP_ID_LIST })
 	the_graph_result = result
 	//await refresh_the_graph_result_BSC()
 	return result
+	}catch(e){
+		console.log(e)
+	}
 }
 
 let highestAPY = 0
@@ -10285,7 +10289,7 @@ const TOKENS_DISBURSED_PER_YEAR_BSC_V2 = [
 	1_680_000,
 	2_220_000,
 	2_760_000,
-	24_000_000,
+	48_000_000,
 ]
 
 const LP_IDs_BSC_V2 =
@@ -10296,7 +10300,7 @@ const LP_IDs_BSC_V2 =
 		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0xd1151a2434931f34bcfa6c27639b67c1a23d93af",
 		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0xed869ba773c3f1a1adcc87930ca36ee2dc73435d",
 		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x415b1624710296717fa96cad84f53454e8f02d18",
-		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x131f62c87fb177ca64d2034ece921933d2bc34b4",
+		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x90124d8dced672986b05c17a4003f8f0a7f2e3ae",
 		//updatat aici cu adresele noi
 	]
 }
@@ -10900,7 +10904,6 @@ const TOKENS_DISBURSED_PER_YEAR_AVAX_V2 = [
 	1_680_000,
 	2_220_000,
 	2_760_000,
-	24_000_000,
 ]
 
 const LP_IDs_AVAX_V2 =
@@ -10911,7 +10914,6 @@ const LP_IDs_AVAX_V2 =
 		"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x85c4f0cea0994de365dc47ba22dd0fd9899f93ab",
 		"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x6f5dc6777b2b4667bf183d093111867239518af5",
 		"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0x10e105676cac55b74cb6500a8fb5d2f84804393d",
-		"0x66eecc97203704d9e2db4a431cb0e9ce92539d5a-0xbbfd178b9f41c349857b753ce57f0e22089a8de3",
 		//updatat aici cu adresele noi
 	]
 }
@@ -11075,7 +11077,6 @@ async function get_apy_and_tvl_AVAX_V2(usd_values) {
 		"5025125628140614", // 0.5%
 		"6745192791704380", // 0.67%
 		"8369466572552220", // 0.83%
-		"2004008016031955",
 	]
 	//updatat aici cu magic_number, apr
 
@@ -11084,7 +11085,6 @@ async function get_apy_and_tvl_AVAX_V2(usd_values) {
 		"25",
 		"35",
 		"40",
-		"50",
 		"50",
 	]
 
