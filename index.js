@@ -10466,7 +10466,7 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 		"5025125628140614", // 0.5%
 		"6745192791704380", // 0.67%
 		"8369466572552220", // 0.83%
-		"2004008016031955"
+		"2025125628140614"
 	]
 	//updatat aici cu magic_number si apr
 	let apr_staking = [
@@ -10475,7 +10475,7 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 		"35",
 		"40",
 		"50",
-		"50"
+		"25"
 	]
 
 	let token_price_usd = token_data[TOKEN_ADDRESS_IDYP].token_price_usd * 1
@@ -10536,9 +10536,9 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 		apyFarming = (TOKENS_DISBURSED * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2) * 1
 		//console.log({sum, maxSwappableAmount, TOKENS_DISBURSED, apyFarming})
 
-		apyStaking = new BigNumber(0.25).div(dyp_price).times(apr_for_each_pool[pool_address]).div(1e2).times(token_price_usd).times(1e2).toFixed(2) * 1
+		apyStaking = new BigNumber(0.2).div(dyp_price).times(apr_for_each_pool[pool_address]).div(1e2).times(token_price_usd).times(1e2).toFixed(2) * 1
 
-		apy = new BigNumber(apyFarming).multipliedBy(0.75).plus(apyStaking * 0.25).toFixed(2) * 1
+		apy = new BigNumber(apyFarming).multipliedBy(0.8).plus(apyStaking * 0.2).toFixed(2) * 1
 
 		lp_data[lp_id].apy = apy
 		lp_data[lp_id].apy_percent = apy
@@ -11146,9 +11146,9 @@ async function get_apy_and_tvl_AVAX_V2(usd_values) {
 
 		apyFarming = (TOKENS_DISBURSED * token_price_usd * 100 / (lp_data[lp_id].usd_value_of_lp_staked || 1)).toFixed(2) * 1
 
-		apyStaking = new BigNumber(0.25).div(dyp_price).times(apr_for_each_pool[pool_address]).div(1e2).times(token_price_usd).times(1e2).toFixed(2) * 1
+		apyStaking = new BigNumber(0.2).div(dyp_price).times(apr_for_each_pool[pool_address]).div(1e2).times(token_price_usd).times(1e2).toFixed(2) * 1
 
-		apy = new BigNumber(apyFarming).multipliedBy(0.75).plus(apyStaking * 0.25).toFixed(2) * 1
+		apy = new BigNumber(apyFarming).multipliedBy(0.8).plus(apyStaking * 0.2).toFixed(2) * 1
 
 		//console.log({sum, maxSwappableAmount, TOKENS_DISBURSED, apyFarming})
 
