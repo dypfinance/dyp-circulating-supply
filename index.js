@@ -10300,7 +10300,7 @@ const LP_IDs_BSC_V2 =
 		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0xd1151a2434931f34bcfa6c27639b67c1a23d93af",
 		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0xed869ba773c3f1a1adcc87930ca36ee2dc73435d",
 		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x415b1624710296717fa96cad84f53454e8f02d18",
-		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x90124d8dced672986b05c17a4003f8f0a7f2e3ae",
+		"0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x5bc3a80a1f2c4fb693d9dddcebbb5a1b5bb15d65",
 		//updatat aici cu adresele noi
 	]
 }
@@ -10525,6 +10525,7 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 		let maxSwappableAmount = new BigNumber(number_of_idyp_on_pair).div(1e18).multipliedBy(magic_number_of_pools[pool_address]).div(1e18).toFixed(0)
 
 		let to_be_distributed = TOKENS_DISBURSED_PER_YEAR_BY_LP_ID_BSC_V2[lp_id] / 365
+
 		let sum = new BigNumber(tokens_to_be_burnt_by_pool[pool_address]).div(1e18).plus(to_be_distributed).toFixed(0)
 
 		if (parseInt(sum) >= parseInt(maxSwappableAmount)) {
@@ -10546,7 +10547,7 @@ async function get_apy_and_tvl_BSC_V2(usd_values) {
 		lp_data[lp_id].apyStaking = apyStaking
 		lp_data[lp_id].tvl_usd = tvl_usd
 		lp_data[lp_id].stakers_num = number_of_holders_by_address[pool_address]
-		if(lp_data[lp_id].id=="0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x90124d8dced672986b05c17a4003f8f0a7f2e3ae")
+		if(lp_data[lp_id].id=="0x1bc61d08a300892e784ed37b2d0e63c85d1d57fb-0x5bc3a80a1f2c4fb693d9dddcebbb5a1b5bb15d65")
 		lp_data[lp_id].expired = "No"
 		else
 		lp_data[lp_id].expired = "Yes"
