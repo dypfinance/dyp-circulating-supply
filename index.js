@@ -4872,6 +4872,7 @@ const HOLDERS_AVAX_CONTRACTS = [
 	"0xb1875eebbcf4456188968f439896053809698a8b",
 	"0x16429e51a64b7f88d4c018fbf66266a693df64b3",
 	"0x6eb643813f0b4351b993f98bdeaef6e0f79573e9",
+	"0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712",
 	//Kyber
 	"0xf530a090ef6481cfb33f98c63532e7745abab58a",
 	//Avax
@@ -4902,7 +4903,8 @@ const HOLDERS_BSC_CONTRACTS = [
 	"0xc794cdb8d6ac5eb42d5aba9c1e641ae17c239c8c",
 	"0x264922696b9972687522b6e98bf78a0430e2163c",
 	"0xef9e50a19358ccc8816d9bc2c2355aea596efd06",
-	"0x7c82513b69c1b42c23760cfc34234558119a3399",
+	"0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487",
+	"0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712",
 	//Bsc
 	"0x083d808F4272C52c9D3a7c58939610C8dDF952C0",
 	//dEaD
@@ -6948,7 +6950,7 @@ const IDs_constant_staking_dyp_bnb = {
 		apy_performancefee: 26.5,
 		performancefee: 3.5
 	},
-	"0x7c82513b69c1b42c23760cfc34234558119a3399":
+	"0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487":
 	{
 		pool_name: "DYP Constant Staking BNB",
 		pair_name: "DYP",
@@ -6959,6 +6961,19 @@ const IDs_constant_staking_dyp_bnb = {
 		new_pool: "Yes",
 		apy: 50,
 		apy_performancefee: 50,
+		performancefee: 0
+	},
+	"0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712":
+	{
+		pool_name: "DYP Constant Staking BNB",
+		pair_name: "DYP",
+		link_pair: "https://app-bsc.dyp.finance/constant-staking-90",
+		return_types: "DYP",
+		lock_time: "30 days",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 12.5,
+		apy_performancefee: 12.5,
 		performancefee: 0
 	}
 }
@@ -7096,6 +7111,19 @@ const IDs_constant_staking_dyp_avax = {
 		apy: 50,
 		apy_performancefee: 50,
 		performancefee: 0
+	},
+	"0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712":
+	{
+		pool_name: "DYP Constant Staking AVAX",
+		pair_name: "DYP",
+		link_pair: "https://app-avax.dyp.finance/constant-staking-90",
+		return_types: "DYP",
+		lock_time: "30 days",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 12.5,
+		apy_performancefee: 12.5,
+		performancefee: 0
 	}
 }
 
@@ -7196,11 +7224,11 @@ let [stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25, stakingDYPEthTvl7
 
 let [stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45] = [0, 0, 0, 0]
 
-let [stakingDYPBnbTvl1, stakingDYPBnbTvl2, stakingDYPBnbTvl10, stakingDYPBnbTvl25, stakingDYPBnbTvl30, stakingDYPBnbTvl50] = [0, 0, 0, 0, 0, 0]
+let [stakingDYPBnbTvl1, stakingDYPBnbTvl2, stakingDYPBnbTvl10, stakingDYPBnbTvl25, stakingDYPBnbTvl30, stakingDYPBnbTvl50, stakingDYPBnbTvl25_3] = [0, 0, 0, 0, 0,0, 0]
 
 let [stakingiDYPAvaxTvl15, stakingiDYPAvaxTvl20, stakingiDYPAvaxTvl30, stakingiDYPAvaxTvl45] = [0, 0, 0, 0]
 
-let [stakingDYPAvaxTvl1, stakingDYPAvaxTvl2, stakingDYPAvaxTvl10, stakingDYPAvaxTvl25, stakingDYPAvaxTvl30, stakingDYPAvaxTvl50] = [0, 0, 0, 0, 0, 0]
+let [stakingDYPAvaxTvl1, stakingDYPAvaxTvl2, stakingDYPAvaxTvl10, stakingDYPAvaxTvl25, stakingDYPAvaxTvl30, stakingDYPAvaxTvl50, stakingDYPAvaxTvl25_3] = [0, 0, 0,0, 0, 0, 0]
 
 let [buybackEthTvl1, buybackEthTvl2] = [0, 0]
 
@@ -7642,13 +7670,19 @@ const updateStakingTVLAVAX = async () => {
 	_tvlDYPAvax50 = _tvlDYPAvax50 + _tvlDYPAvax50_2 / 1e18 * price_iDYP_eth
 	stakingDYPAvaxTvl50 = _tvlDYPAvax50;
 
-	totaltvlavax = stakingiDYPAvaxTvl15 + stakingiDYPAvaxTvl20 + stakingiDYPAvaxTvl30 + stakingiDYPAvaxTvl45 + stakingDYPAvaxTvl1 + stakingDYPAvaxTvl2 + stakingDYPAvaxTvl10 + stakingDYPAvaxTvl25 + stakingDYPAvaxTvl30 + stakingDYPAvaxTvl50
+	let _tvpDYPAvax25_3 = await token_contract_avax_1.methods.balanceOf('0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712').call()
+	let _tvpDYPAvax25_3_2 = await token_contract_avax_2.methods.balanceOf('0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712').call()
+	_tvpDYPAvax25_3 = _tvpDYPAvax25_3 / 1e18 * usdPerToken
+	_tvpDYPAvax25_3 = _tvpDYPAvax25_3 + _tvpDYPAvax25_3_2 / 1e18 * price_iDYP_eth
+	stakingDYPAvaxTvl25_3 = _tvpDYPAvax25_3;
+
+	totaltvlavax = stakingiDYPAvaxTvl15 + stakingiDYPAvaxTvl20 + stakingiDYPAvaxTvl30 + stakingDYPAvaxTvl25_3 + stakingiDYPAvaxTvl45 + stakingDYPAvaxTvl1 + stakingDYPAvaxTvl2 + stakingDYPAvaxTvl10 + stakingDYPAvaxTvl25 + stakingDYPAvaxTvl30 + stakingDYPAvaxTvl50
 
 	return usdPerToken,
 	
 	stakingiDYPAvaxTvl15, stakingiDYPAvaxTvl20, stakingiDYPAvaxTvl30, stakingiDYPAvaxTvl45,
 
-	stakingDYPAvaxTvl1, stakingDYPAvaxTvl2, stakingDYPAvaxTvl10, stakingDYPAvaxTvl25, stakingDYPAvaxTvl30, stakingDYPAvaxTvl50;
+	stakingDYPAvaxTvl1, stakingDYPAvaxTvl2, stakingDYPAvaxTvl10, stakingDYPAvaxTvl25, stakingDYPAvaxTvl30, stakingDYPAvaxTvl50, stakingDYPAvaxTvl25_3;
 }
 
 
@@ -7715,18 +7749,24 @@ const updateStakingTVLBNB = async () => {
 	_tvlDYPBnb30 = _tvlDYPBnb30 + _tvlDYPBnb30_2 / 1e18 * price_iDYP_eth
 	stakingDYPBnbTvl30 = _tvlDYPBnb30;
 
-	let _tvlDYPBnb50 = await token_contract_bnb_1.methods.balanceOf('0x7c82513b69c1b42c23760cfc34234558119a3399').call()
-	let _tvlDYPBnb50_2 = await token_contract_bnb_2.methods.balanceOf('0x7c82513b69c1b42c23760cfc34234558119a3399').call()
+	let _tvlDYPBnb50 = await token_contract_bnb_1.methods.balanceOf('0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487').call()
+	let _tvlDYPBnb50_2 = await token_contract_bnb_2.methods.balanceOf('0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487').call()
 	_tvlDYPBnb50 = _tvlDYPBnb50 / 1e18 * usdPerToken
 	_tvlDYPBnb50 = _tvlDYPBnb50 + _tvlDYPBnb50_2 / 1e18 * price_iDYP_eth;
 	stakingDYPBnbTvl50 = _tvlDYPBnb50;
 
-	totaltvlbsc = stakingiDYPBnbTvl15 + stakingiDYPBnbTvl20 + stakingiDYPBnbTvl30 + stakingiDYPBnbTvl45 + stakingDYPBnbTvl1 + stakingDYPBnbTvl2 + stakingDYPBnbTvl10 + stakingDYPBnbTvl25 + stakingDYPBnbTvl30 + stakingDYPBnbTvl50;
+	let _tvlDYPBnb25_3 = await token_contract_bnb_1.methods.balanceOf('0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712').call()
+	let _tvlDYPBnb25_4 = await token_contract_bnb_2.methods.balanceOf('0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712').call()
+	_tvlDYPBnb25_3 = _tvlDYPBnb25_3 / 1e18 * usdPerToken
+	_tvlDYPBnb25_3 = _tvlDYPBnb25_3 + _tvlDYPBnb25_4 / 1e18 * price_iDYP_eth
+	stakingDYPBnbTvl25_3 = _tvlDYPBnb25_3;
+
+	totaltvlbsc = stakingiDYPBnbTvl15 + stakingiDYPBnbTvl20 + stakingiDYPBnbTvl30 + stakingiDYPBnbTvl45 + stakingDYPBnbTvl1 + stakingDYPBnbTvl25_3 + stakingDYPBnbTvl2 + stakingDYPBnbTvl10 + stakingDYPBnbTvl25 + stakingDYPBnbTvl30 + stakingDYPBnbTvl50;
 
 	return usdPerToken,
 	stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45,
 
-	stakingDYPBnbTvl1, stakingDYPBnbTvl2, stakingDYPBnbTvl10, stakingDYPBnbTvl25, stakingDYPBnbTvl30, stakingDYPBnbTvl50;
+	stakingDYPBnbTvl1, stakingDYPBnbTvl2, stakingDYPBnbTvl10, stakingDYPBnbTvl25, stakingDYPBnbTvl30, stakingDYPBnbTvl50, stakingDYPBnbTvl25_3;
 }
 
 const updateStakingTVLETH = async () => {
@@ -8386,7 +8426,13 @@ const get_DYP_BNB_Staking_Info = async () => {
 
 		}
 
-		if(id == "0x7c82513b69c1b42c23760cfc34234558119a3399") {
+		if(id == "0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487") {
+			tvl_usd = stakingDYPBnbTvl25_3
+			apy_percent = IDs_constant_staking_dyp_bnb[id].apy
+			apy_performancefee = IDs_constant_staking_dyp_bnb[id].apy_performancefee
+		}
+
+		if(id == "0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712") {
 			tvl_usd = stakingDYPBnbTvl50
 			apy_percent = IDs_constant_staking_dyp_bnb[id].apy
 			apy_performancefee = IDs_constant_staking_dyp_bnb[id].apy_performancefee
@@ -8581,8 +8627,12 @@ const get_DYP_AVAX_Staking_Info = async () => {
 			apy_percent = IDs_constant_staking_dyp_avax[id].apy
 			apy_performancefee = IDs_constant_staking_dyp_avax[id].apy_performancefee
 		}
-
-
+		if(id == "0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712")
+		{
+			tvl_usd = stakingDYPAvaxTvl25_3
+			apy_percent = IDs_constant_staking_dyp_avax[id].apy
+			apy_performancefee = IDs_constant_staking_dyp_avax[id].apy_performancefee
+		}
 
 		pool_name = IDs_constant_staking_dyp_avax[id].pool_name
 		pair_name = IDs_constant_staking_dyp_avax[id].pair_name
@@ -9005,10 +9055,14 @@ const IDs_User_Pools_BSC_DYP = {
 	{
 		contract_address: "0xef9e50A19358CCC8816d9BC2c2355aea596efd06",
 	},
-	"0x7c82513b69c1b42c23760cfc34234558119a3399":
+	"0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487":
 	{
-		contract_address: "0x7c82513b69c1b42c23760cfc34234558119a3399",
+		contract_address: "0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487",
 	},
+	"":
+	{
+		contract_address: "0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712",
+	}
 }
 
 const IDs_User_Pools_ETH_IDYP = {
@@ -9095,6 +9149,10 @@ const IDs_User_Pools_AVAX_DYP = {
 	"0x6eb643813f0b4351b993f98bdeaef6e0f79573e9":
 	{
 		contract_address: "0x6eb643813f0b4351b993f98bdeaef6e0f79573e9",
+	},
+	"0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712":
+	{
+		contract_address: "0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712",
 	}
 }
 
