@@ -4905,6 +4905,7 @@ const HOLDERS_BSC_CONTRACTS = [
 	"0xef9e50a19358ccc8816d9bc2c2355aea596efd06",
 	"0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487",
 	"0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712",
+	"0x7c82513b69c1b42c23760cfc34234558119a3399",
 	//Bsc
 	"0x083d808F4272C52c9D3a7c58939610C8dDF952C0",
 	//dEaD
@@ -6950,7 +6951,7 @@ const IDs_constant_staking_dyp_bnb = {
 		apy_performancefee: 26.5,
 		performancefee: 3.5
 	},
-	"0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487":
+	"0x7c82513b69c1b42c23760cfc34234558119a3399":
 	{
 		pool_name: "DYP Constant Staking BNB",
 		pair_name: "DYP",
@@ -6963,7 +6964,7 @@ const IDs_constant_staking_dyp_bnb = {
 		apy_performancefee: 50,
 		performancefee: 0
 	},
-	"0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712":
+	"0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487":
 	{
 		pool_name: "DYP Constant Staking BNB",
 		pair_name: "DYP",
@@ -7749,14 +7750,14 @@ const updateStakingTVLBNB = async () => {
 	_tvlDYPBnb30 = _tvlDYPBnb30 + _tvlDYPBnb30_2 / 1e18 * price_iDYP_eth
 	stakingDYPBnbTvl30 = _tvlDYPBnb30;
 
-	let _tvlDYPBnb50 = await token_contract_bnb_1.methods.balanceOf('0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487').call()
-	let _tvlDYPBnb50_2 = await token_contract_bnb_2.methods.balanceOf('0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487').call()
+	let _tvlDYPBnb50 = await token_contract_bnb_1.methods.balanceOf('0x7c82513b69c1b42c23760cfc34234558119a3399').call()
+	let _tvlDYPBnb50_2 = await token_contract_bnb_2.methods.balanceOf('0x7c82513b69c1b42c23760cfc34234558119a3399').call()
 	_tvlDYPBnb50 = _tvlDYPBnb50 / 1e18 * usdPerToken
 	_tvlDYPBnb50 = _tvlDYPBnb50 + _tvlDYPBnb50_2 / 1e18 * price_iDYP_eth;
 	stakingDYPBnbTvl50 = _tvlDYPBnb50;
-
-	let _tvlDYPBnb25_3 = await token_contract_bnb_1.methods.balanceOf('0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712').call()
-	let _tvlDYPBnb25_4 = await token_contract_bnb_2.methods.balanceOf('0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712').call()
+	
+	let _tvlDYPBnb25_3 = await token_contract_bnb_1.methods.balanceOf('0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487').call()
+	let _tvlDYPBnb25_4 = await token_contract_bnb_2.methods.balanceOf('0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487').call()
 	_tvlDYPBnb25_3 = _tvlDYPBnb25_3 / 1e18 * usdPerToken
 	_tvlDYPBnb25_3 = _tvlDYPBnb25_3 + _tvlDYPBnb25_4 / 1e18 * price_iDYP_eth
 	stakingDYPBnbTvl25_3 = _tvlDYPBnb25_3;
@@ -8432,7 +8433,7 @@ const get_DYP_BNB_Staking_Info = async () => {
 			apy_performancefee = IDs_constant_staking_dyp_bnb[id].apy_performancefee
 		}
 
-		if(id == "0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712") {
+		if(id == "0x7c82513b69c1b42c23760cfc34234558119a3399") {
 			tvl_usd = stakingDYPBnbTvl50
 			apy_percent = IDs_constant_staking_dyp_bnb[id].apy
 			apy_performancefee = IDs_constant_staking_dyp_bnb[id].apy_performancefee
@@ -9055,13 +9056,13 @@ const IDs_User_Pools_BSC_DYP = {
 	{
 		contract_address: "0xef9e50A19358CCC8816d9BC2c2355aea596efd06",
 	},
+	"0x7c82513b69c1b42c23760cfc34234558119a3399":
+	{
+		contract_address: "0x7c82513b69c1b42c23760cfc34234558119a3399",
+	},
 	"0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487":
 	{
 		contract_address: "0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487",
-	},
-	"":
-	{
-		contract_address: "0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712",
 	}
 }
 
