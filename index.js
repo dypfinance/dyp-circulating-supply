@@ -7702,9 +7702,11 @@ const updateStakingTVLBNB = async () => {
 
 	let _tvliDYPBnb20 = await token_contract_bnb_1.methods.balanceOf('0x58366902082B90Fca01bE07D929478bD48AcFB19').call()
 	let _tvliDYPBnb20_2 = await token_contract_bnb_2.methods.balanceOf('0x58366902082B90Fca01bE07D929478bD48AcFB19').call()
+	console.log(_tvliDYPBnb20)
 	_tvliDYPBnb20 = _tvliDYPBnb20 / 1e18 * usdPerToken
 	_tvliDYPBnb20 = _tvliDYPBnb20 + _tvliDYPBnb20_2 / 1e18 * price_iDYP_eth
 	stakingiDYPBnbTvl20 = _tvliDYPBnb20;
+	console.log(stakingiDYPBnbTvl20)
 
 	let _tvliDYPBnb30 = await token_contract_bnb_1.methods.balanceOf('0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445').call()
 	let _tvliDYPBnb30_2 = await token_contract_bnb_2.methods.balanceOf('0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445').call()
@@ -10863,7 +10865,9 @@ const HOLDERS_LIST_IDYP = LP_ID_LIST_BSC_V2.map(a => a.split('-')[1]).concat([
 	"0xbd574278fEbad04b7A0694C37DeF4f2ecFa9354A",
 	"0x000000000000000000000000000000000000dead",
 	"0x58366902082b90fca01be07d929478bd48acfb19",
-	"0x160ff3c4a6e9aa8e4271aa71226cc811bfef7ed9"
+	"0x160ff3c4a6e9aa8e4271aa71226cc811bfef7ed9",
+	"0x90124d8dcEd672986b05c17A4003f8f0a7F2E3AE",
+	"0x5bc3a80a1f2c4fb693d9dddcebbb5a1b5bb15d65",
 ])
 
 const HOLDERS_LIST_IDYP_AVAX = [
