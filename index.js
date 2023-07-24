@@ -5957,6 +5957,7 @@ const allContracts = [
 	"0xaF411BF994dA1435A3150B874395B86376C5f2d5",
 	"0x58366902082b90fca01be07d929478bd48acfb19",
 	"0x160ff3c4a6e9aa8e4271aa71226cc811bfef7ed9",
+	"0x525cb0f6b5dae73965046bcb4c6f45ce74fb1b5d",
 	"0xC905D5DD9A4f26eD059F76929D11476B2844A7c3",
 	"0x267434f01ac323C6A5BCf41Fa111701eE0165a37",
 	"0x035d65babF595758D7A439D5870BAdc44218D028",
@@ -5967,7 +5968,9 @@ const allContracts = [
 	"0x1A4fd0E9046aeD92B6344F17B0a53969F4d5309B",
 	"0x5566B51a1B7D5E6CAC57a68182C63Cb615cAf3f9",
 	"0x8f28110325a727f70b64bffebf2b9dc94b932452",
-	"0x5536e02336771cfa0317d4b6a042f3c38749535e"
+	"0x5536e02336771cfa0317d4b6a042f3c38749535e",
+	"0xe026fb242d9523dc8e8d8833f7309dbdbed59d3d",
+
 ]
 
 const TOKEN_ADDRESS_DYPS_ETH = '0xd4f11Bf85D751F426EF59b705E42b3da3357250f'
@@ -6717,6 +6720,19 @@ const IDs_constant_staking_idyp_eth = {
 		apy_performancefee: 45,
 		performancefee: 0
 	},
+	"0x41b8a58f4307ea722ad0a964966caa18a6011d93":
+	{
+		pool_name: "iDYP Constant Staking ETH",
+		pair_name: "iDYP",
+		link_pair: "https://app.dyp.finance/staking-idyp-5",
+		return_types: "iDYP",
+		lock_time: "60 days",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 20,
+		apy_performancefee: 20,
+		performancefee: 0
+	}
 
 }
 
@@ -6882,6 +6898,20 @@ const IDs_constant_staking_idyp_bnb = {
 		apy_performancefee: 45,
 		performancefee: 0
 	},
+	"0x525cb0f6b5dae73965046bcb4c6f45ce74fb1b5d":
+	{
+		pool_name: "iDYP Constant Staking BNB",
+		pair_name: "iDYP",
+		link_pair: "https://app-bsc.dyp.finance/staking-idyp-5",
+		return_types: "iDYP",
+		lock_time: "60 days",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 20,
+		apy_performancefee: 20,
+		performancefee: 0
+
+	}
 
 }
 
@@ -7030,6 +7060,19 @@ const IDs_constant_staking_idyp_avax = {
 		new_pool: "No",
 		apy: 45,
 		apy_performancefee: 45,
+		performancefee: 0
+	},
+	"0xe026fb242d9523dc8e8d8833f7309dbdbed59d3d":
+	{
+		pool_name: "iDYP Constant Staking AVAX",
+		pair_name: "iDYP",
+		link_pair: "https://app-avax.dyp.finance/staking-idyp-5",
+		return_types: "iDYP",
+		lock_time: "60 days",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 20,
+		apy_performancefee: 20,
 		performancefee: 0
 	}
 }
@@ -7219,15 +7262,15 @@ let [LAND_TOTAL_LOCKED, landnfttvl] = [0, 0]
 
 let [LAND_CAWS_TOTAL_LOCKED, CAWS_LAND_TOTAL_LOCKED, landcawstvl, totalcawslandlocked] = [0, 0, 0, 0]
 
-let [stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45] = [0, 0, 0, 0]
+let [stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45, stakingiDYPEthTvl20_3] = [0, 0, 0, 0, 0]
 
 let [stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25, stakingDYPEthTvl7] = [0, 0, 0, 0]
 
-let [stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45] = [0, 0, 0, 0]
+let [stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45, stakingiDYPBnbTvl20_3] = [0, 0, 0, 0, 0]
 
 let [stakingDYPBnbTvl1, stakingDYPBnbTvl2, stakingDYPBnbTvl10, stakingDYPBnbTvl25, stakingDYPBnbTvl30, stakingDYPBnbTvl50, stakingDYPBnbTvl25_3] = [0, 0, 0, 0, 0,0, 0]
 
-let [stakingiDYPAvaxTvl15, stakingiDYPAvaxTvl20, stakingiDYPAvaxTvl30, stakingiDYPAvaxTvl45] = [0, 0, 0, 0]
+let [stakingiDYPAvaxTvl15, stakingiDYPAvaxTvl20, stakingiDYPAvaxTvl30, stakingiDYPAvaxTvl45, stakingiDYPAvaxTvl25_3, stakingiDYPAvaxTvl20_3] = [0, 0, 0, 0, 0, 0]
 
 let [stakingDYPAvaxTvl1, stakingDYPAvaxTvl2, stakingDYPAvaxTvl10, stakingDYPAvaxTvl25, stakingDYPAvaxTvl30, stakingDYPAvaxTvl50, stakingDYPAvaxTvl25_3] = [0, 0, 0,0, 0, 0, 0]
 
@@ -7633,6 +7676,12 @@ const updateStakingTVLAVAX = async () => {
 	_tvliDYPAvax45 = _tvliDYPAvax45 + _tvliDYPAvax45_2 / 1e18 * price_iDYP_eth
 	stakingiDYPAvaxTvl45 = _tvliDYPAvax45;
 
+	let _tvliDYPAvax25_3 = await token_contract_avax_1.methods.balanceOf('0xe026fb242d9523dc8e8d8833f7309dbdbed59d3d').call()
+	let _tvliDYPAvax25_3_2 = await token_contract_avax_2.methods.balanceOf('0xe026fb242d9523dc8e8d8833f7309dbdbed59d3d').call()
+	_tvliDYPAvax25_3 = _tvliDYPAvax25_3 / 1e18 * usdPerToken
+	_tvliDYPAvax25_3 = _tvliDYPAvax25_3 + _tvliDYPAvax25_3_2 / 1e18 * price_iDYP_eth
+	stakingiDYPAvaxTvl25_3 = _tvliDYPAvax25_3;
+
 	//dyp avax starts here
 
 	let _tvlDYPAvax1 = await token_contract_avax_1.methods.balanceOf('0x1A4fd0E9046aeD92B6344F17B0a53969F4d5309B').call()
@@ -7677,11 +7726,11 @@ const updateStakingTVLAVAX = async () => {
 	_tvpDYPAvax25_3 = _tvpDYPAvax25_3 + _tvpDYPAvax25_3_2 / 1e18 * price_iDYP_eth
 	stakingDYPAvaxTvl25_3 = _tvpDYPAvax25_3;
 
-	totaltvlavax = stakingiDYPAvaxTvl15 + stakingiDYPAvaxTvl20 + stakingiDYPAvaxTvl30 + stakingDYPAvaxTvl25_3 + stakingiDYPAvaxTvl45 + stakingDYPAvaxTvl1 + stakingDYPAvaxTvl2 + stakingDYPAvaxTvl10 + stakingDYPAvaxTvl25 + stakingDYPAvaxTvl30 + stakingDYPAvaxTvl50
+	totaltvlavax = stakingiDYPAvaxTvl15 + stakingiDYPAvaxTvl20 + stakingiDYPAvaxTvl30 + stakingDYPAvaxTvl25_3 + stakingiDYPAvaxTvl25_3 + stakingiDYPAvaxTvl45 + stakingDYPAvaxTvl1 + stakingDYPAvaxTvl2 + stakingDYPAvaxTvl10 + stakingDYPAvaxTvl25 + stakingDYPAvaxTvl30 + stakingDYPAvaxTvl50
 
 	return usdPerToken,
 	
-	stakingiDYPAvaxTvl15, stakingiDYPAvaxTvl20, stakingiDYPAvaxTvl30, stakingiDYPAvaxTvl45,
+	stakingiDYPAvaxTvl15, stakingiDYPAvaxTvl20, stakingiDYPAvaxTvl30, stakingiDYPAvaxTvl45, stakingiDYPAvaxTvl25_3,
 
 	stakingDYPAvaxTvl1, stakingDYPAvaxTvl2, stakingDYPAvaxTvl10, stakingDYPAvaxTvl25, stakingDYPAvaxTvl30, stakingDYPAvaxTvl50, stakingDYPAvaxTvl25_3;
 }
@@ -7702,11 +7751,9 @@ const updateStakingTVLBNB = async () => {
 
 	let _tvliDYPBnb20 = await token_contract_bnb_1.methods.balanceOf('0x58366902082B90Fca01bE07D929478bD48AcFB19').call()
 	let _tvliDYPBnb20_2 = await token_contract_bnb_2.methods.balanceOf('0x58366902082B90Fca01bE07D929478bD48AcFB19').call()
-	console.log(_tvliDYPBnb20)
 	_tvliDYPBnb20 = _tvliDYPBnb20 / 1e18 * usdPerToken
 	_tvliDYPBnb20 = _tvliDYPBnb20 + _tvliDYPBnb20_2 / 1e18 * price_iDYP_eth
 	stakingiDYPBnbTvl20 = _tvliDYPBnb20;
-	console.log(stakingiDYPBnbTvl20)
 
 	let _tvliDYPBnb30 = await token_contract_bnb_1.methods.balanceOf('0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445').call()
 	let _tvliDYPBnb30_2 = await token_contract_bnb_2.methods.balanceOf('0x4C04E53f9aAa17fc2C914694B4Aae57a9d1bE445').call()
@@ -7719,6 +7766,12 @@ const updateStakingTVLBNB = async () => {
 	_tvliDYPBnb45 = _tvliDYPBnb45 / 1e18 * usdPerToken
 	_tvliDYPBnb45 = _tvliDYPBnb45 + _tvliDYPBnb45_2 / 1e18 * price_iDYP_eth
 	stakingiDYPBnbTvl45 = _tvliDYPBnb45;
+
+	let _tvliDYPBnb20_3 = await token_contract_bnb_1.methods.balanceOf('0x525cb0f6b5dae73965046bcb4c6f45ce74fb1b5d').call()
+	let _tvliDYPBnb20_3_2 = await token_contract_bnb_2.methods.balanceOf('0x525cb0f6b5dae73965046bcb4c6f45ce74fb1b5d').call()
+	_tvliDYPBnb20_3 = _tvliDYPBnb20_3 / 1e18 * usdPerToken
+	_tvliDYPBnb20_3 = _tvliDYPBnb20_3 + _tvliDYPBnb20_3_2 / 1e18 * price_iDYP_eth
+	stakingiDYPBnbTvl20_3 = _tvliDYPBnb20_3;
 
 	//dyp bnb starts here
 
@@ -7764,10 +7817,10 @@ const updateStakingTVLBNB = async () => {
 	_tvlDYPBnb25_3 = _tvlDYPBnb25_3 + _tvlDYPBnb25_4 / 1e18 * price_iDYP_eth
 	stakingDYPBnbTvl25_3 = _tvlDYPBnb25_3;
 
-	totaltvlbsc = stakingiDYPBnbTvl15 + stakingiDYPBnbTvl20 + stakingiDYPBnbTvl30 + stakingiDYPBnbTvl45 + stakingDYPBnbTvl1 + stakingDYPBnbTvl25_3 + stakingDYPBnbTvl2 + stakingDYPBnbTvl10 + stakingDYPBnbTvl25 + stakingDYPBnbTvl30 + stakingDYPBnbTvl50;
+	totaltvlbsc = stakingiDYPBnbTvl15 + stakingiDYPBnbTvl20 + stakingiDYPBnbTvl30 + stakingiDYPBnbTvl45  +stakingiDYPBnbTvl20_3+ stakingDYPBnbTvl1 + stakingDYPBnbTvl25_3 + stakingDYPBnbTvl2 + stakingDYPBnbTvl10 + stakingDYPBnbTvl25 + stakingDYPBnbTvl30 + stakingDYPBnbTvl50;
 
 	return usdPerToken,
-	stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45,
+	stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45, stakingiDYPBnbTvl20_3,
 
 	stakingDYPBnbTvl1, stakingDYPBnbTvl2, stakingDYPBnbTvl10, stakingDYPBnbTvl25, stakingDYPBnbTvl30, stakingDYPBnbTvl50, stakingDYPBnbTvl25_3;
 }
@@ -7814,6 +7867,12 @@ const updateStakingTVLETH = async () => {
 	_tvliDYPEth45 = _tvliDYPEth45 + _tvliDYPEth45_2 / 1e18 * price_iDYP_eth
 	stakingiDYPEthTvl45 = _tvliDYPEth45;
 
+	let _tvliDYPEth20_3 = await token_contract_eth_1.methods.balanceOf('0x41b8a58f4307ea722ad0a964966caa18a6011d93').call()
+	let _tvliDYPEth20_3_2 = await token_contract_eth_2.methods.balanceOf('0x41b8a58f4307ea722ad0a964966caa18a6011d93').call()
+	_tvliDYPEth20_3 = _tvliDYPEth20_3 / 1e18 * usdPerToken
+	_tvliDYPEth20_3 = _tvliDYPEth20_3 + _tvliDYPEth20_3_2 / 1e18 * price_iDYP_eth
+	stakingiDYPEthTvl20_3 = _tvliDYPEth20_3;
+
 	//dyp eth starts here
 
 	let _tvlDYPEth1 = await token_contract_eth_1.methods.balanceOf('0xa4da28B8e42680916b557459D338aF6e2D8d458f').call()
@@ -7844,10 +7903,10 @@ const updateStakingTVLETH = async () => {
 	_tvlDYPEth7 = _tvlDYPEth7 + _tvlDYPEth7_2 / 1e18 * price_iDYP_eth
 	stakingDYPEthTvl7 = _tvlDYPEth7;
 
-	totaltvl = stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25 + stakingDYPEthTvl7 + cawsnfttvl + landnfttvl + landcawstvl
+	totaltvl = stakingiDYPEthTvl15 + stakingiDYPEthTvl20 + stakingiDYPEthTvl30 + stakingiDYPEthTvl45 + stakingiDYPEthTvl20_3 + stakingDYPEthTvl1 + stakingDYPEthTvl2 + stakingDYPEthTvl25 + stakingDYPEthTvl7 + cawsnfttvl + landnfttvl + landcawstvl
 	return totaltvl,
 
-		stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45,
+		stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45, stakingiDYPEthTvl20_3,
 
 		stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25, stakingDYPEthTvl7;
 }
@@ -7895,6 +7954,9 @@ const get_iDYP_ETH_Staking_Info = async () => {
 
 		if (id == "0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4")
 			tvl_usd = stakingiDYPEthTvl45
+		
+		if(id == "0x41b8a58f4307ea722ad0a964966caa18a6011d93")
+			tvl_usd = stakingiDYPEthTvl20_3
 
 		pool_name = IDs_constant_staking_idyp_eth[id].pool_name
 		pair_name = IDs_constant_staking_idyp_eth[id].pair_name
@@ -8061,6 +8123,8 @@ const get_iDYP_BNB_Staking_Info = async () => {
 
 		if (id == "0x160fF3c4A6E9Aa8E4271aa71226Cc811BFEf7ED9")
 			tvl_usd = stakingiDYPBnbTvl45
+		if(id == "0x525cb0f6b5dae73965046bcb4c6f45ce74fb1b5d")
+			tvl_usd = stakingiDYPBnbTvl20_3
 
 
 		pool_name = IDs_constant_staking_idyp_bnb[id].pool_name
@@ -8525,6 +8589,8 @@ const get_iDYP_AVAX_Staking_Info = async () => {
 
 		if (id == "0x5536E02336771CFa0317D4B6a042f3c38749535e")
 			tvl_usd = stakingiDYPAvaxTvl45
+		if(id == "0xe026fb242d9523dc8e8d8833f7309dbdbed59d3d")
+			tvl_usd = stakingiDYPAvaxTvl20_3
 
 
 		pool_name = IDs_constant_staking_idyp_avax[id].pool_name
@@ -9034,6 +9100,10 @@ const IDs_User_Pools_BSC_IDYP = {
 	{
 		contract_address: "0x160fF3c4A6E9Aa8E4271aa71226Cc811BFEf7ED9",
 	},
+	"0x525cb0f6b5dae73965046bcb4c6f45ce74fb1b5d":
+	{
+		contract_address: "0x525cb0f6b5dae73965046bcb4c6f45ce74fb1b5d",
+	}
 }
 const IDs_User_Pools_BSC_DYP_DYNAMIC = {
 	"0xf13aDbEb27ea9d9469D95e925e56a1CF79c06E90":
@@ -9085,6 +9155,10 @@ const IDs_User_Pools_ETH_IDYP = {
 	{
 		contract_address: "0x3fAb09ACAeDDAF579d7a72c24Ef3e9EB1D2975c4",
 	},
+	"0x41b8a58f4307ea722ad0a964966caa18a6011d93":
+	{
+		contract_address: "0x41b8a58f4307ea722ad0a964966caa18a6011d93",
+	}
 }
 const IDs_User_Pools_ETH_DYP_DYNAMIC = {
 	"0x8A30Be7B2780b503ff27dBeaCdecC4Fe2587Af5d":
@@ -9124,6 +9198,10 @@ const IDs_User_Pools_AVAX_IDYP = {
 	"0x5536E02336771CFa0317D4B6a042f3c38749535e":
 	{
 		contract_address: "0x5536E02336771CFa0317D4B6a042f3c38749535e",
+	},
+	"0xe026fb242d9523dc8e8d8833f7309dbdbed59d3d":
+	{
+		contract_address: "0xe026fb242d9523dc8e8d8833f7309dbdbed59d3d",
 	},
 }
 const IDs_User_Pools_AVAX_DYP_DYNAMIC = {
@@ -10866,6 +10944,7 @@ const HOLDERS_LIST_IDYP = LP_ID_LIST_BSC_V2.map(a => a.split('-')[1]).concat([
 	"0x000000000000000000000000000000000000dead",
 	"0x58366902082b90fca01be07d929478bd48acfb19",
 	"0x160ff3c4a6e9aa8e4271aa71226cc811bfef7ed9",
+	"0x525cb0f6b5dae73965046bcb4c6f45ce74fb1b5d",
 	"0x90124d8dcEd672986b05c17A4003f8f0a7F2E3AE",
 	"0x5bc3a80a1f2c4fb693d9dddcebbb5a1b5bb15d65",
 ])
@@ -10895,7 +10974,8 @@ const HOLDERS_LIST_IDYP_AVAX = [
 	// "0x6f5dC6777b2B4667Bf183D093111867239518af5",
 	// "0x10E105676CAC55b74cb6500a8Fb5d2f84804393D",
 	"0x8f28110325a727f70b64bffebf2b9dc94b932452",
-	"0x5536e02336771cfa0317d4b6a042f3c38749535e"
+	"0x5536e02336771cfa0317d4b6a042f3c38749535e",
+	"0xe026fb242d9523dc8e8d8833f7309dbdbed59d3d",
 ]
 
 const HOLDERS_LIST_IDYP_ETH = [
@@ -10923,7 +11003,8 @@ const HOLDERS_LIST_IDYP_ETH = [
 	// "0xf51965c570419F2576ec9AeAD6A3C5F674424A99",
 	// "0x997A7254E5567d0A70329DEFCc1E4d29d71Ba224",
 	"0x9ea966b4023049bff858bb5e698ecff24ea54c4a",
-	"0x3fab09acaeddaf579d7a72c24ef3e9eb1d2975c4"
+	"0x3fab09acaeddaf579d7a72c24ef3e9eb1d2975c4", 
+	"0x41b8a58f4307ea722ad0a964966caa18a6011d93",
 ]
 
 async function get_token_balances_bsc({
