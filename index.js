@@ -5972,7 +5972,6 @@ const allContracts = [
 	"0x8f28110325a727f70b64bffebf2b9dc94b932452",
 	"0x5536e02336771cfa0317d4b6a042f3c38749535e",
 	"0xe026fb242d9523dc8e8d8833f7309dbdbed59d3d",
-
 ]
 
 const TOKEN_ADDRESS_DYPS_ETH = '0xd4f11Bf85D751F426EF59b705E42b3da3357250f'
@@ -8592,7 +8591,7 @@ const get_iDYP_AVAX_Staking_Info = async () => {
 		if (id == "0x5536E02336771CFa0317D4B6a042f3c38749535e")
 			tvl_usd = stakingiDYPAvaxTvl45
 		if(id == "0xe026fb242d9523dc8e8d8833f7309dbdbed59d3d")
-			tvl_usd = stakingiDYPAvaxTvl20_3
+			tvl_usd = stakingiDYPAvaxTvl25_3
 
 
 		pool_name = IDs_constant_staking_idyp_avax[id].pool_name
