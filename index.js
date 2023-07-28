@@ -7537,7 +7537,7 @@ _tvlvaultDAI_2 = tvlvault9_2 + tvlvault10_2
 
 
 
-totaltvlvault = _tvlvaultWETH + _tvlvaultWBTC + _tvlvaultUSDC + _tvlvaultUSDT + _tvlvaultDAI + _tvlvaultWETH_2 + _tvlvaultWBTC_2
+totaltvlvault = _tvlvaultWETH + _tvlvaultWBTC + _tvlvaultUSDC + _tvlvaultUSDT + _tvlvaultDAI + _tvlvaultWETH_2 + _tvlvaultWBTC_2 + _tvlvaultUSDC_2 + _tvlvaultUSDT_2 + _tvlvaultDAI_2
 
 }
 
