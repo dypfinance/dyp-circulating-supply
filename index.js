@@ -7349,9 +7349,9 @@ const IDs_User_Pools_ETH_VAULTS1 = {
 	{
 		contract_address: "0xfc569288c4297419b776c0bdfac677256e10da3f",
 	},
-	"0xE39BEd1DeC2f97dA3aEb014a28170FE5fB66065F":
+	"0xe39bed1dec2f97da3aeb014a28170fe5fb66065f":
 	{
-		contract_address: "0xE39BEd1DeC2f97dA3aEb014a28170FE5fB66065F",
+		contract_address: "0xe39bed1dec2f97da3aeb014a28170fe5fb66065f",
 	},
 	"0xf656dc256c60eb8417366015ee9217462b5a795d":
 	{
@@ -7583,7 +7583,7 @@ const get_iDYP_Vault_TVL_Info = async () => {
 		if(id == "0xfc569288c4297419b776c0bdfac677256e10da3f")
 			tvl_usd = _tvlvaultUSDC_2
 
-		if(id == "0xE39BEd1DeC2f97dA3aEb014a28170FE5fB66065F")
+		if(id == "0xe39bed1dec2f97da3aeb014a28170fe5fb66065f")
 			tvl_usd = _tvlvaultUSDT_2
 
 		if(id == "0xf656dc256c60eb8417366015ee9217462b5a795d")
@@ -9490,9 +9490,9 @@ const IDs_User_Pools_ETH_VAULTS = {
 	{
 		contract_address: "0xfc569288c4297419b776c0bdfac677256e10da3f",
 	},
-	"0xE39BEd1DeC2f97dA3aEb014a28170FE5fB66065":
+	"0xe39bed1dec2f97da3aeb014a28170fe5fb66065f":
 	{
-		contract_address: "0xE39BEd1DeC2f97dA3aEb014a28170FE5fB66065",
+		contract_address: "0xe39bed1dec2f97da3aeb014a28170fe5fb66065f",
 	},
 	"0xf656dc256c60eb8417366015ee9217462b5a795d":
 	{
