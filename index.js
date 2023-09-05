@@ -7018,7 +7018,7 @@ const IDs_constant_staking_idyp_avax = {
 		link_pair: "https://app-avax.dyp.finance/staking-idyp-3",
 		return_types: "iDYP",
 		lock_time: "No lock",
-		expired: "No",
+		expired: "Yes",
 		new_pool: "No",
 		apy: 15,
 		apy_performancefee: 14,
