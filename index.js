@@ -8103,6 +8103,7 @@ const get_iDYP_ETH_Staking_Info = async () => {
 		})
 		if (expired == "No") {
 			highestethapy[ethcounter] = parseFloat(apy_percent);
+			console.log(highestapy[parseFloat(apy_percent[counter])])
 			ethcounter++;
 		}
 	}
@@ -12057,10 +12058,10 @@ app.get('/api/get_wod', async (req, res) => {
 	}
 	res.type('application/json')
 	res.json({
-		playing: 2800,
+		playing: 3500,
 		registered: registered_users2,
-		discordmembers: 13+'K',
-		twitterfollowers: 122+'K',
+		discordmembers: 15+'K',
+		twitterfollowers: 115+'K',
 	})
 })
 
