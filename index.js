@@ -10212,6 +10212,7 @@ const getFarmInfoAvalanche = async () => {
 		pair_name = IDs_avax[pool_address].pair_name
 		link_pair = IDs_avax[pool_address].link_pair
 		return_types = IDs_avax[pool_address].return_types
+		
 
 		farmInfoAvalanche[count] = {
 			apy_percent: apy_percent,
@@ -11173,7 +11174,7 @@ async function update_token_balance_sum_bsc() {
 	// circulating_supply = new BigNumber(30000000).minus(token_balance_sum).plus(circulating_supply_bsc).plus(circulating_supply_avax)
 
 	// console.log({token_balance_sum_idyp_eth, token_balance_sum_idyp, token_balance_sum_idyp_avax})
-	circulating_supply_idyp = new BigNumber(300000000).minus(36424547).minus(token_balance_sum_idyp).plus(circulating_supply_eth).plus(circulating_supply_avax);
+	circulating_supply_idyp = new BigNumber(300000000).minus(36424547).minus(22000000).minus(token_balance_sum_idyp).plus(circulating_supply_eth).plus(circulating_supply_avax);
 	return token_balance_sum_idyp
 }
 
