@@ -8040,6 +8040,7 @@ let all_eth_apys = [];
 let total_eth_tvl = [];
 let ethcounter = 0;
 let highestethapy = [];
+let highestapy;
 let last_update_time_ethstake = 0;
 const get_iDYP_ETH_Staking_Info = async () => {
 	last_update_time_ethstake = Date.now();
@@ -8108,7 +8109,6 @@ const get_iDYP_ETH_Staking_Info = async () => {
 		})
 		if (expired == "No") {
 			highestethapy[ethcounter] = parseFloat(apy_percent);
-			console.log(highestapy[parseFloat(apy_percent[counter])])
 			ethcounter++;
 		}
 	}
