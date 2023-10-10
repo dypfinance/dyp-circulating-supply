@@ -6331,7 +6331,7 @@ let totalvolume = 0;
 
 const requestOptions = {
     headers: {
-      'X-API-KEY': 'b132fcc52ab540f0b13a319bf57b34f0'
+      'X-API-KEY': '779460c0192c43ea89f734eb8dd62a97'
     }
   };
 function fecthNftFloorPrice() {
