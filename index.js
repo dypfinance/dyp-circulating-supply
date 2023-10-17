@@ -6334,6 +6334,7 @@ const requestOptions = {
       'X-API-KEY': '779460c0192c43ea89f734eb8dd62a97'
     }
   };
+
 function fecthNftFloorPrice() {
 
 	fetch('https://api.opensea.io/api/v1/collection/catsandwatchessocietycaws/stats?format=json', requestOptions)
@@ -8334,12 +8335,10 @@ const get_proposals_info =  async () => {
 		if(id == 4){
 			id = "Change Min Balance"
 		}
-		if(humanize == "a day")
-		state = "Active"
-		if(humanize == "two days")
-		state = "Active"
-		if(humanize == "three days")
-		state = "Active"
+		if (humanize.includes("day") || humanize.includes("days") || humanize.includes("hour") || humanize.includes("minute")) {
+			state = "Active";
+		}
+
 		
 		proposals_info_eth.push({
 			title: "DYP Proposal",
@@ -8372,12 +8371,9 @@ const get_proposals_info =  async () => {
 			id = "Change Min Balance"
 		}
 
-		if(humanize == "a day")
-		state = "Active"
-		if(humanize == "two days")
-		state = "Active"
-		if(humanize == "three days")
-		state = "Active"
+		if (humanize.includes("day") || humanize.includes("days") || humanize.includes("hour") || humanize.includes("minute")) {
+			state = "Active";
+		}
 
 		proposals_info_bsc.push({
 			title: "DYP Proposal",
@@ -8410,12 +8406,9 @@ const get_proposals_info =  async () => {
 			id = "Change Min Balance"
 		}
 
-		if(humanize == "a day")
-		state = "Active"
-		if(humanize == "two days")
-		state = "Active"
-		if(humanize == "three days")
-		state = "Active"
+		if (humanize.includes("day") || humanize.includes("days") || humanize.includes("hour") || humanize.includes("minute")) {
+			state = "Active";
+		}
 
 		proposals_info_avax.push({
 			title: "DYP Proposal",
