@@ -8335,9 +8335,20 @@ const get_proposals_info =  async () => {
 		if(id == 4){
 			id = "Change Min Balance"
 		}
-		if (humanize.includes("day") || humanize.includes("days") || humanize.includes("hour") || humanize.includes("minute")) {
-			state = "Active";
-		}
+
+let humanizeDate = new Date(humanize);
+
+let currentDate = new Date(); 
+
+let timeDifference = currentDate - humanizeDate; 
+
+let daysDifference = timeDifference / (24 * 60 * 60 * 1000);
+
+if (daysDifference <= 3) {
+    state = "Active";
+} else {
+    state = "Inactive";
+}
 
 		
 		proposals_info_eth.push({
@@ -8371,10 +8382,19 @@ const get_proposals_info =  async () => {
 			id = "Change Min Balance"
 		}
 
-		if (humanize.includes("day") || humanize.includes("days") || humanize.includes("hour") || humanize.includes("minute")) {
-			state = "Active";
-		}
+		let humanizeDate = new Date(humanize);
 
+let currentDate = new Date();
+
+let timeDifference = currentDate - humanizeDate; 
+
+let daysDifference = timeDifference / (24 * 60 * 60 * 1000);
+
+if (daysDifference <= 3) {
+    state = "Active";
+} else {
+    state = "Inactive";
+}
 		proposals_info_bsc.push({
 			title: "DYP Proposal",
 			date: humanize + " ago",
@@ -8406,10 +8426,20 @@ const get_proposals_info =  async () => {
 			id = "Change Min Balance"
 		}
 
-		if (humanize.includes("day") || humanize.includes("days") || humanize.includes("hour") || humanize.includes("minute")) {
-			state = "Active";
-		}
+		let humanizeDate = new Date(humanize);
 
+let currentDate = new Date(); 
+
+let timeDifference = currentDate - humanizeDate; 
+
+
+let daysDifference = timeDifference / (24 * 60 * 60 * 1000);
+
+if (daysDifference <= 3) {
+    state = "Active";
+} else {
+    state = "Inactive";
+}
 		proposals_info_avax.push({
 			title: "DYP Proposal",
 			date: humanize + " ago",
@@ -12059,7 +12089,7 @@ app.get('/api/get_wod', async (req, res) => {
 	}
 	res.type('application/json')
 	res.json({
-		playing: 3500,
+		playing: 13500,
 		registered: registered_users2,
 		discordmembers: 15+'K',
 		twitterfollowers: 115+'K',
