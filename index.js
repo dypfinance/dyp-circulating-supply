@@ -11800,6 +11800,23 @@ async function refresh_the_graph_result_ETH_V2() {
 	return result
 }
 
+let DYP_ADDRESS  = '0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17'
+let totalTokensMigrated = 0;
+async function migrated_tokens() {
+	let contract_bsc = new bscWeb3.eth.Contract(TOKEN_ABI, DYP_ADDRESS, { from: undefined })
+	let contract_avax = new avaxWeb3.eth.Contract(TOKEN_ABI, DYP_ADDRESS, { from: undefined })
+	let contract_eth = new infuraWeb3.eth.Contract(TOKEN_ABI, DYP_ADDRESS, { from: undefined })
+	let tokens_bsc = await contract_bsc.methods.balanceOf('0x000000000000000000000000000000000000dead').call()
+	let tokens_avax = await contract_avax.methods.balanceOf('0x000000000000000000000000000000000000dead').call()
+	let tokens_eth = await contract_eth.methods.balanceOf('0x000000000000000000000000000000000000dead').call()
+
+	tokens_bsc = new BigNumber(tokens_bsc).div(1e18).toFixed(0) * 6
+	tokens_avax = new BigNumber(tokens_avax).div(1e18).toFixed(0) * 6
+	tokens_eth = new BigNumber(tokens_eth).div(1e18).toFixed(0) * 1
+	totalTokensMigrated = tokens_bsc + tokens_avax + tokens_eth
+	return totalTokensMigrated;
+}
+
   
 async function firstRun() {
 	/* Get the Graph V1 */
@@ -12234,6 +12251,14 @@ app.get('/api/user_pools/:address', async (req, res) => {
 		})
 
 	}
+})
+
+app.get('/api/migratedTokens' , async (req, res) => {
+	await migrated_tokens()
+	res.type('application/json')
+	res.json({
+		migratedTokens: totalTokensMigrated
+	})
 })
 
 // app.get('/address', (req, res) => {
