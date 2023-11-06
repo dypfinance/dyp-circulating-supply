@@ -11802,7 +11802,10 @@ async function refresh_the_graph_result_ETH_V2() {
 
 let DYP_ADDRESS  = '0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17'
 let totalTokensMigrated = 0;
+let token_percentage = 0;
+let last_update_time_migrated_tokens = 0
 async function migrated_tokens() {
+	last_update_time_migrated_tokens = Date.now()
 	let contract_bsc = new bscWeb3.eth.Contract(TOKEN_ABI, DYP_ADDRESS, { from: undefined })
 	let contract_avax = new avaxWeb3.eth.Contract(TOKEN_ABI, DYP_ADDRESS, { from: undefined })
 	let contract_eth = new infuraWeb3.eth.Contract(TOKEN_ABI, DYP_ADDRESS, { from: undefined })
@@ -11813,7 +11816,10 @@ async function migrated_tokens() {
 	tokens_bsc = new BigNumber(tokens_bsc).div(1e18).toFixed(0) * 1
 	tokens_avax = new BigNumber(tokens_avax).div(1e18).toFixed(0) * 1
 	tokens_eth = new BigNumber(tokens_eth).div(1e18).toFixed(0) * 1
+
 	totalTokensMigrated = tokens_bsc + tokens_avax + tokens_eth
+	token_percentage = new BigNumber(totalTokensMigrated).div(79926862).multipliedBy(100).toFixed(2) * 1
+	console.log({ totalTokensMigrated, token_percentage })
 	return totalTokensMigrated;
 }
 
@@ -12254,10 +12260,13 @@ app.get('/api/user_pools/:address', async (req, res) => {
 })
 
 app.get('/api/migratedTokens' , async (req, res) => {
-	await migrated_tokens()
+	if (Date.now() - last_update_time_migrated_tokens > 3600e3) {
+		await migrated_tokens()
+	}
 	res.type('application/json')
 	res.json({
-		migratedTokens: totalTokensMigrated
+		migratedTokens: totalTokensMigrated,
+		tokenPercentage: token_percentage
 	})
 })
 
