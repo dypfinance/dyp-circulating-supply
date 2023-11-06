@@ -11810,8 +11810,8 @@ async function migrated_tokens() {
 	let tokens_avax = await contract_avax.methods.balanceOf('0x000000000000000000000000000000000000dead').call()
 	let tokens_eth = await contract_eth.methods.balanceOf('0x000000000000000000000000000000000000dead').call()
 
-	tokens_bsc = new BigNumber(tokens_bsc).div(1e18).toFixed(0) * 6
-	tokens_avax = new BigNumber(tokens_avax).div(1e18).toFixed(0) * 6
+	tokens_bsc = new BigNumber(tokens_bsc).div(1e18).toFixed(0) * 1
+	tokens_avax = new BigNumber(tokens_avax).div(1e18).toFixed(0) * 1
 	tokens_eth = new BigNumber(tokens_eth).div(1e18).toFixed(0) * 1
 	totalTokensMigrated = tokens_bsc + tokens_avax + tokens_eth
 	return totalTokensMigrated;
