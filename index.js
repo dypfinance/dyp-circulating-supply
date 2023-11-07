@@ -4852,6 +4852,34 @@ async function update_token_balance_sum() {
 	return token_balance_sum
 }
 
+let last_update_time_cnew = 0;
+let circulating_supply_new = 0;
+let total_contracts_locked = 0;
+async function update_circulating_supply_new()
+
+{	
+
+	last_update_time_cnew = Date.now()
+
+
+	let contract_eth = new infuraWeb3.eth.Contract(TOKEN_ABI, DYP_NEW_ADDRESS, { from: undefined })
+	let total_supply = new BigNumber(await contract_eth.methods.totalSupply().call()).div(1e18).toFixed(0) * 1
+
+	let tokens_contract_1 = await contract_eth.methods.balanceOf('0x1a3264F2e7b1CFC6220ec9348d33cCF02Af7aaa4').call()
+	let tokens_contract_2 = await contract_eth.methods.balanceOf('0xc40bE3A801A39bdC151BF6b3468B4035F8A4d440').call()
+	let tokens_contract_3 = await contract_eth.methods.balanceOf('0x9eaFB124162c17196A0E9dE1BDb70384936f0dd5').call()
+	let tokens_contract_4 = await contract_eth.methods.balanceOf('0xfD165914114dc4d571D74f994c45C2ECB55C719E').call()
+
+	total_contracts_locked = new BigNumber(tokens_contract_1 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_2 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_3 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_4 ).div(1e18).toFixed(0) * 1
+
+	circulating_supply_new = total_supply - total_contracts_locked
+		console.log(circulating_supply_new)
+		return circulating_supply_new
+	
+	
+}
+
+
 //Token Lock/Unlock AVAX + BSC
 
 const HOLDERS_AVAX_CONTRACTS = [
@@ -11801,6 +11829,7 @@ async function refresh_the_graph_result_ETH_V2() {
 }
 
 let DYP_ADDRESS  = '0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17'
+let DYP_NEW_ADDRESS = '0x39b46B212bDF15b42B166779b9d1787A68b9D0c3'
 let totalTokensMigrated = 0;
 let token_percentage = 0;
 let last_update_time_migrated_tokens = 0
@@ -11819,7 +11848,6 @@ async function migrated_tokens() {
 
 	totalTokensMigrated = tokens_bsc + tokens_avax + tokens_eth
 	token_percentage = new BigNumber(totalTokensMigrated).div(79926862).multipliedBy(100).toFixed(2) * 1
-	console.log({ totalTokensMigrated, token_percentage })
 	return totalTokensMigrated;
 }
 
@@ -11864,6 +11892,18 @@ app.get('/api/circulating-supply', async (req, res) => {
 	res.send(String(circulating_supply))
 
 })
+
+
+app.get('/api/circulating-supply-new', async (req, res) => {
+	//5 minutes
+	if (Date.now() - last_update_time_cnew > 300e3) {
+		await update_circulating_supply_new()
+	}
+	res.type('text/plain')
+	res.send(String(circulating_supply_new))
+
+})
+
 
 
 app.get('/api/dyp-tokenomics', async (req, res) => {
