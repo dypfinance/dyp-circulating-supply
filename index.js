@@ -4858,9 +4858,7 @@ let total_contracts_locked = 0;
 async function update_circulating_supply_new()
 
 {	
-
 	last_update_time_cnew = Date.now()
-
 
 	let contract_eth = new infuraWeb3.eth.Contract(TOKEN_ABI, DYP_NEW_ADDRESS, { from: undefined })
 	let total_supply = new BigNumber(await contract_eth.methods.totalSupply().call()).div(1e18).toFixed(0) * 1
@@ -4873,9 +4871,7 @@ async function update_circulating_supply_new()
 	total_contracts_locked = new BigNumber(tokens_contract_1 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_2 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_3 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_4 ).div(1e18).toFixed(0) * 1
 
 	circulating_supply_new = total_supply - total_contracts_locked
-		console.log(circulating_supply_new)
-		return circulating_supply_new
-	
+	return circulating_supply_new
 	
 }
 
@@ -6763,7 +6759,7 @@ const IDs_constant_staking_idyp_eth = {
 		return_types: "iDYP",
 		lock_time: "60 days",
 		expired: "No",
-		new_pool: "Yes",
+		new_pool: "No",
 		apy: 20,
 		apy_performancefee: 20,
 		performancefee: 0
@@ -6820,7 +6816,7 @@ const IDs_constant_staking_dyp_eth = {
 		return_types: "DYP",
 		lock_time: "90 days",
 		expired: "No",
-		new_pool: "Yes",
+		new_pool: "No",
 		apy: 7.35,
 		apy_performancefee: 7.35,
 		performancefee: 0,
@@ -6941,7 +6937,7 @@ const IDs_constant_staking_idyp_bnb = {
 		return_types: "iDYP",
 		lock_time: "60 days",
 		expired: "No",
-		new_pool: "Yes",
+		new_pool: "No",
 		apy: 20,
 		apy_performancefee: 20,
 		performancefee: 0
@@ -7024,7 +7020,7 @@ const IDs_constant_staking_dyp_bnb = {
 		return_types: "DYP",
 		lock_time: "No lock",
 		expired: "No",
-		new_pool: "Yes",
+		new_pool: "No",
 		apy: 50,
 		apy_performancefee: 50,
 		performancefee: 0
@@ -7037,7 +7033,7 @@ const IDs_constant_staking_dyp_bnb = {
 		return_types: "DYP",
 		lock_time: "30 days",
 		expired: "No",
-		new_pool: "Yes",
+		new_pool: "No",
 		apy: 12.5,
 		apy_performancefee: 12.5,
 		performancefee: 0
@@ -7105,7 +7101,7 @@ const IDs_constant_staking_idyp_avax = {
 		return_types: "iDYP",
 		lock_time: "60 days",
 		expired: "No",
-		new_pool: "Yes",
+		new_pool: "No",
 		apy: 20,
 		apy_performancefee: 20,
 		performancefee: 0
@@ -7186,7 +7182,7 @@ const IDs_constant_staking_dyp_avax = {
 		return_types: "DYP",
 		lock_time: "No lock",
 		expired: "No",
-		new_pool: "Yes",
+		new_pool: "No",
 		apy: 50,
 		apy_performancefee: 50,
 		performancefee: 0
@@ -7199,7 +7195,7 @@ const IDs_constant_staking_dyp_avax = {
 		return_types: "DYP",
 		lock_time: "30 days",
 		expired: "No",
-		new_pool: "Yes",
+		new_pool: "No",
 		apy: 12.5,
 		apy_performancefee: 12.5,
 		performancefee: 0
