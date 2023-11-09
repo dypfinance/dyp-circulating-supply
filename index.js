@@ -8121,7 +8121,7 @@ const updateStakingTVLETH_NEW = async () => {
 	let token_contract_eth_new_1 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_NEW_ETH, { from: undefined })
 
 	let _tvlDYPEth1 = await token_contract_eth_new_1.methods.balanceOf('0xC9075092Cc46E176B1F3c0D0EB8223F1e46555B0').call()
-	_tvlDYPEth1 = _tvlDYPEth1 / 1e18 * dyp_price_new
+	_tvlDYPEth1 = _tvlDYPEth1 * dyp_price_new
 	stakingDYPETHNewTVL125 = _tvlDYPEth1;
 
 	totaltvl = totaltvl + stakingDYPETHNewTVL125;
@@ -8135,7 +8135,7 @@ const updateStakingTVLBNB_NEW = async () => {
 	let token_contract_bnb_new_1 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_NEW_BNB, { from: undefined })
 
 	let _tvlDYPBnb1 = await token_contract_bnb_new_1.methods.balanceOf('0x8cee06119fffecdd560ee83b26cccfe8e2fe6603').call()
-	_tvlDYPBnb1 = _tvlDYPBnb1 / 1e18 * dyp_price_new
+	_tvlDYPBnb1 = _tvlDYPBnb1 * dyp_price_new
 	stakingDYPBNBNewTVL125 = _tvlDYPBnb1;
 
 	totaltvlbsc = totaltvlbsc + stakingDYPBNBNewTVL125;
@@ -8149,7 +8149,7 @@ const updateStakingTVLAVAX_NEW = async () => {
 	let token_contract_avaxnew_1 = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_NEW_BNB, { from: undefined })
 
 	let _tvlDYPAvax1 = await token_contract_avaxnew_1.methods.balanceOf('0x8cee06119fffecdd560ee83b26cccfe8e2fe6603').call()
-	_tvlDYPAvax1 = _tvlDYPAvax1 / 1e18 * dyp_price_new
+	_tvlDYPAvax1 = _tvlDYPAvax1 * dyp_price_new
 	stakingDYPAVAXNewTVL125 = _tvlDYPAvax1;
 
 	totaltvlavax = totaltvlavax + stakingDYPAVAXNewTVL125;
