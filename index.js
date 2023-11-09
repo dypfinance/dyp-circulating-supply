@@ -20,6 +20,8 @@ const GOV_ADDRESS_BSC2 = "0x0b49488729bb20423c1eb6559bb0c4d7608152b4"
 const GOV_ADDRESS_AVAX2 = "0xc1cb471dbbe2fb3cab80143c00f00cadaf72338c"
 const GOV_ADDRESS_ETH2 = "0xdec13a1d8a1eccaa0e8264fb412bd2ec58f207c1"
 const TOKEN_ADDRESS = "0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17"
+const TOKEN_ADDRESS_DYP_NEW_ETH = "0x39b46b212bdf15b42b166779b9d1787a68b9d0c3"
+const TOKEN_ADDRESS_DYP_NEW_BNB = "0x1a3264f2e7b1cfc6220ec9348d33ccf02af7aaa4"
 const TOKEN_ADDRESS_IDYP = "0xbd100d061e120b2c67a24453cf6368e63f1be056"
 const PRICE_ADDRESS = "0x4185e6f61549133c34ffaf88c92a943fcde51619"
 
@@ -6823,6 +6825,55 @@ const IDs_constant_staking_dyp_eth = {
 	}
 }
 
+
+const IDs_constant_staking_dyp_eth_new = {
+	"0xC9075092Cc46E176B1F3c0D0EB8223F1e46555B0":
+	{
+		pool_name: "DYP Constant Staking ETH",
+		pair_name:"DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-3",
+		return_types: "DYP",
+		lock_time: "No lock",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 12.5,
+		apy_performancefee: 12.5,
+		performancefee: 0,
+	}
+}
+
+const IDs_constant_staking_dyp_bnb_new = {
+	"0x8cee06119fffecdd560ee83b26cccfe8e2fe6603":
+	{
+		pool_name: "DYP Constant Staking BNB",
+		pair_name:"DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-3",
+		return_types: "DYP",
+		lock_time: "No lock",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 12.5,
+		apy_performancefee: 12.5,
+		performancefee: 0,
+	}
+}
+
+const IDs_constant_staking_dyp_avax_new = {
+	"0x8cee06119fffecdd560ee83b26cccfe8e2fe6603":
+	{
+		pool_name: "DYP Constant Staking BNB",
+		pair_name:"DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-3",
+		return_types: "DYP",
+		lock_time: "No lock",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 12.5,
+		apy_performancefee: 12.5,
+		performancefee: 0,
+	}
+}
+
 const IDs_nft_stake_eth = {
 	"0xee425bbbec5e9bf4a59a1c19efff522ad8b7a47a":
 	{
@@ -7789,8 +7840,8 @@ let totaltvlbuybackavax = 0;
 let totaltvlbuybacketh = 0;
 
 const updateStakingTVLAVAX = async () => {
-
 	totaltvlavax = 0;
+	await updateStakingTVLAVAX_NEW();
 
 	let token_contract_avax_1 = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_AVAX, { from: undefined })
 	let token_contract_avax_2 = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP_AVAX, { from: undefined })
@@ -7886,6 +7937,8 @@ const updateStakingTVLAVAX = async () => {
 
 const updateStakingTVLBNB = async () => {
 	totaltvlbsc = 0;
+
+	await updateStakingTVLBNB_NEW();
 	let token_contract_bnb_1 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_BNB, { from: undefined })
 	let token_contract_bnb_2 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP_BNB, { from: undefined })
 
@@ -7974,6 +8027,7 @@ const updateStakingTVLBNB = async () => {
 }
 
 const updateStakingTVLETH = async () => {
+	await updateStakingTVLETH_NEW();
 	fecthNftFloorPrice();
 	fecthLandFloorPrice();
 	await updateGENESISStaking();
@@ -8057,6 +8111,49 @@ const updateStakingTVLETH = async () => {
 		stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45, stakingiDYPEthTvl20_3,
 
 		stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25, stakingDYPEthTvl7;
+}
+
+
+let stakingDYPETHNewTVL125 = 0;
+
+const updateStakingTVLETH_NEW = async () => {
+	await newDypPrice();
+	let token_contract_eth_new_1 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_NEW_ETH, { from: undefined })
+
+	let _tvlDYPEth1 = await token_contract_eth_new_1.methods.balanceOf('0xC9075092Cc46E176B1F3c0D0EB8223F1e46555B0').call()
+	_tvlDYPEth1 = _tvlDYPEth1 / 1e18 * dyp_price_new
+	stakingDYPETHNewTVL125 = _tvlDYPEth1;
+
+	totaltvl = totaltvl + stakingDYPETHNewTVL125;
+	return totaltvl;
+}
+
+let stakingDYPBNBNewTVL125 = 0;
+
+const updateStakingTVLBNB_NEW = async () => {
+	await newDypPrice();
+	let token_contract_bnb_new_1 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_NEW_BNB, { from: undefined })
+
+	let _tvlDYPBnb1 = await token_contract_bnb_new_1.methods.balanceOf('0x8cee06119fffecdd560ee83b26cccfe8e2fe6603').call()
+	_tvlDYPBnb1 = _tvlDYPBnb1 / 1e18 * dyp_price_new
+	stakingDYPBNBNewTVL125 = _tvlDYPBnb1;
+
+	totaltvlbsc = totaltvlbsc + stakingDYPBNBNewTVL125;
+	return totaltvlbsc;
+}
+
+let stakingDYPAVAXNewTVL125 = 0;
+
+const updateStakingTVLAVAX_NEW = async () => {
+	await newDypPrice();
+	let token_contract_avaxnew_1 = new avaxWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_NEW_BNB, { from: undefined })
+
+	let _tvlDYPAvax1 = await token_contract_avaxnew_1.methods.balanceOf('0x8cee06119fffecdd560ee83b26cccfe8e2fe6603').call()
+	_tvlDYPAvax1 = _tvlDYPAvax1 / 1e18 * dyp_price_new
+	stakingDYPAVAXNewTVL125 = _tvlDYPAvax1;
+
+	totaltvlavax = totaltvlavax + stakingDYPAVAXNewTVL125;
+	return totaltvlavax;
 }
 
 
@@ -8216,6 +8313,175 @@ const get_DYP_ETH_Staking_Info =  async () => {
 		performancefee = IDs_constant_staking_dyp_eth[id].performancefee
 		new_pool = IDs_constant_staking_dyp_eth[id].new_pool
 		DYPEthStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired,
+			new_pool: new_pool,
+			apy_performancefee: apy_performancefee,
+			performancefee: performancefee
+		})
+		
+	}
+
+}
+
+let DYPEthNewStakingInfo = [];
+let last_update_time_ethstake_new = 0;
+
+const get_DYP_ETH_Staking_Info_New =  async () => {
+
+	last_update_time_ethstake_new = Date.now();
+	DYPEthNewStakingInfo = [];
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://www.dypius.com/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = "",
+		new_pool = "",
+		apy_performancefee = 0,
+		performancefee = 0
+	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_dyp_eth_new)
+	for (let id of ids_constant_staking_eth) {
+
+		if (id == "0xC9075092Cc46E176B1F3c0D0EB8223F1e46555B0") {
+			tvl_usd = stakingDYPETHNewTVL125
+			apy_percent = IDs_constant_staking_dyp_eth_new[id].apy
+			apy_performancefee = IDs_constant_staking_dyp_eth_new[id].apy_performancefee
+		}
+		
+		pool_name = IDs_constant_staking_dyp_eth_new[id].pool_name
+		pair_name = IDs_constant_staking_dyp_eth_new[id].pair_name
+		link_pair = IDs_constant_staking_dyp_eth_new[id].link_pair
+		return_types = IDs_constant_staking_dyp_eth_new[id].return_types
+		expired = IDs_constant_staking_dyp_eth_new[id].expired
+		lock_time = IDs_constant_staking_dyp_eth_new[id].lock_time
+		performancefee = IDs_constant_staking_dyp_eth_new[id].performancefee
+		new_pool = IDs_constant_staking_dyp_eth_new[id].new_pool
+		DYPEthNewStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired,
+			new_pool: new_pool,
+			apy_performancefee: apy_performancefee,
+			performancefee: performancefee
+		})
+		
+	}
+
+}
+
+let DYPBnbNewStakingInfo = [];
+let last_update_time_bnbstake_new = 0;
+
+const get_DYP_BNB_Staking_Info_New =  async () => {
+
+	last_update_time_bnbstake_new = Date.now();
+	DYPBnbNewStakingInfo = [];
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://www.dypius.com/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = "",
+		new_pool = "",
+		apy_performancefee = 0,
+		performancefee = 0
+	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_dyp_bnb_new)
+	for (let id of ids_constant_staking_eth) {
+
+		if (id == "0x8cee06119fffecdd560ee83b26cccfe8e2fe6603") {
+			tvl_usd = stakingDYPBNBNewTVL125
+			apy_percent = IDs_constant_staking_dyp_bnb_new[id].apy
+			apy_performancefee = IDs_constant_staking_dyp_bnb_new[id].apy_performancefee
+		}
+		
+		pool_name = IDs_constant_staking_dyp_bnb_new[id].pool_name
+		pair_name = IDs_constant_staking_dyp_bnb_new[id].pair_name
+		link_pair = IDs_constant_staking_dyp_bnb_new[id].link_pair
+		return_types = IDs_constant_staking_dyp_bnb_new[id].return_types
+		expired = IDs_constant_staking_dyp_bnb_new[id].expired
+		lock_time = IDs_constant_staking_dyp_bnb_new[id].lock_time
+		performancefee = IDs_constant_staking_dyp_bnb_new[id].performancefee
+		new_pool = IDs_constant_staking_dyp_bnb_new[id].new_pool
+		DYPBnbNewStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired,
+			new_pool: new_pool,
+			apy_performancefee: apy_performancefee,
+			performancefee: performancefee
+		})
+		
+	}
+
+}
+
+
+let DYPAvaxNewStakingInfo = [];
+let last_update_time_avaxstake_new = 0;
+
+const get_DYP_AVAX_Staking_Info_New =  async () => {
+
+	last_update_time_avaxstake_new = Date.now();
+	DYPAvaxNewStakingInfo = [];
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://www.dypius.com/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = "",
+		new_pool = "",
+		apy_performancefee = 0,
+		performancefee = 0
+	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_dyp_avax_new)
+	for (let id of ids_constant_staking_eth) {
+
+		if (id == "0x8cee06119fffecdd560ee83b26cccfe8e2fe6603") {
+			tvl_usd = stakingDYPAVAXNewTVL125
+			apy_percent = IDs_constant_staking_dyp_avax_new[id].apy
+			apy_performancefee = IDs_constant_staking_dyp_avax_new[id].apy_performancefee
+		}
+		
+		pool_name = IDs_constant_staking_dyp_avax_new[id].pool_name
+		pair_name = IDs_constant_staking_dyp_avax_new[id].pair_name
+		link_pair = IDs_constant_staking_dyp_avax_new[id].link_pair
+		return_types = IDs_constant_staking_dyp_avax_new[id].return_types
+		expired = IDs_constant_staking_dyp_avax_new[id].expired
+		lock_time = IDs_constant_staking_dyp_avax_new[id].lock_time
+		performancefee = IDs_constant_staking_dyp_avax_new[id].performancefee
+		new_pool = IDs_constant_staking_dyp_avax_new[id].new_pool
+		DYPAvaxNewStakingInfo.push({
 			id: id,
 			apy_percent: apy_percent,
 			tvl_usd: tvl_usd,
@@ -11847,8 +12113,24 @@ async function migrated_tokens() {
 	return totalTokensMigrated;
 }
 
+let dyp_price_new = 0;
+async function newDypPrice() {
+	await fetch('https://api.geckoterminal.com/api/v2/networks/eth/pools/0x7c81087310a228470db28c1068f0663d6bf88679')
+		.then(response => response.json())
+
+		.then(data => {
+			dyp_price_new = data.data.attributes.base_token_price_usd
+		})
+		.catch(error => {
+			console.error('Error new DYP PRICE', error);
+		});
+		return dyp_price_new;
+}
+
+
   
 async function firstRun() {
+	await newDypPrice()
 	/* Get the Graph V1 */
 	await refresh_the_graph_result()
 	await getCombinedTvlUsd_BSC()
@@ -12139,6 +12421,40 @@ app.get('/api/get_staking_info_eth', async (req, res) => {
 		stakinginfoCAWSLAND: landCawsStakingInfo,
 		highestAPY_ETH: all_eth_apys,
 		totalTVL_ETH: totaltvl
+	})
+})
+
+
+app.get('/api/get_staking_info_eth_new', async (req, res) => {
+	if (Date.now() - last_update_time_ethstake_new > 300e3) {
+		await updateStakingTVLETH_NEW()
+		await get_DYP_ETH_Staking_Info_New()
+	}
+	res.type('application/json')
+	res.json({
+		stakingInfoDYPEth: DYPEthNewStakingInfo,
+	})
+})
+
+app.get('/api/get_staking_info_bnb_new', async (req, res) => {
+	if (Date.now() - last_update_time_bnbstake_new > 300e3) {
+		await updateStakingTVLBNB_NEW()
+		await get_DYP_BNB_Staking_Info_New()
+	}
+	res.type('application/json')
+	res.json({
+		stakingInfoDYPBnb: DYPBnbNewStakingInfo,
+	})
+})
+
+app.get('/api/get_staking_info_avax_new', async (req, res) => {
+	if (Date.now() - last_update_time_avaxstake_new > 300e3) {
+		await updateStakingTVLAVAX_NEW()
+		await get_DYP_AVAX_Staking_Info_New()
+	}
+	res.type('application/json')
+	res.json({
+		stakingInfoDYPAvax: DYPAvaxNewStakingInfo,
 	})
 })
 
