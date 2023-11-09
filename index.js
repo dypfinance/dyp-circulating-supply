@@ -12182,6 +12182,12 @@ app.get('/api/circulating-supply-new', async (req, res) => {
 
 })
 
+app.get('/api/total-supply-new', async (req, res) => {
+	res.type('text/plain')
+	res.send(String(229926862))
+
+})
+
 
 
 app.get('/api/dyp-tokenomics', async (req, res) => {
