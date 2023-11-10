@@ -9572,6 +9572,10 @@ const IDs_User_Pools_BSC_DYP = {
 	"0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487":
 	{
 		contract_address: "0xc03cd383bbbd78e54b8a0dc2ee4342e6d027a487",
+	},
+	"0x8cee06119fffecdd560ee83b26cccfe8e2fe6603":
+	{
+		contract_address: "0x8cee06119fffecdd560ee83b26cccfe8e2fe6603",
 	}
 }
 
@@ -9616,6 +9620,10 @@ const IDs_User_Pools_ETH_DYP = {
 	{
 		contract_address: "0xeb7dd6b50db34f7ff14898d0be57a99a9f158c4d",
 	},
+	"0xC9075092Cc46E176B1F3c0D0EB8223F1e46555B0":
+	{
+		contract_address: "0xC9075092Cc46E176B1F3c0D0EB8223F1e46555B0",
+	}
 }
 
 
@@ -9671,6 +9679,10 @@ const IDs_User_Pools_AVAX_DYP = {
 	"0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712":
 	{
 		contract_address: "0xdb2e1287aac9974ab28a66fabf9bcb34c5f37712",
+	},
+	"0x8cee06119fffecdd560ee83b26cccfe8e2fe6603":
+	{
+		contract_address: "0x8cee06119fffecdd560ee83b26cccfe8e2fe6603",
 	}
 }
 
@@ -9977,19 +9989,7 @@ const get_USER_pools = async (user) => {
 
 	}
 
-	let ids_constant_staking_AVAX_BUYBACK = Object.keys(IDs_User_Pools_AVAX_BUYBACK)
-	for (let id of ids_constant_staking_AVAX_BUYBACK) {
-		contract_address = IDs_User_Pools_AVAX_BUYBACK[id].contract_address
-
-		let res = await getPendingDivs_AVAX_BUYBACK(id, user)
-
-		if ((res !== "undefined") && (res > 0)) {
-			UserPoolsInfo.push({
-				contract_address: contract_address,
-			})
-		}
-
-	}
+	
 
 	let ids_constant_staking_ETH_FARMING = Object.keys(IDs_User_Pools_ETH_FARMING)
 	for (let id of ids_constant_staking_ETH_FARMING) {
@@ -10004,6 +10004,7 @@ const get_USER_pools = async (user) => {
 		}
 
 	}
+
 
 	let ids_constant_staking_BSC_FARMING = Object.keys(IDs_User_Pools_BSC_FARMING)
 	for (let id of ids_constant_staking_BSC_FARMING) {
@@ -10194,6 +10195,16 @@ const getPendingDivs_ETH_VAULTS = async (id, user) => {
 	pending_divs = pending_divs / 1e18
 	return pending_divs;
 }
+
+const getPendingDivs_eth_staking_new = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Po[id].contract_address
+	let test_contract = new infuraWeb3.eth.Contract(ABI_VAULT, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositTokenBalance(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
+
 let totaltvlnew = 0;
 let last_update_time_totaltvl = 0;
 const getTotalTvlNew = async () => {
