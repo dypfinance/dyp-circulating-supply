@@ -4869,9 +4869,10 @@ async function update_circulating_supply_new()
 	let tokens_contract_2 = await contract_eth.methods.balanceOf('0xc40bE3A801A39bdC151BF6b3468B4035F8A4d440').call()
 	let tokens_contract_3 = await contract_eth.methods.balanceOf('0x9eaFB124162c17196A0E9dE1BDb70384936f0dd5').call()
 	let tokens_contract_4 = await contract_eth.methods.balanceOf('0xfD165914114dc4d571D74f994c45C2ECB55C719E').call()
+	let tokens_contract_5 = await contract_eth.methods.balanceOf('0x7c81087310a228470db28c1068f0663d6bf88679').call()
 	let tokens_contract_6 = await contract_eth.methods.balanceOf('0xC9075092Cc46E176B1F3c0D0EB8223F1e46555B0').call()
 
-	total_contracts_locked = new BigNumber(tokens_contract_1 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_2 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_3 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_4 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_6 ).div(1e18).toFixed(0) * 1
+	total_contracts_locked = new BigNumber(tokens_contract_1 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_2 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_3 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_4 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_5 ).div(1e18).toFixed(0) * 1 + new BigNumber(tokens_contract_6 ).div(1e18).toFixed(0) * 1
 
 	circulating_supply_new = total_supply - total_contracts_locked
 	return circulating_supply_new
