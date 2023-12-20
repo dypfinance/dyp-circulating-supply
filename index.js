@@ -5587,7 +5587,7 @@ async function get_usd_values({
 	lp_ids,
 }) {
 	return new Promise((resolve, reject) => {
-		fetch('https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v2-dev', {
+		fetch('https://api.thegraph.com/subgraphs/name/ianlapham/uniswapv2', {
 			method: 'POST',
 			mode: 'cors',
 			headers: { 'Content-Type': 'application/json' },
@@ -5802,7 +5802,7 @@ const GetHighestAPY = async () => {
 	// 	if (!the_graph_result_AVAX.lp_data) return 0
 	// }
 
-	let lp_ids = Object.keys(the_graph_result_BSC.lp_data)
+    let lp_ids = the_graph_result_BSC.lp_data ? Object.keys(the_graph_result_BSC.lp_data) : [];
 	for (let id of lp_ids) {
 		highApy = the_graph_result_BSC.lp_data[id].apy
 		highApyArray.push(highApy)
@@ -5811,7 +5811,9 @@ const GetHighestAPY = async () => {
 		highApyContractBSC[highApy] = contractAddress
 	}
 
-	let lp_ids_eth = Object.keys(the_graph_result.lp_data)
+	let lp_ids_eth = the_graph_result.lp_data ? Object.keys(the_graph_result.lp_data) : [];
+
+
 	for (let id of lp_ids_eth) {
 		highApyEth = the_graph_result.lp_data[id].apy
 		highApyArrayEth.push(highApyEth)
@@ -6145,7 +6147,8 @@ const getTotalTvl = async () => {
 	bscBuybackTvl = (bscBuybackTvl / 1e18) * usdPerToken
 	avaxBuybackTvl = (avaxBuybackTvl / 1e18) * usdPerToken
 
-	let lp_ids = Object.keys(the_graph_result.lp_data)
+	let lp_ids = the_graph_result.lp_data ? Object.keys(the_graph_result.lp_data) : [];
+
 	for (let id of lp_ids) {
 		tvl += the_graph_result.lp_data[id].tvl_usd * 1 || 0
 	}
@@ -6353,7 +6356,6 @@ const CheckBscStaking = async (addressToCheck) => {
 let floorprice = 0;
 let owners = 0;
 let totalsales = 0;
-let totalsupply = 0;
 let thirthydaysales = 0;
 let totalvolume = 0;
 
@@ -6363,9 +6365,9 @@ const requestOptions = {
     }
   };
 
-function fecthNftFloorPrice() {
+async function fecthNftFloorPrice() {
 
-	fetch('https://api.opensea.io/api/v1/collection/catsandwatchessocietycaws/stats?format=json', requestOptions)
+	await fetch('https://api.opensea.io/api/v2/collections/catsandwatchessocietycaws/stats?format=json', requestOptions)
 		.then(response => {
 			if (!response.ok) {
 				throw Error('X');
@@ -6373,12 +6375,12 @@ function fecthNftFloorPrice() {
 			return response.json();
 		})
 		.then(data => {
-			floorprice = data.stats.floor_price
-			owners = data.stats.num_owners
-			totalsales = data.stats.total_sales
-			totalsupply = data.stats.total_supply
-			thirthydaysales = data.stats.thirty_day_sales
-			totalvolume = data.stats.total_volume
+			floorprice = data.total.floor_price
+			owners = data.total.num_owners
+			totalsales = data.total.sales
+			let thirtysDaySales = data.intervals.find(interval => interval.interval === 'thirty_day');
+			thirthydaysales = thirtysDaySales.sales
+			totalvolume = data.total.volume
 		});
 }
 
@@ -6386,12 +6388,11 @@ function fecthNftFloorPrice() {
 let floorpriceland = 0;
 let ownersland = 0;
 let totalsalesland = 0;
-let totalsupplyland = 0;
 let thirthydaysalesland = 0;
 let totalvolumeland = 0;
-function fecthLandFloorPrice() {
+async function fecthLandFloorPrice() {
 
-	fetch('https://api.opensea.io/api/v1/collection/worldofdypians/stats?format=json', requestOptions)
+	await fetch('https://api.opensea.io/api/v2/collections/worldofdypians/stats?format=json', requestOptions)
 		.then(response => {
 			if (!response.ok) {
 				throw Error('X');
@@ -6399,12 +6400,13 @@ function fecthLandFloorPrice() {
 			return response.json();
 		})
 		.then(data => {
-			floorpriceland = data.stats.floor_price
-			ownersland = data.stats.num_owners
-			totalsalesland = data.stats.total_sales
-			totalsupplyland = data.stats.total_supply
-			thirthydaysalesland = data.stats.thirty_day_sales
-			totalvolumeland = data.stats.total_volume
+
+			floorpriceland = data.total.floor_price
+			ownersland = data.total.num_owners
+			totalsalesland = data.total.sales
+			let thirtysDaySales = data.intervals.find(interval => interval.interval === 'thirty_day');
+			thirthydaysalesland = thirtysDaySales.sales
+			totalvolumeland = data.total.volume
 		});
 }
 
@@ -8840,7 +8842,6 @@ for (let id of ids_rarest_nfts) {
 				floorprice: floorprice,
 				owners: owners,
 			totalsales: totalsales,
-			totalsupply: totalsupply,
 			thirthydaysales: thirthydaysales,
 			totalvolume: totalvolume,
 			})
