@@ -7,8 +7,10 @@ const Web3 = require('web3')
 const moment = require('moment');
 const { JSDOM } = require("jsdom")
 const { window } = new JSDOM("")
+const NodeCache = require("node-cache");
 const $ = require("jquery")(window)
 
+const myCache = new NodeCache({ stdTTL: 100, checkperiod: 1800 });
 const fetch = require("node-fetch")
 const infuraWeb3 = new Web3('https://mainnet.infura.io/v3/94608dc6ddba490697ec4f9b723b586e')
 
@@ -12141,34 +12143,370 @@ async function newDypPrice() {
 		return dyp_price_new;
 }
 
+const IDs_constant_staking_mobile_avax_avax = {
+	"0":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 15,
+		expired: "No",
+		hot: "No",
+		new: "Yes",
+		performancefee: 1,
+		pool_cap: 3100000,
+		maximum_deposit: 40000,
+		start_date: 1707901300,
+		end_date: 1708901300,
+		contractDuration: 65,
+		early_fee: 10,
+	},
+}
 
+const IDs_constant_staking_mobile_doge_eth = {
+	"0":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 15,
+		expired: "No",
+		hot: "No",
+		new: "Yes",
+		performancefee: 1,
+		pool_cap: 3100000,
+		maximum_deposit: 40000,
+		start_date: 1707901300,
+		end_date: 1708901300,
+		contractDuration: 65,
+		early_fee: 10,
+	},
+	"30":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 11,
+		expired: "No",
+		hot: "No",
+		new: "Yes",
+		performancefee: 1,
+		pool_cap: 3200000,
+		maximum_deposit: 50000,
+		start_date: 1707901300,
+		end_date: 1708901300,
+		contractDuration: 65,
+		early_fee: 10,
+	},
+	"60":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 13,
+		expired: "No",
+		hot: "No",
+		new: "Yes",
+		performancefee: 1,
+		pool_cap: 400000,
+		maximum_deposit: 220000,
+		start_date: 1707901300,
+		end_date: 1718901300,
+		contractDuration: 43,
+		early_fee: 10,
+	},
+	"90":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 25,
+		expired: "No",
+		hot: "Yes",
+		new: "Yes",
+		performancefee: 1,
+		pool_cap: 400000,
+		maximum_deposit: 10000,
+		start_date: 1717901300,
+		end_date: 1728901300,
+		contractDuration: 55,
+		early_fee: 10,
+	},
+	"120":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 15,
+		expired: "No",
+		hot: "Yes",
+		new: "No",
+		performancefee: 1,
+		pool_cap: 100000,
+		maximum_deposit: 20000,
+		start_date: 1707901300,
+		end_date: 1718901300,
+		contractDuration: 60,
+		early_fee: 10,
+	},
+}
+
+
+const IDs_constant_staking_mobile_doge_bnb = {
+	"0":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 13,
+		expired: "No",
+		hot: "No",
+		new: "Yes",
+		performancefee: 1,
+		pool_cap: 2050000,
+		maximum_deposit: 104000,
+		start_date: 1707901300,
+		end_date: 1908901300,
+		contractDuration: 35,
+		early_fee: 10,
+	},
+	"30":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 16,
+		expired: "No",
+		hot: "No",
+		new: "Yes",
+		performancefee: 1,
+		pool_cap: 1050000,
+		maximum_deposit: 204000,
+		start_date: 1707901300,
+		end_date: 1908901300,
+		contractDuration: 35,
+		early_fee: 10,
+	},
+	"60":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 13,
+		expired: "Yes",
+		hot: "No",
+		new: "No",
+		performancefee: 1,
+		pool_cap: 1050000,
+		maximum_deposit: 230000,
+		start_date: 1707901300,
+		end_date: 1718901300,
+		contractDuration: 45,
+		early_fee: 10,
+	},
+	"90":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 25,
+		expired: "No",
+		hot: "Yes",
+		new: "No",
+		performancefee: 1,
+		pool_cap: 100000,
+		maximum_deposit: 420000,
+		start_date: 1817901300,
+		end_date: 1928901300,
+		contractDuration: 31,
+		early_fee: 10,
+	},
+	"120":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 15,
+		expired: "No",
+		hot: "No",
+		new: "Yes",
+		performancefee: 1,
+		pool_cap: 400000,
+		maximum_deposit: 10000,
+		start_date: 1507901300,
+		end_date: 1718901300,
+		contractDuration: 56,
+		early_fee: 10,
+	},
+}
+
+const IDs_constant_staking_mobile_doge_avax = {
+	"60":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 16,
+		expired: "No",
+		hot: "No",
+		new: "Yes",
+		performancefee: 1,
+		pool_cap: 1050000,
+		maximum_deposit: 204000,
+		start_date: 1707901300,
+		end_date: 1908901300,
+		contractDuration: 35,
+		early_fee: 10,
+	},
+	"90":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 13,
+		expired: "Yes",
+		hot: "No",
+		new: "No",
+		performancefee: 1,
+		pool_cap: 1050000,
+		maximum_deposit: 230000,
+		start_date: 1707901300,
+		end_date: 1718901300,
+		contractDuration: 45,
+		early_fee: 10,
+	},
+	"90":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 25,
+		expired: "No",
+		hot: "Yes",
+		new: "No",
+		performancefee: 1,
+		pool_cap: 100000,
+		maximum_deposit: 420000,
+		start_date: 1817901300,
+		end_date: 1928901300,
+		contractDuration: 31,
+		early_fee: 10,
+	},
+	"120":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 15,
+		expired: "No",
+		hot: "No",
+		new: "Yes",
+		performancefee: 1,
+		pool_cap: 400000,
+		maximum_deposit: 10000,
+		start_date: 1507901300,
+		end_date: 1718901300,
+		contractDuration: 56,
+		early_fee: 10,
+	},
+}
+
+const IDs_constant_staking_mobile_bnb_bnb = {
+	"60":
+	{
+		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
+		apr_percent: 16,
+		expired: "No",
+		hot: "No",
+		new: "Yes",
+		performancefee: 1,
+		pool_cap: 1050000,
+		maximum_deposit: 204000,
+		start_date: 1707901300,
+		end_date: 1908901300,
+		contractDuration: 35,
+		early_fee: 10,
+	},
+}
+
+function aggregateStakingData() {
+    const allData = {
+        IDs_constant_staking_mobile_avax_avax,
+        IDs_constant_staking_mobile_doge_eth,
+        IDs_constant_staking_mobile_doge_bnb,
+        IDs_constant_staking_mobile_doge_avax,
+        IDs_constant_staking_mobile_bnb_bnb,
+    };
+
+    let aggregatedData = {};
+
+    Object.entries(allData).forEach(([key, pools]) => {
+        const token = key.split('_')[4]; // Assumes the format is consistent
+
+        if (!aggregatedData[token]) {
+            aggregatedData[token] = { minDay: Infinity, maxDay: 0, minAPR: Infinity, maxAPR: 0 };
+        }
+
+        Object.entries(pools).forEach(([lockTime, pool]) => {
+            const lockTimeInt = parseInt(lockTime, 10);
+            aggregatedData[token].minDay = Math.min(aggregatedData[token].minDay, lockTimeInt);
+            aggregatedData[token].maxDay = Math.max(aggregatedData[token].maxDay, lockTimeInt);
+            aggregatedData[token].minAPR = Math.min(aggregatedData[token].minAPR, pool.apr_percent);
+            aggregatedData[token].maxAPR = Math.max(aggregatedData[token].maxAPR, pool.apr_percent);
+        });
+    });
+
+    return Object.entries(aggregatedData).map(([token, data]) => ({
+        name: token,
+        minDay: data.minDay.toString(),
+        maxDay: data.maxDay.toString(),
+        minAPR: data.minAPR.toString() + "%",
+        maxAPR: data.maxAPR.toString() + "%",
+    }));
+}
+
+const chainNameMapping = {
+    eth: 'eth',
+    bnb: 'bnb',
+    avax: 'avax',
+};
+
+function getChainsForToken(token) {
+    const allData = {
+        IDs_constant_staking_mobile_avax_avax,
+        IDs_constant_staking_mobile_doge_eth,
+        IDs_constant_staking_mobile_doge_bnb,
+        IDs_constant_staking_mobile_doge_avax,
+        IDs_constant_staking_mobile_bnb_bnb,
+    };
+
+    let chains = new Set();
+
+    Object.keys(allData).forEach(key => {
+        const [dataToken, dataChain] = key.replace('IDs_constant_staking_mobile_', '').split('_');
+        if (token === dataToken && chainNameMapping[dataChain]) {
+            chains.add(chainNameMapping[dataChain]);
+        }
+    });
+
+    return [...chains]; // Convert Set to Array
+}
+
+function getPoolDetails(token, chain, lockTime) {
+    const allData = {
+        IDs_constant_staking_mobile_avax_avax,
+        IDs_constant_staking_mobile_doge_eth,
+        IDs_constant_staking_mobile_doge_bnb,
+        IDs_constant_staking_mobile_doge_avax,
+        IDs_constant_staking_mobile_bnb_bnb,
+    };
+
+    const key = `IDs_constant_staking_mobile_${token}_${chain}`;
+    const pools = allData[key];
+    if (!pools) {
+        return null; // No pools found for the given token and chain
+    }
+
+    const poolDetails = pools[lockTime];
+    return poolDetails || null; // Return the pool details or null if not found
+}
   
 async function firstRun() {
-	await newDypPrice()
-	/* Get the Graph V1 */
-	await refresh_the_graph_result()
-	await getCombinedTvlUsd_BSC()
-	await getCombinedTvlUsd_AVAX()
-	/* Get Price of DYPS */
-	await getPriceDYPS()
+	// await newDypPrice()
+	// /* Get the Graph V1 */
+	// await refresh_the_graph_result()
+	// await getCombinedTvlUsd_BSC()
+	// await getCombinedTvlUsd_AVAX()
+	// /* Get Price of DYPS */
+	// await getPriceDYPS()
 
-	/* Get the Graph V2 */
-	await refresh_the_graph_result_BSC_V2()
-	await refresh_the_graph_result_AVAX_V2()
-	await refresh_the_graph_result_ETH_V2()
+	// /* Get the Graph V2 */
+	// await refresh_the_graph_result_BSC_V2()
+	// await refresh_the_graph_result_AVAX_V2()
+	// await refresh_the_graph_result_ETH_V2()
 
-	// await wait(60000)
-	/* Get Highest Apy & Total Tvl */
-	await GetHighestAPY()
-	await getTotalTvl()
+	// // await wait(60000)
+	// /* Get Highest Apy & Total Tvl */
+	// await GetHighestAPY()
+	// await getTotalTvl()
 
-	/* Get Total Paid */
-	await PaidOutETH()
-	await PaidAllInUsd()
+	// /* Get Total Paid */
+	// await PaidOutETH()
+	// await PaidAllInUsd()
 
-	fecthNftFloorPrice()
-	fecthLandFloorPrice()
-	await get_wod_info()
+	// fecthNftFloorPrice()
+	// fecthLandFloorPrice()
+	// await get_wod_info()
 }
 
 firstRun()
@@ -12185,6 +12523,73 @@ app.get('/api/circulating-supply', async (req, res) => {
 
 })
 
+app.get('/api/mobile/staking/list', (req, res) => {
+    const key = 'stakingList';
+    const cachedData = myCache.get(key);
+
+    if (cachedData) {
+        return res.json(cachedData);
+    }
+
+    try {
+        const aggregatedList = aggregateStakingData();
+        myCache.set(key, aggregatedList);
+        res.json(aggregatedList);
+    } catch (error) {
+        console.error('Error aggregating staking data:', error);
+        res.status(500).send('Internal server error');
+    }
+});
+
+app.get('/api/mobile/staking/:token/chains', (req, res) => {
+    const { token } = req.params;
+    const key = `chains_${token}`;
+
+    const cachedData = myCache.get(key);
+    if (cachedData) {
+        return res.json(cachedData);
+    }
+
+    if (!token) {
+        return res.status(400).send('Token parameter is required');
+    }
+
+    try {
+        const chains = getChainsForToken(token);
+        myCache.set(key, chains);
+        res.json(chains);
+    } catch (error) {
+        console.error('Error retrieving chains for token:', error);
+        res.status(500).send('Internal server error');
+    }
+});
+
+app.get('/api/mobile/staking/:token/:chain/:lockTime', (req, res) => {
+    const { token, chain, lockTime } = req.params;
+    const key = `poolDetails_${token}_${chain}_${lockTime}`;
+
+    const cachedData = myCache.get(key);
+    if (cachedData) {
+        return res.json(cachedData);
+    }
+
+    if (!token || !chain || !lockTime) {
+        return res.status(400).send('Token, chain, and lockTime parameters are required');
+    }
+
+    try {
+        const poolDetails = getPoolDetails(token, chain, lockTime);
+        if (poolDetails) {
+            myCache.set(key, poolDetails);
+            res.json(poolDetails);
+        } else {
+            res.status(404).send('Pool details not found');
+        }
+    } catch (error) {
+        console.error('Error retrieving pool details:', error);
+        res.status(500).send('Internal server error');
+    }
+});
 
 app.get('/api/circulating-supply-new', async (req, res) => {
 	//5 minutes
