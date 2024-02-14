@@ -12157,7 +12157,7 @@ const IDs_constant_staking_mobile_avax_avax = {
 		start_date: 1707901300,
 		end_date: 1708901300,
 		contractDuration: 65,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 }
 
@@ -12175,7 +12175,7 @@ const IDs_constant_staking_mobile_doge_eth = {
 		start_date: 1707901300,
 		end_date: 1708901300,
 		contractDuration: 65,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 	"30":
 	{
@@ -12190,7 +12190,7 @@ const IDs_constant_staking_mobile_doge_eth = {
 		start_date: 1707901300,
 		end_date: 1708901300,
 		contractDuration: 65,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 	"60":
 	{
@@ -12205,7 +12205,7 @@ const IDs_constant_staking_mobile_doge_eth = {
 		start_date: 1707901300,
 		end_date: 1718901300,
 		contractDuration: 43,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 	"90":
 	{
@@ -12220,7 +12220,7 @@ const IDs_constant_staking_mobile_doge_eth = {
 		start_date: 1717901300,
 		end_date: 1728901300,
 		contractDuration: 55,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 	"120":
 	{
@@ -12235,7 +12235,7 @@ const IDs_constant_staking_mobile_doge_eth = {
 		start_date: 1707901300,
 		end_date: 1718901300,
 		contractDuration: 60,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 }
 
@@ -12254,7 +12254,7 @@ const IDs_constant_staking_mobile_doge_bnb = {
 		start_date: 1707901300,
 		end_date: 1908901300,
 		contractDuration: 35,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 	"30":
 	{
@@ -12269,7 +12269,7 @@ const IDs_constant_staking_mobile_doge_bnb = {
 		start_date: 1707901300,
 		end_date: 1908901300,
 		contractDuration: 35,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 	"60":
 	{
@@ -12284,7 +12284,7 @@ const IDs_constant_staking_mobile_doge_bnb = {
 		start_date: 1707901300,
 		end_date: 1718901300,
 		contractDuration: 45,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 	"90":
 	{
@@ -12299,7 +12299,7 @@ const IDs_constant_staking_mobile_doge_bnb = {
 		start_date: 1817901300,
 		end_date: 1928901300,
 		contractDuration: 31,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 	"120":
 	{
@@ -12314,7 +12314,7 @@ const IDs_constant_staking_mobile_doge_bnb = {
 		start_date: 1507901300,
 		end_date: 1718901300,
 		contractDuration: 56,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 }
 
@@ -12332,7 +12332,7 @@ const IDs_constant_staking_mobile_doge_avax = {
 		start_date: 1707901300,
 		end_date: 1908901300,
 		contractDuration: 35,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 	"90":
 	{
@@ -12347,7 +12347,7 @@ const IDs_constant_staking_mobile_doge_avax = {
 		start_date: 1707901300,
 		end_date: 1718901300,
 		contractDuration: 45,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 	"90":
 	{
@@ -12362,7 +12362,7 @@ const IDs_constant_staking_mobile_doge_avax = {
 		start_date: 1817901300,
 		end_date: 1928901300,
 		contractDuration: 31,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 	"120":
 	{
@@ -12377,7 +12377,7 @@ const IDs_constant_staking_mobile_doge_avax = {
 		start_date: 1507901300,
 		end_date: 1718901300,
 		contractDuration: 56,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 }
 
@@ -12395,7 +12395,7 @@ const IDs_constant_staking_mobile_bnb_bnb = {
 		start_date: 1707901300,
 		end_date: 1908901300,
 		contractDuration: 35,
-		early_fee: 10,
+		early_fee: 10+"%",
 	},
 }
 
