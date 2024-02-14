@@ -12482,31 +12482,31 @@ function getPoolDetails(token, chain, lockTime) {
 }
   
 async function firstRun() {
-	// await newDypPrice()
-	// /* Get the Graph V1 */
-	// await refresh_the_graph_result()
-	// await getCombinedTvlUsd_BSC()
-	// await getCombinedTvlUsd_AVAX()
-	// /* Get Price of DYPS */
-	// await getPriceDYPS()
+	await newDypPrice()
+	/* Get the Graph V1 */
+	await refresh_the_graph_result()
+	await getCombinedTvlUsd_BSC()
+	await getCombinedTvlUsd_AVAX()
+	/* Get Price of DYPS */
+	await getPriceDYPS()
 
-	// /* Get the Graph V2 */
-	// await refresh_the_graph_result_BSC_V2()
-	// await refresh_the_graph_result_AVAX_V2()
-	// await refresh_the_graph_result_ETH_V2()
+	/* Get the Graph V2 */
+	await refresh_the_graph_result_BSC_V2()
+	await refresh_the_graph_result_AVAX_V2()
+	await refresh_the_graph_result_ETH_V2()
 
-	// // await wait(60000)
-	// /* Get Highest Apy & Total Tvl */
-	// await GetHighestAPY()
-	// await getTotalTvl()
+	// await wait(60000)
+	/* Get Highest Apy & Total Tvl */
+	await GetHighestAPY()
+	await getTotalTvl()
 
-	// /* Get Total Paid */
-	// await PaidOutETH()
-	// await PaidAllInUsd()
+	/* Get Total Paid */
+	await PaidOutETH()
+	await PaidAllInUsd()
 
-	// fecthNftFloorPrice()
-	// fecthLandFloorPrice()
-	// await get_wod_info()
+	fecthNftFloorPrice()
+	fecthLandFloorPrice()
+	await get_wod_info()
 }
 
 firstRun()
