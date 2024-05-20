@@ -21,6 +21,11 @@ const GOV_ADDRESS_AVAX = "0x4d3deb73df067d6466facad196b22411422909ab"
 const GOV_ADDRESS_BSC2 = "0x0b49488729bb20423c1eb6559bb0c4d7608152b4"
 const GOV_ADDRESS_AVAX2 = "0xc1cb471dbbe2fb3cab80143c00f00cadaf72338c"
 const GOV_ADDRESS_ETH2 = "0xdec13a1d8a1eccaa0e8264fb412bd2ec58f207c1"
+const GOV_ADDRESS_ETH3 = '0x6334a38b5df75638f005859fe642765e09488981'
+const GOV_ADDRESS_BSC3 = '0x8e6bd27C77f07163CC5CEe7DB367d8fe203da4cE'
+const GOV_ADDRESS_AVAX3 = '0xCE27eCD1114336477CbE0a628f3749b733056626'
+
+
 const TOKEN_ADDRESS = "0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17"
 const TOKEN_ADDRESS_DYP_NEW_ETH = "0x39b46b212bdf15b42b166779b9d1787a68b9d0c3"
 const TOKEN_ADDRESS_DYP_NEW_BNB = "0x1a3264f2e7b1cfc6220ec9348d33ccf02af7aaa4"
@@ -4989,33 +4994,22 @@ async function update_proposals() {
 	bscProposals = 0;
 	ethProposals = 0;
 	avaxProposals = 0;
-	bscProposals2 = 0;
-	ethProposals2 = 0;
-	avaxProposals2 = 0;
 	bscVotes = 0;
 	ethVotes = 0;
 	avaxVotes = 0;
-	bscVotes2 = 0;
-	ethVotes2 = 0;
-	avaxVotes2 = 0;
 	totalVotes = 0;
 
-	let gov_contract_bsc = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC, { from: undefined })
-	let gov_contract_eth = new infuraWeb3.eth.Contract(GOV_ABI_ETH, GOV_ADDRESS_ETH, { from: undefined })
-	let gov_contract_avax = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX, { from: undefined })
-	let gov_contract_bsc2 = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC2, { from: undefined })
-	let gov_contract_eth2 = new infuraWeb3.eth.Contract(GOV_ABI_ETH2, GOV_ADDRESS_ETH2, { from: undefined })
-	let gov_contract_avax2 = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX2, { from: undefined })
+	let gov_contract_bsc = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC3, { from: undefined })
+	let gov_contract_eth = new infuraWeb3.eth.Contract(GOV_ABI_ETH, GOV_ADDRESS_ETH3, { from: undefined })
+	let gov_contract_avax = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX3, { from: undefined })
 	bscProposals = await gov_contract_bsc.methods.lastIndex().call()
 	ethProposals = await gov_contract_eth.methods.lastIndex().call()
 	avaxProposals = await gov_contract_avax.methods.lastIndex().call()
-	bscProposals2 = await gov_contract_bsc2.methods.lastIndex().call()
-	ethProposals2 = await gov_contract_eth2.methods.lastIndex().call()
-	avaxProposals2 = await gov_contract_avax2.methods.lastIndex().call()
 
-	bscProposals = parseInt(bscProposals) + parseInt(bscProposals2)
-	ethProposals = parseInt(ethProposals) + parseInt(ethProposals2)
-	avaxProposals = parseInt(avaxProposals) + parseInt(avaxProposals2)
+
+	bscProposals = 42 + parseInt(bscProposals)
+	ethProposals = 42 + parseInt(ethProposals)
+	avaxProposals = 14 + parseInt(avaxProposals)
 
 	//make for loops to get all votes from bsc proposals (new contracts)
 	for (let i = 1; i <= bscProposals; i++) {
@@ -5032,26 +5026,10 @@ async function update_proposals() {
 		let vote = await gov_contract_avax.methods.getProposal(i).call()
 		avaxVotes = avaxVotes + ((vote._optionOneVotes) / 1e18) + ((vote._optionTwoVotes) / 1e18)
 	}
-	// make for loops to get all votes from bsc proposals (old contracts)
-	for (let i = 1; i <= bscProposals2; i++) {
-		let vote = await gov_contract_bsc2.methods.getProposal(i).call()
-		bscVotes2 = bscVotes2 + ((vote._optionOneVotes) / 1e18) + ((vote._optionTwoVotes) / 1e18)
-	}
 
-	for (let i = 1; i <= ethProposals2; i++) {
-		let vote = await gov_contract_eth2.methods.getProposal(i).call()
-		ethVotes2 = ethVotes2 + (((vote._optionOneVotes) / 1e18)) + (((vote._optionTwoVotes) / 1e18))
-	}
-
-
-	for (let i = 1; i <= avaxProposals2; i++) {
-		let vote = await gov_contract_avax2.methods.getProposal(i).call()
-		avaxVotes2 = avaxVotes2 + ((vote._optionOneVotes) / 1e18) + ((vote._optionTwoVotes) / 1e18)
-	}
-
-	bscVotes = Math.trunc(bscVotes) + Math.trunc(bscVotes2)
-	ethVotes = Math.trunc(ethVotes) + Math.trunc(ethVotes2)
-	avaxVotes = Math.trunc(avaxVotes) + Math.trunc(avaxVotes2)
+	bscVotes = 1199661 + Math.trunc(bscVotes)
+	ethVotes = 1756936 + Math.trunc(ethVotes)
+	avaxVotes = 1218041 +  Math.trunc(avaxVotes) 
 
 	totalVotes = bscVotes + ethVotes + avaxVotes;
 
@@ -6156,7 +6134,7 @@ const getTotalTvl = async () => {
 	}
 
 	//Get Total value locked of Vaults on Ethereum from DeFiLLama
-	let tvlVaults = await fetchAsync('https://api.llama.fi/tvl/defi-yield-protocol')
+	let tvlVaults = 0 
 
 	//Get Total Vaule Locked New Vaults
 	let tvlVaults2 = await getTotalTvlVaults()
@@ -6923,7 +6901,7 @@ const IDs_land_stake_eth = {
 		total_nfts_locked: "",
 		tvl: "",
 		lock_time: "No lock",
-		expired: "No",
+		expired: "Yes",
 		apy: 25,
 
 	}
@@ -6941,7 +6919,7 @@ const IDs_genesis_land_stake_eth = {
 		total_nfts_locked: "",
 		tvl: "",
 		lock_time: "No lock",
-		expired: "No",
+		expired: "Yes",
 		apy: 50,
 
 	}
@@ -8765,6 +8743,159 @@ if (daysDifference <= 3) {
 			status: state
 		})
 	}
+	}
+
+let proposals_info_eth_new = [];
+let proposals_info_bsc_new = [];
+let proposals_info_avax_new = [];
+let last_update_time_proposals_info_new = 0;
+const get_proposals_info_new =  async () => {
+	last_update_time_proposals_info = Date.now();
+	proposals_info_eth_new = [];
+	proposals_info_bsc_new  = [];
+	proposals_info_avax_new  = [];
+	state = "Inactive";
+	let gov_contract_bsc_new = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC3, { from: undefined })
+	let gov_contract_eth_new = new infuraWeb3.eth.Contract(GOV_ABI_ETH, GOV_ADDRESS_ETH3, { from: undefined })
+	let gov_contract_avax_new = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX3, { from: undefined })
+	let proposal_index_eth_new = await gov_contract_eth_new.methods.lastIndex().call()
+	let proposal_index_bsc_new = await gov_contract_bsc_new.methods.lastIndex().call()
+	console.log(proposal_index_bsc_new)
+	let proposal_index_avax_new = await gov_contract_avax_new.methods.lastIndex().call()
+// 	for (let i = 0; i < proposal_index_eth_new ; i++) {
+// 		let time = await gov_contract_eth_new.methods.getProposal(i).call()
+// 		let id = await gov_contract_eth_new.methods.getProposal(i).call()
+// 		time = time._proposalStartTime
+// 		time = new Date(time * 1000)
+// 		let humanize = moment.duration(time - Date.now(), "milliseconds").humanize();
+// 		id = id._proposalAction 
+// 		if(id == 0){
+// 			id = "Disburse / Burn"
+// 		}
+// 		if(id == 1){
+// 			id = "Upgrade Governance"
+// 		}
+// 		if(id == 2){
+// 			id = "Change Quorum"
+// 		}
+// 		if(id == 3){
+// 			id = "Other / Free Text"
+// 		}
+// 		if(id == 4){
+// 			id = "Change Min Balance"
+// 		}
+
+// let humanizeDate = new Date(humanize);
+
+// let currentDate = new Date(); 
+
+// let timeDifference = currentDate - humanizeDate; 
+
+// let daysDifference = timeDifference / (24 * 60 * 60 * 1000);
+
+// if (daysDifference <= 3) {
+//     state = "Active";
+// } else {
+//     state = "Inactive";
+// }
+
+		
+// 		proposals_info_eth_new.push({
+// 			title: "DYP Proposal",
+// 			date: humanize + " ago",
+// 			type: id,
+// 			status: state
+// 		})
+// 	}
+	state = "Inactive";
+	for (let i = 0; i < proposal_index_bsc_new; i++) {
+		let time = await gov_contract_bsc_new.methods.getProposal(i).call()
+		let id = await gov_contract_bsc_new.methods.getProposal(i).call()
+		time = time._proposalStartTime
+		time = new Date(time * 1000)
+		let humanize = moment.duration(time - Date.now(), "milliseconds").humanize();
+		id = id._proposalAction 
+		if(id == 0){
+			id = "Disburse / Burn"
+		}
+		if(id == 1){
+			id = "Upgrade Governance"
+		}
+		if(id == 2){
+			id = "Change Quorum"
+		}
+		if(id == 3 || id == 5){
+			id = "Other / Free Text"
+		}
+		if(id == 4){
+			id = "Change Min Balance"
+		}
+
+		let humanizeDate = new Date(humanize);
+
+let currentDate = new Date();
+
+let timeDifference = currentDate - humanizeDate; 
+
+let daysDifference = timeDifference / (24 * 60 * 60 * 1000);
+
+if (daysDifference <= 3) {
+    state = "Active";
+} else {
+    state = "Inactive";
+}
+		proposals_info_bsc_new.push({
+			title: "DYP Proposal",
+			date: humanize + " ago",
+			type: id,
+			status: state
+		})
+	}
+	state = "Inactive";
+// 	for (let i = 0; i <= proposal_index_avax_new; i++) {
+// 		let time = await gov_contract_avax_new.methods.getProposal(i).call()
+// 		let id = await gov_contract_avax_new.methods.getProposal(i).call()
+// 		time = time._proposalStartTime
+// 		time = new Date(time * 1000)
+// 		let humanize = moment.duration(time - Date.now(), "milliseconds").humanize();
+// 		id = id._proposalAction 
+// 		if(id == 0){
+// 			id = "Disburse / Burn"
+// 		}
+// 		if(id == 1){
+// 			id = "Upgrade Governance"
+// 		}
+// 		if(id == 2){
+// 			id = "Change Quorum"
+// 		}
+// 		if(id == 3 || id == 5){
+// 			id = "Other / Free Text"
+// 		}
+// 		if(id == 4){
+// 			id = "Change Min Balance"
+// 		}
+
+// 		let humanizeDate = new Date(humanize);
+
+// let currentDate = new Date(); 
+
+// let timeDifference = currentDate - humanizeDate; 
+
+
+// let daysDifference = timeDifference / (24 * 60 * 60 * 1000);
+
+// if (daysDifference <= 3) {
+//     state = "Active";
+// } else {
+//     state = "Inactive";
+// }
+// 		proposals_info_avax_new.push({
+// 			title: "DYP Proposal",
+// 			date: humanize + " ago",
+// 			type: id,
+// 			status: state
+// 		})
+// 	}
 	}
 
 
@@ -12930,6 +13061,20 @@ app.get('/api/get_proposals_info', async (req, res) => {
 		ProposalsInfoAVAX: proposals_info_avax
 	})
 })
+
+app.get('/api/get_proposals_info_new', async (req, res) => {
+	if (Date.now() - last_update_time_proposals_info_new > 3600e3) {
+		await get_proposals_info_new()
+	}
+
+	res.type('application/json')
+	res.json({
+		ProposalsInfoETH: proposals_info_eth_new,
+		ProposalsInfoBSC: proposals_info_bsc_new,
+		ProposalsInfoAVAX: proposals_info_avax_new
+	})
+})
+
 
 
 app.get('/api/get_nft_stats', async (req, res) => {
