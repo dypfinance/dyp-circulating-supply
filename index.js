@@ -4998,14 +4998,13 @@ async function update_proposals() {
 	ethVotes = 0;
 	avaxVotes = 0;
 	totalVotes = 0;
-
+	
 	let gov_contract_bsc = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC3, { from: undefined })
 	let gov_contract_eth = new infuraWeb3.eth.Contract(GOV_ABI_ETH, GOV_ADDRESS_ETH3, { from: undefined })
 	let gov_contract_avax = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX3, { from: undefined })
 	bscProposals = await gov_contract_bsc.methods.lastIndex().call()
 	ethProposals = await gov_contract_eth.methods.lastIndex().call()
 	avaxProposals = await gov_contract_avax.methods.lastIndex().call()
-
 
 	bscProposals = 42 + parseInt(bscProposals)
 	ethProposals = 42 + parseInt(ethProposals)
@@ -8603,18 +8602,19 @@ const get_proposals_info =  async () => {
 	proposals_info_bsc = [];
 	proposals_info_avax = [];
 	state = "Inactive";
-	let gov_contract_bsc = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC, { from: undefined })
-	let gov_contract_eth = new infuraWeb3.eth.Contract(GOV_ABI_ETH, GOV_ADDRESS_ETH, { from: undefined })
-	let gov_contract_avax = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX, { from: undefined })
+	let gov_contract_bsc = new bscWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_BSC3, { from: undefined })
+	let gov_contract_eth = new infuraWeb3.eth.Contract(GOV_ABI_ETH, GOV_ADDRESS_ETH3, { from: undefined })
+	let gov_contract_avax = new avaxWeb3.eth.Contract(GOV_ABI_BSC, GOV_ADDRESS_AVAX3, { from: undefined })
 	let proposal_index_eth = await gov_contract_eth.methods.lastIndex().call()
 	let proposal_index_bsc = await gov_contract_bsc.methods.lastIndex().call()
 	let proposal_index_avax = await gov_contract_avax.methods.lastIndex().call()
-	for (let i = proposal_index_eth - 2; i <= proposal_index_eth; i++) {
+	for (let i = proposal_index_eth; i >= 1; i--) {
 		let time = await gov_contract_eth.methods.getProposal(i).call()
 		let id = await gov_contract_eth.methods.getProposal(i).call()
 		time = time._proposalStartTime
 		time = new Date(time * 1000)
-		let humanize = moment.duration(time - Date.now(), "milliseconds").humanize();
+		let humanize = moment.duration(time - Date.now(), "milliseconds").humanize();7
+		let amountOfDays = moment.duration(Date.now() - time).asDays();
 		id = id._proposalAction 
 		if(id == 0){
 			id = "Disburse / Burn"
@@ -8632,15 +8632,7 @@ const get_proposals_info =  async () => {
 			id = "Change Min Balance"
 		}
 
-let humanizeDate = new Date(humanize);
-
-let currentDate = new Date(); 
-
-let timeDifference = currentDate - humanizeDate; 
-
-let daysDifference = timeDifference / (24 * 60 * 60 * 1000);
-
-if (daysDifference <= 3) {
+if (amountOfDays <= 3) {
     state = "Active";
 } else {
     state = "Inactive";
@@ -8655,13 +8647,14 @@ if (daysDifference <= 3) {
 		})
 	}
 	state = "Inactive";
-	for (let i = proposal_index_bsc - 2; i <= proposal_index_bsc; i++) {
+	for (let i = proposal_index_bsc; i >= 1; i--) {
 		let time = await gov_contract_bsc.methods.getProposal(i).call()
 		let id = await gov_contract_bsc.methods.getProposal(i).call()
 		time = time._proposalStartTime
 		time = new Date(time * 1000)
-		let humanize = moment.duration(time - Date.now(), "milliseconds").humanize();
 		id = id._proposalAction 
+		let humanize = moment.duration(time - Date.now(), "milliseconds").humanize();7
+		let amountOfDays = moment.duration(Date.now() - time).asDays();
 		if(id == 0){
 			id = "Disburse / Burn"
 		}
@@ -8678,15 +8671,7 @@ if (daysDifference <= 3) {
 			id = "Change Min Balance"
 		}
 
-		let humanizeDate = new Date(humanize);
-
-let currentDate = new Date();
-
-let timeDifference = currentDate - humanizeDate; 
-
-let daysDifference = timeDifference / (24 * 60 * 60 * 1000);
-
-if (daysDifference <= 3) {
+if (amountOfDays <= 3) {
     state = "Active";
 } else {
     state = "Inactive";
@@ -8699,13 +8684,14 @@ if (daysDifference <= 3) {
 		})
 	}
 	state = "Inactive";
-	for (let i = proposal_index_avax - 2; i <= proposal_index_avax; i++) {
+	for (let i = proposal_index_avax; i >= 1; i--) {
 		let time = await gov_contract_avax.methods.getProposal(i).call()
 		let id = await gov_contract_avax.methods.getProposal(i).call()
 		time = time._proposalStartTime
 		time = new Date(time * 1000)
-		let humanize = moment.duration(time - Date.now(), "milliseconds").humanize();
-		id = id._proposalAction 
+		let humanize = moment.duration(time - Date.now(), "milliseconds").humanize();7
+		let amountOfDays = moment.duration(Date.now() - time).asDays();
+				id = id._proposalAction 
 		if(id == 0){
 			id = "Disburse / Burn"
 		}
@@ -8721,17 +8707,7 @@ if (daysDifference <= 3) {
 		if(id == 4){
 			id = "Change Min Balance"
 		}
-
-		let humanizeDate = new Date(humanize);
-
-let currentDate = new Date(); 
-
-let timeDifference = currentDate - humanizeDate; 
-
-
-let daysDifference = timeDifference / (24 * 60 * 60 * 1000);
-
-if (daysDifference <= 3) {
+if (amountOfDays <= 3) {
     state = "Active";
 } else {
     state = "Inactive";
@@ -12783,7 +12759,7 @@ app.get('/api/dyp-tokenomics', async (req, res) => {
 
 app.get('/api/gov-stats', async (req, res) => {
 	//1 day
-	if (Date.now() - last_update_time_gov > 86400e3) {
+	if (Date.now() - last_update_time_gov > 14400e3) {
 		await update_proposals()
 	}
 	res.type('application/json')
