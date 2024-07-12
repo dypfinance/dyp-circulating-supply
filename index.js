@@ -6844,7 +6844,7 @@ const IDs_constant_staking_dyp_eth_new = {
 		return_types: "DYP",
 		lock_time: "120 days",
 		expired: "No",
-		new_pool: "Yes",
+		new_pool: "No",
 		apy: 20,
 		apy_performancefee: 20,
 		performancefee: 0,
@@ -6857,9 +6857,37 @@ const IDs_constant_staking_dyp_eth_new = {
 		return_types: "iDYP",
 		lock_time: "90 days",
 		expired: "No",
+		new_pool: "No",
+		apy: 25,
+		apy_performancefee: 25,
+		performancefee: 0,
+	},
+	
+		"0xFdD3CFF22CF846208E3B37b47Bc36b2c61D2cA8b":
+	{
+		pool_name: "DYP Constant Staking ETH",
+		pair_name:"DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-3",
+		return_types: "iDYP",
+		lock_time: "90 days",
+		expired: "No",
 		new_pool: "Yes",
 		apy: 25,
 		apy_performancefee: 25,
+		performancefee: 0,
+	}
+	,
+		"0x0fafe78e471b52bc4003984a337948ed55284573":
+	{
+		pool_name: "DYP Constant Staking ETH",
+		pair_name:"DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-3",
+		return_types: "DYP",
+		lock_time: "60 days",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 15,
+		apy_performancefee: 15,
 		performancefee: 0,
 	}
 }
@@ -8162,12 +8190,13 @@ let stakingDYPETHNewTVL125 = 0;
 let stakingDYPETHNewTVL8 = 0;
 let stakingDYPETHNewTVL20 = 0;
 let stakingDYPETHNewTVL25 = 0;
+let stakingDYPETHNewTVL152 = 0;
+let stakingDYPETHNewTVL252 = 0;
 
 
 const updateStakingTVLETH_NEW = async () => {
 	await newDypPrice();
 	let token_contract_eth_new_1 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_NEW_ETH, { from: undefined })
-
 	let _tvlDYPEth1 = await token_contract_eth_new_1.methods.balanceOf('0xC9075092Cc46E176B1F3c0D0EB8223F1e46555B0').call()
 	_tvlDYPEth1 = _tvlDYPEth1 / 1e18 * dyp_price_new
 	stakingDYPETHNewTVL125 = _tvlDYPEth1;
@@ -8184,8 +8213,16 @@ const updateStakingTVLETH_NEW = async () => {
 	_tvlDYPEth25 = _tvlDYPEth25 / 1e18 * dyp_price_new
 	stakingDYPETHNewTVL25 = _tvlDYPEth25;
 
+	let _tvlDYPEth152 = await token_contract_eth_new_1.methods.balanceOf('0x0fafe78e471b52bc4003984a337948ed55284573').call()
+	_tvlDYPEth152 = _tvlDYPEth152 / 1e18 * dyp_price_new
+	stakingDYPETHNewTVL152 = _tvlDYPEth152;
 
-	totaltvl = totaltvl + stakingDYPETHNewTVL125 + stakingDYPETHNewTVL8 + stakingDYPETHNewTVL20 + stakingDYPETHNewTVL25;
+	let _tvlDYPETH252 = await token_contract_eth_new_1.methods.balanceOf('0xFdD3CFF22CF846208E3B37b47Bc36b2c61D2cA8b').call()
+	_tvlDYPETH252 = _tvlDYPETH252 / 1e18 * dyp_price_new
+	stakingDYPETHNewTVL252 = _tvlDYPETH252;
+
+
+	totaltvl = totaltvl + stakingDYPETHNewTVL125 + stakingDYPETHNewTVL8 + stakingDYPETHNewTVL20 + stakingDYPETHNewTVL25 + stakingDYPETHNewTVL252 + stakingDYPETHNewTVL152;
 	return totaltvl;
 }
 
@@ -8435,6 +8472,18 @@ const get_DYP_ETH_Staking_Info_New =  async () => {
 
 		if (id == "0x92A84052Fe6945949A295AF14a7506e3dc085492") {
 			tvl_usd = stakingDYPETHNewTVL25
+			apy_percent = IDs_constant_staking_dyp_eth_new[id].apy
+			apy_performancefee = IDs_constant_staking_dyp_eth_new[id].apy_performancefee
+		}
+
+		if(id == "0xFdD3CFF22CF846208E3B37b47Bc36b2c61D2cA8b")
+			{
+				tvl_usd = stakingDYPETHNewTVL252
+				apy_percent = IDs_constant_staking_dyp_eth_new[id].apy
+				apy_performancefee = IDs_constant_staking_dyp_eth_new[id].apy_performancefee
+			}
+		if(id == "0x0fafe78e471b52bc4003984a337948ed55284573"){
+			tvl_usd = stakingDYPETHNewTVL152
 			apy_percent = IDs_constant_staking_dyp_eth_new[id].apy
 			apy_performancefee = IDs_constant_staking_dyp_eth_new[id].apy_performancefee
 		}
