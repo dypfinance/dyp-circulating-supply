@@ -8196,7 +8196,9 @@ let stakingDYPETHNewTVL252 = 0;
 
 const updateStakingTVLETH_NEW = async () => {
 	await newDypPrice();
+	await newIdypPrice();
 	let token_contract_eth_new_1 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_NEW_ETH, { from: undefined })
+	let token_contract_eth_new_2 = new infuraWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP, { from: undefined })
 	let _tvlDYPEth1 = await token_contract_eth_new_1.methods.balanceOf('0xC9075092Cc46E176B1F3c0D0EB8223F1e46555B0').call()
 	_tvlDYPEth1 = _tvlDYPEth1 / 1e18 * dyp_price_new
 	stakingDYPETHNewTVL125 = _tvlDYPEth1;
@@ -8211,6 +8213,8 @@ const updateStakingTVLETH_NEW = async () => {
 
 	let _tvlDYPEth25 = await token_contract_eth_new_1.methods.balanceOf('0x92A84052Fe6945949A295AF14a7506e3dc085492').call()
 	_tvlDYPEth25 = _tvlDYPEth25 / 1e18 * dyp_price_new
+	let _tvlDYPEth25_2 = await token_contract_eth_new_2.methods.balanceOf('0x92A84052Fe6945949A295AF14a7506e3dc085492').call()
+	_tvlDYPEth25 = _tvlDYPEth25 + _tvlDYPEth25_2 / 1e18 * idyp_price_new
 	stakingDYPETHNewTVL25 = _tvlDYPEth25;
 
 	let _tvlDYPEth152 = await token_contract_eth_new_1.methods.balanceOf('0x0fafe78e471b52bc4003984a337948ed55284573').call()
@@ -8219,6 +8223,8 @@ const updateStakingTVLETH_NEW = async () => {
 
 	let _tvlDYPETH252 = await token_contract_eth_new_1.methods.balanceOf('0xFdD3CFF22CF846208E3B37b47Bc36b2c61D2cA8b').call()
 	_tvlDYPETH252 = _tvlDYPETH252 / 1e18 * dyp_price_new
+	let _tvlDYPETH252_2 = await token_contract_eth_new_2.methods.balanceOf('0xFdD3CFF22CF846208E3B37b47Bc36b2c61D2cA8b').call()
+	_tvlDYPETH252 = _tvlDYPETH252 + _tvlDYPETH252_2 / 1e18 * idyp_price_new
 	stakingDYPETHNewTVL252 = _tvlDYPETH252;
 
 
@@ -12211,6 +12217,10 @@ async function refresh_the_graph_result_ETH_V2() {
 
 let DYP_ADDRESS  = '0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17'
 let DYP_NEW_ADDRESS = '0x39b46B212bDF15b42B166779b9d1787A68b9D0c3'
+let DYP_NEW_ADDRESS_BNB = '0x1a3264F2e7b1CFC6220ec9348d33cCF02Af7aaa4'
+const DYP_NEW_ADDRESS_AVAX = '0x1a3264F2e7b1CFC6220ec9348d33cCF02Af7aaa4'; 
+const DYP_NEW_ADDRESS_ETH = '0x39b46B212bDF15b42B166779b9d1787A68b9D0c3';
+
 let totalTokensMigrated = 0;
 let token_percentage = 0;
 let last_update_time_migrated_tokens = 0
@@ -12246,276 +12256,240 @@ async function newDypPrice() {
 		return dyp_price_new;
 }
 
-const IDs_constant_staking_mobile_avax_avax = {
-	"0":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 15,
-		expired: "No",
-		hot: "No",
-		new: "Yes",
-		performancefee: 1,
-		pool_cap: 3100000,
-		maximum_deposit: 40000,
-		start_date: 1707901300,
-		end_date: 1708901300,
-		contractDuration: 65,
-		early_fee: 10,
-	},
-}
+let idyp_price_new = 0;
 
-const IDs_constant_staking_mobile_doge_eth = {
-	"0":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 15,
-		expired: "No",
-		hot: "No",
-		new: "Yes",
-		performancefee: 1,
-		pool_cap: 3100000,
-		maximum_deposit: 40000,
-		start_date: 1707901300,
-		end_date: 1708901300,
-		contractDuration: 65,
-		early_fee: 10,
-	},
-	"30":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 11,
-		expired: "No",
-		hot: "No",
-		new: "Yes",
-		performancefee: 1,
-		pool_cap: 3200000,
-		maximum_deposit: 50000,
-		start_date: 1707901300,
-		end_date: 1708901300,
-		contractDuration: 65,
-		early_fee: 10,
-	},
-	"60":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 13,
-		expired: "No",
-		hot: "No",
-		new: "Yes",
-		performancefee: 1,
-		pool_cap: 400000,
-		maximum_deposit: 220000,
-		start_date: 1707901300,
-		end_date: 1718901300,
-		contractDuration: 43,
-		early_fee: 10,
-	},
-	"90":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 25,
-		expired: "No",
-		hot: "Yes",
-		new: "Yes",
-		performancefee: 1,
-		pool_cap: 400000,
-		maximum_deposit: 10000,
-		start_date: 1717901300,
-		end_date: 1728901300,
-		contractDuration: 55,
-		early_fee: 10,
-	},
-	"120":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 15,
-		expired: "No",
-		hot: "Yes",
-		new: "No",
-		performancefee: 1,
-		pool_cap: 100000,
-		maximum_deposit: 20000,
-		start_date: 1707901300,
-		end_date: 1718901300,
-		contractDuration: 60,
-		early_fee: 10,
-	},
+async function newIdypPrice() {
+	await fetch('https://pro-api.coingecko.com/api/v3/simple/price?ids=idefiyieldprotocol&vs_currencies=usd&x_cg_pro_api_key=CG-4cvtCNDCA4oLfmxagFJ84qev')
+	.then(response => response.json())
+
+		.then(data => {
+			idyp_price_new = data.data.idefiyieldprotocol.usd;
+		})
+		.catch(error => {
+			console.error('Error new DYP PRICE', error);
+		});
+		return idyp_price_new;
 }
 
 
-const IDs_constant_staking_mobile_doge_bnb = {
-	"0":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 13,
-		expired: "No",
-		hot: "No",
-		new: "Yes",
-		performancefee: 1,
-		pool_cap: 2050000,
-		maximum_deposit: 104000,
-		start_date: 1707901300,
-		end_date: 1908901300,
-		contractDuration: 35,
-		early_fee: 10,
-	},
-	"30":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 16,
-		expired: "No",
-		hot: "No",
-		new: "Yes",
-		performancefee: 1,
-		pool_cap: 1050000,
-		maximum_deposit: 204000,
-		start_date: 1707901300,
-		end_date: 1908901300,
-		contractDuration: 35,
-		early_fee: 10,
-	},
-	"60":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 13,
-		expired: "Yes",
-		hot: "No",
-		new: "No",
-		performancefee: 1,
-		pool_cap: 1050000,
-		maximum_deposit: 230000,
-		start_date: 1707901300,
-		end_date: 1718901300,
-		contractDuration: 45,
-		early_fee: 10,
-	},
-	"90":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 25,
-		expired: "No",
-		hot: "Yes",
-		new: "No",
-		performancefee: 1,
-		pool_cap: 100000,
-		maximum_deposit: 420000,
-		start_date: 1817901300,
-		end_date: 1928901300,
-		contractDuration: 31,
-		early_fee: 10,
-	},
-	"120":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 15,
-		expired: "No",
-		hot: "No",
-		new: "Yes",
-		performancefee: 1,
-		pool_cap: 400000,
-		maximum_deposit: 10000,
-		start_date: 1507901300,
-		end_date: 1718901300,
-		contractDuration: 56,
-		early_fee: 10,
-	},
-}
+const IDs_constant_staking_mobile_dyp_eth = {
+    "0": [
+        {
+            contract_address: "0xC9075092Cc46E176B1F3c0D0EB8223F1e46555B0",
+            apr_percent: 12.5,
+            expired: "No",
+            hot: "No",
+            new: "No",
+            performancefee: 0,
+            pool_cap: 15000000,
+            return_types: "DYP",
+            maximum_deposit: 0,
+            start_date: 1694217600,
+            end_date: 1725840000,
+            contractDuration: 365,
+            early_fee: 0,
+        }
+    ],
+    "30": [
+        {
+            contract_address: "0x998A9F0DF7DAF20c2B0Bb379Dcae394636926a96",
+            apr_percent: 8,
+            expired: "No",
+            hot: "No",
+            new: "No",
+            return_types: "DYP",
+            performancefee: 0,
+            pool_cap: 1000000,
+            maximum_deposit: 0,
+            start_date: 1717718400,
+            end_date: 1749254400,
+            contractDuration: 365,
+            early_fee: 0,
+        }
+    ],
+    "60": [
+        {
+            contract_address: "0x0fafe78e471b52bc4003984a337948ed55284573",
+            apr_percent: 15,
+            expired: "No",
+            hot: "Yes",
+            new: "Yes",
+            return_types: "DYP",
+            performancefee: 0,
+            pool_cap: 1500000,
+            maximum_deposit: 0,
+            start_date: 1720742400,
+            end_date: 1752278400,
+            contractDuration: 365,
+            early_fee: 0,
+        }
+    ],
+    "90": [
+        {
+            contract_address: "0x92A84052Fe6945949A295AF14a7506e3dc085492",
+            apr_percent: 25,
+            expired: "No",
+            hot: "Yes",
+            new: "No",
+            performancefee: 0,
+            pool_cap: 625000,
+            return_types: "iDYP",
+            maximum_deposit: 0,
+            start_date: 1717718400,
+            end_date: 1749254400,
+            contractDuration: 365,
+            early_fee: 0,
+        },
+        {
+            contract_address: "0xFdD3CFF22CF846208E3B37b47Bc36b2c61D2cA8b",
+            apr_percent: 25,
+            expired: "No",
+            hot: "Yes",
+            new: "Yes",
+            performancefee: 0,
+            pool_cap: 3750000,
+            return_types: "iDYP",
+            maximum_deposit: 0,
+            start_date: 1720742400,
+            end_date: 1752278400,
+            contractDuration: 365,
+            early_fee: 0,
+        }
+    ],
+    "120": [
+        {
+            contract_address: "0xbE030A667d9ee75a9FCdF2162A2C14ccCAB573dD",
+            apr_percent: 20,
+            expired: "No",
+            hot: "No",
+            new: "No",
+            performancefee: 0,
+            pool_cap: 500000,
+            return_types: "DYP",
+            maximum_deposit: 0,
+            start_date: 1717718400,
+            end_date: 1749254400,
+            contractDuration: 365,
+            early_fee: 0,
+        }
+    ]
+};
 
-const IDs_constant_staking_mobile_doge_avax = {
-	"60":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 16,
-		expired: "No",
-		hot: "No",
-		new: "Yes",
-		performancefee: 1,
-		pool_cap: 1050000,
-		maximum_deposit: 204000,
-		start_date: 1707901300,
-		end_date: 1908901300,
-		contractDuration: 35,
-		early_fee: 10,
-	},
-	"90":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 13,
-		expired: "Yes",
-		hot: "No",
-		new: "No",
-		performancefee: 1,
-		pool_cap: 1050000,
-		maximum_deposit: 230000,
-		start_date: 1707901300,
-		end_date: 1718901300,
-		contractDuration: 45,
-		early_fee: 10,
-	},
-	"90":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 25,
-		expired: "No",
-		hot: "Yes",
-		new: "No",
-		performancefee: 1,
-		pool_cap: 100000,
-		maximum_deposit: 420000,
-		start_date: 1817901300,
-		end_date: 1928901300,
-		contractDuration: 31,
-		early_fee: 10,
-	},
-	"120":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 15,
-		expired: "No",
-		hot: "No",
-		new: "Yes",
-		performancefee: 1,
-		pool_cap: 400000,
-		maximum_deposit: 10000,
-		start_date: 1507901300,
-		end_date: 1718901300,
-		contractDuration: 56,
-		early_fee: 10,
-	},
-}
+const IDs_constant_staking_mobile_dyp_bnb = {
+    "0": [
+        {
+            contract_address: "0x8cee06119fffecdd560ee83b26cccfe8e2fe6603",
+            apr_percent: 12.5,
+            expired: "No",
+            hot: "Yes",
+            new: "No",
+            performancefee: 0,
+            pool_cap: 3500000,
+            return_types: "DYP",
+            maximum_deposit: 0,
+            start_date: 1699488000,
+            end_date: 1731110400,
+            contractDuration: 365,
+            early_fee: 0,
+        }
+    ]
+};
 
-const IDs_constant_staking_mobile_bnb_bnb = {
-	"60":
-	{
-		contract_address: "0x7e766F7005C7a9e74123b156697B582eeCB8d2D7",
-		apr_percent: 16,
-		expired: "No",
-		hot: "No",
-		new: "Yes",
-		performancefee: 1,
-		pool_cap: 1050000,
-		maximum_deposit: 204000,
-		start_date: 1707901300,
-		end_date: 1908901300,
-		contractDuration: 35,
-		early_fee: 10,
-	},
-}
+const IDs_constant_staking_mobile_dyp_avax = {
+    "0": [
+        {
+            contract_address: "0x8cee06119fffecdd560ee83b26cccfe8e2fe6603",
+            apr_percent: 12.5,
+            expired: "No",
+            hot: "Yes",
+            new: "No",
+            performancefee: 0,
+            pool_cap: 3500000,
+            return_types: "DYP",
+            maximum_deposit: 0,
+            start_date: 1699488000,
+            end_date: 1731110400,
+            contractDuration: 365,
+            early_fee: 0,
+        }
+    ]
+};
+
+const IDs_constant_staking_mobile_idyp_eth = {
+    "60": [
+        {
+            contract_address: "0x41b8a58f4307ea722ad0a964966caa18a6011d93",
+            apr_percent: 20,
+            expired: "No",
+            hot: "No",
+            new: "No",
+            performancefee: 0,
+            pool_cap: 0,
+            return_types: "iDYP",
+            maximum_deposit: 0,
+            start_date: 1689724800,
+            end_date: 1721347200,
+            contractDuration: 365,
+            early_fee: 0,
+        }
+    ]
+};
+
+const IDs_constant_staking_mobile_idyp_bnb = {
+    "60": [
+        {
+            contract_address: "0x525cb0f6b5dae73965046bcb4c6f45ce74fb1b5d",
+            apr_percent: 20,
+            expired: "No",
+            hot: "No",
+            new: "No",
+            performancefee: 0,
+            pool_cap: 0,
+            return_types: "iDYP",
+            maximum_deposit: 0,
+            start_date: 1689724800,
+            end_date: 1721347200,
+            contractDuration: 365,
+            early_fee: 0,
+        }
+    ]
+};
+
+const IDs_constant_staking_mobile_idyp_avax = {
+    "60": [
+        {
+            contract_address: "0xe026fb242d9523dc8e8d8833f7309dbdbed59d3d",
+            apr_percent: 20,
+            expired: "No",
+            hot: "No",
+            new: "No",
+            performancefee: 0,
+            pool_cap: 0,
+            return_types: "iDYP",
+            maximum_deposit: 0,
+            start_date: 1689724800,
+            end_date: 1721347200,
+            contractDuration: 365,
+            early_fee: 0,
+        }
+    ]
+};
 
 function aggregateStakingData() {
     const allData = {
-        IDs_constant_staking_mobile_avax_avax,
-        IDs_constant_staking_mobile_doge_eth,
-        IDs_constant_staking_mobile_doge_bnb,
-        IDs_constant_staking_mobile_doge_avax,
-        IDs_constant_staking_mobile_bnb_bnb,
+        IDs_constant_staking_mobile_dyp_eth,
+		IDs_constant_staking_mobile_dyp_bnb,
+		IDs_constant_staking_mobile_dyp_avax,
+		IDs_constant_staking_mobile_idyp_eth,
+		IDs_constant_staking_mobile_idyp_bnb,
+		IDs_constant_staking_mobile_idyp_avax,
     };
 
     let aggregatedData = {};
 
     Object.entries(allData).forEach(([key, pools]) => {
-        const token = key.split('_')[4]; // Assumes the format is consistent
-
+        const token = key.split('_')[4]; 
+		console.log(token)
         if (!aggregatedData[token]) {
             aggregatedData[token] = { minDay: Infinity, maxDay: 0, minAPR: Infinity, maxAPR: 0 };
         }
@@ -12546,11 +12520,12 @@ const chainNameMapping = {
 
 function getChainsForToken(token) {
     const allData = {
-        IDs_constant_staking_mobile_avax_avax,
-        IDs_constant_staking_mobile_doge_eth,
-        IDs_constant_staking_mobile_doge_bnb,
-        IDs_constant_staking_mobile_doge_avax,
-        IDs_constant_staking_mobile_bnb_bnb,
+		IDs_constant_staking_mobile_dyp_eth,
+		IDs_constant_staking_mobile_dyp_bnb,
+		IDs_constant_staking_mobile_dyp_avax,
+		IDs_constant_staking_mobile_idyp_eth,
+		IDs_constant_staking_mobile_idyp_bnb,
+		IDs_constant_staking_mobile_idyp_avax,
     };
 
     let chains = new Set();
@@ -12562,26 +12537,70 @@ function getChainsForToken(token) {
         }
     });
 
-    return [...chains]; // Convert Set to Array
+    return [...chains];
 }
-
-function getPoolDetails(token, chain, lockTime) {
+async function getPoolDetails(token, chain, lockTime) {
     const allData = {
-        IDs_constant_staking_mobile_avax_avax,
-        IDs_constant_staking_mobile_doge_eth,
-        IDs_constant_staking_mobile_doge_bnb,
-        IDs_constant_staking_mobile_doge_avax,
-        IDs_constant_staking_mobile_bnb_bnb,
+        IDs_constant_staking_mobile_dyp_eth,
+        IDs_constant_staking_mobile_dyp_bnb,
+        IDs_constant_staking_mobile_dyp_avax,
+        IDs_constant_staking_mobile_idyp_eth,
+        IDs_constant_staking_mobile_idyp_bnb,
+        IDs_constant_staking_mobile_idyp_avax,
     };
 
     const key = `IDs_constant_staking_mobile_${token}_${chain}`;
     const pools = allData[key];
+
     if (!pools) {
-        return null; // No pools found for the given token and chain
+        return null;
     }
 
-    const poolDetails = pools[lockTime];
-    return poolDetails || null; // Return the pool details or null if not found
+    const poolsForLockTime = pools[lockTime];
+    if (!poolsForLockTime) {
+        return null; 
+    }
+
+    await Promise.all(poolsForLockTime.map(async (pool) => {
+        await newDypPrice();
+        let tvl_usd = 0;
+
+        let tokenContractDYP, tokenContractIDYP, web3Instance;
+        let dypAddress;
+
+        if (chain === 'eth') {
+            web3Instance = infuraWeb3;
+            dypAddress = DYP_NEW_ADDRESS_ETH;
+        } else if (chain === 'bnb') {
+            web3Instance = bscWeb3;
+            dypAddress = DYP_NEW_ADDRESS_BNB;
+        } else if (chain === 'avax') {
+            web3Instance = avaxWeb3;
+            dypAddress = DYP_NEW_ADDRESS_AVAX;
+        }
+
+        if (web3Instance && dypAddress) {
+            tokenContractDYP = new web3Instance.eth.Contract(TOKEN_ABI, dypAddress, { from: undefined });
+            tokenContractIDYP = new web3Instance.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_IDYP, { from: undefined });
+
+            try {
+                console.log(`Fetching balances for pool address: ${pool.contract_address}`);
+                const token_balance = await tokenContractDYP.methods.balanceOf(pool.contract_address).call();
+                const token_balance1 = await tokenContractIDYP.methods.balanceOf(pool.contract_address).call();
+                tvl_usd = (token_balance * dyp_price_new + token_balance1 * idyp_price_new) / 1e18;
+            } catch (error) {
+                pool.tvl_usd = 0; 
+                return;
+            }
+        } else {
+            pool.tvl_usd = 0;
+            return;
+        }
+
+        pool.tvl_usd = tvl_usd;
+    }));
+
+    return poolsForLockTime;
 }
   
 async function firstRun() {
@@ -12667,7 +12686,7 @@ app.get('/api/mobile/staking/:token/chains', (req, res) => {
     }
 });
 
-app.get('/api/mobile/staking/:token/:chain/:lockTime', (req, res) => {
+app.get('/api/mobile/staking/:token/:chain/:lockTime', async (req, res) => {
     const { token, chain, lockTime } = req.params;
     const key = `poolDetails_${token}_${chain}_${lockTime}`;
 
@@ -12681,7 +12700,7 @@ app.get('/api/mobile/staking/:token/:chain/:lockTime', (req, res) => {
     }
 
     try {
-        const poolDetails = getPoolDetails(token, chain, lockTime);
+        const poolDetails = await getPoolDetails(token, chain, lockTime);
         if (poolDetails) {
             myCache.set(key, poolDetails);
             res.json(poolDetails);
