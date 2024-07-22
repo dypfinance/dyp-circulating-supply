@@ -7057,6 +7057,34 @@ const IDs_constant_staking_idyp_bnb = {
 		apy_performancefee: 20,
 		performancefee: 0
 
+	},
+	"0xFBe84Af34CdC22455f82e18B76Ca50D21d3aBF84":
+	{
+		pool_name: "iDYP Constant Staking BNB",
+		pair_name: "iDYP",
+		link_pair: "https://app-bsc.dyp.finance/staking-idyp-5",
+		return_types: "iDYP",
+		lock_time: "90 days",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 20,
+		apy_performancefee: 20,
+		performancefee: 0
+
+	},
+	"0xf6DC9E51D4E0FCc19ca6426fB5422f1E9a24F2eE":
+	{
+		pool_name: "iDYP Constant Staking BNB",
+		pair_name: "iDYP",
+		link_pair: "https://app-bsc.dyp.finance/staking-idyp-5",
+		return_types: "iDYP",
+		lock_time: "120 days",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 25,
+		apy_performancefee: 25,
+		performancefee: 0
+
 	}
 
 }
@@ -7413,7 +7441,7 @@ let [stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPE
 
 let [stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25, stakingDYPEthTvl7] = [0, 0, 0, 0]
 
-let [stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45, stakingiDYPBnbTvl20_3] = [0, 0, 0, 0, 0]
+let [stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45, stakingiDYPBnbTvl20_3, , stakingiDYPBnbTvl20_4, stakingiDYPBnbTvl25_4] = [0, 0, 0, 0, 0, 0, 0]
 
 let [stakingDYPBnbTvl1, stakingDYPBnbTvl2, stakingDYPBnbTvl10, stakingDYPBnbTvl25, stakingDYPBnbTvl30, stakingDYPBnbTvl50, stakingDYPBnbTvl25_3] = [0, 0, 0, 0, 0,0, 0]
 
@@ -8003,7 +8031,7 @@ const updateStakingTVLAVAX = async () => {
 	
 	stakingiDYPAvaxTvl15, stakingiDYPAvaxTvl20, stakingiDYPAvaxTvl30, stakingiDYPAvaxTvl45, stakingiDYPAvaxTvl25_3,
 
-	stakingDYPAvaxTvl1, stakingDYPAvaxTvl2, stakingDYPAvaxTvl10, stakingDYPAvaxTvl25, stakingDYPAvaxTvl30, stakingDYPAvaxTvl50, stakingDYPAvaxTvl25_3;
+	stakingDYPAvaxTvl1, stakingDYPAvaxTvl2, stakingDYPAvaxTvl10, stakingDYPAvaxTvl25, stakingDYPAvaxTvl30, stakingDYPAvaxTvl50, stakingDYPAvaxTvl25_3
 }
 
 
@@ -8045,6 +8073,20 @@ const updateStakingTVLBNB = async () => {
 	_tvliDYPBnb20_3 = _tvliDYPBnb20_3 / 1e18 * usdPerToken
 	_tvliDYPBnb20_3 = _tvliDYPBnb20_3 + _tvliDYPBnb20_3_2 / 1e18 * price_iDYP_eth
 	stakingiDYPBnbTvl20_3 = _tvliDYPBnb20_3;
+
+	
+	let _tvliDYPBnb20_4 = await token_contract_bnb_1.methods.balanceOf('0xFBe84Af34CdC22455f82e18B76Ca50D21d3aBF84').call()
+	let __tvliDYPBnb20_4_2 = await token_contract_bnb_2.methods.balanceOf('0xFBe84Af34CdC22455f82e18B76Ca50D21d3aBF84').call()
+	_tvliDYPBnb20_4 = _tvliDYPBnb20_4 / 1e18 * usdPerToken
+	_tvliDYPBnb20_4 = _tvliDYPBnb20_4 + __tvliDYPBnb20_4_2 / 1e18 * price_iDYP_eth
+	stakingiDYPBnbTvl20_4 = _tvliDYPBnb20_4;
+
+	let _tvliDYPBnb25_4 = await token_contract_bnb_1.methods.balanceOf('0xf6DC9E51D4E0FCc19ca6426fB5422f1E9a24F2eE').call()
+	let __tvliDYPBnb25_4 = await token_contract_bnb_2.methods.balanceOf('0xf6DC9E51D4E0FCc19ca6426fB5422f1E9a24F2eE').call()
+	_tvliDYPBnb25_4 = _tvliDYPBnb25_4 / 1e18 * usdPerToken
+	_tvliDYPBnb25_4 = _tvliDYPBnb25_4 + __tvliDYPBnb25_4 / 1e18 * price_iDYP_eth
+	stakingiDYPBnbTvl25_4 = _tvliDYPBnb25_4;
+
 
 	//dyp bnb starts here
 
@@ -8095,7 +8137,7 @@ const updateStakingTVLBNB = async () => {
 	return usdPerToken,
 	stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45, stakingiDYPBnbTvl20_3,
 
-	stakingDYPBnbTvl1, stakingDYPBnbTvl2, stakingDYPBnbTvl10, stakingDYPBnbTvl25, stakingDYPBnbTvl30, stakingDYPBnbTvl50, stakingDYPBnbTvl25_3;
+	stakingDYPBnbTvl1, stakingDYPBnbTvl2, stakingDYPBnbTvl10, stakingDYPBnbTvl25, stakingDYPBnbTvl30, stakingDYPBnbTvl50, stakingDYPBnbTvl25_3, stakingiDYPBnbTvl20_4, stakingiDYPBnbTvl25_4;
 }
 
 const updateStakingTVLETH = async () => {
@@ -8677,7 +8719,10 @@ const get_iDYP_BNB_Staking_Info = async () => {
 			tvl_usd = stakingiDYPBnbTvl45
 		if(id == "0x525cb0f6b5dae73965046bcb4c6f45ce74fb1b5d")
 			tvl_usd = stakingiDYPBnbTvl20_3
-
+		if(id == "0xFBe84Af34CdC22455f82e18B76Ca50D21d3aBF84")
+			tvl_usd = stakingiDYPBnbTvl20_4
+		if(id == "0xf6DC9E51D4E0FCc19ca6426fB5422f1E9a24F2eE")
+			tvl_usd = stakingiDYPBnbTvl25_4
 
 		pool_name = IDs_constant_staking_idyp_bnb[id].pool_name
 		pair_name = IDs_constant_staking_idyp_bnb[id].pair_name
