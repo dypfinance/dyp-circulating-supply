@@ -6895,7 +6895,7 @@ const IDs_constant_staking_dyp_eth_new = {
 }
 
 const IDs_constant_staking_dyp_base_new = {
-	"0x13a3EA792db25d6E239f4b785bA17FB5B9faf84e":
+	"0x9845a667b1A603FF21596FDdec51968a2bccAc11":
 	{
 		pool_name: "DYP Constant Staking BASE",
 		pair_name:"DYP",
@@ -8252,7 +8252,7 @@ const updateStakingTVLBASE_NEW = async () => {
 	await newDypPrice();
 	await newIdypPrice();
 	let token_contract_eth_new_1 = new baseWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_NEW_BASE, { from: undefined })
-	let _tvlDYPEth1 = await token_contract_eth_new_1.methods.balanceOf('0x13a3EA792db25d6E239f4b785bA17FB5B9faf84e').call()
+	let _tvlDYPEth1 = await token_contract_eth_new_1.methods.balanceOf('0x9845a667b1A603FF21596FDdec51968a2bccAc11').call()
 	_tvlDYPEth1 = _tvlDYPEth1 / 1e18 * dyp_price_new
 	stakingDYPETHNewTVL27 = _tvlDYPEth1;
 	
@@ -8596,7 +8596,7 @@ let last_update_time_basestake_new = 0;
 const get_DYP_BASE_Staking_Info_New =  async () => {
 
 	last_update_time_basestake_new = Date.now();
-	DYPEthNewStakingInfo = [];
+	DYPBASENewStakingInfo = [];
 	let apy_percent = 0,
 		tvl_usd = 0,
 		link_logo = "https://www.dypius.com/logo192.png",
@@ -8612,7 +8612,7 @@ const get_DYP_BASE_Staking_Info_New =  async () => {
 	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_dyp_base_new)
 	for (let id of ids_constant_staking_eth) {
 
-		if (id == "0x13a3EA792db25d6E239f4b785bA17FB5B9faf84e") {
+		if (id == "0x9845a667b1A603FF21596FDdec51968a2bccAc11") {
 			tvl_usd = stakingDYPETHNewTVL27
 			apy_percent = IDs_constant_staking_dyp_base_new[id].apy
 			apy_performancefee = IDs_constant_staking_dyp_base_new[id].apy_performancefee
