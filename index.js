@@ -29,6 +29,7 @@ const GOV_ADDRESS_AVAX3 = '0xCE27eCD1114336477CbE0a628f3749b733056626'
 const TOKEN_ADDRESS = "0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17"
 const TOKEN_ADDRESS_DYP_NEW_ETH = "0x39b46b212bdf15b42b166779b9d1787a68b9d0c3"
 const TOKEN_ADDRESS_DYP_NEW_BNB = "0x1a3264f2e7b1cfc6220ec9348d33ccf02af7aaa4"
+const TOKEN_ADDRESS_DYP_NEW_BASE = "0x5b2124d427fac9c80c902cbdd74b03dd85d7d3fe"
 const TOKEN_ADDRESS_IDYP = "0xbd100d061e120b2c67a24453cf6368e63f1be056"
 const PRICE_ADDRESS = "0x4185e6f61549133c34ffaf88c92a943fcde51619"
 
@@ -37,6 +38,7 @@ const PRICE_ADDRESS = "0x4185e6f61549133c34ffaf88c92a943fcde51619"
 const config = {
 	avax_endpoint: 'https://api.avax.network/ext/bc/C/rpc',
 	bsc_endpoint: 'https://bsc-dataseed.binance.org/',
+	base_endpoint: 'https://mainnet.base.org',
 	// address of eth token on bsc!
 	claim_as_eth_address: '0x2170ed0880ac9a755fd29b2688956bd959f933f8',
 	reward_token_address: '0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17',
@@ -75,7 +77,7 @@ const config = {
 
 const bscWeb3 = new Web3(config.bsc_endpoint)
 const avaxWeb3 = new Web3(config.avax_endpoint)
-
+const baseWeb3 = new Web3(config.base_endpoint)
 const GOV_ABI_BSC = [
 	{
 		"inputs": [],
@@ -6892,6 +6894,22 @@ const IDs_constant_staking_dyp_eth_new = {
 	}
 }
 
+const IDs_constant_staking_dyp_base_new = {
+	"0x13a3EA792db25d6E239f4b785bA17FB5B9faf84e":
+	{
+		pool_name: "DYP Constant Staking BASE",
+		pair_name:"DYP",
+		link_pair: "https://app.dyp.finance/constant-staking-3",
+		return_types: "DYP",
+		lock_time: "No lock",
+		expired: "No",
+		new_pool: "No",
+		apy: 37.5,
+		apy_performancefee: 37.5,
+		performancefee: 0,
+	},
+}
+
 const IDs_constant_staking_dyp_bnb_new = {
 	"0x8cee06119fffecdd560ee83b26cccfe8e2fe6603":
 	{
@@ -8228,13 +8246,19 @@ const updateStakingTVLETH = async () => {
 }
 
 
-let stakingDYPETHNewTVL125 = 0;
-let stakingDYPETHNewTVL8 = 0;
-let stakingDYPETHNewTVL20 = 0;
-let stakingDYPETHNewTVL25 = 0;
-let stakingDYPETHNewTVL152 = 0;
-let stakingDYPETHNewTVL252 = 0;
+let stakingDYPETHNewTVL27 = 0;
 
+const updateStakingTVLBASE_NEW = async () => {
+	await newDypPrice();
+	await newIdypPrice();
+	let token_contract_eth_new_1 = new baseWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_DYP_NEW_BASE, { from: undefined })
+	let _tvlDYPEth1 = await token_contract_eth_new_1.methods.balanceOf('0x13a3EA792db25d6E239f4b785bA17FB5B9faf84e').call()
+	_tvlDYPEth1 = _tvlDYPEth1 / 1e18 * dyp_price_new
+	stakingDYPETHNewTVL27 = _tvlDYPEth1;
+	
+	totaltvl = totaltvl + stakingDYPETHNewTVL27;
+	return totaltvl;
+}
 
 const updateStakingTVLETH_NEW = async () => {
 	await newDypPrice();
@@ -8548,6 +8572,64 @@ const get_DYP_ETH_Staking_Info_New =  async () => {
 		performancefee = IDs_constant_staking_dyp_eth_new[id].performancefee
 		new_pool = IDs_constant_staking_dyp_eth_new[id].new_pool
 		DYPEthNewStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired,
+			new_pool: new_pool,
+			apy_performancefee: apy_performancefee,
+			performancefee: performancefee
+		})
+		
+	}
+
+}
+let DYPBASENewStakingInfo = [];
+
+let last_update_time_basestake_new = 0;
+const get_DYP_BASE_Staking_Info_New =  async () => {
+
+	last_update_time_basestake_new = Date.now();
+	DYPEthNewStakingInfo = [];
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://www.dypius.com/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = "",
+		new_pool = "",
+		apy_performancefee = 0,
+		performancefee = 0
+	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_dyp_base_new)
+	for (let id of ids_constant_staking_eth) {
+
+		if (id == "0x13a3EA792db25d6E239f4b785bA17FB5B9faf84e") {
+			tvl_usd = stakingDYPETHNewTVL27
+			apy_percent = IDs_constant_staking_dyp_base_new[id].apy
+			apy_performancefee = IDs_constant_staking_dyp_base_new[id].apy_performancefee
+		}
+
+
+
+		
+		pool_name = IDs_constant_staking_dyp_base_new[id].pool_name
+		pair_name = IDs_constant_staking_dyp_base_new[id].pair_name
+		link_pair = IDs_constant_staking_dyp_base_new[id].link_pair
+		return_types = IDs_constant_staking_dyp_base_new[id].return_types
+		expired = IDs_constant_staking_dyp_base_new[id].expired
+		lock_time = IDs_constant_staking_dyp_base_new[id].lock_time
+		performancefee = IDs_constant_staking_dyp_base_new[id].performancefee
+		new_pool = IDs_constant_staking_dyp_base_new[id].new_pool
+		DYPBASENewStakingInfo.push({
 			id: id,
 			apy_percent: apy_percent,
 			tvl_usd: tvl_usd,
@@ -13027,6 +13109,18 @@ app.get('/api/get_staking_info_eth_new', async (req, res) => {
 		stakingInfoDYPEth: DYPEthNewStakingInfo,
 	})
 })
+
+app.get('/api/get_staking_info_base_new', async (req, res) => {
+	if (Date.now() - last_update_time_basestake_new > 300e3) {
+		await updateStakingTVLBASE_NEW()
+		await get_DYP_BASE_Staking_Info_New()
+	}
+	res.type('application/jsons')
+	res.json({
+		stakingInfoDYPBASE: DYPBASENewStakingInfo,
+	})
+})
+
 
 app.get('/api/get_staking_info_bnb_new', async (req, res) => {
 	if (Date.now() - last_update_time_bnbstake_new > 300e3) {
