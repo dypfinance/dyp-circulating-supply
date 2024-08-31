@@ -6904,8 +6904,8 @@ const IDs_constant_staking_dyp_base_new = {
 		lock_time: "No lock",
 		expired: "No",
 		new_pool: "No",
-		apy: 37.5,
-		apy_performancefee: 37.5,
+		apy: 27.5,
+		apy_performancefee: 27.5,
 		performancefee: 0,
 	},
 }
