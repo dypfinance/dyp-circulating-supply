@@ -6901,7 +6901,7 @@ const IDs_constant_staking_dyp_base_new = {
 		pair_name:"DYP",
 		link_pair: "https://app.dyp.finance/constant-staking-3",
 		return_types: "DYP",
-		lock_time: "No lock",
+		lock_time: "90 days",
 		expired: "No",
 		new_pool: "No",
 		apy: 27.5,
