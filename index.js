@@ -6988,7 +6988,21 @@ const IDs_land_stake_eth = {
 		expired: "Yes",
 		apy: 25,
 
-	}
+	},
+	"0x3E0c0443A6a5382B2Ef20ECfe3bdbE84F1436523":
+	{
+		pool_name: "Genesis Land Staking ETH",
+		pair_name: "WoD",
+		link_pair: "https://dyp.finance/stake-land",
+		return_types: "ETH",
+		floor_price: "",
+		total_nfts_locked: "",
+		tvl: "",
+		lock_time: "No lock",
+		expired: "No",
+		apy: 25,
+
+	},
 
 }
 
@@ -7439,6 +7453,7 @@ const TOKEN_ADDRESS_CAWS_STAKE = "0xee425bbbec5e9bf4a59a1c19efff522ad8b7a47a"
 const TOKEN_ADDRESS_CAWS2_STAKE = "0x097bB1679AC734E90907Ff4173bA966c694428Fc"
 const TOKEN_ADDRESS_LAND = "0xcd60d912655281908EE557CE1Add61e983385a03"
 const TOKEN_ADDRESS_LAND_STAKE = "0x6821710B0D6E9e10ACfd8433aD023f874ed782F1"
+const TOKEN_ADDRESS_LAND_STAKE_25 = "0x3E0c0443A6a5382B2Ef20ECfe3bdbE84F1436523"
 const TOKEN_ADDRESS_GENESIS_STAKE = "0xd324a03bf17eee8d34a8843d094a76ff8f561e38"
 const TOKEN_ADDRESS_IDYP_ETH = "0xBD100d061E120b2c67A24453CF6368E63f1Be056"
 const TOKEN_ADDRESS_DYP_ETH = "0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17"
@@ -7451,7 +7466,7 @@ const land_contract_abi = [{"inputs":[{"internalType":"string","name":"name","ty
 
 let [CAWS_TOTAL_LOCKED, CAWS2_TOTAL_LOCKED, cawsnfttvl, caws2nfttvl] = [0, 0]
 
-let [LAND_TOTAL_LOCKED, landnfttvl] = [0, 0]
+let [LAND_TOTAL_LOCKED, LAND_TOTAL_LOCKED_2,  landnfttvl, landnft25] = [0, 0]
 
 let [LAND_CAWS_TOTAL_LOCKED, CAWS_LAND_TOTAL_LOCKED, landcawstvl, totalcawslandlocked] = [0, 0, 0, 0]
 
@@ -7489,7 +7504,9 @@ const updateGENESISStaking = async () => {
 	await fecthLandFloorPrice()
 	let land_nft_contract = new infuraWeb3.eth.Contract(land_contract_abi, TOKEN_ADDRESS_LAND, { from: undefined })
 	LAND_TOTAL_LOCKED = await land_nft_contract.methods.balanceOf(TOKEN_ADDRESS_LAND_STAKE).call()
+	LAND_TOTAL_LOCKED_2 = await land_nft_contract.methods.balanceOf(TOKEN_ADDRESS_LAND_STAKE_25).call()
 	landnfttvl = parseInt(LAND_TOTAL_LOCKED) * floorpriceland * parseInt(the_graph_result_ETH_V2.usd_per_eth)
+	landnft25 = parseInt(LAND_TOTAL_LOCKED_2) * floorpriceland * parseInt(the_graph_result_ETH_V2.usd_per_eth)
 }
 
 const updateGENESISCAWSStaking = async () => {
@@ -7871,10 +7888,16 @@ const get_Land_Staking_Info = async () => {
 		lock_time = ""
 	let ids_constant_staking_eth = Object.keys(IDs_land_stake_eth)
 	for (let id of ids_constant_staking_eth) {
-		
-		tvl = landnfttvl
+		if (id == "0x6821710B0D6E9e10ACfd8433aD023f874ed782F1")
+			tvl = landnfttvl
+		if (id == "0x3E0c0443A6a5382B2Ef20ECfe3bdbE84F1436523")
+			tvl = landnft25
+		if (id == "0x6821710B0D6E9e10ACfd8433aD023f874ed782F1")
+			total_nfts_locked = LAND_TOTAL_LOCKED
+		if (id == "0x3E0c0443A6a5382B2Ef20ECfe3bdbE84F1436523")
+			total_nfts_locked = LAND_TOTAL_LOCKED_2
+
 		floor_price = floorpriceland
-		total_nfts_locked = LAND_TOTAL_LOCKED
 		apy_percent = IDs_land_stake_eth[id].apy
 		pool_name = IDs_land_stake_eth[id].pool_name
 		pair_name = IDs_land_stake_eth[id].pair_name
@@ -12412,7 +12435,7 @@ async function newIdypPrice() {
 	.then(response => response.json())
 
 		.then(data => {
-			idyp_price_new = data.data.idefiyieldprotocol.usd;
+			idyp_price_new = data.idefiyieldprotocol.usd;
 		})
 		.catch(error => {
 			console.error('Error new DYP PRICE', error);
