@@ -6978,7 +6978,7 @@ const IDs_land_stake_eth = {
 	"0x6821710B0D6E9e10ACfd8433aD023f874ed782F1":
 	{
 		pool_name: "Genesis Land Staking ETH",
-		pair_name: "WoD",
+		pair_name: "Genesis Land",
 		link_pair: "https://dyp.finance/stake-land",
 		return_types: "ETH",
 		floor_price: "",
@@ -6992,7 +6992,7 @@ const IDs_land_stake_eth = {
 	"0x3E0c0443A6a5382B2Ef20ECfe3bdbE84F1436523":
 	{
 		pool_name: "Genesis Land Staking ETH",
-		pair_name: "WoD",
+		pair_name: "Genesis Land",
 		link_pair: "https://dyp.finance/stake-land",
 		return_types: "ETH",
 		floor_price: "",
