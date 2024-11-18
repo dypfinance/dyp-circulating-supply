@@ -8613,6 +8613,13 @@ const get_DYP_ETH_Staking_Info_New =  async () => {
 	}
 
 }
+
+
+let WODEthNewStakingInfo = []
+
+let last_update_time_wod_ethstake_new = 0;
+
+
 let DYPBASENewStakingInfo = [];
 
 let last_update_time_basestake_new = 0;
@@ -13154,6 +13161,34 @@ app.get('/api/get_staking_info_eth_new', async (req, res) => {
 		stakingInfoDYPEth: DYPEthNewStakingInfo,
 	})
 })
+
+app.get('/api/get_staking_info_wod_nft', async (req, res) => {
+
+	if (Date.now() - last_update_time_ethstake_new > 300e3) {
+
+		await get_Land_Staking_Info()
+		await get_Land_Caws_Staking_info()
+		await get_NFT_Staking_Info()
+
+	}
+	res.type('application/json')
+	res.json({
+		stakingInfoCAWS: NftStakingInfo,
+stakingInfoLAND: landStakingInfo,
+stakinginfoCAWSLAND: landCawsStakingInfo,
+	})
+})
+
+// app.get('/api/get_staking_info_wod_bnb', async (req, res) => {
+// 	if (Date.now() - last_update_time_ethstake_new > 300e3) {
+// 		await updateStakingTVLETH_NEW()
+// 		await get_DYP_ETH_Staking_Info_New()
+// 	}
+// 	res.type('application/json')
+// 	res.json({
+// 		stakingInfoDYPEth: DYPEthNewStakingInfo,
+// 	})
+// })
 
 app.get('/api/get_staking_info_base_new', async (req, res) => {
 	if (Date.now() - last_update_time_basestake_new > 300e3) {
