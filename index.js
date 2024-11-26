@@ -8388,7 +8388,7 @@ const updateStakingTVLWOD_BNB = async () => {
 	_tvlWODBnb1 = _tvlWODBnb1 / 1e18 
 	stakingDYPWODTVL75 = _tvlWODBnb1;
 
-	let _tvlWODBnb8 = await token_contract_bnb_new_1.methods.balanceOf('0x998A9F0DF7DAF20c2B0Bb379Dcae394636926a96').call()
+	let _tvlWODBnb8 = await token_contract_bnb_new_1.methods.balanceOf('0xD2332f55BF83e83C3E14352FB4039c6B534C4B7e').call()
 	_tvlWODBnb8 = _tvlWODBnb8 / 1e18 
 	stakingDYPWODTVL125 = _tvlWODBnb8;
 
