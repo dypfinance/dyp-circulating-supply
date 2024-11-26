@@ -8385,19 +8385,19 @@ const updateStakingTVLWOD_BNB = async () => {
 	console.log(wod_price)
 	let token_contract_bnb_new_1 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_WOD, { from: undefined })
 	let _tvlWODBnb1 = await token_contract_bnb_new_1.methods.balanceOf('0xefeFE07D9789cEf9BF6169F4d87fbE7DD297500C').call()
-	_tvlWODBnb1 = _tvlWODBnb1 / 1e18 * wod_price
+	_tvlWODBnb1 = _tvlWODBnb1 / 1e18 
 	stakingDYPWODTVL75 = _tvlWODBnb1;
 
 	let _tvlWODBnb8 = await token_contract_bnb_new_1.methods.balanceOf('0x998A9F0DF7DAF20c2B0Bb379Dcae394636926a96').call()
-	_tvlWODBnb8 = _tvlWODBnb8 / 1e18 * wod_price
+	_tvlWODBnb8 = _tvlWODBnb8 / 1e18 
 	stakingDYPWODTVL125 = _tvlWODBnb8;
 
 	let _tvlWODBnb20 = await token_contract_bnb_new_1.methods.balanceOf('0xB199DE216Ca2012a5A75614B276a38E3CeC9FA0C').call()
-	_tvlWODBnb20 = _tvlWODBnb20 / 1e18 * wod_price
+	_tvlWODBnb20 = _tvlWODBnb20 / 1e18
 	stakingDYPWODTVL20 = _tvlWODBnb20;
 
 	let _tvlWODBnb25 = await token_contract_bnb_new_1.methods.balanceOf('0x0675B497f52a0426874151c1e3267801fAA15C18').call()
-	_tvlWODBnb25 = _tvlWODBnb25 / 1e18 * wod_price
+	_tvlWODBnb25 = _tvlWODBnb25 / 1e18 
 	stakingDYPWODTVL35 = _tvlWODBnb25;
 
 	totalwodbnbtvl = stakingDYPWODTVL75 + stakingDYPWODTVL125 + stakingDYPWODTVL20 + stakingDYPWODTVL35
@@ -8630,25 +8630,25 @@ const get_WOD_BNB_Staking_Info_New =  async () => {
 	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_wod_bnb_new)
 	for (let id of ids_constant_staking_eth) {
 
-		if (id == "0xC9075092Cc46E176B1F3c0D0EB8223F1e46555B0") {
+		if (id == "0xefeFE07D9789cEf9BF6169F4d87fbE7DD297500C") {
 			tvl_usd = stakingDYPWODTVL75
 			apy_percent = IDs_constant_staking_wod_bnb_new[id].apy
 			apy_performancefee = IDs_constant_staking_wod_bnb_new[id].apy_performancefee
 		}
 
-		if (id == "0x998A9F0DF7DAF20c2B0Bb379Dcae394636926a96") {
+		if (id == "0xD2332f55BF83e83C3E14352FB4039c6B534C4B7e") {
 			tvl_usd = stakingDYPWODTVL125
 			apy_percent = IDs_constant_staking_wod_bnb_new[id].apy
 			apy_performancefee = IDs_constant_staking_wod_bnb_new[id].apy_performancefee
 		}
 
-		if (id == "0xbE030A667d9ee75a9FCdF2162A2C14ccCAB573dD") {
+		if (id == "0xB199DE216Ca2012a5A75614B276a38E3CeC9FA0C") {
 			tvl_usd = stakingDYPWODTVL20
 			apy_percent = IDs_constant_staking_wod_bnb_new[id].apy
 			apy_performancefee = IDs_constant_staking_wod_bnb_new[id].apy_performancefee
 		}
 
-		if (id == "0x92A84052Fe6945949A295AF14a7506e3dc085492") {
+		if (id == "0x0675B497f52a0426874151c1e3267801fAA15C18") {
 			tvl_usd = stakingDYPWODTVL35
 			apy_percent = IDs_constant_staking_wod_bnb_new[id].apy
 			apy_performancefee = IDs_constant_staking_wod_bnb_new[id].apy_performancefee
