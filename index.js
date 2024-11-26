@@ -28,6 +28,7 @@ const GOV_ADDRESS_AVAX3 = '0xCE27eCD1114336477CbE0a628f3749b733056626'
 
 const TOKEN_ADDRESS = "0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17"
 const TOKEN_ADDRESS_DYP_NEW_ETH = "0x39b46b212bdf15b42b166779b9d1787a68b9d0c3"
+const TOKEN_ADDRESS_WOD = "0xb994882a1b9bd98A71Dd6ea5F61577c42848B0E8"
 const TOKEN_ADDRESS_DYP_NEW_BNB = "0x1a3264f2e7b1cfc6220ec9348d33ccf02af7aaa4"
 const TOKEN_ADDRESS_DYP_NEW_BASE = "0x5b2124d427fac9c80c902cbdd74b03dd85d7d3fe"
 const TOKEN_ADDRESS_IDYP = "0xbd100d061e120b2c67a24453cf6368e63f1be056"
@@ -6894,6 +6895,61 @@ const IDs_constant_staking_dyp_eth_new = {
 	}
 }
 
+const IDs_constant_staking_wod_bnb_new = {
+	"0xefeFE07D9789cEf9BF6169F4d87fbE7DD297500C":
+	{
+		pool_name: "WOD Constant Staking BNB",
+		pair_name: "WOD",
+		link_pair: "",
+		return_types: "WOD",
+		lock_time: "30 days",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 7.5,
+		apy_performancefee: 7.5,
+		performancefee: 0,
+	},
+	"0xD2332f55BF83e83C3E14352FB4039c6B534C4B7e":
+	{
+		pool_name: "WOD Constant Staking BNB",
+		pair_name: "WOD",
+		link_pair: "",
+		return_types: "WOD",
+		lock_time: "60 days",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 12.5,
+		apy_performancefee: 12.5,
+		performancefee: 0,
+	},
+	"0xB199DE216Ca2012a5A75614B276a38E3CeC9FA0C":
+	{
+		pool_name: "WOD Constant Staking BNB",
+		pair_name: "WOD",
+		link_pair: "",
+		return_types: "WOD",
+		lock_time: "90 days",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 20,
+		apy_performancefee: 20,
+		performancefee: 0,
+	},
+		"0x0675B497f52a0426874151c1e3267801fAA15C18":
+	{
+		pool_name: "WOD Constant Staking BNB",
+		pair_name: "WOD",
+		link_pair: "",
+		return_types: "WOD",
+		lock_time: "120 days",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 35,
+		apy_performancefee: 35,
+		performancefee: 0,
+	},
+}
+
 const IDs_constant_staking_dyp_base_new = {
 	"0x9845a667b1A603FF21596FDdec51968a2bccAc11":
 	{
@@ -7473,6 +7529,8 @@ let [LAND_CAWS_TOTAL_LOCKED, CAWS_LAND_TOTAL_LOCKED, landcawstvl, totalcawslandl
 let [stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPEthTvl45, stakingiDYPEthTvl20_3] = [0, 0, 0, 0, 0]
 
 let [stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25, stakingDYPEthTvl7] = [0, 0, 0, 0]
+
+let [stakingDYPWODTVL20, stakingDYPWODTVL35, stakingDYPWODTVL75, stakingDYPWODTVL125] = [0, 0, 0, 0]
 
 let [stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45, stakingiDYPBnbTvl20_3, , stakingiDYPBnbTvl20_4, stakingiDYPBnbTvl25_4] = [0, 0, 0, 0, 0, 0, 0]
 
@@ -8321,6 +8379,31 @@ const updateStakingTVLETH_NEW = async () => {
 	return totaltvl;
 }
 
+let totalwodbnbtvl = 0;
+const updateStakingTVLWOD_BNB = async () => {
+	await wodPrice(); 
+	console.log(wod_price)
+	let token_contract_bnb_new_1 = new bscWeb3.eth.Contract(TOKEN_ABI, TOKEN_ADDRESS_WOD, { from: undefined })
+	let _tvlWODBnb1 = await token_contract_bnb_new_1.methods.balanceOf('0xefeFE07D9789cEf9BF6169F4d87fbE7DD297500C').call()
+	_tvlWODBnb1 = _tvlWODBnb1 / 1e18 * wod_price
+	stakingDYPWODTVL75 = _tvlWODBnb1;
+
+	let _tvlWODBnb8 = await token_contract_bnb_new_1.methods.balanceOf('0x998A9F0DF7DAF20c2B0Bb379Dcae394636926a96').call()
+	_tvlWODBnb8 = _tvlWODBnb8 / 1e18 * wod_price
+	stakingDYPWODTVL125 = _tvlWODBnb8;
+
+	let _tvlWODBnb20 = await token_contract_bnb_new_1.methods.balanceOf('0xB199DE216Ca2012a5A75614B276a38E3CeC9FA0C').call()
+	_tvlWODBnb20 = _tvlWODBnb20 / 1e18 * wod_price
+	stakingDYPWODTVL20 = _tvlWODBnb20;
+
+	let _tvlWODBnb25 = await token_contract_bnb_new_1.methods.balanceOf('0x0675B497f52a0426874151c1e3267801fAA15C18').call()
+	_tvlWODBnb25 = _tvlWODBnb25 / 1e18 * wod_price
+	stakingDYPWODTVL35 = _tvlWODBnb25;
+
+	totalwodbnbtvl = stakingDYPWODTVL75 + stakingDYPWODTVL125 + stakingDYPWODTVL20 + stakingDYPWODTVL35
+	return totalwodbnbtvl;
+}
+
 let stakingDYPBNBNewTVL125 = 0;
 
 const updateStakingTVLBNB_NEW = async () => {
@@ -8506,6 +8589,83 @@ const get_DYP_ETH_Staking_Info =  async () => {
 		performancefee = IDs_constant_staking_dyp_eth[id].performancefee
 		new_pool = IDs_constant_staking_dyp_eth[id].new_pool
 		DYPEthStakingInfo.push({
+			id: id,
+			apy_percent: apy_percent,
+			tvl_usd: tvl_usd,
+			link_logo: link_logo,
+			link_pair: link_pair,
+			pool_name: pool_name,
+			pair_name: pair_name,
+			return_types: return_types,
+			lock_time: lock_time,
+			expired: expired,
+			new_pool: new_pool,
+			apy_performancefee: apy_performancefee,
+			performancefee: performancefee
+		})
+		
+	}
+
+}
+
+let WODBnbNewStakingInfo = [];
+let last_update_time_bnbwodstake_new = 0;
+
+const get_WOD_BNB_Staking_Info_New =  async () => {
+
+	last_update_time_bnbwodstake_new = Date.now();
+	WODBnbNewStakingInfo = [];
+	let apy_percent = 0,
+		tvl_usd = 0,
+		link_logo = "https://www.dypius.com/logo192.png",
+		pool_name = "",
+		pair_name = "",
+		link_pair = "",
+		expired = "",
+		return_types = "",
+		lock_time = "",
+		new_pool = "",
+		apy_performancefee = 0,
+		performancefee = 0
+	let ids_constant_staking_eth = Object.keys(IDs_constant_staking_wod_bnb_new)
+	for (let id of ids_constant_staking_eth) {
+
+		if (id == "0xC9075092Cc46E176B1F3c0D0EB8223F1e46555B0") {
+			tvl_usd = stakingDYPWODTVL75
+			apy_percent = IDs_constant_staking_wod_bnb_new[id].apy
+			apy_performancefee = IDs_constant_staking_wod_bnb_new[id].apy_performancefee
+		}
+
+		if (id == "0x998A9F0DF7DAF20c2B0Bb379Dcae394636926a96") {
+			tvl_usd = stakingDYPWODTVL125
+			apy_percent = IDs_constant_staking_wod_bnb_new[id].apy
+			apy_performancefee = IDs_constant_staking_wod_bnb_new[id].apy_performancefee
+		}
+
+		if (id == "0xbE030A667d9ee75a9FCdF2162A2C14ccCAB573dD") {
+			tvl_usd = stakingDYPWODTVL20
+			apy_percent = IDs_constant_staking_wod_bnb_new[id].apy
+			apy_performancefee = IDs_constant_staking_wod_bnb_new[id].apy_performancefee
+		}
+
+		if (id == "0x92A84052Fe6945949A295AF14a7506e3dc085492") {
+			tvl_usd = stakingDYPWODTVL35
+			apy_percent = IDs_constant_staking_wod_bnb_new[id].apy
+			apy_performancefee = IDs_constant_staking_wod_bnb_new[id].apy_performancefee
+		}
+
+
+
+		
+		pool_name = IDs_constant_staking_wod_bnb_new[id].pool_name
+		pair_name = IDs_constant_staking_wod_bnb_new[id].pair_name
+		link_pair = IDs_constant_staking_wod_bnb_new[id].link_pair
+		return_types = IDs_constant_staking_wod_bnb_new[id].return_types
+		expired = IDs_constant_staking_wod_bnb_new[id].expired
+		lock_time = IDs_constant_staking_wod_bnb_new[id].lock_time
+		performancefee = IDs_constant_staking_wod_bnb_new[id].performancefee
+		new_pool = IDs_constant_staking_wod_bnb_new[id].new_pool
+		WODBnbNewStakingInfo.push({
 			id: id,
 			apy_percent: apy_percent,
 			tvl_usd: tvl_usd,
@@ -9850,6 +10010,25 @@ const IDs_User_Pools_BSC_DYP = {
 	}
 }
 
+const IDs_User_Pools_BSC_WOD = {
+	"0xefeFE07D9789cEf9BF6169F4d87fbE7DD297500C":
+	{
+		contract_address: "0xefeFE07D9789cEf9BF6169F4d87fbE7DD297500C",
+	},
+	"0xD2332f55BF83e83C3E14352FB4039c6B534C4B7e":
+	{
+		contract_address: "0xD2332f55BF83e83C3E14352FB4039c6B534C4B7e",
+	},
+	"0xB199DE216Ca2012a5A75614B276a38E3CeC9FA0C":
+	{
+		contract_address: "0xB199DE216Ca2012a5A75614B276a38E3CeC9FA0C",
+	},
+	"0x0675B497f52a0426874151c1e3267801fAA15C18":
+	{
+		contract_address: "0x0675B497f52a0426874151c1e3267801fAA15C18",
+	},
+}
+
 const IDs_User_Pools_ETH_IDYP = {
 	"0x50014432772b4123D04181727C6EdEAB34F5F988":
 	{
@@ -10342,12 +10521,45 @@ const get_USER_pools = async (user) => {
 	}
 
 }
+let UserPoolsInfoWod = []
+
+const get_USER_pools_WOD = async (user) => {
+
+	UserPoolsInfoWod = []
+
+	let contract_address = ""
+
+	let ids_constant_staking_bsc = Object.keys(IDs_User_Pools_BSC_WOD)
+	for (let id of ids_constant_staking_bsc) {
+		contract_address = IDs_User_Pools_BSC_WOD[id].contract_address
+
+		let res = await getPendingDivsBSC_WOD(id, user)
+
+		if ((res !== "undefined") && (res > 0)) {
+			UserPoolsInfoWod.push({
+				contract_address: contract_address,
+			})
+		}
+
+	}
+	
+
+}
 
 
 const getPendingDivsBSC_IDYP = async (id, user) => {
 	let pending_divs = 0
 	let contract_address = IDs_User_Pools_BSC_IDYP[id].contract_address
 	let test_contract = new bscWeb3.eth.Contract(ABI_IDYP, contract_address, { from: undefined });
+	pending_divs = await test_contract.methods.depositedTokens(user).call();
+	pending_divs = pending_divs / 1e18
+	return pending_divs;
+}
+
+const getPendingDivsBSC_WOD = async (id, user) => {
+	let pending_divs = 0
+	let contract_address = IDs_User_Pools_BSC_WOD[id].contract_address
+	let test_contract = new bscWeb3.eth.Contract(ABI_DYP, contract_address, { from: undefined });
 	pending_divs = await test_contract.methods.depositedTokens(user).call();
 	pending_divs = pending_divs / 1e18
 	return pending_divs;
@@ -11151,7 +11363,7 @@ const getHolders = async () => {
 	last_update_time_holders = Date.now()
 
 	//let holdersAvax = await fetchAsync('https://cchain.explorer.avax.network/token-counters?id=0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17')
-	let holdersEth = await fetchAsync('https://api.ethplorer.io/getTokenInfo/0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17?apiKey=freekey')
+	let holdersEth = await fetchAsync('https://api.binplorer.io/getTokenInfo/0x961C8c0B1aaD0c0b10a51FeF6a867E3091BCef17?apiKey=freekey')
 
 	//totalHolders = holdersAvax.token_holder_count + holdersEth.holdersCount
 	totalHolders = 10513 + holdersEth.holdersCount
@@ -12435,6 +12647,64 @@ async function newDypPrice() {
 		return dyp_price_new;
 }
 
+
+let wod_price = 0.0425;
+async function wodPrice() {
+	let wod_price = 0.0425;
+	await fetch('https://pro-api.coingecko.com/api/v3/simple/price?ids=world-of-dypians&vs_currencies=usd&x_cg_pro_api_key=CG-4cvtCNDCA4oLfmxagFJ84qev')
+		.then(response => response.json())
+		.then(data => {
+			if (data && data['world-of-dypians'] && data['world-of-dypians'].usd !== undefined) {
+				wod_price = data['world-of-dypians'].usd;
+			}
+		})
+		.catch(error => {
+			console.error("Fetch error:", error);
+		});
+	return wod_price;
+}
+
+let last_update_wod_holders = 0;
+let wod_holders = 0; // Default value
+
+async function getWodHolders() {
+    const url = 'https://api.binplorer.com/getTokenInfo/0xb994882a1b9bd98A71Dd6ea5F61577c42848B0E8?apiKey=freekey';
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data && data.holdersCount !== undefined) {
+            wod_holders = data.holdersCount;
+            last_update_wod_holders = Date.now();
+        } else {
+            console.error("Invalid response from Binplorer API:", data);
+        }
+    } catch (error) {
+        console.error("Error fetching token holders:", error);
+    }
+}
+
+let wod_volume = 0;
+let last_update_wod_volume = 0;
+async function getWodVolume() {
+    const apiUrl = 'https://pro-api.coingecko.com/api/v3/coins/world-of-dypians?x_cg_pro_api_key=CG-4cvtCNDCA4oLfmxagFJ84qev';
+
+    await fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.market_data && data.market_data.total_volume && data.market_data.total_volume.usd !== undefined) {
+                wod_volume = data.market_data.total_volume.usd;
+            }
+        })
+        .catch(error => {
+            wod_volume = 0;
+        });
+
+    return wod_volume;
+}
+
+
 let idyp_price_new = 0;
 
 async function newIdypPrice() {
@@ -13162,6 +13432,18 @@ app.get('/api/get_staking_info_eth_new', async (req, res) => {
 	})
 })
 
+app.get('/api/get_staking_info_wod_bnb', async (req, res) => {
+	if (Date.now() - last_update_time_bnbwodstake_new > 300e3) {
+		await updateStakingTVLWOD_BNB()
+		await get_WOD_BNB_Staking_Info_New()
+	}
+	res.type('application/json')
+	res.json({
+		stakingInfoWODBnb: WODBnbNewStakingInfo,
+		totalTVL: totalwodbnbtvl,
+	})
+})
+
 app.get('/api/get_staking_info_wod_nft', async (req, res) => {
 
 	if (Date.now() - last_update_time_ethstake_new > 300e3) {
@@ -13378,8 +13660,44 @@ app.get('/api/user_pools/:address', async (req, res) => {
 	}
 })
 
+
+app.get('/api/user_pools_wod/:address', async (req, res) => {
+	if (Web3.utils.isAddress(req.params.address)) {
+		let address = String(req.params.address).toLowerCase()
+
+		let user = address
+
+		await get_USER_pools_WOD(user)
+		res.type('application/json')
+		res.json({
+			PoolsUserIn: UserPoolsInfoWod
+		})
+
+	}
+})
+
+app.get('/api/getWodHolders/', async (req, res) => {
+    if (Date.now() - last_update_wod_holders > 300e3) {
+        await getWodHolders();
+    }
+    res.type('application/json');
+    res.json({
+        holders: wod_holders
+    });
+});
+
+app.get('/api/getWodVolume/', async (req,res) => {
+	if (Date.now() - last_update_wod_volume > 300e3) {
+		await getWodVolume()
+	}
+	res.type('application/json')
+	res.json({
+		volume: wod_volume
+	})
+})
+
 app.get('/api/migratedTokens' , async (req, res) => {
-	if (Date.now() - last_update_time_migrated_tokens > 3600e3) {
+	if (Date.now() - last_update_time_wod > 3600e3) {
 		await migrated_tokens()
 	}
 	res.type('application/json')
