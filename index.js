@@ -6896,6 +6896,19 @@ const IDs_constant_staking_dyp_eth_new = {
 }
 
 const IDs_constant_staking_wod_bnb_new = {
+	"0x5d35E4fC8624453A539eB261728aF5CDAbF4F652":
+	{
+		pool_name: "WOD Constant Staking BNB",
+		pair_name: "WOD",
+		link_pair: "",
+		return_types: "WOD",
+		lock_time: "7 days",
+		expired: "No",
+		new_pool: "Yes",
+		apy: 5,
+		apy_performancefee: 5,
+		performancefee: 0,
+	},
 	"0xefeFE07D9789cEf9BF6169F4d87fbE7DD297500C":
 	{
 		pool_name: "WOD Constant Staking BNB",
@@ -7530,7 +7543,7 @@ let [stakingiDYPEthTvl15, stakingiDYPEthTvl20, stakingiDYPEthTvl30, stakingiDYPE
 
 let [stakingDYPEthTvl1, stakingDYPEthTvl2, stakingDYPEthTvl25, stakingDYPEthTvl7] = [0, 0, 0, 0]
 
-let [stakingDYPWODTVL20, stakingDYPWODTVL35, stakingDYPWODTVL75, stakingDYPWODTVL125] = [0, 0, 0, 0]
+let [stakingDYPWODTVL20, stakingDYPWODTVL35, stakingDYPWODTVL50, stakingDYPWODTVL75, stakingDYPWODTVL125] = [0, 0, 0, 0]
 
 let [stakingiDYPBnbTvl15, stakingiDYPBnbTvl20, stakingiDYPBnbTvl30, stakingiDYPBnbTvl45, stakingiDYPBnbTvl20_3, , stakingiDYPBnbTvl20_4, stakingiDYPBnbTvl25_4] = [0, 0, 0, 0, 0, 0, 0]
 
@@ -8400,7 +8413,11 @@ const updateStakingTVLWOD_BNB = async () => {
 	_tvlWODBnb25 = _tvlWODBnb25 / 1e18 
 	stakingDYPWODTVL35 = _tvlWODBnb25;
 
-	totalwodbnbtvl = stakingDYPWODTVL75 + stakingDYPWODTVL125 + stakingDYPWODTVL20 + stakingDYPWODTVL35
+	let _tvlWODBnb50 = await token_contract_bnb_new_1.methods.balanceOf('0x5d35E4fC8624453A539eB261728aF5CDAbF4F652').call()
+	_tvlWODBnb50 = _tvlWODBnb50 / 1e18 
+	stakingDYPWODTVL50 = _tvlWODBnb50;
+
+	totalwodbnbtvl = stakingDYPWODTVL75 + stakingDYPWODTVL125 + stakingDYPWODTVL20 + stakingDYPWODTVL35 + stakingDYPWODTVL50;
 	return totalwodbnbtvl;
 }
 
@@ -8650,6 +8667,12 @@ const get_WOD_BNB_Staking_Info_New =  async () => {
 
 		if (id == "0x0675B497f52a0426874151c1e3267801fAA15C18") {
 			tvl_usd = stakingDYPWODTVL35
+			apy_percent = IDs_constant_staking_wod_bnb_new[id].apy
+			apy_performancefee = IDs_constant_staking_wod_bnb_new[id].apy_performancefee
+		}
+
+		if (id == "0x5d35E4fC8624453A539eB261728aF5CDAbF4F652") {
+			tvl_usd = stakingDYPWODTVL50
 			apy_percent = IDs_constant_staking_wod_bnb_new[id].apy
 			apy_performancefee = IDs_constant_staking_wod_bnb_new[id].apy_performancefee
 		}
