@@ -6896,19 +6896,19 @@ const IDs_constant_staking_dyp_eth_new = {
 }
 
 const IDs_constant_staking_wod_bnb_new = {
-	"0x5d35E4fC8624453A539eB261728aF5CDAbF4F652":
-	{
-		pool_name: "WOD Constant Staking BNB",
-		pair_name: "WOD",
-		link_pair: "",
-		return_types: "WOD",
-		lock_time: "7 days",
-		expired: "No",
-		new_pool: "Yes",
-		apy: 5,
-		apy_performancefee: 5,
-		performancefee: 0,
-	},
+	// "0x5d35E4fC8624453A539eB261728aF5CDAbF4F652":
+	// {
+	// 	pool_name: "WOD Constant Staking BNB",
+	// 	pair_name: "WOD",
+	// 	link_pair: "",
+	// 	return_types: "WOD",
+	// 	lock_time: "7 days",
+	// 	expired: "No",
+	// 	new_pool: "Yes",
+	// 	apy: 5,
+	// 	apy_performancefee: 5,
+	// 	performancefee: 0,
+	// },
 	"0xefeFE07D9789cEf9BF6169F4d87fbE7DD297500C":
 	{
 		pool_name: "WOD Constant Staking BNB",
@@ -8413,9 +8413,9 @@ const updateStakingTVLWOD_BNB = async () => {
 	_tvlWODBnb25 = _tvlWODBnb25 / 1e18 
 	stakingDYPWODTVL35 = _tvlWODBnb25;
 
-	let _tvlWODBnb50 = await token_contract_bnb_new_1.methods.balanceOf('0x5d35E4fC8624453A539eB261728aF5CDAbF4F652').call()
-	_tvlWODBnb50 = _tvlWODBnb50 / 1e18 
-	stakingDYPWODTVL50 = _tvlWODBnb50;
+	// let _tvlWODBnb50 = await token_contract_bnb_new_1.methods.balanceOf('0x5d35E4fC8624453A539eB261728aF5CDAbF4F652').call()
+	// _tvlWODBnb50 = _tvlWODBnb50 / 1e18 
+	// stakingDYPWODTVL50 = _tvlWODBnb50;
 
 	totalwodbnbtvl = stakingDYPWODTVL75 + stakingDYPWODTVL125 + stakingDYPWODTVL20 + stakingDYPWODTVL35 + stakingDYPWODTVL50;
 	return totalwodbnbtvl;
@@ -8671,11 +8671,11 @@ const get_WOD_BNB_Staking_Info_New =  async () => {
 			apy_performancefee = IDs_constant_staking_wod_bnb_new[id].apy_performancefee
 		}
 
-		if (id == "0x5d35E4fC8624453A539eB261728aF5CDAbF4F652") {
-			tvl_usd = stakingDYPWODTVL50
-			apy_percent = IDs_constant_staking_wod_bnb_new[id].apy
-			apy_performancefee = IDs_constant_staking_wod_bnb_new[id].apy_performancefee
-		}
+		// if (id == "0x5d35E4fC8624453A539eB261728aF5CDAbF4F652") {
+		// 	tvl_usd = stakingDYPWODTVL50
+		// 	apy_percent = IDs_constant_staking_wod_bnb_new[id].apy
+		// 	apy_performancefee = IDs_constant_staking_wod_bnb_new[id].apy_performancefee
+		// }
 
 
 
